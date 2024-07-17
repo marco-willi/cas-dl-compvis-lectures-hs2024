@@ -1,0 +1,8 @@
+opencv-python-headless
+torchshow
+torchviz
+torchinfo
+gdown
+jupyter-black
+Pillow
+kornia
