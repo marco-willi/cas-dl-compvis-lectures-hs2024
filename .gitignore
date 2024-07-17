@@ -1,7 +1,6 @@
 book/*
 .env
 .vscode/**
-book/exercises/data/**
 **/.ipynb_checkpoints/**
 TODO.md
 **/archive/**
@@ -9,5 +8,4 @@ _site/*
 _output*
 **/.jupyter_cache
 /.quarto/
-
 /_*.local

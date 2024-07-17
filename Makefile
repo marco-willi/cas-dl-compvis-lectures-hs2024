@@ -4,8 +4,8 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-ifneq (,$(wildcard ./.env))
-    include .env
+ifneq (,$(wildcard ./_environment.local))
+    include _environment.local
     export
 endif
 
@@ -39,14 +39,13 @@ docker-push: ## Push image to registry
 	docker login -u ${CONTAINER_REGISTRY_USER} -p ${CONTAINER_REGISTRY_PUSH_TOKEN}
 	docker push ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG}
 
-
 #######################################################
 # Quarto
 #######################################################
 
 
 render: ## Render Quarto book
-	quarto render /home/jovyan/work/quarto_webpage
+	quarto render
 
 book: ## Build Juypter book
 	jupyter-book build book/
