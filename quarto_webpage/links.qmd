@@ -1,0 +1,60 @@
+# Links
+
+Links zu verschiedenen Themen in Machine Learning & Deep Learning.
+
+## PyTorch
+
+[PyTorch internals - Blog Post](http://blog.ezyang.com/2019/05/pytorch-internals/)
+
+## Deep Learning and Computer Vision
+
+[University of Michigan - Deep Learning for Computer Vision](https://www.youtube.com/playlist?list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r)
+
+- Sehr gute Vorlesung zum Thema
+
+
+[University of California, Berkeley - Modern Computer Vision and Deep Learning](https://fluff-armadillo-037.notion.site/Modern-Computer-Vision-and-Deep-Learning-CS-198-126-b11006739378470fa67a9cf6594201e0)
+
+- Sehr gute Vorlesung zum Thema
+
+
+## Neuronale Netzwerke - Basics
+
+
+[Perceptron Learning Rule S. Raschka](https://www.youtube.com/watch?v=C8Uns9HEVXI)
+
+[CS229 Stanford MLP Backpropagation](https://cs229.stanford.edu/notes2020spring/cs229-notes-deep_learning.pdf)
+
+[Notes on Backpropagation](https://www.ics.uci.edu/~pjsadows/notes.pdf)
+
+[3Blue1Brown Gradient Descent](https://youtu.be/IHZwWFHWa-w)
+
+[3Blue1Brown Backpropagation Calculus](https://www.youtube.com/watch?v=tIeHLnjs5U8)
+
+[Andrew Ng Backprop](https://youtu.be/mO7BpWmzT78)
+
+[Andrej Karpathy - Backpropagation from the ground up](https://www.youtube.com/watch?v=VMj-3S1tku0)
+
+
+## Model Selection
+
+[Paper von S.Raschka: "Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning"](https://arxiv.org/pdf/1811.12808.pdf)
+
+## ML Best Practices
+
+[Martin Zinkevich - Best Practices for ML Engineering](https://developers.google.com/machine-learning/guides/rules-of-ml)
+
+[Andrej Karpathy - A Recipe for Training Neural Networks](http://karpathy.github.io/2019/04/25/recipe/)
+
+[Andrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next](https://www.youtube.com/watch?v=sZSKGNbrwus&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=59)
+
+[Andrew Ng - Advice For Applying Machine Learning | Learning Curves](https://www.youtube.com/watch?v=ISBGFY-gBug&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=64)
+
+[Andrew Ng - Advice For Applying Machine Learning | Deciding What To Do Next (Revisited)](https://www.youtube.com/watch?v=yoYA1MFpYRg&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=64)
+
+[Andrew Ng - Machine Learning System Design | Prioritizing What To Work On](https://www.youtube.com/watch?v=HREeLryOh4Q&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=65)
+
+[Andrew Ng - Machine Learning System Design | Error Analysis](https://www.youtube.com/watch?v=k1JGvqr56Yk&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=66)
+
+[Andrew Ng - Machine Learning System Design | Data For Machine Learning](https://www.youtube.com/watch?v=5T77nG7YJhk&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=69)
+

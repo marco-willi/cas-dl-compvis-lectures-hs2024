@@ -1,0 +1,10 @@
+book/*
+.env
+.vscode/**
+book/exercises/data/**
+**/.ipynb_checkpoints/**
+TODO.md
+**/archive/**
+quarto_webpage/_*/*
+quarto_webpage/.quarto/*
+**/.jupyter_cache

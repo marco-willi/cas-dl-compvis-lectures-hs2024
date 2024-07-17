@@ -1,0 +1,46 @@
+name: base
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - pip
+  # --------- visualize & image processing -------- #
+  - plotly
+  - conda-forge::matplotlib
+  - conda-forge::seaborn
+  - conda-forge::altair
+  - scikit-image
+  # --------- machine learning --------- #
+  - conda-forge::mlxtend
+  - scikit-learn
+  - pytorch::pytorch
+  - pytorch::cpuonly
+  - pytorch::torchvision
+  - pytorch::torchaudio
+  - conda-forge::torchmetrics
+  - pytorch::pytorch-cuda=11.8
+  - pytorch::captum
+  - pytorch-lightning
+  - conda-forge::timm
+  - conda-forge::pyppeteer
+  # --------- Experiment Tracking --------- #
+  - conda-forge::tensorboard
+  - conda-forge::wandb
+  # --------- juypter --------- #
+  #- conda-forge::jupyter_contrib_nbextensions
+  - conda-forge::texinfo
+  - conda-forge::ipywidgets
+  - conda-forge::xeus-python
+  - conda-forge::nbgrader
+  - conda-forge::jupyter_client
+  - conda-forge::jupyter-book
+  - python-gitlab
+  # --------- Development --------- #
+  - black
+  - conda-forge::tabulate
+  # ---------- Pip Dependencies --- #
+  - pip:
+    - -r requirements.txt
+prefix: /opt/conda

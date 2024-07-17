@@ -1,0 +1,75 @@
+I want to convert a markdown file with latex code to a pure quarto compatible .qmd files. Do the conversion. Here are some examples how figures should be converted.
+
+Given the following code conversion:
+
+Input:
+
+<!-- Title: Beispiel 1 -->
+:::{figure-md} fig-intro-photo-example1
+
+<img src="./images/foto_beispiel1.png" alt="image manipulation example1" class="bg-primary mb-1" width="600px">
+
+Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.
+:::
+<!-- ### END SLIDE -->
+
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Image Classification -->
+:::{figure-md} fig-image-classifier-example1
+
+<img src="./images/image_classification_example.png" alt="image classification example" class="bg-primary mb-1" width="600px">
+
+Multi-Class Image Classification Beispiel (aus {cite}`krizhevsky_imagenet_2012`.).
+:::
+<!-- ### END SLIDE -->
+
+
+
+Output:
+
+## Beispiel 1 
+
+![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.](./images/foto_beispiel1.png){width=400}{#fig-intro-photo-example1}
+
+
+## Image Classification
+
+![Multi-Class Image Classification Beispiel (aus @krizhevsky_imagenet_2012).](./images/image_classification_example.png){width=600}{#fig-image-classifier-example1}
+
+
+
+
+Convert the following. Provide copyable code for each figure.
+
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Neuronen -->
+:::{figure-md} fig-nn-neurons
+<img src="./images/connected_neurons.png" alt="neurons" class="bg-primary mb-1" width="600px">
+
+Schematische Darstellung von verbundenen Neuronen. {cite}`phillips_speed_2015`
+:::
+<!-- ### END SLIDE -->
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Visueller Cortex -->
+:::{figure-md} fig-nn-visual-cortex
+<img src="./images/ventralvisualstream_v2.png" alt="visual cortex" class="bg-primary mb-1" width="600px">
+
+Representation von Transformationen im visuellen Cortex. {cite}`kubilius_ventral_2017`
+:::
+<!-- ### END SLIDE -->
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Multilayer Perceptron -->
+:::{figure-md} fig-mlp-structure
+<img src="./images/mlp.jpeg" class="bg-primary mb-1" width="600px">
+
+Ein neuronales Netzwerk mit zwei _Hidden Layer_. Die Linien zeigen Verbindungen zwischen den Neuronen. Source: {cite}`li_cs231n_2022`.
+:::
+<!-- ### END SLIDE -->

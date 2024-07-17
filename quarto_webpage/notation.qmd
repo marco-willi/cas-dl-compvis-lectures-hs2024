@@ -1,0 +1,85 @@
+# Notation
+
+<!---
+https://www.overleaf.com/learn/latex/Mathematical_fonts
+-->
+
+::: {.content-hidden}
+$$
+{{< include _macros.tex >}}
+$$
+:::
+
+## Numbers and Arrays
+
+| Syntax    | Description                |
+|-----------|----------------------------|
+| $a$    | A scalar (integer or real) |
+| $\vect{a}$ | A vector                   |
+| $\m{A}$  | A matrix                   |
+| $\tensor{A}$ | A tensor                   |
+| $\m{I}_n$ | Identity matrix with $n$ rows and $n$ columns |
+| $\m{I}$ | Identity matrix with dimensionality implied by context |
+| $\vect{e}^{(i)}$ | Standard basis vector $[0,\dots,0,1,0,\dots,0]$ with a 1 at position $i$ |
+| $\text{diag}(\vect{a})$ | A square, diagonal matrix with diagonal entries given by $\vect{a}$ |
+| $\rand{a}$ | A scalar random variable |
+| $\vrand{a}$ | A vector-valued random variable |
+| $\m{A}$ | A matrix-valued random variable |
+| $\theta$ | Parameters of a model |
+| $f(\theta, \vect{x})$ | A function (model) with paramters $\theta$ and data $\vect{x}$ |
+| $\m{A} \odot \m{B}$ | Element-wise (Hadamard) product of $\m{A}$ and $\m{B}$ |
+
+
+## Indexing
+
+| Syntax    | Description                |
+|-----------|----------------------------|
+| $a_i$ | Element $i$ of vector $\vect{a}$, with indexing starting at 1 |
+| $A_{i,j}$ | Element $i, j$ of matrix $\m{A}$ |
+
+
+## Datasets and Distributions
+
+| Syntax    | Description                |
+|-----------|----------------------------|
+| $\m{X}$ | The design matrix with dimensionality $nxp$ with $n$ samples with $p$ features. |
+| $\vect{x}^{(i)}$ | The i-th training example. |
+| $\vect{y}^{(i)}$ | The label-vector for the i-th training example. |
+| $y^{(i)}$ | The label for the i-th training example. |
+
+## Probability Theory
+
+| Syntax    | Description                |
+|-----------|----------------------------|
+| $P(x)$ | A probability distribution over a discrete variable. |
+| $p(x)$ | A probability distribution over a contiuous variable or over a variable whose type has not been specified. |
+| $\mathbb{E}_{x \sim P} [ f(x) ]\text{ or } \mathbb{E} f(x)$ | Expectation of $f(x)$ with respect to $P(x)$ |
+| $\mathcal{N} ( \mathbf{x} ; \mu , \Sigma)$ | Gaussian distribution over $\mathbf{x}$ with mean $\mu$ and covariance $\Sigma$ |
+| $x \sim \mathcal{N} (\mu , \sigma)$ | Gaussian distribution over $x$ with mean $\mu$ and variance $\sigma$ |
+
+
+
+
+## Calculus
+
+| Syntax    | Description                |
+|-----------|----------------------------|
+| $\nabla_{\vect{w}} J$ | Gradient of $J$ with respect to $\vect{w}$|
+| $\frac{\partial J}{\partial w}$ | Partial derivative of $J$ with respect to $w$|
+
+
+
+## Functions
+
+| Syntax    | Description                |
+|-----------|----------------------------|
+| $\log x$ | The natural logarithm of $x$. |
+| $\lVert \mathbf{x} \rVert_p$ | $L^p$ norm of $\mathbf{x}$ |
+| $\lVert \mathbf{x} \rVert$ | $L^2$ norm of $\mathbf{x}$ |
+
+
+## Deep Learning
+
+| Syntax    | Description                |
+|-----------|----------------------------|
+| NCHW | The input format of images in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width|

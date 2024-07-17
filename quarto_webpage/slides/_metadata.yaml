@@ -1,0 +1,5 @@
+format:
+  revealjs: 
+    chalkboard: true
+subtitle: "CAS Deep Learning - Computer Vision (Part1)"
+jupyter: /opt/conda/bin/python3

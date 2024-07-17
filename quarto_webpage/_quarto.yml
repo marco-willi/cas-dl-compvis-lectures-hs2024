@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: _output
+  render:
+    - "*.qmd"
+    - "!NOTES.md"
+
+website:
+  title: "CAS Deep Learning - Computer Vision (Part1)"
+  page-navigation: true
+  description: "Homepage for CAS Deep Learning - Computer Vision (Part1) with reading materials and exercises"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "Slides"
+        href: slides.qmd
+      - section: Resources
+        contents:
+          - notation.qmd
+          - literature.qmd
+          - links.qmd
+
+bibliography: references.bib
+
+institute: "Institute for Data Science I4DS, FHNW"
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    # include-in-header:
+    #    - "_dollar.tex"
+    #    - "_macros.tex"
+    #    - "_dollar.tex"
+  pdf:
+    include-in-header:
+       - "_macros.tex"

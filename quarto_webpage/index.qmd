@@ -1,0 +1,42 @@
+# Willkommen zum Modul Computer Vision mit Deep Learning
+
+ Herzlich willkommen zum Modul **Computer Vision mit Deep Learning** (1. Teil)!
+ 
+ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
+ 
+ [Modul Page](https://www.fhnw.ch/de/weiterbildung/technik/computer-vision-mit-deep-learning)
+
+ [CAS Page](https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning)
+
+
+## Inhalte
+
+
+### Tag 1 - Bildklassifikation
+
+| Zeit | Thema |
+|------|--------|
+|8:45 - 9:30	| Einführung Computer Vision mit Deep Learning
+|9:30 - 10:30 	| Übung: Deep Learning für Bilder
+|10:30  - 10:45	| Pause
+|10:45 - 11:30	| Theory CNNs
+|11:30 - 12:15	| Übung CNNs
+|12:15 - 13:15	| Mittagspause
+|13:15 - 14:00	|Bildklassifikation
+|14:00 - 16:30	| Übung: CNNs für Bildklassifikation
+
+
+<!-- 
+| Datum | Thema                                               | Übung     
+|-----------------|-----------------------------------------------------|----------------------|
+| 09 - 1.11.2024 | Einführung in Deep Learning für Computer Vision     | PyTorch Intro
+| 10 - 2.11.2024 | Convolutional Neural Networks                       | Neural Networks / CNNs
+           -->
+
+## Lernziele
+
+- Bildklassifikation vertieft verstehen
+- Methoden implementieren, anwenden und interpretieren können
+- Mit Deep Learning Frameworks umgehen und Libraries verwenden können
+- Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können
+

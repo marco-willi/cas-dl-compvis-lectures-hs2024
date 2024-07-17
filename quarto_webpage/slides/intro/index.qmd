@@ -1,0 +1,131 @@
+---
+title: "Einführung Computer Vision mit Deep Learning"
+#subtitle: "CAS Deep Learning - Computer Vision (Part1)"
+#author: "Marco Willi"
+#institute: "Institute for Data Science I4DS, FHNW"
+# format:
+#   revealjs:
+#     chalkboard: true
+#bibliography: {{< var bibliography.path >}}
+---
+
+
+# Motivation
+
+## Beispiel 1
+
+
+![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.](/images/intro/foto_beispiel1.png){width=400}
+
+## Beispiel 2
+
+![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.](/images/intro/foto_beispiel2.png){width=400}
+
+## Beispiel 3
+
+![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.](/images/intro/foto_beispiel3.png){width=400}
+
+
+## Beispiel 4
+
+![Aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/).](/images/intro/tensor_phone.png){width=300}
+
+
+## Semantic Gap
+
+![Illustration des semantic gap.](/images/intro/semantic_gap.jpg){width=600}
+
+
+## Blickwinkel
+
+![[Source](http://cs231n.stanford.edu/)](/images/intro/viewpoint.png){width=600}
+
+## Deformation
+
+![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_deformation.png){width=600}
+
+## Beleuchtung
+
+![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_illumination.png){width=600}
+
+
+## Hintergrund
+
+![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_background.png){width=600}
+
+
+## Okklusion
+
+![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_occlusion.png){width=600}
+
+
+## Intraklass-Variation
+
+![[Source](https://www.maxpixel.net/Cat-Kittens-Free-Float-Kitten-Rush-Cat-Puppy-555822)](/images/intro/challenge_intra_class_variation.jpg){width=600}
+
+
+## Kontext-Abhängigkeit
+
+<!-- ![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)](/images/intro/tiger_context.jpg){width=600} -->
+
+
+::: {layout-ncol=2}
+![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)](/images/intro/context1.png)
+
+![](/images/intro/context2.png)
+:::
+
+
+## Image Classification
+
+![Multi-Class Image Classification Beispiel (aus @krizhevsky_imagenet_2012).](/images/intro/image_classification_example.png){width=600}
+
+
+## Objekt-Erkennung
+
+
+![Object Detection Beispiel (aus @redmon_you_2016). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.](/images/intro/yolo_object_detection_example.png){width=600}
+
+
+## Segmentierung
+
+
+![Object Segmentation Beispiel (aus @he_mask_2018).](/images/intro/mask_rcnn_object_segmentation_example.png){width=600}
+
+
+## Segmentierung 2
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wfObVKKKJkE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Keypoint Detektierung
+
+
+![Keypoint Detection Beispiel (aus @he_mask_2018).](/images/intro/mask_rcnn_keypoint_detection_example.png){width=600}
+
+
+## Image Translation
+
+
+![Image Generation Beispiel (aus @isola_image--image_2018).](/images/intro/pix2pix_examples.png){width=600,#fig-pix2pix-example}
+
+
+
+## Image Super Resolution
+
+![Nvidia dlss: [Link](https://images.nvidia.com/aem-dam/Solutions/geforce/news/control-nvidia-dlss-2-0-update/deliver-us-the-moon-nvidia-dlss-2-0-performance-boost.png)](/images/intro/dssl.png){width=600}
+
+
+## Image Colorization
+
+![Norwegian Bride (est late 1890s) aus DeOldify: [Link](https://github.com/jantic/DeOldify)](/images/intro/colorization_example.png){width=600,#fig-intro-colorization-example}
+
+
+<!-- # Example Citation
+
+- @krizhevsky_imagenet_2012 -->
+
+# References
+
+::: {#refs}
+:::
+
