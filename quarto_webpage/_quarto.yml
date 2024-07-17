@@ -5,6 +5,9 @@ project:
     - "*.qmd"
     - "!NOTES.md"
 
+execute:
+  freeze: auto
+
 website:
   title: "CAS Deep Learning - Computer Vision (Part1)"
   page-navigation: true

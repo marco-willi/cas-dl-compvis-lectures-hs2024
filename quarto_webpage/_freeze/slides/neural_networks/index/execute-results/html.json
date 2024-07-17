@@ -1,0 +1,12 @@
+{
+  "hash": "b57be0bb5150f552ebbaa5000062fe71",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Neural Networks\"\n---\n\n\n# Biologische Neuronale Netzwerke\n\n## Neuronen\n\n![Schematische Darstellung von verbundenen Neuronen. Source: @phillips_speed_2015](/images/neural_networks/connected_neurons.png){width=600,#fig-nn-neurons}\n\n\n\n## Visueller Cortex\n\n![Representation von Transformationen im visuellen Cortex. Source: @kubilius_ventral_2017](/images/neural_networks/ventralvisualstream_v2.png){width=600,#fig-nn-visual-cortex}\n\n\n## Multilayer Perceptron\n\n![Ein neuronales Netzwerk mit zwei _Hidden Layer_. Die Linien zeigen Verbindungen zwischen den Neuronen. Source: @li_cs231n_2022](/images/neural_networks/mlp.jpeg){width=600,#fig-mlp-structure}\n\n\n\n\n# Von Linearen Modellen zu Neuronalen Netzwerken\n\n\n\n## Lineares Modell\n\nEin lineares Modell hat folgende Form:\n\n\\begin{equation}\n   f(\\mathbf{x}^{(i)}) = \\mathbf{W} \\mathbf{x}^{(i)}  +  \\mathbf{b}\n\\end{equation}\n\n\n## Neuronales Netzwerk\n\n\\begin{equation*}\n   f(\\mathbf{x}^{(i)}) = \\mathbf{W}^{(2)} g\\big(\\mathbf{W}^{(1)} \\mathbf{x}^{(i)}  +  \\mathbf{b}^{(1)} \\big)  +  \\mathbf{b}^{(2)}\n\\end{equation*}\n\n\n## Activation Funtion\n\n\\begin{equation}\n\\text{ReLU}(x) = \\begin{cases}\nx, & \\text{if } x \\geq 0 \\\\\n0, & \\text{if } x < 0\n\\end{cases}\n\\end{equation}\n\n::: {#cell-fig-nn-relu_vs_linear .cell execution_count=1}\n\n::: {.cell-output .cell-output-display}\n![Linear (left) vs non-linear (right) activation function.](index_files/figure-revealjs/fig-nn-relu_vs_linear-output-1.png){#fig-nn-relu_vs_linear width=941 height=506}\n:::\n:::\n\n\n# References\n\n::: {#refs}\n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

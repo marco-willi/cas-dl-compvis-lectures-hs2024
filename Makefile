@@ -1,4 +1,4 @@
-.PHONY: docker-build docker-run docker-push book slides create-slides clear-slides exam
+.PHONY: docker-build docker-run docker-push render book slides create-slides clear-slides exam
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -18,26 +18,35 @@ current_dir = $(shell pwd)
 docker-build:	## Build docker image
 	cd docker; docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} .
 
-docker-build-quarto:	## Build docker image
-	cd docker; docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG}-quarto -f Dockerfile.quarto .
+# docker-build-quarto:	## Build docker image
+# 	cd docker; docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG}-quarto -f Dockerfile.quarto .
+
+# docker-run:	## Run docker container
+# 	cd docker; docker run -d \
+# 	  --name ${REPO_NAME} \
+# 	  -p 8881:8888 \
+# 	  -v "${current_dir}":/home/jovyan/work \
+# 	  ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} start.sh jupyter lab --LabApp.token=''
 
 docker-run:	## Run docker container
 	cd docker; docker run -d \
 	  --name ${REPO_NAME} \
-	  -p 8881:8888 \
-	  -v "${current_dir}":/home/jovyan/work \
-	  ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} start.sh jupyter lab --LabApp.token=''
-
-docker-run-quarto:	## Run docker container
-	cd docker; docker run -d \
-	  --name ${REPO_NAME}-quarto \
 	  -p 8882:8888 \
 	  -v "${current_dir}":/home/jovyan/work \
-	  ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG}-quarto start.sh jupyter lab --LabApp.token=''
+	  ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} start.sh jupyter lab --LabApp.token=''
 
 docker-push: ## Push image to registry
 	docker login -u ${CONTAINER_REGISTRY_USER} -p ${CONTAINER_REGISTRY_PUSH_TOKEN}
 	docker push ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG}
+
+
+#######################################################
+# Quarto
+#######################################################
+
+
+render: ## Render Quarto book
+	quarto render /home/jovyan/work/quarto_webpage
 
 book: ## Build Juypter book
 	jupyter-book build book/
