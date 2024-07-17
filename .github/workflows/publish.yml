@@ -28,12 +28,6 @@ jobs:
       contents: write
 
     steps:
-
-      - uses: cardinalby/export-env-action@v1
-        with:
-          envFile: '.env'    
-          expand: 'true'
-        
       - name: Check out repository
         uses: actions/checkout@v4
 
