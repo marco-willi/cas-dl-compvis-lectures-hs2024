@@ -16,12 +16,15 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        working-directory: ./quarto_webpage
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
+        working-directory: ./quarto_webpage
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
+        working-directory: ./quarto_webpage
         with:
           target: gh-pages
         env:
