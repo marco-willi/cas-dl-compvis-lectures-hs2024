@@ -5,10 +5,9 @@ book/exercises/data/**
 **/.ipynb_checkpoints/**
 TODO.md
 **/archive/**
-quarto_webpage/_site/*
-quarto_webpage/_output*
-quarto_webpage/.quarto/*
-quarto_webpage/_*.local
+_site/*
+_output*
 **/.jupyter_cache
+/.quarto/
 
-
+/_*.local

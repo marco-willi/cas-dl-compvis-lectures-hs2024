@@ -1,3 +1,0 @@
-execute:
-  cache: True
-  freeze: True # re-render only when source changes
