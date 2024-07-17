@@ -6,6 +6,15 @@ Module description: https://www.fhnw.ch/de/weiterbildung/technik/computer-vision
 
 Part of: https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning
 
+
+## Quarto
+
+### Publish
+
+See documentation: https://quarto.org/docs/publishing/github-pages.html#github-action
+
+
+
 ## Jupyter Book
 
 ### Commands
