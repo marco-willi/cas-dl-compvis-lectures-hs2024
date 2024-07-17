@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    defaults:
+      run:
+        working-directory: ./quarto_webpage
     steps:
       - name: Check out repository
-        working-directory: ./quarto_webpage
         uses: actions/checkout@v4
 
       - name: Set up Quarto
-        working-directory: ./quarto_webpage
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render and Publish
-        working-directory: ./quarto_webpage
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
