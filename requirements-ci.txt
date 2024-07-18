@@ -3,4 +3,4 @@
 torch
 torchvision
 torchaudio
-jupyter
+jupyterlab
