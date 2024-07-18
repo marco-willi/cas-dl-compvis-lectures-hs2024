@@ -6,7 +6,7 @@ https://www.overleaf.com/learn/latex/Mathematical_fonts
 
 ::: {.content-hidden}
 $$
-{{< include _macros.tex >}}
+{{< include /assets/_macros.tex >}}
 $$
 :::
 

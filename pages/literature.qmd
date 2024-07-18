@@ -1,11 +1,11 @@
 ---
 title: "Recommended Literature"
-bibliography: references.bib
 ---
 
 ## PyTorch
 
 Stevens, Eli and Antiga, Luca and Viehmann, Thomas, **Deep learning with PyTorch**, Manning Publications Co, @stevens_deep_2020
+
  - Kann als PDF gratis heruntergeladen werden
  - Einführung in PyTorch von Grund auf mit Anwendungsbeispielen
 
@@ -13,43 +13,60 @@ Stevens, Eli and Antiga, Luca and Viehmann, Thomas, **Deep learning with PyTorch
 ## Deep Learning
 
 Simon J.D. Prince, **Understanding Deep Learning**, MIT Press,  @prince_understanding_2023
+
   - Brandaktuelles Buch über Deep Learning
   - Umfassende Einführung ins Thema mit sehr guten Illustrationen
   - Online verfügbar: [Link](https://udlbook.github.io/udlbook/)
 
 
 Goodfellow, Ian and Bengio, Yoshua and Courville, Aaron, **Deep Learning**, MIT Press,  @goodfellow_deep_2016
+
  - Sehr gute und umfassende Einführung in Deep Learning
  - Etwas älter aber immer noch in weiten Teilen aktuell
  - Online verfügbar: [Link](https://www.deeplearningbook.org/)
 
 
+Chollet, François, **Deep Learning with Python**, Second Edition, Manning Publications, @chollet_deep_2021
+
+- chapters 8-9 are about computer vision
+- free access with  FHNW-Emailadresse in O’Reilly online Mediathek
+
+
+Stevens et al, **Deep Learning with PyTorch**, Manning Publications, @stevens_deep_2020
+
+
 ## Machine Learning
 
 Géron A, **Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow**, 2nd Edition, O'Reilly 2019
+
 - *Jupyter Notebooks* sind öffentlich verfügbar: [Link](https://github.com/ageron/handson-ml2)
 - Einsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow
 
 
 Raschka S, **Python Machine Learning**, 3rd Edition, PACKT 2019
+
   - Einsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow
 
 
 Kevin P. Murphy, **Probabilistic Machine Learning: An Introduction**, MIT Press 2022
+
   - Vorabversion gratis verfügbar: [Link](https://probml.github.io/pml-book/)
   - Umfassende Einführung in Machine Learning mit ausführlichen theoretischen Hintergründen
 
 
 Chollet F, **Deep Learning with Python**, 2nd Edition, MEAP 2020
+
   - Ein Klassiker für eine Einführung in Deep Learning (und Keras)
 
 
 Hastie T et al., **Elements of Statistical Learning**, Springer 2009.
+
   - Kann als pdf gratis runtergeladen werden: [Link](https://web.stanford.edu/~hastie/ElemStatLearn/)
   - Enthält Machine Learning Grundlagen und viele Methoden (wenig über Neuronale Netzwerke)
 
    
 VanderPlas J, **Python Data Science Handbook**, O'Reilly 2017.
+
   - Wurde mit *Jupyter Notebooks* geschrieben.
   - Der gesamte Inhalt finden sie auf einer website: [Link](https://jakevdp.github.io/PythonDataScienceHandbook/)
   - Das *Repository* kann von *github* runtergelanden werden: [Link](https://github.com/jakevdp/PythonDataScienceHandbook)

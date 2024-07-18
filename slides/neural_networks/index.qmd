@@ -1,5 +1,7 @@
 ---
 title: "Neural Networks"
+params:
+   images_path: "/assets/images/neural_networks/"
 ---
 
 # Biologische Neuronale Netzwerke
@@ -42,7 +44,7 @@ Ein lineares Modell hat folgende Form:
 \end{equation*}
 
 
-## Activation Funtion
+## Activation Function
 
 \begin{equation}
 \text{ReLU}(x) = \begin{cases}

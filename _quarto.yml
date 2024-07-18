@@ -5,31 +5,59 @@ project:
     - "*.qmd"
     - "!NOTES.md"
 
+author: "Marco Willi"
+affiliation: "Institute for Data Science I4DS, FHNW"
+
 execute:
   freeze: auto
 
 website:
-  title: "CAS Deep Learning - Computer Vision (Part1)"
   page-navigation: true
+  title: "CAS Deep Learning - Computer Vision (Part1)"
   description: "Homepage for CAS Deep Learning - Computer Vision (Part1) with reading materials and exercises"
+  
+  site-url: "https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/"
+  repo-url: https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024
+  repo-actions: [issue]
+
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; Copyright 2024, Marco Willi"
+    #background: "#D9E3E4"
+
   sidebar:
-    style: "docked"
+    logo: "/assets/logo.webp"
+    pinned: true
     search: true
+    align: center
+    style: "docked"
+    collapse-level: 1
+    tools:
+      - icon: github
+        href: https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024
+        text: "GitHub organization"
+      - icon: code-square
+
     contents:
+      - text: "Home"
+        href: index.qmd
       - text: "Slides"
-        href: slides.qmd
+        href: pages/slides.qmd
+      - text: "Exercises"
+        href: pages/exercises.qmd
       - section: Resources
         contents:
-          - notation.qmd
-          - literature.qmd
-          - links.qmd
+          - pages/notation.qmd
+          - pages/literature.qmd
+          - pages/links.qmd
 
-bibliography: references.bib
+bibliography: assets/references.bib
 
 institute: "Institute for Data Science I4DS, FHNW"
+
 format:
   html:
-    theme: cosmo
+    theme: yeti
     css: styles.css
     toc: true
     # include-in-header:
@@ -38,4 +66,4 @@ format:
     #    - "_dollar.tex"
   pdf:
     include-in-header:
-       - "_macros.tex"
+       - "./assets/_macros.tex"

@@ -1,121 +1,334 @@
 ---
 title: "Convolutional Neural Networks"
+params:
+   images_path: "/assets/images/cnns/"
 ---
 
 
-# Motivation
+## Overview
 
-## Beispiel 1
+- Introduction & Motivation
+- Convolutional Layers
+- Properties
+- Variants and Layers
+- Visualizations and Architectures
 
 
-![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.](/images/intro/foto_beispiel1.png){width=400}
+# Introduction & Motivation
 
-## Beispiel 2
+## Multilayer Perceptron
 
-![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.](/images/intro/foto_beispiel2.png){width=400}
+![Source: @li_cs231n_2022]({{< meta params.images_path >}}mlp.jpeg){width=100% height=70%}
 
-## Beispiel 3
 
-![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.](/images/intro/foto_beispiel3.png){width=400}
+## MLPs on Images
 
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}mlp_images.jpg){width=100% height=70%}
 
-## Beispiel 4
 
-![Aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/).](/images/intro/tensor_phone.png){width=300}
+## MLPs on Images
 
+![Source: @li_cs231n_2023]({{< meta params.images_path >}}mlp-spatial-structure.png){width=100% height=70%}
 
-## Semantic Gap
 
-![Illustration des semantic gap.](/images/intro/semantic_gap.jpg){width=600}
+## CNNs
 
+![The activations of a ConvNet architecture. The input image is on the left, and the predictions are on the right. Source: @li_cs231n_2022]({{< meta params.images_path >}}convnet.jpeg){width=100% height=70%}
 
-## Blickwinkel
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/viewpoint.png){width=600}
 
-## Deformation
+# Convolutional Layers
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_deformation.png){width=600}
+## Convolution?
 
-## Beleuchtung
+Convolution in Deep Learning is typically implemented as cross-correlation.
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_illumination.png){width=600}
+\begin{equation}
+S(i, j) = (K * I)(i, j) = \sum_m \sum_n I(i + m, j + n) K(m, n)
+\end{equation}
 
 
-## Hintergrund
+## Convolutional Layers
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_background.png){width=600}
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}cnn_conv_one_number.jpg){width=100% height=70%}
 
 
-## Okklusion
+## Convolutional Layers
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_occlusion.png){width=600}
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map.jpg){width=100% height=70%}
 
 
-## Intraklass-Variation
 
-![[Source](https://www.maxpixel.net/Cat-Kittens-Free-Float-Kitten-Rush-Cat-Puppy-555822)](/images/intro/challenge_intra_class_variation.jpg){width=600}
+## Convolutional Layers
 
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map2.jpg){width=100% height=70%}
 
-## Kontext-Abhängigkeit
 
-<!-- ![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)](/images/intro/tiger_context.jpg){width=600} -->
 
+## Convolutional Layers
 
-::: {layout-ncol=2}
-![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)](/images/intro/context1.png)
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map3.jpg){width=100% height=70%}
 
-![](/images/intro/context2.png)
-:::
 
 
-## Image Classification
+## Convolutional Layers
 
-![Multi-Class Image Classification Beispiel (aus @krizhevsky_imagenet_2012).](/images/intro/image_classification_example.png){width=600}
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map4.jpg){width=100% height=70%}
 
 
-## Objekt-Erkennung
 
+## Hyper-Parameters
 
-![Object Detection Beispiel (aus @redmon_you_2016). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.](/images/intro/yolo_object_detection_example.png){width=600}
+Convolutional Layers are parameterized:
 
+- Depth: How many activation maps?
+- Padding: How much padding is added to the input?
+- Stride: What is the step size of the convolution?
+- Kernel-Size: What is the kernel size?
 
-## Segmentierung
 
 
-![Object Segmentation Beispiel (aus @he_mask_2018).](/images/intro/mask_rcnn_object_segmentation_example.png){width=600}
+## Padding: Why?
 
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}padding_issue.jpg){width=100% height=70%}
 
-## Segmentierung 2
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wfObVKKKJkE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+## Padding
 
-## Keypoint Detektierung
+![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
 
 
-![Keypoint Detection Beispiel (aus @he_mask_2018).](/images/intro/mask_rcnn_keypoint_detection_example.png){width=600}
+## Padding
 
+![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
 
-## Image Translation
 
+## Padding and Stride
 
-![Image Generation Beispiel (aus @isola_image--image_2018).](/images/intro/pix2pix_examples.png){width=600,#fig-pix2pix-example}
+![Stride with Padding. Red indicates the position of the corresponding filter value on the input activations.]({{< meta params.images_path >}}stride_and_padding.png){width=100% height=70%}
 
 
+## Padding and Stride: Animations
 
-## Image Super Resolution
+@dumoulin_guide_2016 has created some animations to better understand convolutions, available here: [Link]({{< meta params.images_path >}}https://github.com/vdumoulin/conv_arithmetic).
 
-![Nvidia dlss: [Link](https://images.nvidia.com/aem-dam/Solutions/geforce/news/control-nvidia-dlss-2-0-update/deliver-us-the-moon-nvidia-dlss-2-0-performance-boost.png)](/images/intro/dssl.png){width=600}
 
 
-## Image Colorization
+## Calculations
 
-![Norwegian Bride (est late 1890s) aus DeOldify: [Link](https://github.com/jantic/DeOldify)](/images/intro/colorization_example.png){width=600,#fig-intro-colorization-example}
+You can calculate the dimensionality of the activation maps with the following formulas:
 
+- $i$: Side length of the input activations (assumption: square inputs)
+- $k$: Kernel size (assumption: square kernel)
+- $o$: Side length of the output activation maps
+- $s$: Stride (assumption: same stride along spatial dimensions)
+- $p$: Number of paddings on each side (assumption: same number of paddings along spatial dimensions)
 
-# Example Citation
 
-- @krizhevsky_imagenet_2012
+## Calculations
+
+This formula covers all scenarios!
+
+**Size of Activation Map**
+
+\begin{equation}
+o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+\end{equation}
+
+
+
+## Quiz
+
+**Scenario:**
+
+- Input: 3 x 32 x 32
+- Convolution: 10 filters with 5x5 kernel size, stride=1, pad=2
+
+What is the size of the activation map?
+
+How many weights are there?
+
+**Size of Activation Map**
+
+\begin{equation}
+o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+\end{equation}
+
+
+# Properties
+
+## Sparse Connectivity and Parameter Sharing
+
+**Local (Sparse) Connectivity**: Neurons are only locally connected.
+
+**Parameter Sharing**: Weights of a neuron are applied locally but are the same across the entire input.
+
+
+
+
+## Convolution: Is Parameter Sharing Always Useful?
+
+**Question**: Is parameter sharing always useful?
+
+
+
+
+
+## MLP Parameters
+
+```{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class MLP(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.hidden_layer1 = nn.Linear(3 * 32 * 32, 64)
+        self.hidden_layer2 = nn.Linear(64, 32)
+        self.output_layer = nn.Linear(32, 10)
+     
+    def forward(self, x):
+        x = self.flatten(x)
+        x = torch.relu(self.hidden_layer1(x))
+        x = torch.relu(self.hidden_layer2(x))
+        x = self.output_layer(x)
+        return x
+
+net = MLP()
+print(torchinfo.summary(net, input_size=(1, 3, 32, 32)))
+```
+
+
+## CNN Parameters
+
+```{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class CNN(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 16, 7, stride=2, padding=3)
+        self.conv2 = nn.Conv2d(16, 16, 3, stride=2, padding=1)
+        self.flatten = nn.Flatten()
+        self.output_layer = nn.Linear(16 * 8 * 8, 10)
+        
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.flatten(x)
+        x = self.output_layer(x)
+        return x
+
+cnn = CNN()
+print(torchinfo.summary(cnn, input_size=(1, 3, 32, 32)))
+```
+
+
+
+## Quiz: Linear Transformation vs Convolution
+
+![Input in 2-D (top left), the flat version (bottom left), expected output (right), and unknown transformation (center).]({{< meta params.images_path >}}linear_transf.png){width=100% height=70%}
+
+
+## Translation Invariance / Equivariance
+
+Given a translation $g()$, which spatially shifts inputs:
+
+- Translation invariance: $f(g(x))=f(x)$
+- Translation equivariance: $f(g(x))=g(f(x))$
+
+Convolutions are translation equivariant: [Example Video]({{< meta params.images_path >}}https://www.youtube.com/embed/qoWAFBYOtoU?start=50)
+
+## Stacking Convolutions
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_stacking.jpg){width=100% height=70%}
+
+
+## Receptive Field
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field.jpg){width=100% height=70%}
+
+
+
+## Receptive Field
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field2.jpg){width=100% height=70%}
+
+
+
+
+# Variants and Layers
+
+## Dilated Convolutions
+
+![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1.]({{< meta params.images_path >}}dilation1.png){width=100% height=70%}
+
+
+
+## Dilated Convolutions
+
+![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2.]({{< meta params.images_path >}}dilation2.png){width=100% height=70%}
+
+
+
+## 1x1 Convolutions
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}1x1_conv.jpg){width=100% height=70%}
+
+
+
+## Depthwise Separable Convolutions
+
+![Source: [https://paperswithcode.com/method/depthwise-convolution]({{< meta params.images_path >}}https://paperswithcode.com/method/depthwise-convolution)]({{< meta params.images_path >}}depthwise.png){width=100% height=70%}
+
+
+
+## Depthwise Separable Convolutions
+
+![Source: @yu_multi-scale_2016]({{< meta params.images_path >}}depthwise_separabel.png){width=100% height=70%}
+
+
+
+## Pooling Layers
+
+![Source: @li_cs231n_2022]({{< meta params.images_path >}}pool.jpeg){width=300px}
+
+
+## Max Pooling
+
+![Max pooling, input (left) and output (right).]({{< meta params.images_path >}}max_pooling.png){width=100% height=70%}
+
+
+## Average Pooling
+
+![Average pooling, input (left) and output (right).]({{< meta params.images_path >}}average_pooling.png){width=100% height=70%}
+
+
+## Other Pooling Layers
+
+**Global Average Pooling** is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.
+
+
+## Global Average Pooling
+
+![Global Average pooling, input (left) and output (right).]({{< meta params.images_path >}}global_average_pooling.png){width=100% height=70%}
+
+
+# Visualizations and Architectures
+
+## Learned Filters
+
+![Source: @krizhevsky_imagenet_2012]({{< meta params.images_path >}}learned_filters.png){width=100% height=70%}
+
+
 
 # References
 

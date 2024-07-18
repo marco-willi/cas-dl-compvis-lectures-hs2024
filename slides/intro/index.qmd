@@ -1,12 +1,7 @@
 ---
 title: "Einführung Computer Vision mit Deep Learning"
-#subtitle: "CAS Deep Learning - Computer Vision (Part1)"
-#author: "Marco Willi"
-#institute: "Institute for Data Science I4DS, FHNW"
-# format:
-#   revealjs:
-#     chalkboard: true
-#bibliography: {{< var bibliography.path >}}
+params:
+   images_path: "/assets/images/intro/"
 ---
 
 
@@ -15,82 +10,82 @@ title: "Einführung Computer Vision mit Deep Learning"
 ## Beispiel 1
 
 
-![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.](/images/intro/foto_beispiel1.png){width=400}
+![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.]({{< meta params.images_path >}}foto_beispiel1.png){width=400}
 
 ## Beispiel 2
 
-![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.](/images/intro/foto_beispiel2.png){width=400}
+![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.]({{< meta params.images_path >}}foto_beispiel2.png){width=400}
 
 ## Beispiel 3
 
-![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.](/images/intro/foto_beispiel3.png){width=400}
+![Beispiel aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Links das Original-Bild, rechts die Manipulation.]({{< meta params.images_path >}}foto_beispiel3.png){width=400}
 
 
 ## Beispiel 4
 
-![Aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/).](/images/intro/tensor_phone.png){width=300}
+![Aus [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/).]({{< meta params.images_path >}}tensor_phone.png){width=300}
 
 
 ## Semantic Gap
 
-![Illustration des semantic gap.](/images/intro/semantic_gap.jpg){width=600}
+![Illustration des semantic gap.]({{< meta params.images_path >}}semantic_gap.jpg){width=600}
 
 
 ## Blickwinkel
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/viewpoint.png){width=600}
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}viewpoint.png){width=600}
 
 ## Deformation
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_deformation.png){width=600}
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_deformation.png){width=600}
 
 ## Beleuchtung
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_illumination.png){width=600}
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_illumination.png){width=600}
 
 
 ## Hintergrund
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_background.png){width=600}
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_background.png){width=600}
 
 
 ## Okklusion
 
-![[Source](http://cs231n.stanford.edu/)](/images/intro/challenge_occlusion.png){width=600}
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_occlusion.png){width=600}
 
 
 ## Intraklass-Variation
 
-![[Source](https://www.maxpixel.net/Cat-Kittens-Free-Float-Kitten-Rush-Cat-Puppy-555822)](/images/intro/challenge_intra_class_variation.jpg){width=600}
+![[Source](https://www.maxpixel.net/Cat-Kittens-Free-Float-Kitten-Rush-Cat-Puppy-555822)]({{< meta params.images_path >}}challenge_intra_class_variation.jpg){width=600}
 
 
 ## Kontext-Abhängigkeit
 
-<!-- ![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)](/images/intro/tiger_context.jpg){width=600} -->
+<!-- ![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)]({{< meta params.images_path >}}tiger_context.jpg){width=600} -->
 
 
 ::: {layout-ncol=2}
-![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)](/images/intro/context1.png)
+![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)]({{< meta params.images_path >}}context1.png)
 
-![](/images/intro/context2.png)
+![]({{< meta params.images_path >}}context2.png)
 :::
 
 
 ## Image Classification
 
-![Multi-Class Image Classification Beispiel (aus @krizhevsky_imagenet_2012).](/images/intro/image_classification_example.png){width=600}
+![Multi-Class Image Classification Beispiel (aus @krizhevsky_imagenet_2012).]({{< meta params.images_path >}}image_classification_example.png){width=600}
 
 
 ## Objekt-Erkennung
 
 
-![Object Detection Beispiel (aus @redmon_you_2016). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.](/images/intro/yolo_object_detection_example.png){width=600}
+![Object Detection Beispiel (aus @redmon_you_2016). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.]({{< meta params.images_path >}}yolo_object_detection_example.png){width=600}
 
 
 ## Segmentierung
 
 
-![Object Segmentation Beispiel (aus @he_mask_2018).](/images/intro/mask_rcnn_object_segmentation_example.png){width=600}
+![Object Segmentation Beispiel (aus @he_mask_2018).]({{< meta params.images_path >}}mask_rcnn_object_segmentation_example.png){width=600}
 
 
 ## Segmentierung 2
@@ -100,24 +95,191 @@ title: "Einführung Computer Vision mit Deep Learning"
 ## Keypoint Detektierung
 
 
-![Keypoint Detection Beispiel (aus @he_mask_2018).](/images/intro/mask_rcnn_keypoint_detection_example.png){width=600}
+![Keypoint Detection Beispiel (aus @he_mask_2018).]({{< meta params.images_path >}}mask_rcnn_keypoint_detection_example.png){width=600}
 
 
 ## Image Translation
 
 
-![Image Generation Beispiel (aus @isola_image--image_2018).](/images/intro/pix2pix_examples.png){width=600,#fig-pix2pix-example}
+![Image Generation Beispiel (aus @isola_image--image_2018).]({{< meta params.images_path >}}pix2pix_examples.png){width=600,#fig-pix2pix-example}
 
 
 
 ## Image Super Resolution
 
-![Nvidia dlss: [Link](https://images.nvidia.com/aem-dam/Solutions/geforce/news/control-nvidia-dlss-2-0-update/deliver-us-the-moon-nvidia-dlss-2-0-performance-boost.png)](/images/intro/dssl.png){width=600}
+![Nvidia dlss: [Link](https://images.nvidia.com/aem-dam/Solutions/geforce/news/control-nvidia-dlss-2-0-update/deliver-us-the-moon-nvidia-dlss-2-0-performance-boost.png)]({{< meta params.images_path >}}dssl.png){width=600}
 
 
 ## Image Colorization
 
-![Norwegian Bride (est late 1890s) aus DeOldify: [Link](https://github.com/jantic/DeOldify)](/images/intro/colorization_example.png){width=600,#fig-intro-colorization-example}
+![Norwegian Bride (est late 1890s) aus DeOldify: [Link](https://github.com/jantic/DeOldify)]({{< meta params.images_path >}}colorization_example.png){width=600,#fig-intro-colorization-example}
+
+# Machine Learning
+
+## Machine Learning Approach
+
+With Machine Learning, we follow a data-driven approach to solve various tasks:
+
+- Collect a dataset of images and their labels.
+- Use a machine learning algorithm to train a model (e.g., a classifier).
+- Evaluate and apply the model to new data.
+
+```python
+def train(images, labels):
+    """ Train a Model """
+    # Fit Model here
+    return model
+
+def predict(test_images, model):
+    """ Predict """
+    predictions = model(test_images)
+    return predictions
+```
+
+## Question
+
+**Image Super Resolution**
+
+How would you train a model for image super resolution? The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.
+
+## Machine Learning Pipeline
+
+![Machine Learning Pipeline (Source: @raschka_python_2020)]({{< meta params.images_path >}}python_ml.png){width=100% height=70%}
+
+## Model
+
+A model:
+
+\begin{equation}
+f(\mathbf{x}^{(i)}) = \hat{y}^{(i)}
+\end{equation}
+
+With model parameters $\theta$:
+
+\begin{equation}
+f_{\theta}(\mathbf{x}^{(i)}) \text{ or } f(\theta, \mathbf{x}^{(i)})
+\end{equation}
+
+## Optimization
+
+The coefficients are adapted to a training dataset in an optimization procedure (learning, fitting).
+
+In particular, we want to minimize the cost function $J$.
+
+\begin{equation}
+\mathsf{argmin}_{\theta, \lambda} J\Big(f_{\theta, \lambda}(\mathbf{X}), \mathbf{y}\Big)
+\end{equation}
+
+The optimization procedure is influenced by hyperparameters ($\alpha, \lambda, \dots$).
+
+## Train (Validation) Test Split
+
+![Train-Test Split to select and measure models.]({{< meta params.images_path >}}train_test_split.png){width=100% height=70%}
+
+## Machine Learning on Images
+
+Images are high-dimensional:
+
+An RGB image with a resolution of $800 \times 600$ has a dimensionality of $800 \times 600 \times 3 = 1,440,000$.
+
+Classic ML algorithms are:
+
+- Slow and resource-intensive.
+- Unable to exploit the 2-D structure.
+- Sensitive to slight changes (e.g., translations).
+- Prone to overfitting (since $n \sim p$).
+
+## Machine Learning on Images
+
+To model images with classic machine learning algorithms, features must be extracted beforehand.
+
+We can use methods from classical computer vision.
+
+## Color Histograms as Features
+
+![Color Histograms as Features (Source: @johnson_eecs_2022)]({{< meta params.images_path >}}color_histogram.png){width=100% height=70%}
+
+## HOG Features
+
+![HOG as Features (Source: @johnson_eecs_2022)]({{< meta params.images_path >}}hog_features.png){width=100% height=70%}
+
+## Bag of (visual) Words
+
+![Bag of (visual) words Features (Source: @johnson_eecs_2022)]({{< meta params.images_path >}}bag_of_words_features.png){width=100% height=70%}
+
+## Image Features
+
+![Image Features (Source: @johnson_eecs_2022)]({{< meta params.images_path >}}features_concat.png){width=100% height=70%}
+
+## CIFAR10
+
+![CIFAR10 Dataset [Source](https://www.cs.toronto.edu/~kriz/cifar.html)]({{< meta params.images_path >}}cifar10.jpg){width=100% height=70%}
+
+## Exercise 1 - Recap ML
+
+In the first exercise, we will model the CIFAR10 dataset.
+
+# Deep Learning
+
+## PASCAL VOC
+
+![Images / Illustrations from [Link](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/) and @johnson_eecs_2022. Left: Object annotations in images, Right: Development of Mean Average Precision over the years.]({{< meta params.images_path >}}pascal_voc_2007.png){width=100% height=70%}
+
+## ImageNet
+
+![ImageNet, [Image Source](https://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_full_1k.jpg), details in @deng_imagenet_2009]({{< meta params.images_path >}}imagenet.jpg){width=100% height=70%}
+
+## ImageNet - Performance
+
+![Source: @johnson_eecs_2022]({{< meta params.images_path >}}image_net_perf.png){width=100% height=70%}
+
+## ImageNet - Winner
+
+![AlexNet @krizhevsky_imagenet_2012]({{< meta params.images_path >}}alexnet.png){width=100% height=70%}
+
+## Classic ML
+
+![Illustration from @johnson_eecs_2022]({{< meta params.images_path >}}classical_ml.png){width=100% height=70%}
+
+## End-To-End
+
+![Illustration from @johnson_eecs_2022]({{< meta params.images_path >}}end-to-end-ml.png){width=100% height=70%}
+
+## Deep Learning Benefits
+
+- Automatic feature extraction.
+- Hierarchical features.
+- Generalization.
+- End-to-end learning.
+- Robustness to variability.
+- Adaptability and transferability.
+
+# Deep Learning History
+
+## Experiments on Cats
+
+![Illustration [Source](https://link.springer.com/chapter/10.1007/978-3-030-28954-6_4/figures/1)]({{< meta params.images_path >}}huber_wiesel_cat_experiment.jpg){width=100% height=70%}
+
+## Neocognitron
+
+![The Neocognitron @fukushima_neocognitron_1980]({{< meta params.images_path >}}neocogitron.png){width=100% height=70%}
+
+## Backpropagation
+
+![Backpropagation in Neural Networks @rumelhart_learning_1986]({{< meta params.images_path >}}rumelhart_backprop.png){width=100% height=70%}
+
+## CNNs
+
+![Modern CNN @lecun_gradient-based_1998]({{< meta params.images_path >}}lecun_cnn.png){width=100% height=70%}
+
+## AlexNet
+
+![AlexNet @krizhevsky_imagenet_2012]({{< meta params.images_path >}}alexnet.png){width=100% height=70%}
+
+# References
+
+::: {#refs}
+:::
 
 
 <!-- # Example Citation
