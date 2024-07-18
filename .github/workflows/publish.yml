@@ -27,6 +27,7 @@ jobs:
         with:
           python-version: '3.11.9'
           cache: 'pip'
+      - run: pip install jupyter
       - run: pip install -r requirements-ci.txt
 
       - name: Render and Publish
