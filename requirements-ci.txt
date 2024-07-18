@@ -1,6 +1,6 @@
+torchinfo
 # torch
 --index-url https://download.pytorch.org/whl/cpu
 torch
 torchvision
 torchaudio
-torchinfo
