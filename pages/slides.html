@@ -8,7 +8,7 @@
 
 <meta name="author" content="Marco Willi">
 
-<title>CAS Deep Learning - Computer Vision (Part1)</title>
+<title>Slides – CAS Deep Learning - Computer Vision (Part1)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,22 +24,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./pages/slides.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../pages/exercises.html" rel="next">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -69,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -81,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/slides.html">Slides</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -95,8 +96,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./assets/logo.webp" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/logo.webp" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
@@ -112,19 +113,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/slides.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exercises</span></a>
   </div>
 </li>
@@ -139,19 +140,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/notation.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/notation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Notation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/literature.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/literature.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Recommended Literature</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/links.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/links.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Links</span></a>
   </div>
 </li>
@@ -163,26 +164,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#willkommen-zum-modul-computer-vision-mit-deep-learning" id="toc-willkommen-zum-modul-computer-vision-mit-deep-learning" class="nav-link active" data-scroll-target="#willkommen-zum-modul-computer-vision-mit-deep-learning">Willkommen zum Modul Computer Vision mit Deep Learning</a>
-  <ul class="collapse">
-  <li><a href="#inhalte" id="toc-inhalte" class="nav-link" data-scroll-target="#inhalte">Inhalte</a>
-  <ul class="collapse">
-  <li><a href="#tag-1---bildklassifikation" id="toc-tag-1---bildklassifikation" class="nav-link" data-scroll-target="#tag-1---bildklassifikation">Tag 1 - Bildklassifikation</a></li>
-  </ul></li>
-  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele">Lernziele</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
-    </div>
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<h1 class="title">Slides</h1>
 </div>
 
 
@@ -212,78 +201,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="willkommen-zum-modul-computer-vision-mit-deep-learning" class="level1">
-<h1>Willkommen zum Modul Computer Vision mit Deep Learning</h1>
-<p>Herzlich willkommen zum Modul <strong>Computer Vision mit Deep Learning</strong> (1. Teil)!</p>
-<p>Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.</p>
-<p><a href="https://www.fhnw.ch/de/weiterbildung/technik/computer-vision-mit-deep-learning">Modul Page</a></p>
-<p><a href="https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning">CAS Page</a></p>
-<section id="inhalte" class="level2">
-<h2 class="anchored" data-anchor-id="inhalte">Inhalte</h2>
-<section id="tag-1---bildklassifikation" class="level3">
-<h3 class="anchored" data-anchor-id="tag-1---bildklassifikation">Tag 1 - Bildklassifikation</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Zeit</th>
-<th>Thema</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>8:45 - 9:30</td>
-<td>Einführung Computer Vision mit Deep Learning</td>
-</tr>
-<tr class="even">
-<td>9:30 - 10:30</td>
-<td>Übung: Deep Learning für Bilder</td>
-</tr>
-<tr class="odd">
-<td>10:30 - 10:45</td>
-<td>Pause</td>
-</tr>
-<tr class="even">
-<td>10:45 - 11:30</td>
-<td>Theory CNNs</td>
-</tr>
-<tr class="odd">
-<td>11:30 - 12:15</td>
-<td>Übung CNNs</td>
-</tr>
-<tr class="even">
-<td>12:15 - 13:15</td>
-<td>Mittagspause</td>
-</tr>
-<tr class="odd">
-<td>13:15 - 14:00</td>
-<td>Bildklassifikation</td>
-</tr>
-<tr class="even">
-<td>14:00 - 16:30</td>
-<td>Übung: CNNs für Bildklassifikation</td>
-</tr>
-</tbody>
-</table>
-<!-- 
-| Datum | Thema                                               | Übung     
-|-----------------|-----------------------------------------------------|----------------------|
-| 09 - 1.11.2024 | Einführung in Deep Learning für Computer Vision     | PyTorch Intro
-| 10 - 2.11.2024 | Convolutional Neural Networks                       | Neural Networks / CNNs
-           -->
-</section>
-</section>
-<section id="lernziele" class="level2">
-<h2 class="anchored" data-anchor-id="lernziele">Lernziele</h2>
 <ul>
-<li>Bildklassifikation vertieft verstehen</li>
-<li>Methoden implementieren, anwenden und interpretieren können</li>
-<li>Mit Deep Learning Frameworks umgehen und Libraries verwenden können</li>
-<li>Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können</li>
+<li><p><a href="../slides/recap/index.html" target="_blank">Recap Quiz</a> slides.</p></li>
+<li><p><a href="../slides/intro/index.html" target="_blank">Intro</a> slides.</p></li>
+<li><p><a href="../slides/neural_networks/index.html" target="_blank">Neural Networks</a> slides.</p></li>
+<li><p><a href="../slides/cnns/index.html" target="_blank">CNNs</a> slides.</p></li>
+<li><p><a href="../slides/image_classification/index.html" target="_blank">Image Classification</a> slides.</p></li>
+<li><p><a href="../slides/practical/index.html" target="_blank">Practical</a> slides.</p></li>
 </ul>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -708,10 +635,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Home">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./pages/slides.html" class="pagination-link" aria-label="Slides">
-        <span class="nav-page-text">Slides</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/exercises.html" class="pagination-link" aria-label="Exercises">
+        <span class="nav-page-text">Exercises</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -723,7 +653,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

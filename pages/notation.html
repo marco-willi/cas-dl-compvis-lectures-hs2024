@@ -8,7 +8,7 @@
 
 <meta name="author" content="Marco Willi">
 
-<title>CAS Deep Learning - Computer Vision (Part1)</title>
+<title>notation – CAS Deep Learning - Computer Vision (Part1)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,22 +24,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./pages/slides.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../pages/literature.html" rel="next">
+<link href="../pages/exercises.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -68,8 +69,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -81,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/notation.html">Resources</a></li><li class="breadcrumb-item"><a href="../pages/notation.html">Notation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -95,8 +125,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./assets/logo.webp" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/logo.webp" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
@@ -112,46 +142,46 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Resources</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/notation.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/notation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Notation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/literature.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/literature.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Recommended Literature</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pages/links.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/links.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Links</span></a>
   </div>
 </li>
@@ -167,21 +197,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#willkommen-zum-modul-computer-vision-mit-deep-learning" id="toc-willkommen-zum-modul-computer-vision-mit-deep-learning" class="nav-link active" data-scroll-target="#willkommen-zum-modul-computer-vision-mit-deep-learning">Willkommen zum Modul Computer Vision mit Deep Learning</a>
+  <li><a href="#notation" id="toc-notation" class="nav-link active" data-scroll-target="#notation">Notation</a>
   <ul class="collapse">
-  <li><a href="#inhalte" id="toc-inhalte" class="nav-link" data-scroll-target="#inhalte">Inhalte</a>
-  <ul class="collapse">
-  <li><a href="#tag-1---bildklassifikation" id="toc-tag-1---bildklassifikation" class="nav-link" data-scroll-target="#tag-1---bildklassifikation">Tag 1 - Bildklassifikation</a></li>
-  </ul></li>
-  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele">Lernziele</a></li>
+  <li><a href="#numbers-and-arrays" id="toc-numbers-and-arrays" class="nav-link" data-scroll-target="#numbers-and-arrays">Numbers and Arrays</a></li>
+  <li><a href="#indexing" id="toc-indexing" class="nav-link" data-scroll-target="#indexing">Indexing</a></li>
+  <li><a href="#datasets-and-distributions" id="toc-datasets-and-distributions" class="nav-link" data-scroll-target="#datasets-and-distributions">Datasets and Distributions</a></li>
+  <li><a href="#probability-theory" id="toc-probability-theory" class="nav-link" data-scroll-target="#probability-theory">Probability Theory</a></li>
+  <li><a href="#calculus" id="toc-calculus" class="nav-link" data-scroll-target="#calculus">Calculus</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  <li><a href="#deep-learning" id="toc-deep-learning" class="nav-link" data-scroll-target="#deep-learning">Deep Learning</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="notation.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/notation.html">Resources</a></li><li class="breadcrumb-item"><a href="../pages/notation.html">Notation</a></li></ol></nav>
 <div class="quarto-title">
 </div>
 
@@ -212,74 +244,249 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="willkommen-zum-modul-computer-vision-mit-deep-learning" class="level1">
-<h1>Willkommen zum Modul Computer Vision mit Deep Learning</h1>
-<p>Herzlich willkommen zum Modul <strong>Computer Vision mit Deep Learning</strong> (1. Teil)!</p>
-<p>Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.</p>
-<p><a href="https://www.fhnw.ch/de/weiterbildung/technik/computer-vision-mit-deep-learning">Modul Page</a></p>
-<p><a href="https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning">CAS Page</a></p>
-<section id="inhalte" class="level2">
-<h2 class="anchored" data-anchor-id="inhalte">Inhalte</h2>
-<section id="tag-1---bildklassifikation" class="level3">
-<h3 class="anchored" data-anchor-id="tag-1---bildklassifikation">Tag 1 - Bildklassifikation</h3>
+<section id="notation" class="level1">
+<h1>Notation</h1>
+<!---
+https://www.overleaf.com/learn/latex/Mathematical_fonts
+-->
+<section id="numbers-and-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="numbers-and-arrays">Numbers and Arrays</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Zeit</th>
-<th>Thema</th>
+<th>Syntax</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>8:45 - 9:30</td>
-<td>Einführung Computer Vision mit Deep Learning</td>
+<td><span class="math inline">\(a\)</span></td>
+<td>A scalar (integer or real)</td>
 </tr>
 <tr class="even">
-<td>9:30 - 10:30</td>
-<td>Übung: Deep Learning für Bilder</td>
+<td><span class="math inline">\(\mathbf{a}\)</span></td>
+<td>A vector</td>
 </tr>
 <tr class="odd">
-<td>10:30 - 10:45</td>
-<td>Pause</td>
+<td><span class="math inline">\(\mathbf{A}\)</span></td>
+<td>A matrix</td>
 </tr>
 <tr class="even">
-<td>10:45 - 11:30</td>
-<td>Theory CNNs</td>
+<td><span class="math inline">\(\mathbf{\mathsf{A}}\)</span></td>
+<td>A tensor</td>
 </tr>
 <tr class="odd">
-<td>11:30 - 12:15</td>
-<td>Übung CNNs</td>
+<td><span class="math inline">\(\mathbf{I}_n\)</span></td>
+<td>Identity matrix with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(n\)</span> columns</td>
 </tr>
 <tr class="even">
-<td>12:15 - 13:15</td>
-<td>Mittagspause</td>
+<td><span class="math inline">\(\mathbf{I}\)</span></td>
+<td>Identity matrix with dimensionality implied by context</td>
 </tr>
 <tr class="odd">
-<td>13:15 - 14:00</td>
-<td>Bildklassifikation</td>
+<td><span class="math inline">\(\mathbf{e}^{(i)}\)</span></td>
+<td>Standard basis vector <span class="math inline">\([0,\dots,0,1,0,\dots,0]\)</span> with a 1 at position <span class="math inline">\(i\)</span></td>
 </tr>
 <tr class="even">
-<td>14:00 - 16:30</td>
-<td>Übung: CNNs für Bildklassifikation</td>
+<td><span class="math inline">\(\text{diag}(\mathbf{a})\)</span></td>
+<td>A square, diagonal matrix with diagonal entries given by <span class="math inline">\(\mathbf{a}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\textnormal{a}\)</span></td>
+<td>A scalar random variable</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{a}\)</span></td>
+<td>A vector-valued random variable</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{A}\)</span></td>
+<td>A matrix-valued random variable</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>Parameters of a model</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(f(\theta, \mathbf{x})\)</span></td>
+<td>A function (model) with paramters <span class="math inline">\(\theta\)</span> and data <span class="math inline">\(\mathbf{x}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{A} \odot \mathbf{B}\)</span></td>
+<td>Element-wise (Hadamard) product of <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{B}\)</span></td>
 </tr>
 </tbody>
 </table>
-<!-- 
-| Datum | Thema                                               | Übung     
-|-----------------|-----------------------------------------------------|----------------------|
-| 09 - 1.11.2024 | Einführung in Deep Learning für Computer Vision     | PyTorch Intro
-| 10 - 2.11.2024 | Convolutional Neural Networks                       | Neural Networks / CNNs
-           -->
 </section>
+<section id="indexing" class="level2">
+<h2 class="anchored" data-anchor-id="indexing">Indexing</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a_i\)</span></td>
+<td>Element <span class="math inline">\(i\)</span> of vector <span class="math inline">\(\mathbf{a}\)</span>, with indexing starting at 1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(A_{i,j}\)</span></td>
+<td>Element <span class="math inline">\(i, j\)</span> of matrix <span class="math inline">\(\mathbf{A}\)</span></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="lernziele" class="level2">
-<h2 class="anchored" data-anchor-id="lernziele">Lernziele</h2>
-<ul>
-<li>Bildklassifikation vertieft verstehen</li>
-<li>Methoden implementieren, anwenden und interpretieren können</li>
-<li>Mit Deep Learning Frameworks umgehen und Libraries verwenden können</li>
-<li>Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können</li>
-</ul>
+<section id="datasets-and-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="datasets-and-distributions">Datasets and Distributions</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{X}\)</span></td>
+<td>The design matrix with dimensionality <span class="math inline">\(nxp\)</span> with <span class="math inline">\(n\)</span> samples with <span class="math inline">\(p\)</span> features.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{x}^{(i)}\)</span></td>
+<td>The i-th training example.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{y}^{(i)}\)</span></td>
+<td>The label-vector for the i-th training example.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y^{(i)}\)</span></td>
+<td>The label for the i-th training example.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="probability-theory" class="level2">
+<h2 class="anchored" data-anchor-id="probability-theory">Probability Theory</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P(x)\)</span></td>
+<td>A probability distribution over a discrete variable.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(x)\)</span></td>
+<td>A probability distribution over a contiuous variable or over a variable whose type has not been specified.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbb{E}_{x \sim P} [ f(x) ]\text{ or } \mathbb{E} f(x)\)</span></td>
+<td>Expectation of <span class="math inline">\(f(x)\)</span> with respect to <span class="math inline">\(P(x)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathcal{N} ( \mathbf{x} ; \mu , \Sigma)\)</span></td>
+<td>Gaussian distribution over <span class="math inline">\(\mathbf{x}\)</span> with mean <span class="math inline">\(\mu\)</span> and covariance <span class="math inline">\(\Sigma\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(x \sim \mathcal{N} (\mu , \sigma)\)</span></td>
+<td>Gaussian distribution over <span class="math inline">\(x\)</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="calculus" class="level2">
+<h2 class="anchored" data-anchor-id="calculus">Calculus</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\nabla_{\mathbf{w}} J\)</span></td>
+<td>Gradient of <span class="math inline">\(J\)</span> with respect to <span class="math inline">\(\mathbf{w}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\frac{\partial J}{\partial w}\)</span></td>
+<td>Partial derivative of <span class="math inline">\(J\)</span> with respect to <span class="math inline">\(w\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\log x\)</span></td>
+<td>The natural logarithm of <span class="math inline">\(x\)</span>.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\lVert \mathbf{x} \rVert_p\)</span></td>
+<td><span class="math inline">\(L^p\)</span> norm of <span class="math inline">\(\mathbf{x}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\lVert \mathbf{x} \rVert\)</span></td>
+<td><span class="math inline">\(L^2\)</span> norm of <span class="math inline">\(\mathbf{x}\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="deep-learning" class="level2">
+<h2 class="anchored" data-anchor-id="deep-learning">Deep Learning</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NCHW</td>
+<td>The input format of images in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
@@ -708,10 +915,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../pages/exercises.html" class="pagination-link" aria-label="Exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exercises</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./pages/slides.html" class="pagination-link" aria-label="Slides">
-        <span class="nav-page-text">Slides</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/literature.html" class="pagination-link" aria-label="Recommended Literature">
+        <span class="nav-page-text">Recommended Literature</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Marco Willi">
-  <title>CAS Deep Learning - Computer Vision (Part1) – Neural Networks</title>
+  <title>CAS Deep Learning - Computer Vision (Part1) – Recap CNNs</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,27 +29,7 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for citations */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-      margin-bottom: 0em;
-    }
-    .hanging-indent div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }  </style>
+  </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -348,7 +328,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Neural Networks</h1>
+  <h1 class="title">Recap CNNs</h1>
   <p class="subtitle">CAS Deep Learning - Computer Vision (Part1)</p>
 
 <div class="quarto-title-authors">
@@ -364,76 +344,161 @@ Marco Willi
 
 </section>
 <section>
-<section id="biologische-neuronale-netzwerke" class="title-slide slide level1 center">
-<h1>Biologische Neuronale Netzwerke</h1>
+<section id="cnns-and-deep-learning-quiz" class="title-slide slide level1 center">
+<h1>CNNs and Deep Learning Quiz</h1>
 
 </section>
-<section id="neuronen" class="slide level2">
-<h2>Neuronen</h2>
-
-<img data-src="../../images/neural_networks/connected_neurons.png" class="r-stretch quarto-figure-center"><p class="caption">Schematische Darstellung von verbundenen Neuronen. Source: <span class="citation" data-cites="phillips_speed_2015">Phillips (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></p></section>
-<section id="visueller-cortex" class="slide level2">
-<h2>Visueller Cortex</h2>
-
-<img data-src="../../images/neural_networks/ventralvisualstream_v2.png" class="r-stretch quarto-figure-center"><p class="caption">Representation von Transformationen im visuellen Cortex. Source: <span class="citation" data-cites="kubilius_ventral_2017">Kubilius (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p></section>
-<section id="multilayer-perceptron" class="slide level2">
-<h2>Multilayer Perceptron</h2>
-
-<img data-src="../../images/neural_networks/mlp.jpeg" class="r-stretch quarto-figure-center"><p class="caption">Ein neuronales Netzwerk mit zwei <em>Hidden Layer</em>. Die Linien zeigen Verbindungen zwischen den Neuronen. Source: <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p></section></section>
-<section>
-<section id="von-linearen-modellen-zu-neuronalen-netzwerken" class="title-slide slide level1 center">
-<h1>Von Linearen Modellen zu Neuronalen Netzwerken</h1>
-
+<section id="question-1" class="slide level2">
+<h2>Question 1</h2>
+<p>What does a convolutional layer do in a Convolutional Neural Network (CNN)?</p>
+<ul>
+<li><ol type="A">
+<li>It combines input features into a single output.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>It applies a set of filters to the input to detect patterns.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>It reduces the dimensionality of the input data.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>It generates a final classification score.</li>
+</ol></li>
+</ul>
 </section>
-<section id="lineares-modell" class="slide level2">
-<h2>Lineares Modell</h2>
-<p>Ein lineares Modell hat folgende Form:</p>
-<p><span class="math display">\[\begin{equation}
-   f(\mathbf{x}^{(i)}) = \mathbf{W} \mathbf{x}^{(i)}  +  \mathbf{b}
-\end{equation}\]</span></p>
+<section id="question-2" class="slide level2">
+<h2>Question 2</h2>
+<p>What is the main purpose of using pooling layers in CNNs?</p>
+<ul>
+<li><ol type="A">
+<li>To increase the number of parameters in the network.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>To reduce the spatial dimensions (width and height) of the input volume.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>To apply non-linear transformations to the data.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>To convert the input into a one-dimensional vector.</li>
+</ol></li>
+</ul>
 </section>
-<section id="neuronales-netzwerk" class="slide level2">
-<h2>Neuronales Netzwerk</h2>
-<p><span class="math display">\[\begin{equation*}
-   f(\mathbf{x}^{(i)}) = \mathbf{W}^{(2)} g\big(\mathbf{W}^{(1)} \mathbf{x}^{(i)}  +  \mathbf{b}^{(1)} \big)  +  \mathbf{b}^{(2)}
-\end{equation*}\]</span></p>
+<section id="question-3" class="slide level2">
+<h2>Question 3</h2>
+<p>In the context of image classification, what is data augmentation?</p>
+<ul>
+<li><ol type="A">
+<li>Increasing the size of the dataset by generating new images through transformations such as rotation, flipping, and scaling.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Adding more layers to the CNN to increase its capacity.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>Using pre-trained models to improve accuracy.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Splitting the dataset into training and testing sets.</li>
+</ol></li>
+</ul>
 </section>
-<section id="activation-function" class="slide level2">
-<h2>Activation Function</h2>
-<p><span class="math display">\[\begin{equation}
-\text{ReLU}(x) = \begin{cases}
-x, &amp; \text{if } x \geq 0 \\
-0, &amp; \text{if } x &lt; 0
-\end{cases}
-\end{equation}\]</span></p>
-<div id="cell-fig-nn-relu_vs_linear" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div id="fig-nn-relu_vs_linear" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-nn-relu_vs_linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img data-src="index_files/figure-revealjs/fig-nn-relu_vs_linear-output-1.png" width="941" height="506">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nn-relu_vs_linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Linear (left) vs non-linear (right) activation function.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
+<section id="question-4" class="slide level2">
+<h2>Question 4</h2>
+<p>What is transfer learning in the context of deep learning?</p>
+<ul>
+<li><ol type="A">
+<li>Training a new model from scratch on a specific dataset.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Using a pre-trained model on a new but related problem.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>Combining multiple models to improve performance.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Applying data augmentation techniques to the training data.</li>
+</ol></li>
+</ul>
+</section>
+<section id="question-5" class="slide level2">
+<h2>Question 5</h2>
+<p>What is meant by translation invariance in CNNs?</p>
+<ul>
+<li><ol type="A">
+<li>The ability of the network to apply the same weights to different parts of the input.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>The ability of the network to recognize an object regardless of its position in the image.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>The process of converting data from one format to another.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>The use of convolutional layers instead of fully connected layers.</li>
+</ol></li>
+</ul>
+</section>
+<section id="question-6" class="slide level2">
+<h2>Question 6</h2>
+<p>What is weight sharing in CNNs?</p>
+<ul>
+<li><ol type="A">
+<li>Using the same weights for different layers in the network.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Applying the same weights across different parts of the input image.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>Sharing weights between different CNNs.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Using pre-trained weights from another model.</li>
+</ol></li>
+</ul>
+</section>
+<section id="question-7" class="slide level2">
+<h2>Question 7</h2>
+<p>What is the difference between translation invariance and translation equivariance in CNNs?</p>
+<ul>
+<li><ol type="A">
+<li>Invariance means the output remains unchanged with translation, while equivariance means the output changes in a predictable way with translation.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Equivariance means the output remains unchanged with translation, while invariance means the output changes in a predictable way with translation.</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>Invariance and equivariance are the same concepts.</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Both terms refer to the ability of CNNs to handle rotations.</li>
+</ol></li>
+</ul>
 </section></section>
-<section id="references" class="title-slide slide level1 smaller scrollable">
-<h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-kubilius_ventral_2017" class="csl-entry" role="listitem">
-Kubilius, Jonas. 2017. <span>“Ventral Visual Stream.”</span> <a href="https://figshare.com/articles/figure/Ventral_visual_stream/106794">https://figshare.com/articles/figure/Ventral_visual_stream/106794</a>.
-</div>
-<div id="ref-li_cs231n_2022" class="csl-entry" role="listitem">
-Li, Fei-Fei. 2022. <span>“<span>CS231n</span> <span>Convolutional</span> <span>Neural</span> <span>Networks</span> for <span>Visual</span> <span>Recognition</span>.”</span> Lecture {Notes}. <a href="https://cs231n.github.io">https://cs231n.github.io</a>.
-</div>
-<div id="ref-phillips_speed_2015" class="csl-entry" role="listitem">
-Phillips, Devin K. 2015. <span>“Speed of the <span>Human</span> <span>Brain</span>.”</span> <em>Ask A Biologist</em>, May. <a href="https://askabiologist.asu.edu/plosable/speed-human-brain">https://askabiologist.asu.edu/plosable/speed-human-brain</a>.
-</div>
-</div>
+<section id="answers" class="title-slide slide level1 center">
+<h1>Answers</h1>
+<ol type="1">
+<li><ol start="2" type="A">
+<li>It applies a set of filters to the input to detect patterns.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>To reduce the spatial dimensions (width and height) of the input volume.</li>
+</ol></li>
+<li><ol type="A">
+<li>Increasing the size of the dataset by generating new images through transformations such as rotation, flipping, and scaling.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Using a pre-trained model on a new but related problem.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>The ability of the network to recognize an object regardless of its position in the image.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Applying the same weights across different parts of the input image.</li>
+</ol></li>
+<li><ol type="A">
+<li>Invariance means the output remains unchanged with translation, while equivariance means the output changes in a predictable way with translation.</li>
+</ol></li>
+</ol>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

@@ -1,132 +1,1065 @@
 [
   {
-    "objectID": "slides/neural_networks/index.html#neuronen",
-    "href": "slides/neural_networks/index.html#neuronen",
-    "title": "Neural Networks",
-    "section": "Neuronen",
-    "text": "Neuronen\n\nSchematische Darstellung von verbundenen Neuronen. Source: Phillips (2015)"
+    "objectID": "slides/practical/index.html#leaky-abstraction",
+    "href": "slides/practical/index.html#leaky-abstraction",
+    "title": "Practical Considerations",
+    "section": "Leaky Abstraction",
+    "text": "Leaky Abstraction\n\nyour_data = # plug your awesome dataset here\nmodel = SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)"
   },
   {
-    "objectID": "slides/neural_networks/index.html#visueller-cortex",
-    "href": "slides/neural_networks/index.html#visueller-cortex",
-    "title": "Neural Networks",
-    "section": "Visueller Cortex",
-    "text": "Visueller Cortex\n\nRepresentation von Transformationen im visuellen Cortex. Source: Kubilius (2017)"
+    "objectID": "slides/practical/index.html#silent-failure",
+    "href": "slides/practical/index.html#silent-failure",
+    "title": "Practical Considerations",
+    "section": "Silent Failure",
+    "text": "Silent Failure\nTraining neural networks fails silently!"
   },
   {
-    "objectID": "slides/neural_networks/index.html#multilayer-perceptron",
-    "href": "slides/neural_networks/index.html#multilayer-perceptron",
-    "title": "Neural Networks",
+    "objectID": "slides/practical/index.html#get-to-know-the-data",
+    "href": "slides/practical/index.html#get-to-know-the-data",
+    "title": "Practical Considerations",
+    "section": "1) Get to Know the Data",
+    "text": "1) Get to Know the Data\nThoroughly inspect the data!"
+  },
+  {
+    "objectID": "slides/practical/index.html#camera-traps-errors",
+    "href": "slides/practical/index.html#camera-traps-errors",
+    "title": "Practical Considerations",
+    "section": "Camera Traps: Errors",
+    "text": "Camera Traps: Errors\n\n\n\nExamples of images from camera traps."
+  },
+  {
+    "objectID": "slides/practical/index.html#camera-traps-difficulties",
+    "href": "slides/practical/index.html#camera-traps-difficulties",
+    "title": "Practical Considerations",
+    "section": "Camera Traps: Difficulties",
+    "text": "Camera Traps: Difficulties\n\n\n\nExamples of images from camera traps. Source: Beery, Van Horn, and Perona (2018)"
+  },
+  {
+    "objectID": "slides/practical/index.html#rare-classes",
+    "href": "slides/practical/index.html#rare-classes",
+    "title": "Practical Considerations",
+    "section": "Rare Classes",
+    "text": "Rare Classes\n\n\n\nAn image of a serval. Below are the model confidences."
+  },
+  {
+    "objectID": "slides/practical/index.html#multiple-classes",
+    "href": "slides/practical/index.html#multiple-classes",
+    "title": "Practical Considerations",
+    "section": "Multiple Classes",
+    "text": "Multiple Classes\n\nExamples of an image from a camera trap with different species."
+  },
+  {
+    "objectID": "slides/practical/index.html#baselines-1",
+    "href": "slides/practical/index.html#baselines-1",
+    "title": "Practical Considerations",
+    "section": "2) Baselines",
+    "text": "2) Baselines\nEvaluation pipeline, metrics, experiment tracking, and baseline model."
+  },
+  {
+    "objectID": "slides/practical/index.html#ml-process",
+    "href": "slides/practical/index.html#ml-process",
+    "title": "Practical Considerations",
+    "section": "ML Process",
+    "text": "ML Process\n\n\n\nThe components of a typical machine learning process. Source: Raschka and Mirjalili (2020)"
+  },
+  {
+    "objectID": "slides/practical/index.html#experiment-tracking",
+    "href": "slides/practical/index.html#experiment-tracking",
+    "title": "Practical Considerations",
+    "section": "Experiment Tracking",
+    "text": "Experiment Tracking\n\n\n\nWeights and Biases experiment tracking."
+  },
+  {
+    "objectID": "slides/practical/index.html#baselines-2",
+    "href": "slides/practical/index.html#baselines-2",
+    "title": "Practical Considerations",
+    "section": "2) Baselines",
+    "text": "2) Baselines\nEnsure reproducibility.\nimport torch\ntorch.manual_seed(0)"
+  },
+  {
+    "objectID": "slides/practical/index.html#baselines-3",
+    "href": "slides/practical/index.html#baselines-3",
+    "title": "Practical Considerations",
+    "section": "2) Baselines",
+    "text": "2) Baselines\nAvoid unnecessary techniques and complexities. Reduce error susceptibility."
+  },
+  {
+    "objectID": "slides/practical/index.html#baselines-4",
+    "href": "slides/practical/index.html#baselines-4",
+    "title": "Practical Considerations",
+    "section": "2) Baselines",
+    "text": "2) Baselines\nIf possible, use a human baseline. How good can the model be?"
+  },
+  {
+    "objectID": "slides/practical/index.html#difficult-cases",
+    "href": "slides/practical/index.html#difficult-cases",
+    "title": "Practical Considerations",
+    "section": "Difficult Cases",
+    "text": "Difficult Cases\n\nAn image from a camera trap that is difficult to classify. Here, annotators had a 96.6% agreement with experts."
+  },
+  {
+    "objectID": "slides/practical/index.html#baselines-5",
+    "href": "slides/practical/index.html#baselines-5",
+    "title": "Practical Considerations",
+    "section": "2) Baselines",
+    "text": "2) Baselines\nTrain an input-independent baseline. Is the model learning anything at all?"
+  },
+  {
+    "objectID": "slides/practical/index.html#baselines-6",
+    "href": "slides/practical/index.html#baselines-6",
+    "title": "Practical Considerations",
+    "section": "2) Baselines",
+    "text": "2) Baselines\nOverfit the model on a batch of data. Does the optimization work?"
+  },
+  {
+    "objectID": "slides/practical/index.html#baselines-7",
+    "href": "slides/practical/index.html#baselines-7",
+    "title": "Practical Considerations",
+    "section": "2) Baselines",
+    "text": "2) Baselines\nVisualize what goes into the model. Is my preprocessing working?\ny_hat = model(x)"
+  },
+  {
+    "objectID": "slides/practical/index.html#fixed-sample-segmentation-example",
+    "href": "slides/practical/index.html#fixed-sample-segmentation-example",
+    "title": "Practical Considerations",
+    "section": "Fixed Sample: Segmentation Example",
+    "text": "Fixed Sample: Segmentation Example\n\n\n\nExample of a segmentation problem: input on the left and output on the right."
+  },
+  {
+    "objectID": "slides/practical/index.html#overfit-1",
+    "href": "slides/practical/index.html#overfit-1",
+    "title": "Practical Considerations",
+    "section": "3) Overfit",
+    "text": "3) Overfit\nAt this point, you should have a good understanding of the dataset, high confidence in the evaluation pipeline, and initial baselines from simple models. Now, look for a model that performs well on the training set."
+  },
+  {
+    "objectID": "slides/practical/index.html#overfit-2",
+    "href": "slides/practical/index.html#overfit-2",
+    "title": "Practical Considerations",
+    "section": "3) Overfit",
+    "text": "3) Overfit\nLook for a good model architecture. Follow the principle “Don’t be a hero”. Prefer already implemented/established architectures."
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-1",
+    "href": "slides/practical/index.html#regularization-1",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nAt this point, you should have achieved good performance on the training set. Now, focus on the validation set."
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-2",
+    "href": "slides/practical/index.html#regularization-2",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nThe simplest measure to achieve better performance (and also reduce overfitting) is to collect more training data. However, this is often expensive!"
+  },
+  {
+    "objectID": "slides/practical/index.html#learning-curve",
+    "href": "slides/practical/index.html#learning-curve",
+    "title": "Practical Considerations",
+    "section": "Learning Curve",
+    "text": "Learning Curve\nIs it worth collecting more data?\n\nExample of a learning curve. X-axis: Performance, Y-axis: Number of training samples. Left panel with Gaussian Naive Bayes and right panel with Support Vector Classifier."
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-3",
+    "href": "slides/practical/index.html#regularization-3",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nAnother possibility is data augmentation. New data points are generated from existing ones by making random changes to the data. Typically, data points are augmented on-the-fly."
+  },
+  {
+    "objectID": "slides/practical/index.html#data-augmentation-augly",
+    "href": "slides/practical/index.html#data-augmentation-augly",
+    "title": "Practical Considerations",
+    "section": "Data Augmentation: Augly",
+    "text": "Data Augmentation: Augly\n\n\n\nAugLy"
+  },
+  {
+    "objectID": "slides/practical/index.html#data-augmentation-albumentations",
+    "href": "slides/practical/index.html#data-augmentation-albumentations",
+    "title": "Practical Considerations",
+    "section": "Data Augmentation: Albumentations",
+    "text": "Data Augmentation: Albumentations\n\nAlbumentations"
+  },
+  {
+    "objectID": "slides/practical/index.html#data-augmentation-kornia",
+    "href": "slides/practical/index.html#data-augmentation-kornia",
+    "title": "Practical Considerations",
+    "section": "Data Augmentation: Kornia",
+    "text": "Data Augmentation: Kornia\n\n\n\nKornia"
+  },
+  {
+    "objectID": "slides/practical/index.html#data-augmentation-example",
+    "href": "slides/practical/index.html#data-augmentation-example",
+    "title": "Practical Considerations",
+    "section": "Data Augmentation: Example",
+    "text": "Data Augmentation: Example\n\n\n\nData augmentation example."
+  },
+  {
+    "objectID": "slides/practical/index.html#data-augmentation-synthetic-data",
+    "href": "slides/practical/index.html#data-augmentation-synthetic-data",
+    "title": "Practical Considerations",
+    "section": "Data Augmentation: Synthetic Data",
+    "text": "Data Augmentation: Synthetic Data\n\n\n\nFrom Beery et al. (2020). Synthetic and semi-synthetic data."
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-4",
+    "href": "slides/practical/index.html#regularization-4",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nWith early stopping, a model is trained and periodically evaluated on a validation set, e.g., after each epoch. Training is stopped if no significant improvement is achieved after x evaluation cycles."
+  },
+  {
+    "objectID": "slides/practical/index.html#early-stopping",
+    "href": "slides/practical/index.html#early-stopping",
+    "title": "Practical Considerations",
+    "section": "Early Stopping",
+    "text": "Early Stopping\n\n\n\nSource: Link"
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-5",
+    "href": "slides/practical/index.html#regularization-5",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nEarly stopping in PyTorch.\nfrom pytorch_lightning.callbacks.early_stopping import EarlyStopping\n\nclass LitModel(LightningModule):\n    def validation_step(self, batch, batch_idx):\n        loss = ...\n        self.log(\"val_loss\", loss)\n\nmodel = LitModel()\ntrainer = Trainer(callbacks=[EarlyStopping(monitor=\"val_loss\", mode=\"min\")])\ntrainer.fit(model)"
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-6",
+    "href": "slides/practical/index.html#regularization-6",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nWith weight decay, a model can be regularized. The update step in gradient descent is modified.\n\\[\\begin{equation}\n\\theta_{t+1} = \\theta_t (1 - \\lambda) - \\eta \\nabla J(\\theta)\n\\end{equation}\\]\nWhere \\(t\\) is the iteration, \\(\\theta\\) the model parameters, \\(\\eta\\) the learning rate, and \\(\\lambda\\) the decay parameter."
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-7",
+    "href": "slides/practical/index.html#regularization-7",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nTransfer learning involves adapting a pre-trained model on a large dataset (e.g., ImageNet) to a new task. The last layer is removed and replaced according to the new task. The network is then further trained. Layers can be frozen (weights not updated) or fine-tuned (weights further trained)."
+  },
+  {
+    "objectID": "slides/practical/index.html#transfer-learning",
+    "href": "slides/practical/index.html#transfer-learning",
+    "title": "Practical Considerations",
+    "section": "Transfer Learning",
+    "text": "Transfer Learning\n\n\n\nSource: Johnson and Fouhey (2021)"
+  },
+  {
+    "objectID": "slides/practical/index.html#regularization-8",
+    "href": "slides/practical/index.html#regularization-8",
+    "title": "Practical Considerations",
+    "section": "4) Regularization",
+    "text": "4) Regularization\nIn PyTorch, you can freeze the parameters:\ndef set_parameter_requires_grad(model, feature_extracting):\n    if feature_extracting:\n        for param in model.parameters():\n            param.requires_grad = False"
+  },
+  {
+    "objectID": "slides/practical/index.html#hyper-parameter-tuning",
+    "href": "slides/practical/index.html#hyper-parameter-tuning",
+    "title": "Practical Considerations",
+    "section": "5) Hyper-Parameter Tuning",
+    "text": "5) Hyper-Parameter Tuning\nIn this step, different hyperparameters and architectures are systematically evaluated. Techniques such as grid search or random search can be used, with random search being preferred."
+  },
+  {
+    "objectID": "slides/practical/index.html#hyper-parameter-tuning-1",
+    "href": "slides/practical/index.html#hyper-parameter-tuning-1",
+    "title": "Practical Considerations",
+    "section": "5) Hyper-Parameter Tuning",
+    "text": "5) Hyper-Parameter Tuning\nParameterized architecture:\nclass Net(nn.Module):\n    def __init__(self, l1=120, l2=84):\n        super(Net, self).__init__()\n        self.conv1 = nn.Conv2d(3, 6, 5)\n        self.pool = nn.MaxPool2d(2, 2)\n        self.conv2 = nn.Conv2d(6, 16, 5)\n        self.fc1 = nn.Linear(16 * 5 * 5, l1)\n        self.fc2 = nn.Linear(l1, l2)\n        self.fc3 = nn.Linear(l2, 10)\n\n    def forward(self, x):\n        x = self.pool(F.relu(self.conv1(x)))\n        x = self.pool(F.relu(self.conv2(x)))\n        x = x.view(-1, 16 * 5 * 5)\n        x = F.relu(self.fc1(x))\n        x = F.relu(self.fc2(x))\n        x = self.fc3(x)\n        return x"
+  },
+  {
+    "objectID": "slides/practical/index.html#squeeze-out-the-juice",
+    "href": "slides/practical/index.html#squeeze-out-the-juice",
+    "title": "Practical Considerations",
+    "section": "6) Squeeze out the Juice",
+    "text": "6) Squeeze out the Juice\nAfter finding the best architectures and hyperparameters, there are further ways to squeeze out more performance."
+  },
+  {
+    "objectID": "slides/practical/index.html#squeeze-out-the-juice-1",
+    "href": "slides/practical/index.html#squeeze-out-the-juice-1",
+    "title": "Practical Considerations",
+    "section": "6) Squeeze out the Juice",
+    "text": "6) Squeeze out the Juice\nModel ensembling."
+  },
+  {
+    "objectID": "slides/practical/index.html#squeeze-out-the-juice-2",
+    "href": "slides/practical/index.html#squeeze-out-the-juice-2",
+    "title": "Practical Considerations",
+    "section": "6) Squeeze out the Juice",
+    "text": "6) Squeeze out the Juice\nTrain longer."
+  },
+  {
+    "objectID": "slides/practical/index.html#double-descent",
+    "href": "slides/practical/index.html#double-descent",
+    "title": "Practical Considerations",
+    "section": "Double Descent",
+    "text": "Double Descent\n\nSource: Nakkiran et al. (2019)"
+  },
+  {
+    "objectID": "slides/practical/index.html#squeeze-out-the-juice-3",
+    "href": "slides/practical/index.html#squeeze-out-the-juice-3",
+    "title": "Practical Considerations",
+    "section": "6) Squeeze out the Juice",
+    "text": "6) Squeeze out the Juice\nOther training techniques:\n\nSpecial optimizer (AdamW)\nComplex data augmentation techniques (Mixup, Cutmix, RandAugment)\nRegularization techniques (Stochastic Depth)\nLabel smoothing"
+  },
+  {
+    "objectID": "slides/practical/index.html#huggingface",
+    "href": "slides/practical/index.html#huggingface",
+    "title": "Practical Considerations",
+    "section": "HuggingFace",
+    "text": "HuggingFace\nHuggingFace"
+  },
+  {
+    "objectID": "slides/practical/index.html#timm",
+    "href": "slides/practical/index.html#timm",
+    "title": "Practical Considerations",
+    "section": "timm",
+    "text": "timm\nPyTorch Image Models (timm)"
+  },
+  {
+    "objectID": "slides/practical/index.html#links",
+    "href": "slides/practical/index.html#links",
+    "title": "Practical Considerations",
+    "section": "Links",
+    "text": "Links\n\nDS-cookie cutter\nPyTorch Lightning\nHydra\nWeights & Biases\nNeptune AI\nVersion Control Systems for ML Projects"
+  },
+  {
+    "objectID": "slides/cnns/index.html#overview",
+    "href": "slides/cnns/index.html#overview",
+    "title": "Convolutional Neural Networks",
+    "section": "Overview",
+    "text": "Overview\n\nIntroduction & Motivation\nConvolutional Layers\nProperties\nVariants and Layers\nVisualizations and Architectures"
+  },
+  {
+    "objectID": "slides/cnns/index.html#multilayer-perceptron",
+    "href": "slides/cnns/index.html#multilayer-perceptron",
+    "title": "Convolutional Neural Networks",
     "section": "Multilayer Perceptron",
-    "text": "Multilayer Perceptron\n\nEin neuronales Netzwerk mit zwei Hidden Layer. Die Linien zeigen Verbindungen zwischen den Neuronen. Source: Li (2022)"
+    "text": "Multilayer Perceptron\n\n\n\nSource: Li (2022)"
   },
   {
-    "objectID": "slides/neural_networks/index.html#lineares-modell",
-    "href": "slides/neural_networks/index.html#lineares-modell",
-    "title": "Neural Networks",
-    "section": "Lineares Modell",
-    "text": "Lineares Modell\nEin lineares Modell hat folgende Form:\n\\[\\begin{equation}\n   f(\\mathbf{x}^{(i)}) = \\mathbf{W} \\mathbf{x}^{(i)}  +  \\mathbf{b}\n\\end{equation}\\]"
+    "objectID": "slides/cnns/index.html#mlps-on-images",
+    "href": "slides/cnns/index.html#mlps-on-images",
+    "title": "Convolutional Neural Networks",
+    "section": "MLPs on Images",
+    "text": "MLPs on Images\n\n\n\nSource: Johnson (2019)"
   },
   {
-    "objectID": "slides/neural_networks/index.html#neuronales-netzwerk",
-    "href": "slides/neural_networks/index.html#neuronales-netzwerk",
-    "title": "Neural Networks",
-    "section": "Neuronales Netzwerk",
-    "text": "Neuronales Netzwerk\n\\[\\begin{equation*}\n   f(\\mathbf{x}^{(i)}) = \\mathbf{W}^{(2)} g\\big(\\mathbf{W}^{(1)} \\mathbf{x}^{(i)}  +  \\mathbf{b}^{(1)} \\big)  +  \\mathbf{b}^{(2)}\n\\end{equation*}\\]"
+    "objectID": "slides/cnns/index.html#mlps-on-images-1",
+    "href": "slides/cnns/index.html#mlps-on-images-1",
+    "title": "Convolutional Neural Networks",
+    "section": "MLPs on Images",
+    "text": "MLPs on Images\n\n\n\nSource: Li (2023)"
   },
   {
-    "objectID": "slides/neural_networks/index.html#activation-funtion",
-    "href": "slides/neural_networks/index.html#activation-funtion",
-    "title": "Neural Networks",
-    "section": "Activation Funtion",
-    "text": "Activation Funtion\n\\[\\begin{equation}\n\\text{ReLU}(x) = \\begin{cases}\nx, & \\text{if } x \\geq 0 \\\\\n0, & \\text{if } x &lt; 0\n\\end{cases}\n\\end{equation}\\]\n\n\n\n\n\n\n\n\nFigure 1: Linear (left) vs non-linear (right) activation function."
+    "objectID": "slides/cnns/index.html#cnns",
+    "href": "slides/cnns/index.html#cnns",
+    "title": "Convolutional Neural Networks",
+    "section": "CNNs",
+    "text": "CNNs\n\n\n\nThe activations of a ConvNet architecture. The input image is on the left, and the predictions are on the right. Source: Li (2022)"
   },
   {
-    "objectID": "notation.html",
-    "href": "notation.html",
-    "title": "Notation",
+    "objectID": "slides/cnns/index.html#convolution",
+    "href": "slides/cnns/index.html#convolution",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolution?",
+    "text": "Convolution?\nConvolution in Deep Learning is typically implemented as cross-correlation.\n\\[\\begin{equation}\nS(i, j) = (K * I)(i, j) = \\sum_m \\sum_n I(i + m, j + n) K(m, n)\n\\end{equation}\\]"
+  },
+  {
+    "objectID": "slides/cnns/index.html#convolutional-layers-1",
+    "href": "slides/cnns/index.html#convolutional-layers-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutional Layers",
+    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#convolutional-layers-2",
+    "href": "slides/cnns/index.html#convolutional-layers-2",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutional Layers",
+    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#convolutional-layers-3",
+    "href": "slides/cnns/index.html#convolutional-layers-3",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutional Layers",
+    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#convolutional-layers-4",
+    "href": "slides/cnns/index.html#convolutional-layers-4",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutional Layers",
+    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#convolutional-layers-5",
+    "href": "slides/cnns/index.html#convolutional-layers-5",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolutional Layers",
+    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#hyper-parameters",
+    "href": "slides/cnns/index.html#hyper-parameters",
+    "title": "Convolutional Neural Networks",
+    "section": "Hyper-Parameters",
+    "text": "Hyper-Parameters\nConvolutional Layers are parameterized:\n\nDepth: How many activation maps?\nPadding: How much padding is added to the input?\nStride: What is the step size of the convolution?\nKernel-Size: What is the kernel size?"
+  },
+  {
+    "objectID": "slides/cnns/index.html#padding-why",
+    "href": "slides/cnns/index.html#padding-why",
+    "title": "Convolutional Neural Networks",
+    "section": "Padding: Why?",
+    "text": "Padding: Why?\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#padding",
+    "href": "slides/cnns/index.html#padding",
+    "title": "Convolutional Neural Networks",
+    "section": "Padding",
+    "text": "Padding\n\n\n\nLeft: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output."
+  },
+  {
+    "objectID": "slides/cnns/index.html#padding-1",
+    "href": "slides/cnns/index.html#padding-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Padding",
+    "text": "Padding\n\n\n\nLeft: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output."
+  },
+  {
+    "objectID": "slides/cnns/index.html#padding-and-stride",
+    "href": "slides/cnns/index.html#padding-and-stride",
+    "title": "Convolutional Neural Networks",
+    "section": "Padding and Stride",
+    "text": "Padding and Stride\n\n\n\nStride with Padding. Red indicates the position of the corresponding filter value on the input activations."
+  },
+  {
+    "objectID": "slides/cnns/index.html#padding-and-stride-animations",
+    "href": "slides/cnns/index.html#padding-and-stride-animations",
+    "title": "Convolutional Neural Networks",
+    "section": "Padding and Stride: Animations",
+    "text": "Padding and Stride: Animations\nDumoulin and Visin (2016) has created some animations to better understand convolutions, available here: Link."
+  },
+  {
+    "objectID": "slides/cnns/index.html#calculations",
+    "href": "slides/cnns/index.html#calculations",
+    "title": "Convolutional Neural Networks",
+    "section": "Calculations",
+    "text": "Calculations\nYou can calculate the dimensionality of the activation maps with the following formulas:\n\n\\(i\\): Side length of the input activations (assumption: square inputs)\n\\(k\\): Kernel size (assumption: square kernel)\n\\(o\\): Side length of the output activation maps\n\\(s\\): Stride (assumption: same stride along spatial dimensions)\n\\(p\\): Number of paddings on each side (assumption: same number of paddings along spatial dimensions)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#calculations-1",
+    "href": "slides/cnns/index.html#calculations-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Calculations",
+    "text": "Calculations\nThis formula covers all scenarios!\nSize of Activation Map\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k}{s} \\right\\rfloor + 1\n\\end{equation}\\]"
+  },
+  {
+    "objectID": "slides/cnns/index.html#quiz",
+    "href": "slides/cnns/index.html#quiz",
+    "title": "Convolutional Neural Networks",
+    "section": "Quiz",
+    "text": "Quiz\nScenario:\n\nInput: 3 x 32 x 32\nConvolution: 10 filters with 5x5 kernel size, stride=1, pad=2\n\nWhat is the size of the activation map?\nHow many weights are there?\nSize of Activation Map\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k}{s} \\right\\rfloor + 1\n\\end{equation}\\]"
+  },
+  {
+    "objectID": "slides/cnns/index.html#sparse-connectivity-and-parameter-sharing",
+    "href": "slides/cnns/index.html#sparse-connectivity-and-parameter-sharing",
+    "title": "Convolutional Neural Networks",
+    "section": "Sparse Connectivity and Parameter Sharing",
+    "text": "Sparse Connectivity and Parameter Sharing\nLocal (Sparse) Connectivity: Neurons are only locally connected.\nParameter Sharing: Weights of a neuron are applied locally but are the same across the entire input."
+  },
+  {
+    "objectID": "slides/cnns/index.html#convolution-is-parameter-sharing-always-useful",
+    "href": "slides/cnns/index.html#convolution-is-parameter-sharing-always-useful",
+    "title": "Convolutional Neural Networks",
+    "section": "Convolution: Is Parameter Sharing Always Useful?",
+    "text": "Convolution: Is Parameter Sharing Always Useful?\nQuestion: Is parameter sharing always useful?"
+  },
+  {
+    "objectID": "slides/cnns/index.html#mlp-parameters",
+    "href": "slides/cnns/index.html#mlp-parameters",
+    "title": "Convolutional Neural Networks",
+    "section": "MLP Parameters",
+    "text": "MLP Parameters\n\n\n==========================================================================================\nLayer (type:depth-idx)                   Output Shape              Param #\n==========================================================================================\nMLP                                      [1, 10]                   --\n├─Flatten: 1-1                           [1, 3072]                 --\n├─Linear: 1-2                            [1, 64]                   196,672\n├─Linear: 1-3                            [1, 32]                   2,080\n├─Linear: 1-4                            [1, 10]                   330\n==========================================================================================\nTotal params: 199,082\nTrainable params: 199,082\nNon-trainable params: 0\nTotal mult-adds (Units.MEGABYTES): 0.20\n==========================================================================================\nInput size (MB): 0.01\nForward/backward pass size (MB): 0.00\nParams size (MB): 0.80\nEstimated Total Size (MB): 0.81\n=========================================================================================="
+  },
+  {
+    "objectID": "slides/cnns/index.html#cnn-parameters",
+    "href": "slides/cnns/index.html#cnn-parameters",
+    "title": "Convolutional Neural Networks",
+    "section": "CNN Parameters",
+    "text": "CNN Parameters\n\n\n==========================================================================================\nLayer (type:depth-idx)                   Output Shape              Param #\n==========================================================================================\nCNN                                      [1, 10]                   --\n├─Conv2d: 1-1                            [1, 16, 16, 16]           2,368\n├─Conv2d: 1-2                            [1, 16, 8, 8]             2,320\n├─Flatten: 1-3                           [1, 1024]                 --\n├─Linear: 1-4                            [1, 10]                   10,250\n==========================================================================================\nTotal params: 14,938\nTrainable params: 14,938\nNon-trainable params: 0\nTotal mult-adds (Units.MEGABYTES): 0.76\n==========================================================================================\nInput size (MB): 0.01\nForward/backward pass size (MB): 0.04\nParams size (MB): 0.06\nEstimated Total Size (MB): 0.11\n=========================================================================================="
+  },
+  {
+    "objectID": "slides/cnns/index.html#quiz-linear-transformation-vs-convolution",
+    "href": "slides/cnns/index.html#quiz-linear-transformation-vs-convolution",
+    "title": "Convolutional Neural Networks",
+    "section": "Quiz: Linear Transformation vs Convolution",
+    "text": "Quiz: Linear Transformation vs Convolution\n\n\n\nInput in 2-D (top left), the flat version (bottom left), expected output (right), and unknown transformation (center)."
+  },
+  {
+    "objectID": "slides/cnns/index.html#translation-invariance-equivariance",
+    "href": "slides/cnns/index.html#translation-invariance-equivariance",
+    "title": "Convolutional Neural Networks",
+    "section": "Translation Invariance / Equivariance",
+    "text": "Translation Invariance / Equivariance\nGiven a translation \\(g()\\), which spatially shifts inputs:\n\nTranslation invariance: \\(f(g(x))=f(x)\\)\nTranslation equivariance: \\(f(g(x))=g(f(x))\\)\n\nConvolutions are translation equivariant: Example Video"
+  },
+  {
+    "objectID": "slides/cnns/index.html#stacking-convolutions",
+    "href": "slides/cnns/index.html#stacking-convolutions",
+    "title": "Convolutional Neural Networks",
+    "section": "Stacking Convolutions",
+    "text": "Stacking Convolutions\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#receptive-field",
+    "href": "slides/cnns/index.html#receptive-field",
+    "title": "Convolutional Neural Networks",
+    "section": "Receptive Field",
+    "text": "Receptive Field\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#receptive-field-1",
+    "href": "slides/cnns/index.html#receptive-field-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Receptive Field",
+    "text": "Receptive Field\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#dilated-convolutions",
+    "href": "slides/cnns/index.html#dilated-convolutions",
+    "title": "Convolutional Neural Networks",
+    "section": "Dilated Convolutions",
+    "text": "Dilated Convolutions\n\n\n\nConvolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1."
+  },
+  {
+    "objectID": "slides/cnns/index.html#dilated-convolutions-1",
+    "href": "slides/cnns/index.html#dilated-convolutions-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Dilated Convolutions",
+    "text": "Dilated Convolutions\n\n\n\nConvolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2."
+  },
+  {
+    "objectID": "slides/cnns/index.html#x1-convolutions",
+    "href": "slides/cnns/index.html#x1-convolutions",
+    "title": "Convolutional Neural Networks",
+    "section": "1x1 Convolutions",
+    "text": "1x1 Convolutions\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#depthwise-separable-convolutions",
+    "href": "slides/cnns/index.html#depthwise-separable-convolutions",
+    "title": "Convolutional Neural Networks",
+    "section": "Depthwise Separable Convolutions",
+    "text": "Depthwise Separable Convolutions\n\n\n\nSource: https://paperswithcode.com/method/depthwise-convolution"
+  },
+  {
+    "objectID": "slides/cnns/index.html#depthwise-separable-convolutions-1",
+    "href": "slides/cnns/index.html#depthwise-separable-convolutions-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Depthwise Separable Convolutions",
+    "text": "Depthwise Separable Convolutions\n\n\n\nSource: Yu and Koltun (2016)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#pooling-layers",
+    "href": "slides/cnns/index.html#pooling-layers",
+    "title": "Convolutional Neural Networks",
+    "section": "Pooling Layers",
+    "text": "Pooling Layers\n\nSource: Li (2022)"
+  },
+  {
+    "objectID": "slides/cnns/index.html#max-pooling",
+    "href": "slides/cnns/index.html#max-pooling",
+    "title": "Convolutional Neural Networks",
+    "section": "Max Pooling",
+    "text": "Max Pooling\n\n\n\nMax pooling, input (left) and output (right)."
+  },
+  {
+    "objectID": "slides/cnns/index.html#average-pooling",
+    "href": "slides/cnns/index.html#average-pooling",
+    "title": "Convolutional Neural Networks",
+    "section": "Average Pooling",
+    "text": "Average Pooling\n\n\n\nAverage pooling, input (left) and output (right)."
+  },
+  {
+    "objectID": "slides/cnns/index.html#other-pooling-layers",
+    "href": "slides/cnns/index.html#other-pooling-layers",
+    "title": "Convolutional Neural Networks",
+    "section": "Other Pooling Layers",
+    "text": "Other Pooling Layers\nGlobal Average Pooling is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers."
+  },
+  {
+    "objectID": "slides/cnns/index.html#global-average-pooling",
+    "href": "slides/cnns/index.html#global-average-pooling",
+    "title": "Convolutional Neural Networks",
+    "section": "Global Average Pooling",
+    "text": "Global Average Pooling\n\n\n\nGlobal Average pooling, input (left) and output (right)."
+  },
+  {
+    "objectID": "slides/cnns/index.html#learned-filters",
+    "href": "slides/cnns/index.html#learned-filters",
+    "title": "Convolutional Neural Networks",
+    "section": "Learned Filters",
+    "text": "Learned Filters\n\n\n\nSource: Krizhevsky, Sutskever, and Hinton (2012)"
+  },
+  {
+    "objectID": "slides/recap/index.html#question-1",
+    "href": "slides/recap/index.html#question-1",
+    "title": "Recap CNNs",
+    "section": "Question 1",
+    "text": "Question 1\nWhat does a convolutional layer do in a Convolutional Neural Network (CNN)?\n\n\nIt combines input features into a single output.\n\n\nIt applies a set of filters to the input to detect patterns.\n\n\nIt reduces the dimensionality of the input data.\n\n\nIt generates a final classification score."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-2",
+    "href": "slides/recap/index.html#question-2",
+    "title": "Recap CNNs",
+    "section": "Question 2",
+    "text": "Question 2\nWhat is the main purpose of using pooling layers in CNNs?\n\n\nTo increase the number of parameters in the network.\n\n\nTo reduce the spatial dimensions (width and height) of the input volume.\n\n\nTo apply non-linear transformations to the data.\n\n\nTo convert the input into a one-dimensional vector."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-3",
+    "href": "slides/recap/index.html#question-3",
+    "title": "Recap CNNs",
+    "section": "Question 3",
+    "text": "Question 3\nIn the context of image classification, what is data augmentation?\n\n\nIncreasing the size of the dataset by generating new images through transformations such as rotation, flipping, and scaling.\n\n\nAdding more layers to the CNN to increase its capacity.\n\n\nUsing pre-trained models to improve accuracy.\n\n\nSplitting the dataset into training and testing sets."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-4",
+    "href": "slides/recap/index.html#question-4",
+    "title": "Recap CNNs",
+    "section": "Question 4",
+    "text": "Question 4\nWhat is transfer learning in the context of deep learning?\n\n\nTraining a new model from scratch on a specific dataset.\n\n\nUsing a pre-trained model on a new but related problem.\n\n\nCombining multiple models to improve performance.\n\n\nApplying data augmentation techniques to the training data."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-5",
+    "href": "slides/recap/index.html#question-5",
+    "title": "Recap CNNs",
+    "section": "Question 5",
+    "text": "Question 5\nWhat is meant by translation invariance in CNNs?\n\n\nThe ability of the network to apply the same weights to different parts of the input.\n\n\nThe ability of the network to recognize an object regardless of its position in the image.\n\n\nThe process of converting data from one format to another.\n\n\nThe use of convolutional layers instead of fully connected layers."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-6",
+    "href": "slides/recap/index.html#question-6",
+    "title": "Recap CNNs",
+    "section": "Question 6",
+    "text": "Question 6\nWhat is weight sharing in CNNs?\n\n\nUsing the same weights for different layers in the network.\n\n\nApplying the same weights across different parts of the input image.\n\n\nSharing weights between different CNNs.\n\n\nUsing pre-trained weights from another model."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-7",
+    "href": "slides/recap/index.html#question-7",
+    "title": "Recap CNNs",
+    "section": "Question 7",
+    "text": "Question 7\nWhat is the difference between translation invariance and translation equivariance in CNNs?\n\n\nInvariance means the output remains unchanged with translation, while equivariance means the output changes in a predictable way with translation.\n\n\nEquivariance means the output remains unchanged with translation, while invariance means the output changes in a predictable way with translation.\n\n\nInvariance and equivariance are the same concepts.\n\n\nBoth terms refer to the ability of CNNs to handle rotations."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#overview",
+    "href": "slides/image_classification/index.html#overview",
+    "title": "Image Classification",
+    "section": "Overview",
+    "text": "Overview\n\nIntroduction\nModeling\nLoss Function\nArchitectures"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#adversarial-panda",
+    "href": "slides/image_classification/index.html#adversarial-panda",
+    "title": "Image Classification",
+    "section": "Adversarial Panda",
+    "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#adversarial-panda-1",
+    "href": "slides/image_classification/index.html#adversarial-panda-1",
+    "title": "Image Classification",
+    "section": "Adversarial Panda",
+    "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#image-classification",
+    "href": "slides/image_classification/index.html#image-classification",
+    "title": "Image Classification",
+    "section": "Image Classification",
+    "text": "Image Classification\n\n\n\nExample of Image Classification."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#image-classification-example",
+    "href": "slides/image_classification/index.html#image-classification-example",
+    "title": "Image Classification",
+    "section": "Image Classification: Example",
+    "text": "Image Classification: Example\n\n\n\nExample of Image Classification (from Krizhevsky, Sutskever, and Hinton (2012))."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#image-classification-camera-traps",
+    "href": "slides/image_classification/index.html#image-classification-camera-traps",
+    "title": "Image Classification",
+    "section": "Image Classification: Camera Traps",
+    "text": "Image Classification: Camera Traps\n\n\n\nExample images from camera traps."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#parametric-approach",
+    "href": "slides/image_classification/index.html#parametric-approach",
+    "title": "Image Classification",
+    "section": "Parametric Approach",
+    "text": "Parametric Approach\nWith a parametric approach, we seek a model of the following form:\n\\[\\begin{equation}\n    \\hat{y}^{(i)} = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThe model parameters \\(\\theta\\) define our model and must be learned with an algorithm."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#softmax-classifier",
+    "href": "slides/image_classification/index.html#softmax-classifier",
+    "title": "Image Classification",
+    "section": "Softmax Classifier",
+    "text": "Softmax Classifier\nWe want to model the following probability:\n\\[\\begin{equation}\n    P(Y=\\mathbf{y}^{(i)}| X = \\mathbf{x}^{(i)})\n\\end{equation}\\]\nTo obtain a valid probability distribution, the untransformed outputs \\(\\mathbf{z}\\), also called logits, of a model are transformed with the Softmax function \\(\\sigma(\\mathbf{z})\\)."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#softmax-transformation",
+    "href": "slides/image_classification/index.html#softmax-transformation",
+    "title": "Image Classification",
+    "section": "Softmax Transformation",
+    "text": "Softmax Transformation\n\\[\\begin{equation}\n    P(Y = k| X = \\mathbf{x}^{(i)}) = \\sigma(\\mathbf{z})_k = \\frac{e^{z_k}}{\\sum_i^K e^{z_i}}\n\\end{equation}\\]"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#logits-to-probabilities",
+    "href": "slides/image_classification/index.html#logits-to-probabilities",
+    "title": "Image Classification",
+    "section": "Logits to Probabilities",
+    "text": "Logits to Probabilities\n\n\n\nLogits (left) to probabilities with the Softmax function."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#probabilities",
+    "href": "slides/image_classification/index.html#probabilities",
+    "title": "Image Classification",
+    "section": "Probabilities",
+    "text": "Probabilities\n\nImage classifier with confidences."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#likelihood",
+    "href": "slides/image_classification/index.html#likelihood",
+    "title": "Image Classification",
+    "section": "Likelihood",
+    "text": "Likelihood\nThe likelihood of a data point:\n\\[\\begin{equation}\n    P(Y=y^{(i)}| X = \\mathbf{x}^{(i)}) = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThis is the modeled probability for the actually observed class \\(y^{(i)}\\)."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#likelihood-for-multi-class-classification",
+    "href": "slides/image_classification/index.html#likelihood-for-multi-class-classification",
+    "title": "Image Classification",
+    "section": "Likelihood for Multi-Class Classification",
+    "text": "Likelihood for Multi-Class Classification\nThe likelihood of a data point for multi-class classification:\n\\[\\begin{equation}\n    \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nWhere \\(y^{(i)} \\in \\mathbb{R}^{K}\\) is a one-hot encoded vector, with the \\(1\\) at the true class."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#maximum-likelihood",
+    "href": "slides/image_classification/index.html#maximum-likelihood",
+    "title": "Image Classification",
+    "section": "Maximum Likelihood",
+    "text": "Maximum Likelihood\nThe likelihood of an entire dataset:\n\\[\\begin{equation}\n    \\prod_{i=1}^N \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nUnder the maximum likelihood approach, we seek the parameters \\(\\theta\\) that maximize the likelihood of observing the dataset."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#negative-log-likelihood",
+    "href": "slides/image_classification/index.html#negative-log-likelihood",
+    "title": "Image Classification",
+    "section": "Negative Log-Likelihood",
+    "text": "Negative Log-Likelihood\nEquivalently, we can minimize the negative log likelihood:\n\\[\\begin{align}\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& - \\log \\prod_{i=1}^N \\prod_{j=1}^K  P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j} \\\\\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& -\\sum_{i=1}^N \\sum_{j=1}^K y^{(i)}_j \\log  P(Y = j| X = \\mathbf{x}^{(i)})\n\\end{align}\\]"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#cross-entropy",
+    "href": "slides/image_classification/index.html#cross-entropy",
+    "title": "Image Classification",
+    "section": "Cross-Entropy",
+    "text": "Cross-Entropy\nThe loss function derived with maximum likelihood can also be viewed from the perspective of cross-entropy between two discrete probability distributions.\n\\[\\begin{align}\n    CE = - \\sum_{x \\in X} p(x) \\log q(x) \\\\\n    CE = - \\sum_{i=1}^N \\sum_{j=1}^K y_j^{(i)} \\log \\hat{y}_j^{(i)}\n\\end{align}\\]"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#cross-entropy-1",
+    "href": "slides/image_classification/index.html#cross-entropy-1",
+    "title": "Image Classification",
+    "section": "Cross-Entropy",
+    "text": "Cross-Entropy\n\n\n\nTrue distribution (left) and predicted distribution (right)."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#alexnet",
+    "href": "slides/image_classification/index.html#alexnet",
+    "title": "Image Classification",
+    "section": "AlexNet",
+    "text": "AlexNet\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#alexnet-1",
+    "href": "slides/image_classification/index.html#alexnet-1",
+    "title": "Image Classification",
+    "section": "AlexNet",
+    "text": "AlexNet\n\n\n\nAlexNet Llamas et al. (2017)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#alexnet-table",
+    "href": "slides/image_classification/index.html#alexnet-table",
+    "title": "Image Classification",
+    "section": "AlexNet: Table",
+    "text": "AlexNet: Table\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#vgg",
+    "href": "slides/image_classification/index.html#vgg",
+    "title": "Image Classification",
+    "section": "VGG",
+    "text": "VGG\n\n\n\nVGG Simonyan and Zisserman (2015)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#vgg-1",
+    "href": "slides/image_classification/index.html#vgg-1",
+    "title": "Image Classification",
+    "section": "VGG",
+    "text": "VGG\n\n\n\nSource: Link"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#vgg-2",
+    "href": "slides/image_classification/index.html#vgg-2",
+    "title": "Image Classification",
+    "section": "VGG",
+    "text": "VGG\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet",
+    "href": "slides/image_classification/index.html#resnet",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nSource: He et al. (2016)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-1",
+    "href": "slides/image_classification/index.html#resnet-1",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nSource: He et al. (2016)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-2",
+    "href": "slides/image_classification/index.html#resnet-2",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nResNet He et al. (2016) (Image from Johnson (2019))"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-3",
+    "href": "slides/image_classification/index.html#resnet-3",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nFrom He et al. (2016)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-4",
+    "href": "slides/image_classification/index.html#resnet-4",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nFrom Li et al. (2018)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#convnext",
+    "href": "slides/image_classification/index.html#convnext",
+    "title": "Image Classification",
+    "section": "ConvNext",
+    "text": "ConvNext\n\n\n\nConvNext Liu et al. (2022)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#imagenet-performance",
+    "href": "slides/image_classification/index.html#imagenet-performance",
+    "title": "Image Classification",
+    "section": "ImageNet Performance",
+    "text": "ImageNet Performance\n\n\n\nImage from Johnson (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#choosing-the-architecture",
+    "href": "slides/image_classification/index.html#choosing-the-architecture",
+    "title": "Image Classification",
+    "section": "Choosing the Architecture",
+    "text": "Choosing the Architecture\nDon’t be a hero!\nTypically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#squeeze-excite-networks",
+    "href": "slides/image_classification/index.html#squeeze-excite-networks",
+    "title": "Image Classification",
+    "section": "Squeeze / Excite Networks",
+    "text": "Squeeze / Excite Networks\n\n\n\nFrom Hu et al. (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#normalization-layers",
+    "href": "slides/image_classification/index.html#normalization-layers",
+    "title": "Image Classification",
+    "section": "Normalization Layers",
+    "text": "Normalization Layers\n\n\n\nSource: Qiao et al. (2020)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#pre-processing",
+    "href": "slides/image_classification/index.html#pre-processing",
+    "title": "Image Classification",
+    "section": "Pre-Processing",
+    "text": "Pre-Processing\n\nResizing / Cropping to a fixed size\nScaling: from the range [0, 255] to the range [0, 1]\nNormalization: Often normalized along the color channels\n\nPyTorch Examples"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#transfer-learning",
+    "href": "slides/image_classification/index.html#transfer-learning",
+    "title": "Image Classification",
+    "section": "Transfer Learning",
+    "text": "Transfer Learning\nTransfer learning refers to the process of adapting a trained model that models Task A to Task B. Adapting pre-trained models often leads to better results and also reduces the number of training iterations."
+  },
+  {
+    "objectID": "pages/literature.html",
+    "href": "pages/literature.html",
+    "title": "Recommended Literature",
     "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\n\\(a\\)\nA scalar (integer or real)\n\n\n\\(\\mathbf{a}\\)\nA vector\n\n\n\\(\\mathbf{A}\\)\nA matrix\n\n\n\\(\\mathbf{\\mathsf{A}}\\)\nA tensor\n\n\n\\(\\mathbf{I}_n\\)\nIdentity matrix with \\(n\\) rows and \\(n\\) columns\n\n\n\\(\\mathbf{I}\\)\nIdentity matrix with dimensionality implied by context\n\n\n\\(\\mathbf{e}^{(i)}\\)\nStandard basis vector \\([0,\\dots,0,1,0,\\dots,0]\\) with a 1 at position \\(i\\)\n\n\n\\(\\text{diag}(\\mathbf{a})\\)\nA square, diagonal matrix with diagonal entries given by \\(\\mathbf{a}\\)\n\n\n\\(\\textnormal{a}\\)\nA scalar random variable\n\n\n\\(\\mathbf{a}\\)\nA vector-valued random variable\n\n\n\\(\\mathbf{A}\\)\nA matrix-valued random variable\n\n\n\\(\\theta\\)\nParameters of a model\n\n\n\\(f(\\theta, \\mathbf{x})\\)\nA function (model) with paramters \\(\\theta\\) and data \\(\\mathbf{x}\\)\n\n\n\\(\\mathbf{A} \\odot \\mathbf{B}\\)\nElement-wise (Hadamard) product of \\(\\mathbf{A}\\) and \\(\\mathbf{B}\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(a_i\\)\nElement \\(i\\) of vector \\(\\mathbf{a}\\), with indexing starting at 1\n\n\n\\(A_{i,j}\\)\nElement \\(i, j\\) of matrix \\(\\mathbf{A}\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(\\mathbf{X}\\)\nThe design matrix with dimensionality \\(nxp\\) with \\(n\\) samples with \\(p\\) features.\n\n\n\\(\\mathbf{x}^{(i)}\\)\nThe i-th training example.\n\n\n\\(\\mathbf{y}^{(i)}\\)\nThe label-vector for the i-th training example.\n\n\n\\(y^{(i)}\\)\nThe label for the i-th training example.\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(P(x)\\)\nA probability distribution over a discrete variable.\n\n\n\\(p(x)\\)\nA probability distribution over a contiuous variable or over a variable whose type has not been specified.\n\n\n\\(\\mathbb{E}_{x \\sim P} [ f(x) ]\\text{ or } \\mathbb{E} f(x)\\)\nExpectation of \\(f(x)\\) with respect to \\(P(x)\\)\n\n\n\\(\\mathcal{N} ( \\mathbf{x} ; \\mu , \\Sigma)\\)\nGaussian distribution over \\(\\mathbf{x}\\) with mean \\(\\mu\\) and covariance \\(\\Sigma\\)\n\n\n\\(x \\sim \\mathcal{N} (\\mu , \\sigma)\\)\nGaussian distribution over \\(x\\) with mean \\(\\mu\\) and variance \\(\\sigma\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(\\nabla_{\\mathbf{w}} J\\)\nGradient of \\(J\\) with respect to \\(\\mathbf{w}\\)\n\n\n\\(\\frac{\\partial J}{\\partial w}\\)\nPartial derivative of \\(J\\) with respect to \\(w\\)\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(\\log x\\)\nThe natural logarithm of \\(x\\).\n\n\n\\(\\lVert \\mathbf{x} \\rVert_p\\)\n\\(L^p\\) norm of \\(\\mathbf{x}\\)\n\n\n\\(\\lVert \\mathbf{x} \\rVert\\)\n\\(L^2\\) norm of \\(\\mathbf{x}\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\nNCHW\nThe input format of images in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width",
+    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020)\n\nKann als PDF gratis heruntergeladen werden\nEinführung in PyTorch von Grund auf mit Anwendungsbeispielen",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Recommended Literature"
     ]
   },
   {
-    "objectID": "notation.html#numbers-and-arrays",
-    "href": "notation.html#numbers-and-arrays",
-    "title": "Notation",
+    "objectID": "pages/literature.html#pytorch",
+    "href": "pages/literature.html#pytorch",
+    "title": "Recommended Literature",
     "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\n\\(a\\)\nA scalar (integer or real)\n\n\n\\(\\mathbf{a}\\)\nA vector\n\n\n\\(\\mathbf{A}\\)\nA matrix\n\n\n\\(\\mathbf{\\mathsf{A}}\\)\nA tensor\n\n\n\\(\\mathbf{I}_n\\)\nIdentity matrix with \\(n\\) rows and \\(n\\) columns\n\n\n\\(\\mathbf{I}\\)\nIdentity matrix with dimensionality implied by context\n\n\n\\(\\mathbf{e}^{(i)}\\)\nStandard basis vector \\([0,\\dots,0,1,0,\\dots,0]\\) with a 1 at position \\(i\\)\n\n\n\\(\\text{diag}(\\mathbf{a})\\)\nA square, diagonal matrix with diagonal entries given by \\(\\mathbf{a}\\)\n\n\n\\(\\textnormal{a}\\)\nA scalar random variable\n\n\n\\(\\mathbf{a}\\)\nA vector-valued random variable\n\n\n\\(\\mathbf{A}\\)\nA matrix-valued random variable\n\n\n\\(\\theta\\)\nParameters of a model\n\n\n\\(f(\\theta, \\mathbf{x})\\)\nA function (model) with paramters \\(\\theta\\) and data \\(\\mathbf{x}\\)\n\n\n\\(\\mathbf{A} \\odot \\mathbf{B}\\)\nElement-wise (Hadamard) product of \\(\\mathbf{A}\\) and \\(\\mathbf{B}\\)",
+    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020)\n\nKann als PDF gratis heruntergeladen werden\nEinführung in PyTorch von Grund auf mit Anwendungsbeispielen",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Recommended Literature"
     ]
   },
   {
-    "objectID": "notation.html#indexing",
-    "href": "notation.html#indexing",
-    "title": "Notation",
-    "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\n\\(a_i\\)\nElement \\(i\\) of vector \\(\\mathbf{a}\\), with indexing starting at 1\n\n\n\\(A_{i,j}\\)\nElement \\(i, j\\) of matrix \\(\\mathbf{A}\\)",
+    "objectID": "pages/literature.html#deep-learning",
+    "href": "pages/literature.html#deep-learning",
+    "title": "Recommended Literature",
+    "section": "Deep Learning",
+    "text": "Deep Learning\nSimon J.D. Prince, Understanding Deep Learning, MIT Press, Prince (2023)\n\nBrandaktuelles Buch über Deep Learning\nUmfassende Einführung ins Thema mit sehr guten Illustrationen\nOnline verfügbar: Link\n\nGoodfellow, Ian and Bengio, Yoshua and Courville, Aaron, Deep Learning, MIT Press, Goodfellow, Bengio, and Courville (2016)\n\nSehr gute und umfassende Einführung in Deep Learning\nEtwas älter aber immer noch in weiten Teilen aktuell\nOnline verfügbar: Link\n\nChollet, François, Deep Learning with Python, Second Edition, Manning Publications, Chollet (2021)\n\nchapters 8-9 are about computer vision\nfree access with FHNW-Emailadresse in O’Reilly online Mediathek\n\nStevens et al, Deep Learning with PyTorch, Manning Publications, Stevens, Antiga, and Viehmann (2020)",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Recommended Literature"
     ]
   },
   {
-    "objectID": "notation.html#datasets-and-distributions",
-    "href": "notation.html#datasets-and-distributions",
-    "title": "Notation",
-    "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\n\\(\\mathbf{X}\\)\nThe design matrix with dimensionality \\(nxp\\) with \\(n\\) samples with \\(p\\) features.\n\n\n\\(\\mathbf{x}^{(i)}\\)\nThe i-th training example.\n\n\n\\(\\mathbf{y}^{(i)}\\)\nThe label-vector for the i-th training example.\n\n\n\\(y^{(i)}\\)\nThe label for the i-th training example.",
+    "objectID": "pages/literature.html#machine-learning",
+    "href": "pages/literature.html#machine-learning",
+    "title": "Recommended Literature",
+    "section": "Machine Learning",
+    "text": "Machine Learning\nGéron A, Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 2nd Edition, O’Reilly 2019\n\nJupyter Notebooks sind öffentlich verfügbar: Link\nEinsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\n\nRaschka S, Python Machine Learning, 3rd Edition, PACKT 2019\n\nEinsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\n\nKevin P. Murphy, Probabilistic Machine Learning: An Introduction, MIT Press 2022\n\nVorabversion gratis verfügbar: Link\nUmfassende Einführung in Machine Learning mit ausführlichen theoretischen Hintergründen\n\nChollet F, Deep Learning with Python, 2nd Edition, MEAP 2020\n\nEin Klassiker für eine Einführung in Deep Learning (und Keras)\n\nHastie T et al., Elements of Statistical Learning, Springer 2009.\n\nKann als pdf gratis runtergeladen werden: Link\nEnthält Machine Learning Grundlagen und viele Methoden (wenig über Neuronale Netzwerke)\n\nVanderPlas J, Python Data Science Handbook, O’Reilly 2017.\n\nWurde mit Jupyter Notebooks geschrieben.\nDer gesamte Inhalt finden sie auf einer website: Link\nDas Repository kann von github runtergelanden werden: Link",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Recommended Literature"
     ]
   },
   {
-    "objectID": "notation.html#probability-theory",
-    "href": "notation.html#probability-theory",
-    "title": "Notation",
+    "objectID": "pages/links.html",
+    "href": "pages/links.html",
+    "title": "Links",
     "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\n\\(P(x)\\)\nA probability distribution over a discrete variable.\n\n\n\\(p(x)\\)\nA probability distribution over a contiuous variable or over a variable whose type has not been specified.\n\n\n\\(\\mathbb{E}_{x \\sim P} [ f(x) ]\\text{ or } \\mathbb{E} f(x)\\)\nExpectation of \\(f(x)\\) with respect to \\(P(x)\\)\n\n\n\\(\\mathcal{N} ( \\mathbf{x} ; \\mu , \\Sigma)\\)\nGaussian distribution over \\(\\mathbf{x}\\) with mean \\(\\mu\\) and covariance \\(\\Sigma\\)\n\n\n\\(x \\sim \\mathcal{N} (\\mu , \\sigma)\\)\nGaussian distribution over \\(x\\) with mean \\(\\mu\\) and variance \\(\\sigma\\)",
+    "text": "Links zu verschiedenen Themen in Machine Learning & Deep Learning.\n\n\nPyTorch internals - Blog Post\n\n\n\nUniversity of Michigan - Deep Learning for Computer Vision\n\nSehr gute Vorlesung zum Thema\n\nUniversity of California, Berkeley - Modern Computer Vision and Deep Learning\n\nSehr gute Vorlesung zum Thema\n\n\n\n\nPerceptron Learning Rule S. Raschka\nCS229 Stanford MLP Backpropagation\nNotes on Backpropagation\n3Blue1Brown Gradient Descent\n3Blue1Brown Backpropagation Calculus\nAndrew Ng Backprop\nAndrej Karpathy - Backpropagation from the ground up\n\n\n\nPaper von S.Raschka: “Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning”\n\n\n\nMartin Zinkevich - Best Practices for ML Engineering\nAndrej Karpathy - A Recipe for Training Neural Networks\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next\nAndrew Ng - Advice For Applying Machine Learning | Learning Curves\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Do Next (Revisited)\nAndrew Ng - Machine Learning System Design | Prioritizing What To Work On\nAndrew Ng - Machine Learning System Design | Error Analysis\nAndrew Ng - Machine Learning System Design | Data For Machine Learning",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Links"
     ]
   },
   {
-    "objectID": "notation.html#calculus",
-    "href": "notation.html#calculus",
-    "title": "Notation",
+    "objectID": "pages/links.html#pytorch",
+    "href": "pages/links.html#pytorch",
+    "title": "Links",
     "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\n\\(\\nabla_{\\mathbf{w}} J\\)\nGradient of \\(J\\) with respect to \\(\\mathbf{w}\\)\n\n\n\\(\\frac{\\partial J}{\\partial w}\\)\nPartial derivative of \\(J\\) with respect to \\(w\\)",
+    "text": "PyTorch internals - Blog Post",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Links"
     ]
   },
   {
-    "objectID": "notation.html#functions",
-    "href": "notation.html#functions",
-    "title": "Notation",
+    "objectID": "pages/links.html#deep-learning-and-computer-vision",
+    "href": "pages/links.html#deep-learning-and-computer-vision",
+    "title": "Links",
     "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\n\\(\\log x\\)\nThe natural logarithm of \\(x\\).\n\n\n\\(\\lVert \\mathbf{x} \\rVert_p\\)\n\\(L^p\\) norm of \\(\\mathbf{x}\\)\n\n\n\\(\\lVert \\mathbf{x} \\rVert\\)\n\\(L^2\\) norm of \\(\\mathbf{x}\\)",
+    "text": "University of Michigan - Deep Learning for Computer Vision\n\nSehr gute Vorlesung zum Thema\n\nUniversity of California, Berkeley - Modern Computer Vision and Deep Learning\n\nSehr gute Vorlesung zum Thema",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Links"
     ]
   },
   {
-    "objectID": "notation.html#deep-learning",
-    "href": "notation.html#deep-learning",
-    "title": "Notation",
+    "objectID": "pages/links.html#neuronale-netzwerke---basics",
+    "href": "pages/links.html#neuronale-netzwerke---basics",
+    "title": "Links",
     "section": "",
-    "text": "Syntax\nDescription\n\n\n\n\nNCHW\nThe input format of images in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width",
+    "text": "Perceptron Learning Rule S. Raschka\nCS229 Stanford MLP Backpropagation\nNotes on Backpropagation\n3Blue1Brown Gradient Descent\n3Blue1Brown Backpropagation Calculus\nAndrew Ng Backprop\nAndrej Karpathy - Backpropagation from the ground up",
     "crumbs": [
       "Resources",
-      "Notation"
+      "Links"
+    ]
+  },
+  {
+    "objectID": "pages/links.html#model-selection",
+    "href": "pages/links.html#model-selection",
+    "title": "Links",
+    "section": "",
+    "text": "Paper von S.Raschka: “Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning”",
+    "crumbs": [
+      "Resources",
+      "Links"
+    ]
+  },
+  {
+    "objectID": "pages/links.html#ml-best-practices",
+    "href": "pages/links.html#ml-best-practices",
+    "title": "Links",
+    "section": "",
+    "text": "Martin Zinkevich - Best Practices for ML Engineering\nAndrej Karpathy - A Recipe for Training Neural Networks\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next\nAndrew Ng - Advice For Applying Machine Learning | Learning Curves\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Do Next (Revisited)\nAndrew Ng - Machine Learning System Design | Prioritizing What To Work On\nAndrew Ng - Machine Learning System Design | Error Analysis\nAndrew Ng - Machine Learning System Design | Data For Machine Learning",
+    "crumbs": [
+      "Resources",
+      "Links"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Willkommen zum Modul Computer Vision mit Deep Learning",
+    "section": "",
+    "text": "Herzlich willkommen zum Modul Computer Vision mit Deep Learning (1. Teil)!\nHier finden Sie Unterlagen und aktuelle Informationen zum Modul.\nModul Page\nCAS Page\n\n\n\n\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning für Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 11:30\nTheory CNNs\n\n\n11:30 - 12:15\nÜbung CNNs\n\n\n12:15 - 13:15\nMittagspause\n\n\n13:15 - 14:00\nBildklassifikation\n\n\n14:00 - 16:30\nÜbung: CNNs für Bildklassifikation\n\n\n\n\n\n\n\n\n\nBildklassifikation vertieft verstehen\nMethoden implementieren, anwenden und interpretieren können\nMit Deep Learning Frameworks umgehen und Libraries verwenden können\nPraktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#inhalte",
+    "href": "index.html#inhalte",
+    "title": "Willkommen zum Modul Computer Vision mit Deep Learning",
+    "section": "",
+    "text": "Zeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning für Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 11:30\nTheory CNNs\n\n\n11:30 - 12:15\nÜbung CNNs\n\n\n12:15 - 13:15\nMittagspause\n\n\n13:15 - 14:00\nBildklassifikation\n\n\n14:00 - 16:30\nÜbung: CNNs für Bildklassifikation",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#lernziele",
+    "href": "index.html#lernziele",
+    "title": "Willkommen zum Modul Computer Vision mit Deep Learning",
+    "section": "",
+    "text": "Bildklassifikation vertieft verstehen\nMethoden implementieren, anwenden und interpretieren können\nMit Deep Learning Frameworks umgehen und Libraries verwenden können\nPraktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "pages/exercises.html",
+    "href": "pages/exercises.html",
+    "title": "Exercises",
+    "section": "",
+    "text": "Exercises\nExercises can be found here: Link",
+    "crumbs": [
+      "Exercises"
+    ]
+  },
+  {
+    "objectID": "pages/about.html",
+    "href": "pages/about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "pages/slides.html",
+    "href": "pages/slides.html",
+    "title": "Slides",
+    "section": "",
+    "text": "Recap Quiz slides.\nIntro slides.\nNeural Networks slides.\nCNNs slides.\nImage Classification slides.\nPractical slides.",
+    "crumbs": [
+      "Slides"
     ]
   },
   {
@@ -267,616 +1200,318 @@
     "href": "slides/intro/index.html#image-colorization",
     "title": "Einführung Computer Vision mit Deep Learning",
     "section": "Image Colorization",
-    "text": "Image Colorization\n\n\nNorwegian Bride (est late 1890s) aus DeOldify: Link"
-  },
-  {
-    "objectID": "literature.html",
-    "href": "literature.html",
-    "title": "Recommended Literature",
-    "section": "",
-    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020) - Kann als PDF gratis heruntergeladen werden - Einführung in PyTorch von Grund auf mit Anwendungsbeispielen",
-    "crumbs": [
-      "Resources",
-      "Recommended Literature"
-    ]
-  },
-  {
-    "objectID": "literature.html#pytorch",
-    "href": "literature.html#pytorch",
-    "title": "Recommended Literature",
-    "section": "",
-    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020) - Kann als PDF gratis heruntergeladen werden - Einführung in PyTorch von Grund auf mit Anwendungsbeispielen",
-    "crumbs": [
-      "Resources",
-      "Recommended Literature"
-    ]
-  },
-  {
-    "objectID": "literature.html#deep-learning",
-    "href": "literature.html#deep-learning",
-    "title": "Recommended Literature",
-    "section": "Deep Learning",
-    "text": "Deep Learning\nSimon J.D. Prince, Understanding Deep Learning, MIT Press, Prince (2023) - Brandaktuelles Buch über Deep Learning - Umfassende Einführung ins Thema mit sehr guten Illustrationen - Online verfügbar: Link\nGoodfellow, Ian and Bengio, Yoshua and Courville, Aaron, Deep Learning, MIT Press, Goodfellow, Bengio, and Courville (2016) - Sehr gute und umfassende Einführung in Deep Learning - Etwas älter aber immer noch in weiten Teilen aktuell - Online verfügbar: Link",
-    "crumbs": [
-      "Resources",
-      "Recommended Literature"
-    ]
-  },
-  {
-    "objectID": "literature.html#machine-learning",
-    "href": "literature.html#machine-learning",
-    "title": "Recommended Literature",
-    "section": "Machine Learning",
-    "text": "Machine Learning\nGéron A, Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 2nd Edition, O’Reilly 2019 - Jupyter Notebooks sind öffentlich verfügbar: Link - Einsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\nRaschka S, Python Machine Learning, 3rd Edition, PACKT 2019 - Einsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\nKevin P. Murphy, Probabilistic Machine Learning: An Introduction, MIT Press 2022 - Vorabversion gratis verfügbar: Link - Umfassende Einführung in Machine Learning mit ausführlichen theoretischen Hintergründen\nChollet F, Deep Learning with Python, 2nd Edition, MEAP 2020 - Ein Klassiker für eine Einführung in Deep Learning (und Keras)\nHastie T et al., Elements of Statistical Learning, Springer 2009. - Kann als pdf gratis runtergeladen werden: Link - Enthält Machine Learning Grundlagen und viele Methoden (wenig über Neuronale Netzwerke)\nVanderPlas J, Python Data Science Handbook, O’Reilly 2017. - Wurde mit Jupyter Notebooks geschrieben. - Der gesamte Inhalt finden sie auf einer website: Link - Das Repository kann von github runtergelanden werden: Link",
-    "crumbs": [
-      "Resources",
-      "Recommended Literature"
-    ]
-  },
-  {
-    "objectID": "links.html",
-    "href": "links.html",
-    "title": "Links",
-    "section": "",
-    "text": "Links zu verschiedenen Themen in Machine Learning & Deep Learning.\n\n\nPyTorch internals - Blog Post\n\n\n\nUniversity of Michigan - Deep Learning for Computer Vision\n\nSehr gute Vorlesung zum Thema\n\nUniversity of California, Berkeley - Modern Computer Vision and Deep Learning\n\nSehr gute Vorlesung zum Thema\n\n\n\n\nPerceptron Learning Rule S. Raschka\nCS229 Stanford MLP Backpropagation\nNotes on Backpropagation\n3Blue1Brown Gradient Descent\n3Blue1Brown Backpropagation Calculus\nAndrew Ng Backprop\nAndrej Karpathy - Backpropagation from the ground up\n\n\n\nPaper von S.Raschka: “Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning”\n\n\n\nMartin Zinkevich - Best Practices for ML Engineering\nAndrej Karpathy - A Recipe for Training Neural Networks\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next\nAndrew Ng - Advice For Applying Machine Learning | Learning Curves\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Do Next (Revisited)\nAndrew Ng - Machine Learning System Design | Prioritizing What To Work On\nAndrew Ng - Machine Learning System Design | Error Analysis\nAndrew Ng - Machine Learning System Design | Data For Machine Learning",
-    "crumbs": [
-      "Resources",
-      "Links"
-    ]
-  },
-  {
-    "objectID": "links.html#pytorch",
-    "href": "links.html#pytorch",
-    "title": "Links",
-    "section": "",
-    "text": "PyTorch internals - Blog Post",
-    "crumbs": [
-      "Resources",
-      "Links"
-    ]
-  },
-  {
-    "objectID": "links.html#deep-learning-and-computer-vision",
-    "href": "links.html#deep-learning-and-computer-vision",
-    "title": "Links",
-    "section": "",
-    "text": "University of Michigan - Deep Learning for Computer Vision\n\nSehr gute Vorlesung zum Thema\n\nUniversity of California, Berkeley - Modern Computer Vision and Deep Learning\n\nSehr gute Vorlesung zum Thema",
-    "crumbs": [
-      "Resources",
-      "Links"
-    ]
-  },
-  {
-    "objectID": "links.html#neuronale-netzwerke---basics",
-    "href": "links.html#neuronale-netzwerke---basics",
-    "title": "Links",
-    "section": "",
-    "text": "Perceptron Learning Rule S. Raschka\nCS229 Stanford MLP Backpropagation\nNotes on Backpropagation\n3Blue1Brown Gradient Descent\n3Blue1Brown Backpropagation Calculus\nAndrew Ng Backprop\nAndrej Karpathy - Backpropagation from the ground up",
-    "crumbs": [
-      "Resources",
-      "Links"
-    ]
-  },
-  {
-    "objectID": "links.html#model-selection",
-    "href": "links.html#model-selection",
-    "title": "Links",
-    "section": "",
-    "text": "Paper von S.Raschka: “Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning”",
-    "crumbs": [
-      "Resources",
-      "Links"
-    ]
-  },
-  {
-    "objectID": "links.html#ml-best-practices",
-    "href": "links.html#ml-best-practices",
-    "title": "Links",
-    "section": "",
-    "text": "Martin Zinkevich - Best Practices for ML Engineering\nAndrej Karpathy - A Recipe for Training Neural Networks\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next\nAndrew Ng - Advice For Applying Machine Learning | Learning Curves\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Do Next (Revisited)\nAndrew Ng - Machine Learning System Design | Prioritizing What To Work On\nAndrew Ng - Machine Learning System Design | Error Analysis\nAndrew Ng - Machine Learning System Design | Data For Machine Learning",
-    "crumbs": [
-      "Resources",
-      "Links"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Willkommen zum Modul Computer Vision mit Deep Learning",
-    "section": "",
-    "text": "Herzlich willkommen zum Modul Computer Vision mit Deep Learning (1. Teil)!\nHier finden Sie Unterlagen und aktuelle Informationen zum Modul.\nModul Page\nCAS Page\n\n\n\n\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning für Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 11:30\nTheory CNNs\n\n\n11:30 - 12:15\nÜbung CNNs\n\n\n12:15 - 13:15\nMittagspause\n\n\n13:15 - 14:00\nBildklassifikation\n\n\n14:00 - 16:30\nÜbung: CNNs für Bildklassifikation\n\n\n\n\n\n\n\n\n\nBildklassifikation vertieft verstehen\nMethoden implementieren, anwenden und interpretieren können\nMit Deep Learning Frameworks umgehen und Libraries verwenden können\nPraktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können"
-  },
-  {
-    "objectID": "index.html#inhalte",
-    "href": "index.html#inhalte",
-    "title": "Willkommen zum Modul Computer Vision mit Deep Learning",
-    "section": "",
-    "text": "Zeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning für Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 11:30\nTheory CNNs\n\n\n11:30 - 12:15\nÜbung CNNs\n\n\n12:15 - 13:15\nMittagspause\n\n\n13:15 - 14:00\nBildklassifikation\n\n\n14:00 - 16:30\nÜbung: CNNs für Bildklassifikation"
-  },
-  {
-    "objectID": "index.html#lernziele",
-    "href": "index.html#lernziele",
-    "title": "Willkommen zum Modul Computer Vision mit Deep Learning",
-    "section": "",
-    "text": "Bildklassifikation vertieft verstehen\nMethoden implementieren, anwenden und interpretieren können\nMit Deep Learning Frameworks umgehen und Libraries verwenden können\nPraktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
-    "objectID": "slides/cnns/index.html#beispiel-1",
-    "href": "slides/cnns/index.html#beispiel-1",
-    "title": "Convolutional Neural Networks",
-    "section": "Beispiel 1",
-    "text": "Beispiel 1\n\nBeispiel aus Link. Links das Original-Bild, rechts die mit Deep Learning verbesserte Version."
-  },
-  {
-    "objectID": "slides/cnns/index.html#beispiel-2",
-    "href": "slides/cnns/index.html#beispiel-2",
-    "title": "Convolutional Neural Networks",
-    "section": "Beispiel 2",
-    "text": "Beispiel 2\n\nBeispiel aus Link. Links das Original-Bild, rechts die Manipulation."
-  },
-  {
-    "objectID": "slides/cnns/index.html#beispiel-3",
-    "href": "slides/cnns/index.html#beispiel-3",
-    "title": "Convolutional Neural Networks",
-    "section": "Beispiel 3",
-    "text": "Beispiel 3\n\nBeispiel aus Link. Links das Original-Bild, rechts die Manipulation."
-  },
-  {
-    "objectID": "slides/cnns/index.html#beispiel-4",
-    "href": "slides/cnns/index.html#beispiel-4",
-    "title": "Convolutional Neural Networks",
-    "section": "Beispiel 4",
-    "text": "Beispiel 4\n\nAus Link."
-  },
-  {
-    "objectID": "slides/cnns/index.html#semantic-gap",
-    "href": "slides/cnns/index.html#semantic-gap",
-    "title": "Convolutional Neural Networks",
-    "section": "Semantic Gap",
-    "text": "Semantic Gap\n\nIllustration des semantic gap."
-  },
-  {
-    "objectID": "slides/cnns/index.html#blickwinkel",
-    "href": "slides/cnns/index.html#blickwinkel",
-    "title": "Convolutional Neural Networks",
-    "section": "Blickwinkel",
-    "text": "Blickwinkel\n\nSource"
-  },
-  {
-    "objectID": "slides/cnns/index.html#deformation",
-    "href": "slides/cnns/index.html#deformation",
-    "title": "Convolutional Neural Networks",
-    "section": "Deformation",
-    "text": "Deformation\n\nSource"
-  },
-  {
-    "objectID": "slides/cnns/index.html#beleuchtung",
-    "href": "slides/cnns/index.html#beleuchtung",
-    "title": "Convolutional Neural Networks",
-    "section": "Beleuchtung",
-    "text": "Beleuchtung\n\nSource"
-  },
-  {
-    "objectID": "slides/cnns/index.html#hintergrund",
-    "href": "slides/cnns/index.html#hintergrund",
-    "title": "Convolutional Neural Networks",
-    "section": "Hintergrund",
-    "text": "Hintergrund\n\nSource"
-  },
-  {
-    "objectID": "slides/cnns/index.html#okklusion",
-    "href": "slides/cnns/index.html#okklusion",
-    "title": "Convolutional Neural Networks",
-    "section": "Okklusion",
-    "text": "Okklusion\n\nSource"
-  },
-  {
-    "objectID": "slides/cnns/index.html#intraklass-variation",
-    "href": "slides/cnns/index.html#intraklass-variation",
-    "title": "Convolutional Neural Networks",
-    "section": "Intraklass-Variation",
-    "text": "Intraklass-Variation\n\nSource"
-  },
-  {
-    "objectID": "slides/cnns/index.html#kontext-abhängigkeit",
-    "href": "slides/cnns/index.html#kontext-abhängigkeit",
-    "title": "Convolutional Neural Networks",
-    "section": "Kontext-Abhängigkeit",
-    "text": "Kontext-Abhängigkeit\n\n\n\n\n\n\n\n\n\n\nKontext Source"
-  },
-  {
-    "objectID": "slides/cnns/index.html#image-classification",
-    "href": "slides/cnns/index.html#image-classification",
-    "title": "Convolutional Neural Networks",
-    "section": "Image Classification",
-    "text": "Image Classification\n\nMulti-Class Image Classification Beispiel (aus Krizhevsky, Sutskever, and Hinton (2012))."
-  },
-  {
-    "objectID": "slides/cnns/index.html#objekt-erkennung",
-    "href": "slides/cnns/index.html#objekt-erkennung",
-    "title": "Convolutional Neural Networks",
-    "section": "Objekt-Erkennung",
-    "text": "Objekt-Erkennung\n\nObject Detection Beispiel (aus Redmon et al. (2016)). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist."
-  },
-  {
-    "objectID": "slides/cnns/index.html#segmentierung",
-    "href": "slides/cnns/index.html#segmentierung",
-    "title": "Convolutional Neural Networks",
-    "section": "Segmentierung",
-    "text": "Segmentierung\n\nObject Segmentation Beispiel (aus He et al. (2018))."
-  },
-  {
-    "objectID": "slides/cnns/index.html#segmentierung-2",
-    "href": "slides/cnns/index.html#segmentierung-2",
-    "title": "Convolutional Neural Networks",
-    "section": "Segmentierung 2",
-    "text": "Segmentierung 2"
-  },
-  {
-    "objectID": "slides/cnns/index.html#keypoint-detektierung",
-    "href": "slides/cnns/index.html#keypoint-detektierung",
-    "title": "Convolutional Neural Networks",
-    "section": "Keypoint Detektierung",
-    "text": "Keypoint Detektierung\n\nKeypoint Detection Beispiel (aus He et al. (2018))."
-  },
-  {
-    "objectID": "slides/cnns/index.html#image-translation",
-    "href": "slides/cnns/index.html#image-translation",
-    "title": "Convolutional Neural Networks",
-    "section": "Image Translation",
-    "text": "Image Translation\n\nImage Generation Beispiel (aus (isola_image?)–image_2018)."
-  },
-  {
-    "objectID": "slides/cnns/index.html#image-super-resolution",
-    "href": "slides/cnns/index.html#image-super-resolution",
-    "title": "Convolutional Neural Networks",
-    "section": "Image Super Resolution",
-    "text": "Image Super Resolution\n\nNvidia dlss: Link"
-  },
-  {
-    "objectID": "slides/cnns/index.html#image-colorization",
-    "href": "slides/cnns/index.html#image-colorization",
-    "title": "Convolutional Neural Networks",
-    "section": "Image Colorization",
     "text": "Image Colorization\n\nNorwegian Bride (est late 1890s) aus DeOldify: Link"
   },
   {
-    "objectID": "slides/practical/index.html#leaky-abstraction",
-    "href": "slides/practical/index.html#leaky-abstraction",
-    "title": "Practical Considerations",
-    "section": "Leaky Abstraction",
-    "text": "Leaky Abstraction\nyour_data = # plug your awesome dataset here\nmodel = SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)"
+    "objectID": "slides/intro/index.html#machine-learning-approach",
+    "href": "slides/intro/index.html#machine-learning-approach",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning Approach",
+    "text": "Machine Learning Approach\nWith Machine Learning, we follow a data-driven approach to solve various tasks:\n\nCollect a dataset of images and their labels.\nUse a machine learning algorithm to train a model (e.g., a classifier).\nEvaluate and apply the model to new data.\n\ndef train(images, labels):\n    \"\"\" Train a Model \"\"\"\n    # Fit Model here\n    return model\n\ndef predict(test_images, model):\n    \"\"\" Predict \"\"\"\n    predictions = model(test_images)\n    return predictions"
   },
   {
-    "objectID": "slides/practical/index.html#silent-failure",
-    "href": "slides/practical/index.html#silent-failure",
-    "title": "Practical Considerations",
-    "section": "Silent Failure",
-    "text": "Silent Failure\nDas Trainieren von Neuronalen Netzwerken fails silently!"
+    "objectID": "slides/intro/index.html#question",
+    "href": "slides/intro/index.html#question",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Question",
+    "text": "Question\nImage Super Resolution\nHow would you train a model for image super resolution? The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality."
   },
   {
-    "objectID": "slides/practical/index.html#eins-werden-mit-den-daten",
-    "href": "slides/practical/index.html#eins-werden-mit-den-daten",
-    "title": "Practical Considerations",
-    "section": "1) Eins werden mit den Daten",
-    "text": "1) Eins werden mit den Daten\nGenaues Inspizieren der Daten!"
+    "objectID": "slides/intro/index.html#machine-learning-pipeline",
+    "href": "slides/intro/index.html#machine-learning-pipeline",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning Pipeline",
+    "text": "Machine Learning Pipeline\n\n\n\nMachine Learning Pipeline (Source: Raschka and Mirjalili (2020))"
   },
   {
-    "objectID": "slides/practical/index.html#camera-traps-fehler",
-    "href": "slides/practical/index.html#camera-traps-fehler",
-    "title": "Practical Considerations",
-    "section": "Camera Traps: Fehler",
-    "text": "Camera Traps: Fehler\n\n\n\nBeispiele von Bildern aus Kamerafallen."
+    "objectID": "slides/intro/index.html#model",
+    "href": "slides/intro/index.html#model",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Model",
+    "text": "Model\nA model:\n\\[\\begin{equation}\nf(\\mathbf{x}^{(i)}) = \\hat{y}^{(i)}\n\\end{equation}\\]\nWith model parameters \\(\\theta\\):\n\\[\\begin{equation}\nf_{\\theta}(\\mathbf{x}^{(i)}) \\text{ or } f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]"
   },
   {
-    "objectID": "slides/practical/index.html#camera-traps-schwierigkeiten",
-    "href": "slides/practical/index.html#camera-traps-schwierigkeiten",
-    "title": "Practical Considerations",
-    "section": "Camera Traps: Schwierigkeiten",
-    "text": "Camera Traps: Schwierigkeiten\n\n\n\nBeispiele von Bildern aus Kamerafallen. Source: Beery, Van Horn, and Perona (2018)"
+    "objectID": "slides/intro/index.html#optimization",
+    "href": "slides/intro/index.html#optimization",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Optimization",
+    "text": "Optimization\nThe coefficients are adapted to a training dataset in an optimization procedure (learning, fitting).\nIn particular, we want to minimize the cost function \\(J\\).\n\\[\\begin{equation}\n\\mathsf{argmin}_{\\theta, \\lambda} J\\Big(f_{\\theta, \\lambda}(\\mathbf{X}), \\mathbf{y}\\Big)\n\\end{equation}\\]\nThe optimization procedure is influenced by hyperparameters (\\(\\alpha, \\lambda, \\dots\\))."
   },
   {
-    "objectID": "slides/practical/index.html#seltene-klassen",
-    "href": "slides/practical/index.html#seltene-klassen",
-    "title": "Practical Considerations",
-    "section": "Seltene Klassen",
-    "text": "Seltene Klassen\n\n\n\nEin Bild von einem Serval. Unterhalb sind die Modell-Confidences abgebildet."
+    "objectID": "slides/intro/index.html#train-validation-test-split",
+    "href": "slides/intro/index.html#train-validation-test-split",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Train (Validation) Test Split",
+    "text": "Train (Validation) Test Split\n\n\n\nTrain-Test Split to select and measure models."
   },
   {
-    "objectID": "slides/practical/index.html#mehrere-klassen",
-    "href": "slides/practical/index.html#mehrere-klassen",
-    "title": "Practical Considerations",
-    "section": "Mehrere Klassen",
-    "text": "Mehrere Klassen\n\nBeispiele einem Bild aus einer Kamerafalle mit verschiedenen Spezies."
+    "objectID": "slides/intro/index.html#machine-learning-on-images",
+    "href": "slides/intro/index.html#machine-learning-on-images",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning on Images",
+    "text": "Machine Learning on Images\nImages are high-dimensional:\nAn RGB image with a resolution of \\(800 \\times 600\\) has a dimensionality of \\(800 \\times 600 \\times 3 = 1,440,000\\).\nClassic ML algorithms are:\n\nSlow and resource-intensive.\nUnable to exploit the 2-D structure.\nSensitive to slight changes (e.g., translations).\nProne to overfitting (since \\(n \\sim p\\))."
   },
   {
-    "objectID": "slides/practical/index.html#baselines-1",
-    "href": "slides/practical/index.html#baselines-1",
-    "title": "Practical Considerations",
-    "section": "2) Baselines",
-    "text": "2) Baselines\nEvaluierungs-Pipeline, Metiken, Experiment-Tracking und Baseline Modell."
+    "objectID": "slides/intro/index.html#machine-learning-on-images-1",
+    "href": "slides/intro/index.html#machine-learning-on-images-1",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning on Images",
+    "text": "Machine Learning on Images\nTo model images with classic machine learning algorithms, features must be extracted beforehand.\nWe can use methods from classical computer vision."
   },
   {
-    "objectID": "slides/practical/index.html#ml-prozess",
-    "href": "slides/practical/index.html#ml-prozess",
-    "title": "Practical Considerations",
-    "section": "ML-Prozess",
-    "text": "ML-Prozess\n\n\n\nDie Komponenten eines typischen Machine Learning Prozesses. Source: Raschka and Mirjalili (2020)"
+    "objectID": "slides/intro/index.html#color-histograms-as-features",
+    "href": "slides/intro/index.html#color-histograms-as-features",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Color Histograms as Features",
+    "text": "Color Histograms as Features\n\n\n\nColor Histograms as Features (Source: Johnson (2022))"
   },
   {
-    "objectID": "slides/practical/index.html#experiment-tracking",
-    "href": "slides/practical/index.html#experiment-tracking",
-    "title": "Practical Considerations",
-    "section": "Experiment Tracking",
-    "text": "Experiment Tracking\n\n\n\nWeights and Biases Experiment-Tracking."
+    "objectID": "slides/intro/index.html#hog-features",
+    "href": "slides/intro/index.html#hog-features",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "HOG Features",
+    "text": "HOG Features\n\n\n\nHOG as Features (Source: Johnson (2022))"
   },
   {
-    "objectID": "slides/practical/index.html#baselines-2",
-    "href": "slides/practical/index.html#baselines-2",
-    "title": "Practical Considerations",
-    "section": "2) Baselines",
-    "text": "2) Baselines\nReproduzierbarkeit sicherstellen.\nimport torch\ntorch.manual_seed(0)"
+    "objectID": "slides/intro/index.html#bag-of-visual-words",
+    "href": "slides/intro/index.html#bag-of-visual-words",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Bag of (visual) Words",
+    "text": "Bag of (visual) Words\n\n\n\nBag of (visual) words Features (Source: Johnson (2022))"
   },
   {
-    "objectID": "slides/practical/index.html#baselines-3",
-    "href": "slides/practical/index.html#baselines-3",
-    "title": "Practical Considerations",
-    "section": "2) Baselines",
-    "text": "2) Baselines\nKeine unnötigen Techniken und Komplexitäten anwenden. Reduziere die Fehleranfälligkeit."
+    "objectID": "slides/intro/index.html#image-features",
+    "href": "slides/intro/index.html#image-features",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Image Features",
+    "text": "Image Features\n\n\n\nImage Features (Source: Johnson (2022))"
   },
   {
-    "objectID": "slides/practical/index.html#baselines-4",
-    "href": "slides/practical/index.html#baselines-4",
-    "title": "Practical Considerations",
-    "section": "2) Baselines",
-    "text": "2) Baselines\nVerwende, falls möglich, eine human baseline. Wie gut kann das Modell überhaupt sein?"
+    "objectID": "slides/intro/index.html#cifar10",
+    "href": "slides/intro/index.html#cifar10",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "CIFAR10",
+    "text": "CIFAR10\n\n\n\nCIFAR10 Dataset Source"
   },
   {
-    "objectID": "slides/practical/index.html#schwierige-fälle",
-    "href": "slides/practical/index.html#schwierige-fälle",
-    "title": "Practical Considerations",
-    "section": "Schwierige Fälle",
-    "text": "Schwierige Fälle\n\nBild einer Kamerafalle das schwierig zu klassifizieren ist. Hier hatten Annotatoren mit Experten eine Übereinstimmung von 96.6%."
+    "objectID": "slides/intro/index.html#exercise-1---recap-ml",
+    "href": "slides/intro/index.html#exercise-1---recap-ml",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Exercise 1 - Recap ML",
+    "text": "Exercise 1 - Recap ML\nIn the first exercise, we will model the CIFAR10 dataset."
   },
   {
-    "objectID": "slides/practical/index.html#baselines-5",
-    "href": "slides/practical/index.html#baselines-5",
-    "title": "Practical Considerations",
-    "section": "2) Baselines",
-    "text": "2) Baselines\nInput-Unabhängige Baseline trainieren. Lernt das Modell überhaupt etwas?"
+    "objectID": "slides/intro/index.html#pascal-voc",
+    "href": "slides/intro/index.html#pascal-voc",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "PASCAL VOC",
+    "text": "PASCAL VOC\n\n\n\nImages / Illustrations from Link and Johnson (2022). Left: Object annotations in images, Right: Development of Mean Average Precision over the years."
   },
   {
-    "objectID": "slides/practical/index.html#baselines-6",
-    "href": "slides/practical/index.html#baselines-6",
-    "title": "Practical Considerations",
-    "section": "2) Baselines",
-    "text": "2) Baselines\nDas Modell auf einem Batch an Daten overfitten. Funktioniert die Optimierung?"
+    "objectID": "slides/intro/index.html#imagenet",
+    "href": "slides/intro/index.html#imagenet",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "ImageNet",
+    "text": "ImageNet\n\n\n\nImageNet, Image Source, details in Deng et al. (2009)"
   },
   {
-    "objectID": "slides/practical/index.html#baselines-7",
-    "href": "slides/practical/index.html#baselines-7",
-    "title": "Practical Considerations",
-    "section": "2) Baselines",
-    "text": "2) Baselines\nVisualisieren was in das Modell geht. Funktioniert mein Pre-Processing?\ny_hat = model(x)"
+    "objectID": "slides/intro/index.html#imagenet---performance",
+    "href": "slides/intro/index.html#imagenet---performance",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "ImageNet - Performance",
+    "text": "ImageNet - Performance\n\n\n\nSource: Johnson (2022)"
   },
   {
-    "objectID": "slides/practical/index.html#fixes-sample-beispiel-segmentierung",
-    "href": "slides/practical/index.html#fixes-sample-beispiel-segmentierung",
-    "title": "Practical Considerations",
-    "section": "Fixes Sample: Beispiel Segmentierung",
-    "text": "Fixes Sample: Beispiel Segmentierung\n\n\n\nBeispiel eines Segmentierungsproblems: links der Input und rechts der Output."
+    "objectID": "slides/intro/index.html#imagenet---winner",
+    "href": "slides/intro/index.html#imagenet---winner",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "ImageNet - Winner",
+    "text": "ImageNet - Winner\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)"
   },
   {
-    "objectID": "slides/practical/index.html#overfit-1",
-    "href": "slides/practical/index.html#overfit-1",
-    "title": "Practical Considerations",
-    "section": "3) Overfit",
-    "text": "3) Overfit\nJetzt sollten ein gutes Verständnis des Datensatzes, ein hohes Vertrauen in die Evaluierungs-Pipeline und erste Baselines von einfachen Modellen vorhanden sein. Nun sucht man ein Modell, das eine möglichst gute Performance auf dem Trainings-Set aufweist."
+    "objectID": "slides/intro/index.html#classic-ml",
+    "href": "slides/intro/index.html#classic-ml",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Classic ML",
+    "text": "Classic ML\n\n\n\nIllustration from Johnson (2022)"
   },
   {
-    "objectID": "slides/practical/index.html#overfit-2",
-    "href": "slides/practical/index.html#overfit-2",
-    "title": "Practical Considerations",
-    "section": "3) Overfit",
-    "text": "3) Overfit\nMan sucht eine gute Modell-Architektur. Dabei gilt das Prinzip “Don’t be a hero”. Man sollte also bereits implementierte / etablierte Architekturen bevorzugen."
+    "objectID": "slides/intro/index.html#end-to-end",
+    "href": "slides/intro/index.html#end-to-end",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "End-To-End",
+    "text": "End-To-End\n\n\n\nIllustration from Johnson (2022)"
   },
   {
-    "objectID": "slides/practical/index.html#regularisierung",
-    "href": "slides/practical/index.html#regularisierung",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nAn diesem Punkt sollte man eine gute Performance auf dem Training-Set erreicht haben. Nun kann der Fokus auf das Validation-Set gelegt werden."
+    "objectID": "slides/intro/index.html#deep-learning-benefits",
+    "href": "slides/intro/index.html#deep-learning-benefits",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Deep Learning Benefits",
+    "text": "Deep Learning Benefits\n\nAutomatic feature extraction.\nHierarchical features.\nGeneralization.\nEnd-to-end learning.\nRobustness to variability.\nAdaptability and transferability."
   },
   {
-    "objectID": "slides/practical/index.html#regularisierung-1",
-    "href": "slides/practical/index.html#regularisierung-1",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nDie einfachste Massnahme bessere Performance zu erreichen (und auch Overfitting zu reduzieren) ist das Sammeln von mehr Trainings-Daten. Das ist jedoch oft teuer!"
+    "objectID": "slides/intro/index.html#experiments-on-cats",
+    "href": "slides/intro/index.html#experiments-on-cats",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Experiments on Cats",
+    "text": "Experiments on Cats\n\n\n\nIllustration Source"
   },
   {
-    "objectID": "slides/practical/index.html#learning---curve",
-    "href": "slides/practical/index.html#learning---curve",
-    "title": "Practical Considerations",
-    "section": "Learning - Curve",
-    "text": "Learning - Curve\nLohnt sich das Sammeln von mehr Daten?\n\nBeispiel einer learning curve. X-Achse Performance, Y-Achse die Anzahl Trainings-Samples. Linkes Panel mit Gauissian Naive Bayes und rechtes Panel mit Support Vector Classifier."
+    "objectID": "slides/intro/index.html#neocognitron",
+    "href": "slides/intro/index.html#neocognitron",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Neocognitron",
+    "text": "Neocognitron\n\n\n\nThe Neocognitron Fukushima (1980)"
   },
   {
-    "objectID": "slides/practical/index.html#regularisierung-2",
-    "href": "slides/practical/index.html#regularisierung-2",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nEine andere Möglichkeit ist data augmentation. Dabei werden neue Datenpunkte aus bestehenden generiert, indem man zufällige Änderungen an den Daten vornimmt. Dabei werden Datenpunkte typischerweise on-the-fly augmentiert."
+    "objectID": "slides/intro/index.html#backpropagation",
+    "href": "slides/intro/index.html#backpropagation",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Backpropagation",
+    "text": "Backpropagation\n\n\n\nBackpropagation in Neural Networks Rumelhart, Hinton, and Williams (1986)"
   },
   {
-    "objectID": "slides/practical/index.html#data-augmentation-augly",
-    "href": "slides/practical/index.html#data-augmentation-augly",
-    "title": "Practical Considerations",
-    "section": "Data Augmentation: Augly",
-    "text": "Data Augmentation: Augly\n\n\n\nAugLy"
+    "objectID": "slides/intro/index.html#cnns",
+    "href": "slides/intro/index.html#cnns",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "CNNs",
+    "text": "CNNs\n\n\n\nModern CNN Lecun et al. (1998)"
   },
   {
-    "objectID": "slides/practical/index.html#data-augmentation-albumentations",
-    "href": "slides/practical/index.html#data-augmentation-albumentations",
-    "title": "Practical Considerations",
-    "section": "Data Augmentation: Albumentations",
-    "text": "Data Augmentation: Albumentations\n\nAlbumentations"
+    "objectID": "slides/intro/index.html#alexnet",
+    "href": "slides/intro/index.html#alexnet",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "AlexNet",
+    "text": "AlexNet\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)"
   },
   {
-    "objectID": "slides/practical/index.html#data-augmentation-kornia",
-    "href": "slides/practical/index.html#data-augmentation-kornia",
-    "title": "Practical Considerations",
-    "section": "Data Augmentation: Kornia",
-    "text": "Data Augmentation: Kornia\n\n\n\nKornia"
-  },
-  {
-    "objectID": "slides/practical/index.html#data-augmentation-beispiel",
-    "href": "slides/practical/index.html#data-augmentation-beispiel",
-    "title": "Practical Considerations",
-    "section": "Data Augmentation: Beispiel",
-    "text": "Data Augmentation: Beispiel\n\n\n\nData Augmentation Beispiel."
-  },
-  {
-    "objectID": "slides/practical/index.html#data-augmentation-synthetische-daten",
-    "href": "slides/practical/index.html#data-augmentation-synthetische-daten",
-    "title": "Practical Considerations",
-    "section": "Data Augmentation: Synthetische Daten",
-    "text": "Data Augmentation: Synthetische Daten\n\n\n\nAus Beery et al. (2020). Synthetische und Halb-Synthetische Daten."
-  },
-  {
-    "objectID": "slides/practical/index.html#regularisierung-3",
-    "href": "slides/practical/index.html#regularisierung-3",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nMit early stopping wird ein Modell trainiert und in periodischen Abständen, z.B. nach jeder Epoche, auf einem Validation-Set evaluiert. Dabei wird das Training abgebrochen, falls nach x Evaluierungs-Zyklen keine nennenswerte Verbesserung mehr erreicht wird."
-  },
-  {
-    "objectID": "slides/practical/index.html#early-stopping",
-    "href": "slides/practical/index.html#early-stopping",
-    "title": "Practical Considerations",
-    "section": "Early Stopping",
-    "text": "Early Stopping\n\n\n\nSource: Link"
-  },
-  {
-    "objectID": "slides/practical/index.html#regularisierung-4",
-    "href": "slides/practical/index.html#regularisierung-4",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nEarly Stopping in PyTorch.\nfrom pytorch_lightning.callbacks.early_stopping import EarlyStopping\n\nclass LitModel(LightningModule):\n    def validation_step(self, batch, batch_idx):\n        loss = ...\n        self.log(\"val_loss\", loss)\n\nmodel = LitModel()\ntrainer = Trainer(callbacks=[EarlyStopping(monitor=\"val_loss\", mode=\"min\")])\ntrainer.fit(model)"
-  },
-  {
-    "objectID": "slides/practical/index.html#regularisierung-5",
-    "href": "slides/practical/index.html#regularisierung-5",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nMit weight decay kann ein Modell regularisiert werden. Dabei wird der Update-Schritt bei gradient descent modifiziert.\n\\[\\begin{equation}\n\\theta_{t+1} = \\theta_t (1 - \\lambda) - \\eta \\nabla J(\\theta)\n\\end{equation}\\]\nDabei ist \\(t\\) die Iteration, \\(\\theta\\) die Modell-Parameter, \\(\\eta\\) die learning rate und \\(\\lambda\\) der Decay-Parameter."
-  },
-  {
-    "objectID": "slides/practical/index.html#regularisierung-6",
-    "href": "slides/practical/index.html#regularisierung-6",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nTransfer-Learning ist das Adaptieren von einem trainierten Modell, das auf einem grossen Datensatz vortrainiert worden ist (z.B. ImageNet). Bei diesem wird anschliessend der letzte Layer entfernt und entsprechend dem neu zu lernenden Task ersetzt. Anschliessend trainiert man das Netzwerk weiter. Dabei kann man beliebige Layers einfrieren (die Gewichte nicht mehr aktualisieren) oder fine-tunen (die Gewichte weiter trainieren)."
-  },
-  {
-    "objectID": "slides/practical/index.html#transfer-learning",
-    "href": "slides/practical/index.html#transfer-learning",
-    "title": "Practical Considerations",
-    "section": "Transfer Learning",
-    "text": "Transfer Learning\n\n\n\nSource: Johnson and Fouhey (2021)"
-  },
-  {
-    "objectID": "slides/practical/index.html#regularisierung-7",
-    "href": "slides/practical/index.html#regularisierung-7",
-    "title": "Practical Considerations",
-    "section": "4) Regularisierung",
-    "text": "4) Regularisierung\nMan kann in PyTorch die Parameter einfrieren:\ndef set_parameter_requires_grad(model, feature_extracting):\n    if feature_extracting:\n        for param in model.parameters():\n            param.requires_grad = False"
-  },
-  {
-    "objectID": "slides/practical/index.html#hyper-parameter-tuning",
-    "href": "slides/practical/index.html#hyper-parameter-tuning",
-    "title": "Practical Considerations",
-    "section": "5) Hyper-Parameter Tuning",
-    "text": "5) Hyper-Parameter Tuning\nIn diesem Schritt geht es nun darum verschiedene Hyper-Parameter und Architekturen Systematisch zu evaluieren. Dazu gibt es verschiedene Techniken, wie grid-search oder random-search. Wobei random-search zu bevorzugen ist."
-  },
-  {
-    "objectID": "slides/practical/index.html#hyper-parameter-tuning-1",
-    "href": "slides/practical/index.html#hyper-parameter-tuning-1",
-    "title": "Practical Considerations",
-    "section": "5) Hyper-Parameter Tuning",
-    "text": "5) Hyper-Parameter Tuning\nParametrisierbare Architektur:\nclass Net(nn.Module):\n    def __init__(self, l1=120, l2=84):\n        super(Net, self).__init__()\n        self.conv1 = nn.Conv2d(3, 6, 5)\n        self.pool = nn.MaxPool2d(2, 2)\n        self.conv2 = nn.Conv2d(6, 16, 5)\n        self.fc1 = nn.Linear(16 * 5 * 5, l1)\n        self.fc2 = nn.Linear(l1, l2)\n        self.fc3 = nn.Linear(l2, 10)\n\n    def forward(self, x):\n        x = self.pool(F.relu(self.conv1(x)))\n        x = self.pool(F.relu(self.conv2(x)))\n        x = x.view(-1, 16 * 5 * 5)\n        x = F.relu(self.fc1(x))\n        x = F.relu(self.fc2(x))\n        x = self.fc3(x)\n        return x"
-  },
-  {
-    "objectID": "slides/practical/index.html#squeeze-out-the-juice",
-    "href": "slides/practical/index.html#squeeze-out-the-juice",
-    "title": "Practical Considerations",
-    "section": "6) Squeeze out the Juice",
-    "text": "6) Squeeze out the Juice\nNachdem man die besten Architekturen und Hyper-Parameter gefunden hat gibt es weitere Möglichkeiten noch mehr rauszuholen."
-  },
-  {
-    "objectID": "slides/practical/index.html#squeeze-out-the-juice-1",
-    "href": "slides/practical/index.html#squeeze-out-the-juice-1",
-    "title": "Practical Considerations",
-    "section": "6) Squeeze out the Juice",
-    "text": "6) Squeeze out the Juice\nModel Ensembling."
-  },
-  {
-    "objectID": "slides/practical/index.html#squeeze-out-the-juice-2",
-    "href": "slides/practical/index.html#squeeze-out-the-juice-2",
-    "title": "Practical Considerations",
-    "section": "6) Squeeze out the Juice",
-    "text": "6) Squeeze out the Juice\nLänger trainieren."
-  },
-  {
-    "objectID": "slides/practical/index.html#double-descent",
-    "href": "slides/practical/index.html#double-descent",
-    "title": "Practical Considerations",
-    "section": "Double Descent",
-    "text": "Double Descent\n\nSource: Nakkiran et al. (2019)"
-  },
-  {
-    "objectID": "slides/practical/index.html#squeeze-out-the-juice-3",
-    "href": "slides/practical/index.html#squeeze-out-the-juice-3",
-    "title": "Practical Considerations",
-    "section": "6) Squeeze out the Juice",
-    "text": "6) Squeeze out the Juice\nWeitere Trainings-Techniken:\n\nSpezieller Optimiser (AdamW)\nKomplexe Data Augmentation Techniken (Mixup, Cutmix, RandAugment)\nRegularisierungs-Techniken (Stochastic Depth)\nLabel Smoothing"
-  },
-  {
-    "objectID": "slides/practical/index.html#huggingface",
-    "href": "slides/practical/index.html#huggingface",
-    "title": "Practical Considerations",
-    "section": "HuggingFace",
-    "text": "HuggingFace\nHuggingFace"
-  },
-  {
-    "objectID": "slides/practical/index.html#timm",
-    "href": "slides/practical/index.html#timm",
-    "title": "Practical Considerations",
-    "section": "timm",
-    "text": "timm\nPyTorch Image Models (timm)"
-  },
-  {
-    "objectID": "slides/practical/index.html#links",
-    "href": "slides/practical/index.html#links",
-    "title": "Practical Considerations",
-    "section": "Links",
-    "text": "Links\n\nDS-cookie cutter\nPyTorch Lightning\nHydra\nWeights & Biases\nNeptune AI\nVersion Control Systems für ML Projekte"
-  },
-  {
-    "objectID": "slides.html",
-    "href": "slides.html",
-    "title": "Slides",
+    "objectID": "pages/notation.html",
+    "href": "pages/notation.html",
+    "title": "Notation",
     "section": "",
-    "text": "Intro slides.\n\n\n\n\n\nCNNs slides.\nNeural Networks slides.\nPractical slides.",
+    "text": "Syntax\nDescription\n\n\n\n\n\\(a\\)\nA scalar (integer or real)\n\n\n\\(\\mathbf{a}\\)\nA vector\n\n\n\\(\\mathbf{A}\\)\nA matrix\n\n\n\\(\\mathbf{\\mathsf{A}}\\)\nA tensor\n\n\n\\(\\mathbf{I}_n\\)\nIdentity matrix with \\(n\\) rows and \\(n\\) columns\n\n\n\\(\\mathbf{I}\\)\nIdentity matrix with dimensionality implied by context\n\n\n\\(\\mathbf{e}^{(i)}\\)\nStandard basis vector \\([0,\\dots,0,1,0,\\dots,0]\\) with a 1 at position \\(i\\)\n\n\n\\(\\text{diag}(\\mathbf{a})\\)\nA square, diagonal matrix with diagonal entries given by \\(\\mathbf{a}\\)\n\n\n\\(\\textnormal{a}\\)\nA scalar random variable\n\n\n\\(\\mathbf{a}\\)\nA vector-valued random variable\n\n\n\\(\\mathbf{A}\\)\nA matrix-valued random variable\n\n\n\\(\\theta\\)\nParameters of a model\n\n\n\\(f(\\theta, \\mathbf{x})\\)\nA function (model) with paramters \\(\\theta\\) and data \\(\\mathbf{x}\\)\n\n\n\\(\\mathbf{A} \\odot \\mathbf{B}\\)\nElement-wise (Hadamard) product of \\(\\mathbf{A}\\) and \\(\\mathbf{B}\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(a_i\\)\nElement \\(i\\) of vector \\(\\mathbf{a}\\), with indexing starting at 1\n\n\n\\(A_{i,j}\\)\nElement \\(i, j\\) of matrix \\(\\mathbf{A}\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(\\mathbf{X}\\)\nThe design matrix with dimensionality \\(nxp\\) with \\(n\\) samples with \\(p\\) features.\n\n\n\\(\\mathbf{x}^{(i)}\\)\nThe i-th training example.\n\n\n\\(\\mathbf{y}^{(i)}\\)\nThe label-vector for the i-th training example.\n\n\n\\(y^{(i)}\\)\nThe label for the i-th training example.\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(P(x)\\)\nA probability distribution over a discrete variable.\n\n\n\\(p(x)\\)\nA probability distribution over a contiuous variable or over a variable whose type has not been specified.\n\n\n\\(\\mathbb{E}_{x \\sim P} [ f(x) ]\\text{ or } \\mathbb{E} f(x)\\)\nExpectation of \\(f(x)\\) with respect to \\(P(x)\\)\n\n\n\\(\\mathcal{N} ( \\mathbf{x} ; \\mu , \\Sigma)\\)\nGaussian distribution over \\(\\mathbf{x}\\) with mean \\(\\mu\\) and covariance \\(\\Sigma\\)\n\n\n\\(x \\sim \\mathcal{N} (\\mu , \\sigma)\\)\nGaussian distribution over \\(x\\) with mean \\(\\mu\\) and variance \\(\\sigma\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(\\nabla_{\\mathbf{w}} J\\)\nGradient of \\(J\\) with respect to \\(\\mathbf{w}\\)\n\n\n\\(\\frac{\\partial J}{\\partial w}\\)\nPartial derivative of \\(J\\) with respect to \\(w\\)\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\n\\(\\log x\\)\nThe natural logarithm of \\(x\\).\n\n\n\\(\\lVert \\mathbf{x} \\rVert_p\\)\n\\(L^p\\) norm of \\(\\mathbf{x}\\)\n\n\n\\(\\lVert \\mathbf{x} \\rVert\\)\n\\(L^2\\) norm of \\(\\mathbf{x}\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nSyntax\nDescription\n\n\n\n\nNCHW\nThe input format of images in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width",
     "crumbs": [
-      "Slides"
+      "Resources",
+      "Notation"
     ]
+  },
+  {
+    "objectID": "pages/notation.html#numbers-and-arrays",
+    "href": "pages/notation.html#numbers-and-arrays",
+    "title": "Notation",
+    "section": "",
+    "text": "Syntax\nDescription\n\n\n\n\n\\(a\\)\nA scalar (integer or real)\n\n\n\\(\\mathbf{a}\\)\nA vector\n\n\n\\(\\mathbf{A}\\)\nA matrix\n\n\n\\(\\mathbf{\\mathsf{A}}\\)\nA tensor\n\n\n\\(\\mathbf{I}_n\\)\nIdentity matrix with \\(n\\) rows and \\(n\\) columns\n\n\n\\(\\mathbf{I}\\)\nIdentity matrix with dimensionality implied by context\n\n\n\\(\\mathbf{e}^{(i)}\\)\nStandard basis vector \\([0,\\dots,0,1,0,\\dots,0]\\) with a 1 at position \\(i\\)\n\n\n\\(\\text{diag}(\\mathbf{a})\\)\nA square, diagonal matrix with diagonal entries given by \\(\\mathbf{a}\\)\n\n\n\\(\\textnormal{a}\\)\nA scalar random variable\n\n\n\\(\\mathbf{a}\\)\nA vector-valued random variable\n\n\n\\(\\mathbf{A}\\)\nA matrix-valued random variable\n\n\n\\(\\theta\\)\nParameters of a model\n\n\n\\(f(\\theta, \\mathbf{x})\\)\nA function (model) with paramters \\(\\theta\\) and data \\(\\mathbf{x}\\)\n\n\n\\(\\mathbf{A} \\odot \\mathbf{B}\\)\nElement-wise (Hadamard) product of \\(\\mathbf{A}\\) and \\(\\mathbf{B}\\)",
+    "crumbs": [
+      "Resources",
+      "Notation"
+    ]
+  },
+  {
+    "objectID": "pages/notation.html#indexing",
+    "href": "pages/notation.html#indexing",
+    "title": "Notation",
+    "section": "",
+    "text": "Syntax\nDescription\n\n\n\n\n\\(a_i\\)\nElement \\(i\\) of vector \\(\\mathbf{a}\\), with indexing starting at 1\n\n\n\\(A_{i,j}\\)\nElement \\(i, j\\) of matrix \\(\\mathbf{A}\\)",
+    "crumbs": [
+      "Resources",
+      "Notation"
+    ]
+  },
+  {
+    "objectID": "pages/notation.html#datasets-and-distributions",
+    "href": "pages/notation.html#datasets-and-distributions",
+    "title": "Notation",
+    "section": "",
+    "text": "Syntax\nDescription\n\n\n\n\n\\(\\mathbf{X}\\)\nThe design matrix with dimensionality \\(nxp\\) with \\(n\\) samples with \\(p\\) features.\n\n\n\\(\\mathbf{x}^{(i)}\\)\nThe i-th training example.\n\n\n\\(\\mathbf{y}^{(i)}\\)\nThe label-vector for the i-th training example.\n\n\n\\(y^{(i)}\\)\nThe label for the i-th training example.",
+    "crumbs": [
+      "Resources",
+      "Notation"
+    ]
+  },
+  {
+    "objectID": "pages/notation.html#probability-theory",
+    "href": "pages/notation.html#probability-theory",
+    "title": "Notation",
+    "section": "",
+    "text": "Syntax\nDescription\n\n\n\n\n\\(P(x)\\)\nA probability distribution over a discrete variable.\n\n\n\\(p(x)\\)\nA probability distribution over a contiuous variable or over a variable whose type has not been specified.\n\n\n\\(\\mathbb{E}_{x \\sim P} [ f(x) ]\\text{ or } \\mathbb{E} f(x)\\)\nExpectation of \\(f(x)\\) with respect to \\(P(x)\\)\n\n\n\\(\\mathcal{N} ( \\mathbf{x} ; \\mu , \\Sigma)\\)\nGaussian distribution over \\(\\mathbf{x}\\) with mean \\(\\mu\\) and covariance \\(\\Sigma\\)\n\n\n\\(x \\sim \\mathcal{N} (\\mu , \\sigma)\\)\nGaussian distribution over \\(x\\) with mean \\(\\mu\\) and variance \\(\\sigma\\)",
+    "crumbs": [
+      "Resources",
+      "Notation"
+    ]
+  },
+  {
+    "objectID": "pages/notation.html#calculus",
+    "href": "pages/notation.html#calculus",
+    "title": "Notation",
+    "section": "",
+    "text": "Syntax\nDescription\n\n\n\n\n\\(\\nabla_{\\mathbf{w}} J\\)\nGradient of \\(J\\) with respect to \\(\\mathbf{w}\\)\n\n\n\\(\\frac{\\partial J}{\\partial w}\\)\nPartial derivative of \\(J\\) with respect to \\(w\\)",
+    "crumbs": [
+      "Resources",
+      "Notation"
+    ]
+  },
+  {
+    "objectID": "pages/notation.html#functions",
+    "href": "pages/notation.html#functions",
+    "title": "Notation",
+    "section": "",
+    "text": "Syntax\nDescription\n\n\n\n\n\\(\\log x\\)\nThe natural logarithm of \\(x\\).\n\n\n\\(\\lVert \\mathbf{x} \\rVert_p\\)\n\\(L^p\\) norm of \\(\\mathbf{x}\\)\n\n\n\\(\\lVert \\mathbf{x} \\rVert\\)\n\\(L^2\\) norm of \\(\\mathbf{x}\\)",
+    "crumbs": [
+      "Resources",
+      "Notation"
+    ]
+  },
+  {
+    "objectID": "pages/notation.html#deep-learning",
+    "href": "pages/notation.html#deep-learning",
+    "title": "Notation",
+    "section": "",
+    "text": "Syntax\nDescription\n\n\n\n\nNCHW\nThe input format of images in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width",
+    "crumbs": [
+      "Resources",
+      "Notation"
+    ]
+  },
+  {
+    "objectID": "slides/neural_networks/index.html#neuronen",
+    "href": "slides/neural_networks/index.html#neuronen",
+    "title": "Neural Networks",
+    "section": "Neuronen",
+    "text": "Neuronen\n\nSchematische Darstellung von verbundenen Neuronen. Source: Phillips (2015)"
+  },
+  {
+    "objectID": "slides/neural_networks/index.html#visueller-cortex",
+    "href": "slides/neural_networks/index.html#visueller-cortex",
+    "title": "Neural Networks",
+    "section": "Visueller Cortex",
+    "text": "Visueller Cortex\n\nRepresentation von Transformationen im visuellen Cortex. Source: Kubilius (2017)"
+  },
+  {
+    "objectID": "slides/neural_networks/index.html#multilayer-perceptron",
+    "href": "slides/neural_networks/index.html#multilayer-perceptron",
+    "title": "Neural Networks",
+    "section": "Multilayer Perceptron",
+    "text": "Multilayer Perceptron\n\nEin neuronales Netzwerk mit zwei Hidden Layer. Die Linien zeigen Verbindungen zwischen den Neuronen. Source: Li (2022)"
+  },
+  {
+    "objectID": "slides/neural_networks/index.html#lineares-modell",
+    "href": "slides/neural_networks/index.html#lineares-modell",
+    "title": "Neural Networks",
+    "section": "Lineares Modell",
+    "text": "Lineares Modell\nEin lineares Modell hat folgende Form:\n\\[\\begin{equation}\n   f(\\mathbf{x}^{(i)}) = \\mathbf{W} \\mathbf{x}^{(i)}  +  \\mathbf{b}\n\\end{equation}\\]"
+  },
+  {
+    "objectID": "slides/neural_networks/index.html#neuronales-netzwerk",
+    "href": "slides/neural_networks/index.html#neuronales-netzwerk",
+    "title": "Neural Networks",
+    "section": "Neuronales Netzwerk",
+    "text": "Neuronales Netzwerk\n\\[\\begin{equation*}\n   f(\\mathbf{x}^{(i)}) = \\mathbf{W}^{(2)} g\\big(\\mathbf{W}^{(1)} \\mathbf{x}^{(i)}  +  \\mathbf{b}^{(1)} \\big)  +  \\mathbf{b}^{(2)}\n\\end{equation*}\\]"
+  },
+  {
+    "objectID": "slides/neural_networks/index.html#activation-function",
+    "href": "slides/neural_networks/index.html#activation-function",
+    "title": "Neural Networks",
+    "section": "Activation Function",
+    "text": "Activation Function\n\\[\\begin{equation}\n\\text{ReLU}(x) = \\begin{cases}\nx, & \\text{if } x \\geq 0 \\\\\n0, & \\text{if } x &lt; 0\n\\end{cases}\n\\end{equation}\\]\n\n\n\n\n\n\n\n\nFigure 1: Linear (left) vs non-linear (right) activation function."
   }
 ]

@@ -8,8 +8,9 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.54">
+  <meta name="generator" content="quarto-1.5.55">
 
+  <meta name="author" content="Marco Willi">
   <title>CAS Deep Learning - Computer Vision (Part1) – Practical Considerations</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -416,76 +417,86 @@
   <p class="subtitle">CAS Deep Learning - Computer Vision (Part1)</p>
 
 <div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Marco Willi 
+</div>
+        <p class="quarto-title-affiliation">
+            Institute for Data Science I4DS, FHNW
+          </p>
+    </div>
 </div>
 
 </section>
 <section id="overview" class="title-slide slide level1 center">
 <h1>Overview</h1>
 <ul>
-<li>Ein Rezept</li>
-<li>Daten</li>
+<li>A Recipe</li>
+<li>Data</li>
 <li>Baselines</li>
 <li>Overfit</li>
-<li>Regularisation</li>
+<li>Regularization</li>
 <li>Tuning</li>
 <li>Squeeze</li>
 </ul>
 </section>
 
 <section>
-<section id="ein-rezept" class="title-slide slide level1 center">
-<h1>Ein Rezept</h1>
+<section id="a-recipe" class="title-slide slide level1 center">
+<h1>A Recipe</h1>
 
 </section>
 <section id="leaky-abstraction" class="slide level2">
 <h2>Leaky Abstraction</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>your_data <span class="op">=</span> <span class="co"># plug your awesome dataset here</span></span>
-<span id="cb1-2"><a></a>model <span class="op">=</span> SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7a0aea96" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>your_data <span class="op">=</span> <span class="co"># plug your awesome dataset here</span></span>
+<span id="cb1-2"><a></a>model <span class="op">=</span> SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="silent-failure" class="slide level2">
 <h2>Silent Failure</h2>
-<p>Das Trainieren von Neuronalen Netzwerken <em>fails silently</em>!</p>
+<p>Training neural networks <em>fails silently</em>!</p>
 </section></section>
 <section>
-<section id="daten" class="title-slide slide level1 center">
-<h1>1 - Daten</h1>
+<section id="data" class="title-slide slide level1 center">
+<h1>1 - Data</h1>
 
 </section>
-<section id="eins-werden-mit-den-daten" class="slide level2">
-<h2>1) Eins werden mit den Daten</h2>
-<p>Genaues Inspizieren der Daten!</p>
+<section id="get-to-know-the-data" class="slide level2">
+<h2>1) Get to Know the Data</h2>
+<p>Thoroughly inspect the data!</p>
 </section>
-<section id="camera-traps-fehler" class="slide level2">
-<h2>Camera Traps: Fehler</h2>
+<section id="camera-traps-errors" class="slide level2">
+<h2>Camera Traps: Errors</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/camera_traps_corrupt.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Beispiele von Bildern aus Kamerafallen.</figcaption>
+<p><img data-src="../../assets/images/practical/camera_traps_corrupt.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Examples of images from camera traps.</figcaption>
 </figure>
 </div>
 </section>
-<section id="camera-traps-schwierigkeiten" class="slide level2">
-<h2>Camera Traps: Schwierigkeiten</h2>
+<section id="camera-traps-difficulties" class="slide level2">
+<h2>Camera Traps: Difficulties</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/cam_trap_difficulties.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Beispiele von Bildern aus Kamerafallen. Source: <span class="citation" data-cites="Beery2018">Beery, Van Horn, and Perona (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></figcaption>
+<p><img data-src="../../assets/images/practical/cam_trap_difficulties.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Examples of images from camera traps. Source: <span class="citation" data-cites="Beery2018">Beery, Van Horn, and Perona (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></figcaption>
 </figure>
 </div>
 </section>
-<section id="seltene-klassen" class="slide level2">
-<h2>Seltene Klassen</h2>
+<section id="rare-classes" class="slide level2">
+<h2>Rare Classes</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/wrong_predictions_serval.png" height="600"></p>
-<figcaption>Ein Bild von einem Serval. Unterhalb sind die Modell-Confidences abgebildet.</figcaption>
+<p><img data-src="../../assets/images/practical/wrong_predictions_serval.png" height="600"></p>
+<figcaption>An image of a serval. Below are the model confidences.</figcaption>
 </figure>
 </div>
 </section>
-<section id="mehrere-klassen" class="slide level2">
-<h2>Mehrere Klassen</h2>
+<section id="multiple-classes" class="slide level2">
+<h2>Multiple Classes</h2>
 
-<img data-src="../../images/practical/multi_species.JPG" style="width:80.0%" class="r-stretch quarto-figure-center"><p class="caption">Beispiele einem Bild aus einer Kamerafalle mit verschiedenen Spezies.</p></section></section>
+<img data-src="../../assets/images/practical/multi_species.JPG" style="width:80.0%" class="r-stretch quarto-figure-center"><p class="caption">Examples of an image from a camera trap with different species.</p></section></section>
 <section>
 <section id="baselines" class="title-slide slide level1 center">
 <h1>2 - Baselines</h1>
@@ -493,14 +504,14 @@
 </section>
 <section id="baselines-1" class="slide level2">
 <h2>2) Baselines</h2>
-<p>Evaluierungs-Pipeline, Metiken, Experiment-Tracking und Baseline Modell.</p>
+<p>Evaluation pipeline, metrics, experiment tracking, and baseline model.</p>
 </section>
-<section id="ml-prozess" class="slide level2">
-<h2>ML-Prozess</h2>
+<section id="ml-process" class="slide level2">
+<h2>ML Process</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/ml_process_raschka.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Die Komponenten eines typischen Machine Learning Prozesses. Source: <span class="citation" data-cites="raschka_python_2020">Raschka and Mirjalili (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span></figcaption>
+<p><img data-src="../../assets/images/practical/ml_process_raschka.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>The components of a typical machine learning process. Source: <span class="citation" data-cites="raschka_python_2020">Raschka and Mirjalili (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span></figcaption>
 </figure>
 </div>
 </section>
@@ -508,48 +519,48 @@
 <h2>Experiment Tracking</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/wb_example.png" style="height:70.0%"></p>
-<figcaption>Weights and Biases Experiment-Tracking.</figcaption>
+<p><img data-src="../../assets/images/practical/wb_example.png" style="height:70.0%"></p>
+<figcaption>Weights and Biases experiment tracking.</figcaption>
 </figure>
 </div>
 </section>
 <section id="baselines-2" class="slide level2">
 <h2>2) Baselines</h2>
-<p>Reproduzierbarkeit sicherstellen.</p>
+<p>Ensure reproducibility.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb2-2"><a></a>torch.manual_seed(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="baselines-3" class="slide level2">
 <h2>2) Baselines</h2>
-<p>Keine unnötigen Techniken und Komplexitäten anwenden. Reduziere die Fehleranfälligkeit.</p>
+<p>Avoid unnecessary techniques and complexities. Reduce error susceptibility.</p>
 </section>
 <section id="baselines-4" class="slide level2">
 <h2>2) Baselines</h2>
-<p>Verwende, falls möglich, eine <em>human baseline</em>. Wie gut kann das Modell überhaupt sein?</p>
+<p>If possible, use a <em>human baseline</em>. How good can the model be?</p>
 </section>
-<section id="schwierige-fälle" class="slide level2">
-<h2>Schwierige Fälle</h2>
+<section id="difficult-cases" class="slide level2">
+<h2>Difficult Cases</h2>
 
-<img data-src="../../images/practical/camera_trap_difficult.jpeg" style="width:50.0%" class="r-stretch quarto-figure-center"><p class="caption">Bild einer Kamerafalle das schwierig zu klassifizieren ist. Hier hatten Annotatoren mit Experten eine Übereinstimmung von 96.6%.</p></section>
+<img data-src="../../assets/images/practical/camera_trap_difficult.jpeg" style="width:50.0%" class="r-stretch quarto-figure-center"><p class="caption">An image from a camera trap that is difficult to classify. Here, annotators had a 96.6% agreement with experts.</p></section>
 <section id="baselines-5" class="slide level2">
 <h2>2) Baselines</h2>
-<p>Input-Unabhängige Baseline trainieren. Lernt das Modell überhaupt etwas?</p>
+<p>Train an input-independent baseline. Is the model learning anything at all?</p>
 </section>
 <section id="baselines-6" class="slide level2">
 <h2>2) Baselines</h2>
-<p>Das Modell auf einem Batch an Daten overfitten. Funktioniert die Optimierung?</p>
+<p>Overfit the model on a batch of data. Does the optimization work?</p>
 </section>
 <section id="baselines-7" class="slide level2">
 <h2>2) Baselines</h2>
-<p>Visualisieren was in das Modell geht. Funktioniert mein Pre-Processing?</p>
+<p>Visualize what goes into the model. Is my preprocessing working?</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>y_hat <span class="op">=</span> model(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="fixes-sample-beispiel-segmentierung" class="slide level2">
-<h2>Fixes Sample: Beispiel Segmentierung</h2>
+<section id="fixed-sample-segmentation-example" class="slide level2">
+<h2>Fixed Sample: Segmentation Example</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/wb_comparison.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Beispiel eines Segmentierungsproblems: links der Input und rechts der Output.</figcaption>
+<p><img data-src="../../assets/images/practical/wb_comparison.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Example of a segmentation problem: input on the left and output on the right.</figcaption>
 </figure>
 </div>
 </section></section>
@@ -560,39 +571,39 @@
 </section>
 <section id="overfit-1" class="slide level2">
 <h2>3) Overfit</h2>
-<p>Jetzt sollten ein gutes Verständnis des Datensatzes, ein hohes Vertrauen in die Evaluierungs-Pipeline und erste Baselines von einfachen Modellen vorhanden sein. Nun sucht man ein Modell, das eine möglichst gute Performance auf dem Trainings-Set aufweist.</p>
+<p>At this point, you should have a good understanding of the dataset, high confidence in the evaluation pipeline, and initial baselines from simple models. Now, look for a model that performs well on the training set.</p>
 </section>
 <section id="overfit-2" class="slide level2">
 <h2>3) Overfit</h2>
-<p>Man sucht eine gute Modell-Architektur. Dabei gilt das Prinzip “Don’t be a hero”. Man sollte also bereits implementierte / etablierte Architekturen bevorzugen.</p>
+<p>Look for a good model architecture. Follow the principle “Don’t be a hero”. Prefer already implemented/established architectures.</p>
 </section></section>
 <section>
-<section id="regularisation" class="title-slide slide level1 center">
-<h1>4 - Regularisation</h1>
+<section id="regularization" class="title-slide slide level1 center">
+<h1>4 - Regularization</h1>
 
 </section>
-<section id="regularisierung" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>An diesem Punkt sollte man eine gute Performance auf dem Training-Set erreicht haben. Nun kann der Fokus auf das Validation-Set gelegt werden.</p>
+<section id="regularization-1" class="slide level2">
+<h2>4) Regularization</h2>
+<p>At this point, you should have achieved good performance on the training set. Now, focus on the validation set.</p>
 </section>
-<section id="regularisierung-1" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>Die einfachste Massnahme bessere Performance zu erreichen (und auch Overfitting zu reduzieren) ist das Sammeln von mehr Trainings-Daten. Das ist jedoch oft teuer!</p>
+<section id="regularization-2" class="slide level2">
+<h2>4) Regularization</h2>
+<p>The simplest measure to achieve better performance (and also reduce overfitting) is to collect more training data. However, this is often expensive!</p>
 </section>
-<section id="learning---curve" class="slide level2">
-<h2>Learning - Curve</h2>
-<p>Lohnt sich das Sammeln von mehr Daten?</p>
+<section id="learning-curve" class="slide level2">
+<h2>Learning Curve</h2>
+<p>Is it worth collecting more data?</p>
 
-<img data-src="../../images/practical/learning_curve.jpg" style="width:70.0%" class="r-stretch quarto-figure-center"><p class="caption">Beispiel einer learning curve. X-Achse Performance, Y-Achse die Anzahl Trainings-Samples. Linkes Panel mit Gauissian Naive Bayes und rechtes Panel mit Support Vector Classifier.</p></section>
-<section id="regularisierung-2" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>Eine andere Möglichkeit ist data augmentation. Dabei werden neue Datenpunkte aus bestehenden generiert, indem man zufällige Änderungen an den Daten vornimmt. Dabei werden Datenpunkte typischerweise on-the-fly augmentiert.</p>
+<img data-src="../../assets/images/practical/learning_curve.jpg" style="width:70.0%" class="r-stretch quarto-figure-center"><p class="caption">Example of a learning curve. X-axis: Performance, Y-axis: Number of training samples. Left panel with Gaussian Naive Bayes and right panel with Support Vector Classifier.</p></section>
+<section id="regularization-3" class="slide level2">
+<h2>4) Regularization</h2>
+<p>Another possibility is data augmentation. New data points are generated from existing ones by making random changes to the data. Typically, data points are augmented on-the-fly.</p>
 </section>
 <section id="data-augmentation-augly" class="slide level2">
 <h2>Data Augmentation: Augly</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/augly.jpg" style="width:100.0%;height:70.0%"></p>
+<p><img data-src="../../assets/images/practical/augly.jpg" style="width:100.0%;height:70.0%"></p>
 <figcaption>AugLy</figcaption>
 </figure>
 </div>
@@ -600,50 +611,50 @@
 <section id="data-augmentation-albumentations" class="slide level2">
 <h2>Data Augmentation: Albumentations</h2>
 
-<img data-src="../../images/practical/albumentations.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption">Albumentations</p></section>
+<img data-src="../../assets/images/practical/albumentations.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption">Albumentations</p></section>
 <section id="data-augmentation-kornia" class="slide level2">
 <h2>Data Augmentation: Kornia</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/kornia.png" style="width:100.0%;height:70.0%"></p>
+<p><img data-src="../../assets/images/practical/kornia.png" style="width:100.0%;height:70.0%"></p>
 <figcaption>Kornia</figcaption>
 </figure>
 </div>
 </section>
-<section id="data-augmentation-beispiel" class="slide level2">
-<h2>Data Augmentation: Beispiel</h2>
+<section id="data-augmentation-example" class="slide level2">
+<h2>Data Augmentation: Example</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/augmentation_rhino.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Data Augmentation Beispiel.</figcaption>
+<p><img data-src="../../assets/images/practical/augmentation_rhino.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Data augmentation example.</figcaption>
 </figure>
 </div>
 </section>
-<section id="data-augmentation-synthetische-daten" class="slide level2">
-<h2>Data Augmentation: Synthetische Daten</h2>
+<section id="data-augmentation-synthetic-data" class="slide level2">
+<h2>Data Augmentation: Synthetic Data</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/synthetic_camera_trap_images.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Aus <span class="citation" data-cites="Beery2020">Beery et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>. Synthetische und Halb-Synthetische Daten.</figcaption>
+<p><img data-src="../../assets/images/practical/synthetic_camera_trap_images.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>From <span class="citation" data-cites="Beery2020">Beery et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>. Synthetic and semi-synthetic data.</figcaption>
 </figure>
 </div>
 </section>
-<section id="regularisierung-3" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>Mit early stopping wird ein Modell trainiert und in periodischen Abständen, z.B. nach jeder Epoche, auf einem Validation-Set evaluiert. Dabei wird das Training abgebrochen, falls nach x Evaluierungs-Zyklen keine nennenswerte Verbesserung mehr erreicht wird.</p>
+<section id="regularization-4" class="slide level2">
+<h2>4) Regularization</h2>
+<p>With early stopping, a model is trained and periodically evaluated on a validation set, e.g., after each epoch. Training is stopped if no significant improvement is achieved after x evaluation cycles.</p>
 </section>
 <section id="early-stopping" class="slide level2">
 <h2>Early Stopping</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/early_stopping.png" style="width:100.0%;height:70.0%"></p>
+<p><img data-src="../../assets/images/practical/early_stopping.png" style="width:100.0%;height:70.0%"></p>
 <figcaption>Source: <a href="https://www.oreilly.com/library/view/hands-on-transfer-learning/9781788831307/41172567-9482-4cad-ac87-1cfbd46026df.xhtml">Link</a></figcaption>
 </figure>
 </div>
 </section>
-<section id="regularisierung-4" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>Early Stopping in PyTorch.</p>
+<section id="regularization-5" class="slide level2">
+<h2>4) Regularization</h2>
+<p>Early stopping in PyTorch.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> pytorch_lightning.callbacks.early_stopping <span class="im">import</span> EarlyStopping</span>
 <span id="cb4-2"><a></a></span>
 <span id="cb4-3"><a></a><span class="kw">class</span> LitModel(LightningModule):</span>
@@ -655,30 +666,30 @@
 <span id="cb4-9"><a></a>trainer <span class="op">=</span> Trainer(callbacks<span class="op">=</span>[EarlyStopping(monitor<span class="op">=</span><span class="st">"val_loss"</span>, mode<span class="op">=</span><span class="st">"min"</span>)])</span>
 <span id="cb4-10"><a></a>trainer.fit(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="regularisierung-5" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>Mit <em>weight decay</em> kann ein Modell regularisiert werden. Dabei wird der Update-Schritt bei gradient descent modifiziert.</p>
+<section id="regularization-6" class="slide level2">
+<h2>4) Regularization</h2>
+<p>With <em>weight decay</em>, a model can be regularized. The update step in gradient descent is modified.</p>
 <p><span class="math display">\[\begin{equation}
 \theta_{t+1} = \theta_t (1 - \lambda) - \eta \nabla J(\theta)
 \end{equation}\]</span></p>
-<p>Dabei ist <span class="math inline">\(t\)</span> die Iteration, <span class="math inline">\(\theta\)</span> die Modell-Parameter, <span class="math inline">\(\eta\)</span> die learning rate und <span class="math inline">\(\lambda\)</span> der Decay-Parameter.</p>
+<p>Where <span class="math inline">\(t\)</span> is the iteration, <span class="math inline">\(\theta\)</span> the model parameters, <span class="math inline">\(\eta\)</span> the learning rate, and <span class="math inline">\(\lambda\)</span> the decay parameter.</p>
 </section>
-<section id="regularisierung-6" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>Transfer-Learning ist das Adaptieren von einem trainierten Modell, das auf einem grossen Datensatz vortrainiert worden ist (z.B. ImageNet). Bei diesem wird anschliessend der letzte Layer entfernt und entsprechend dem neu zu lernenden Task ersetzt. Anschliessend trainiert man das Netzwerk weiter. Dabei kann man beliebige Layers einfrieren (die Gewichte nicht mehr aktualisieren) oder fine-tunen (die Gewichte weiter trainieren).</p>
+<section id="regularization-7" class="slide level2">
+<h2>4) Regularization</h2>
+<p>Transfer learning involves adapting a pre-trained model on a large dataset (e.g., ImageNet) to a new task. The last layer is removed and replaced according to the new task. The network is then further trained. Layers can be frozen (weights not updated) or fine-tuned (weights further trained).</p>
 </section>
 <section id="transfer-learning" class="slide level2">
 <h2>Transfer Learning</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../images/practical/transfer_learning.jpg" style="width:100.0%;height:70.0%"></p>
+<p><img data-src="../../assets/images/practical/transfer_learning.jpg" style="width:100.0%;height:70.0%"></p>
 <figcaption>Source: <span class="citation" data-cites="johnson_eecs_2021">Johnson and Fouhey (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span></figcaption>
 </figure>
 </div>
 </section>
-<section id="regularisierung-7" class="slide level2">
-<h2>4) Regularisierung</h2>
-<p>Man kann in PyTorch die Parameter einfrieren:</p>
+<section id="regularization-8" class="slide level2">
+<h2>4) Regularization</h2>
+<p>In PyTorch, you can freeze the parameters:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="kw">def</span> set_parameter_requires_grad(model, feature_extracting):</span>
 <span id="cb5-2"><a></a>    <span class="cf">if</span> feature_extracting:</span>
 <span id="cb5-3"><a></a>        <span class="cf">for</span> param <span class="kw">in</span> model.parameters():</span>
@@ -691,11 +702,11 @@
 </section>
 <section id="hyper-parameter-tuning" class="slide level2">
 <h2>5) Hyper-Parameter Tuning</h2>
-<p>In diesem Schritt geht es nun darum verschiedene Hyper-Parameter und Architekturen Systematisch zu evaluieren. Dazu gibt es verschiedene Techniken, wie grid-search oder random-search. Wobei random-search zu bevorzugen ist.</p>
+<p>In this step, different hyperparameters and architectures are systematically evaluated. Techniques such as grid search or random search can be used, with random search being preferred.</p>
 </section>
 <section id="hyper-parameter-tuning-1" class="slide level2">
 <h2>5) Hyper-Parameter Tuning</h2>
-<p>Parametrisierbare Architektur:</p>
+<p>Parameterized architecture:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="kw">class</span> Net(nn.Module):</span>
 <span id="cb6-2"><a></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, l1<span class="op">=</span><span class="dv">120</span>, l2<span class="op">=</span><span class="dv">84</span>):</span>
 <span id="cb6-3"><a></a>        <span class="bu">super</span>(Net, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -722,28 +733,28 @@
 </section>
 <section id="squeeze-out-the-juice" class="slide level2">
 <h2>6) Squeeze out the Juice</h2>
-<p>Nachdem man die besten Architekturen und Hyper-Parameter gefunden hat gibt es weitere Möglichkeiten noch mehr rauszuholen.</p>
+<p>After finding the best architectures and hyperparameters, there are further ways to squeeze out more performance.</p>
 </section>
 <section id="squeeze-out-the-juice-1" class="slide level2">
 <h2>6) Squeeze out the Juice</h2>
-<p>Model Ensembling.</p>
+<p>Model ensembling.</p>
 </section>
 <section id="squeeze-out-the-juice-2" class="slide level2">
 <h2>6) Squeeze out the Juice</h2>
-<p>Länger trainieren.</p>
+<p>Train longer.</p>
 </section>
 <section id="double-descent" class="slide level2">
 <h2>Double Descent</h2>
 
-<img data-src="../../images/practical/double_descent.jpg" style="width:70.0%" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="nakkiran_deep_2019">Nakkiran et al. (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></section>
+<img data-src="../../assets/images/practical/double_descent.jpg" style="width:70.0%" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="nakkiran_deep_2019">Nakkiran et al. (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></section>
 <section id="squeeze-out-the-juice-3" class="slide level2">
 <h2>6) Squeeze out the Juice</h2>
-<p>Weitere Trainings-Techniken:</p>
+<p>Other training techniques:</p>
 <ul>
-<li>Spezieller Optimiser (AdamW)</li>
-<li>Komplexe Data Augmentation Techniken (Mixup, Cutmix, RandAugment)</li>
-<li>Regularisierungs-Techniken (Stochastic Depth)</li>
-<li>Label Smoothing</li>
+<li>Special optimizer (AdamW)</li>
+<li>Complex data augmentation techniques (Mixup, Cutmix, RandAugment)</li>
+<li>Regularization techniques (Stochastic Depth)</li>
+<li>Label smoothing</li>
 </ul>
 </section>
 <section id="huggingface" class="slide level2">
@@ -762,7 +773,7 @@
 <li><a href="https://hydra.cc/docs/intro/">Hydra</a></li>
 <li><a href="https://wandb.ai/site">Weights &amp; Biases</a></li>
 <li><a href="https://neptune.ai/experiment-tracking">Neptune AI</a></li>
-<li><a href="https://dvc.org/">Version Control Systems für ML Projekte</a></li>
+<li><a href="https://dvc.org/">Version Control Systems for ML Projects</a></li>
 </ul>
 </section></section>
 <section id="references" class="title-slide slide level1 smaller scrollable">

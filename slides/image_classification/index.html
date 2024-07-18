@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Marco Willi">
-  <title>CAS Deep Learning - Computer Vision (Part1) – Neural Networks</title>
+  <title>CAS Deep Learning - Computer Vision (Part1) – Image Classification</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -348,7 +348,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Neural Networks</h1>
+  <h1 class="title">Image Classification</h1>
   <p class="subtitle">CAS Deep Learning - Computer Vision (Part1)</p>
 
 <div class="quarto-title-authors">
@@ -363,75 +363,339 @@ Marco Willi
 </div>
 
 </section>
+<section id="overview" class="slide level2">
+<h2>Overview</h2>
+<ul>
+<li>Introduction</li>
+<li>Modeling</li>
+<li>Loss Function</li>
+<li>Architectures</li>
+</ul>
+</section>
 <section>
-<section id="biologische-neuronale-netzwerke" class="title-slide slide level1 center">
-<h1>Biologische Neuronale Netzwerke</h1>
+<section id="introduction" class="title-slide slide level1 center">
+<h1>Introduction</h1>
 
 </section>
-<section id="neuronen" class="slide level2">
-<h2>Neuronen</h2>
+<section id="adversarial-panda" class="slide level2">
+<h2>Adversarial Panda</h2>
 
-<img data-src="../../images/neural_networks/connected_neurons.png" class="r-stretch quarto-figure-center"><p class="caption">Schematische Darstellung von verbundenen Neuronen. Source: <span class="citation" data-cites="phillips_speed_2015">Phillips (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></p></section>
-<section id="visueller-cortex" class="slide level2">
-<h2>Visueller Cortex</h2>
+<img data-src="../../assets/images/classification/adversarial_panda.jpg" style="width:40.0%" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="goodfellow_explaining_2015">Goodfellow, Shlens, and Szegedy (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></p></section>
+<section id="adversarial-panda-1" class="slide level2">
+<h2>Adversarial Panda</h2>
 
-<img data-src="../../images/neural_networks/ventralvisualstream_v2.png" class="r-stretch quarto-figure-center"><p class="caption">Representation von Transformationen im visuellen Cortex. Source: <span class="citation" data-cites="kubilius_ventral_2017">Kubilius (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p></section>
-<section id="multilayer-perceptron" class="slide level2">
-<h2>Multilayer Perceptron</h2>
-
-<img data-src="../../images/neural_networks/mlp.jpeg" class="r-stretch quarto-figure-center"><p class="caption">Ein neuronales Netzwerk mit zwei <em>Hidden Layer</em>. Die Linien zeigen Verbindungen zwischen den Neuronen. Source: <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p></section></section>
-<section>
-<section id="von-linearen-modellen-zu-neuronalen-netzwerken" class="title-slide slide level1 center">
-<h1>Von Linearen Modellen zu Neuronalen Netzwerken</h1>
-
-</section>
-<section id="lineares-modell" class="slide level2">
-<h2>Lineares Modell</h2>
-<p>Ein lineares Modell hat folgende Form:</p>
-<p><span class="math display">\[\begin{equation}
-   f(\mathbf{x}^{(i)}) = \mathbf{W} \mathbf{x}^{(i)}  +  \mathbf{b}
-\end{equation}\]</span></p>
-</section>
-<section id="neuronales-netzwerk" class="slide level2">
-<h2>Neuronales Netzwerk</h2>
-<p><span class="math display">\[\begin{equation*}
-   f(\mathbf{x}^{(i)}) = \mathbf{W}^{(2)} g\big(\mathbf{W}^{(1)} \mathbf{x}^{(i)}  +  \mathbf{b}^{(1)} \big)  +  \mathbf{b}^{(2)}
-\end{equation*}\]</span></p>
-</section>
-<section id="activation-function" class="slide level2">
-<h2>Activation Function</h2>
-<p><span class="math display">\[\begin{equation}
-\text{ReLU}(x) = \begin{cases}
-x, &amp; \text{if } x \geq 0 \\
-0, &amp; \text{if } x &lt; 0
-\end{cases}
-\end{equation}\]</span></p>
-<div id="cell-fig-nn-relu_vs_linear" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div id="fig-nn-relu_vs_linear" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-nn-relu_vs_linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img data-src="index_files/figure-revealjs/fig-nn-relu_vs_linear-output-1.png" width="941" height="506">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nn-relu_vs_linear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Linear (left) vs non-linear (right) activation function.
-</figcaption>
+<img data-src="../../assets/images/classification/adversarial_panda2.jpg" style="width:80.0%" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="goodfellow_explaining_2015">Goodfellow, Shlens, and Szegedy (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></p></section>
+<section id="image-classification" class="slide level2">
+<h2>Image Classification</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/classification_illustration.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Example of Image Classification.</figcaption>
 </figure>
 </div>
+</section>
+<section id="image-classification-example" class="slide level2">
+<h2>Image Classification: Example</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/image_classification_example.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Example of Image Classification (from <span class="citation" data-cites="krizhevsky_imagenet_2012">Krizhevsky, Sutskever, and Hinton (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span>).</figcaption>
+</figure>
 </div>
+</section>
+<section id="image-classification-camera-traps" class="slide level2">
+<h2>Image Classification: Camera Traps</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/camera_traps.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Example images from camera traps.</figcaption>
+</figure>
 </div>
+</section></section>
+<section>
+<section id="modeling" class="title-slide slide level1 center">
+<h1>Modeling</h1>
+
+</section>
+<section id="parametric-approach" class="slide level2">
+<h2>Parametric Approach</h2>
+<p>With a parametric approach, we seek a model of the following form:</p>
+<p><span class="math display">\[\begin{equation}
+    \hat{y}^{(i)} = f(\theta, \mathbf{x}^{(i)})
+\end{equation}\]</span></p>
+<p>The model parameters <span class="math inline">\(\theta\)</span> define our model and must be learned with an algorithm.</p>
+</section>
+<section id="softmax-classifier" class="slide level2">
+<h2>Softmax Classifier</h2>
+<p>We want to model the following probability:</p>
+<p><span class="math display">\[\begin{equation}
+    P(Y=\mathbf{y}^{(i)}| X = \mathbf{x}^{(i)})
+\end{equation}\]</span></p>
+<p>To obtain a valid probability distribution, the untransformed outputs <span class="math inline">\(\mathbf{z}\)</span>, also called logits, of a model are transformed with the Softmax function <span class="math inline">\(\sigma(\mathbf{z})\)</span>.</p>
+</section>
+<section id="softmax-transformation" class="slide level2">
+<h2>Softmax Transformation</h2>
+<p><span class="math display">\[\begin{equation}
+    P(Y = k| X = \mathbf{x}^{(i)}) = \sigma(\mathbf{z})_k = \frac{e^{z_k}}{\sum_i^K e^{z_i}}
+\end{equation}\]</span></p>
+</section>
+<section id="logits-to-probabilities" class="slide level2">
+<h2>Logits to Probabilities</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/logits_softmax.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Logits (left) to probabilities with the Softmax function.</figcaption>
+</figure>
+</div>
+</section>
+<section id="probabilities" class="slide level2">
+<h2>Probabilities</h2>
+
+<img data-src="../../assets/images/classification/confidences.jpg" style="width:80.0%" class="r-stretch quarto-figure-center"><p class="caption">Image classifier with confidences.</p></section></section>
+<section>
+<section id="loss-function" class="title-slide slide level1 center">
+<h1>Loss Function</h1>
+
+</section>
+<section id="likelihood" class="slide level2">
+<h2>Likelihood</h2>
+<p>The likelihood of a data point:</p>
+<p><span class="math display">\[\begin{equation}
+    P(Y=y^{(i)}| X = \mathbf{x}^{(i)}) = f(\theta, \mathbf{x}^{(i)})
+\end{equation}\]</span></p>
+<p>This is the modeled probability for the actually observed class <span class="math inline">\(y^{(i)}\)</span>.</p>
+</section>
+<section id="likelihood-for-multi-class-classification" class="slide level2">
+<h2>Likelihood for Multi-Class Classification</h2>
+<p>The likelihood of a data point for multi-class classification:</p>
+<p><span class="math display">\[\begin{equation}
+    \prod_{j=1}^K P(Y = j| X = \mathbf{x}^{(i)})^{y^{(i)}_j}
+\end{equation}\]</span></p>
+<p>Where <span class="math inline">\(y^{(i)} \in \mathbb{R}^{K}\)</span> is a one-hot encoded vector, with the <span class="math inline">\(1\)</span> at the true class.</p>
+</section>
+<section id="maximum-likelihood" class="slide level2">
+<h2>Maximum Likelihood</h2>
+<p>The likelihood of an entire dataset:</p>
+<p><span class="math display">\[\begin{equation}
+    \prod_{i=1}^N \prod_{j=1}^K P(Y = j| X = \mathbf{x}^{(i)})^{y^{(i)}_j}
+\end{equation}\]</span></p>
+<p>Under the maximum likelihood approach, we seek the parameters <span class="math inline">\(\theta\)</span> that maximize the likelihood of observing the dataset.</p>
+</section>
+<section id="negative-log-likelihood" class="slide level2">
+<h2>Negative Log-Likelihood</h2>
+<p>Equivalently, we can minimize the negative log likelihood:</p>
+<p><span class="math display">\[\begin{align}
+    L(\mathbf{X}, \mathbf{y}, \theta) =&amp; - \log \prod_{i=1}^N \prod_{j=1}^K  P(Y = j| X = \mathbf{x}^{(i)})^{y^{(i)}_j} \\
+    L(\mathbf{X}, \mathbf{y}, \theta) =&amp; -\sum_{i=1}^N \sum_{j=1}^K y^{(i)}_j \log  P(Y = j| X = \mathbf{x}^{(i)})
+\end{align}\]</span></p>
+</section>
+<section id="cross-entropy" class="slide level2">
+<h2>Cross-Entropy</h2>
+<p>The loss function derived with maximum likelihood can also be viewed from the perspective of cross-entropy between two discrete probability distributions.</p>
+<p><span class="math display">\[\begin{align}
+    CE = - \sum_{x \in X} p(x) \log q(x) \\
+    CE = - \sum_{i=1}^N \sum_{j=1}^K y_j^{(i)} \log \hat{y}_j^{(i)}
+\end{align}\]</span></p>
+</section>
+<section id="cross-entropy-1" class="slide level2">
+<h2>Cross-Entropy</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/cross_entropy.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>True distribution (left) and predicted distribution (right).</figcaption>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="architectures" class="title-slide slide level1 center">
+<h1>Architectures</h1>
+
+</section>
+<section id="alexnet" class="slide level2">
+<h2>AlexNet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/alexnet.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>AlexNet <span class="citation" data-cites="krizhevsky_imagenet_2012">Krizhevsky, Sutskever, and Hinton (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="alexnet-1" class="slide level2">
+<h2>AlexNet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/alexnet2.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>AlexNet <span class="citation" data-cites="llamas_classification_2017">Llamas et al. (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="alexnet-table" class="slide level2">
+<h2>AlexNet: Table</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/alexnet_table.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="vgg" class="slide level2">
+<h2>VGG</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/vgg.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>VGG <span class="citation" data-cites="simonyan_very_2015">Simonyan and Zisserman (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="vgg-1" class="slide level2">
+<h2>VGG</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/VGG_structure.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Source: <a href="https://en.everybodywiki.com/File:VGG_structure.jpg">Link</a></figcaption>
+</figure>
+</div>
+</section>
+<section id="vgg-2" class="slide level2">
+<h2>VGG</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/vgg_design.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="resnet" class="slide level2">
+<h2>ResNet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/resnet_test_error.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Source: <span class="citation" data-cites="He2016">He et al. (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="resnet-1" class="slide level2">
+<h2>ResNet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/resnet_train_error.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Source: <span class="citation" data-cites="He2016">He et al. (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="resnet-2" class="slide level2">
+<h2>ResNet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/residual_connection.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>ResNet <span class="citation" data-cites="He2016">He et al. (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span> (Image from <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>)</figcaption>
+</figure>
+</div>
+</section>
+<section id="resnet-3" class="slide level2">
+<h2>ResNet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/resnet_arch_horiz.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>From <span class="citation" data-cites="He2016">He et al. (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="resnet-4" class="slide level2">
+<h2>ResNet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/loss_landscape_skip.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>From <span class="citation" data-cites="li_visualizing_2018">Li et al. (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="convnext" class="slide level2">
+<h2>ConvNext</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/convnext.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>ConvNext <span class="citation" data-cites="liu_convnet_2022">Liu et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="imagenet-performance" class="slide level2">
+<h2>ImageNet Performance</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/image_net_performance.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Image from <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="choosing-the-architecture" class="slide level2">
+<h2>Choosing the Architecture</h2>
+<p>Don’t be a hero!</p>
+<p>Typically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets.</p>
+</section>
+<section id="squeeze-excite-networks" class="slide level2">
+<h2>Squeeze / Excite Networks</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/se_networks.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>From <span class="citation" data-cites="hu_squeeze-and-excitation_2019">Hu et al. (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="normalization-layers" class="slide level2">
+<h2>Normalization Layers</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/images/classification/normalization.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Source: <span class="citation" data-cites="qiao_micro-batch_2020">Qiao et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="pre-processing" class="slide level2">
+<h2>Pre-Processing</h2>
+<ul>
+<li>Resizing / Cropping to a fixed size</li>
+<li>Scaling: from the range [0, 255] to the range [0, 1]</li>
+<li>Normalization: Often normalized along the color channels</li>
+</ul>
+<p><a href="https://github.com/pytorch/vision/blob/main/torchvision/transforms/_presets.py">PyTorch Examples</a></p>
+</section>
+<section id="transfer-learning" class="slide level2">
+<h2>Transfer Learning</h2>
+<p>Transfer learning refers to the process of adapting a trained model that models Task A to Task B. Adapting pre-trained models often leads to better results and also reduces the number of training iterations.</p>
 </section></section>
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-kubilius_ventral_2017" class="csl-entry" role="listitem">
-Kubilius, Jonas. 2017. <span>“Ventral Visual Stream.”</span> <a href="https://figshare.com/articles/figure/Ventral_visual_stream/106794">https://figshare.com/articles/figure/Ventral_visual_stream/106794</a>.
+<div id="ref-goodfellow_explaining_2015" class="csl-entry" role="listitem">
+Goodfellow, Ian J., Jonathon Shlens, and Christian Szegedy. 2015. <span>“Explaining and <span>Harnessing</span> <span>Adversarial</span> <span>Examples</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1412.6572">http://arxiv.org/abs/1412.6572</a>.
 </div>
-<div id="ref-li_cs231n_2022" class="csl-entry" role="listitem">
-Li, Fei-Fei. 2022. <span>“<span>CS231n</span> <span>Convolutional</span> <span>Neural</span> <span>Networks</span> for <span>Visual</span> <span>Recognition</span>.”</span> Lecture {Notes}. <a href="https://cs231n.github.io">https://cs231n.github.io</a>.
+<div id="ref-He2016" class="csl-entry" role="listitem">
+He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. 2016. <span>“Deep <span>Residual</span> <span>Learning</span> for <span>Image</span> <span>Recognition</span>.”</span> In <em>2016 <span>IEEE</span> <span>Conference</span> on <span>Computer</span> <span>Vision</span> and <span>Pattern</span> <span>Recognition</span> (<span>CVPR</span>)</em>, 770–78. IEEE. <a href="https://doi.org/10.1109/CVPR.2016.90">https://doi.org/10.1109/CVPR.2016.90</a>.
 </div>
-<div id="ref-phillips_speed_2015" class="csl-entry" role="listitem">
-Phillips, Devin K. 2015. <span>“Speed of the <span>Human</span> <span>Brain</span>.”</span> <em>Ask A Biologist</em>, May. <a href="https://askabiologist.asu.edu/plosable/speed-human-brain">https://askabiologist.asu.edu/plosable/speed-human-brain</a>.
+<div id="ref-hu_squeeze-and-excitation_2019" class="csl-entry" role="listitem">
+Hu, Jie, Li Shen, Samuel Albanie, Gang Sun, and Enhua Wu. 2019. <span>“Squeeze-and-<span>Excitation</span> <span>Networks</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1709.01507">http://arxiv.org/abs/1709.01507</a>.
+</div>
+<div id="ref-johnson_eecs_2019" class="csl-entry" role="listitem">
+Johnson, Justin. 2019. <span>“<span>EECS</span> 498-007 / 598-005: <span>Deep</span> <span>Learning</span> for <span>Computer</span> <span>Vision</span>.”</span> Lecture {Notes} / {Slides}. <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/">https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/</a>.
+</div>
+<div id="ref-krizhevsky_imagenet_2012" class="csl-entry" role="listitem">
+Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E Hinton. 2012. <span>“<span>ImageNet</span> <span>Classification</span> with <span>Deep</span> <span>Convolutional</span> <span>Neural</span> <span>Networks</span>.”</span> In <em>Advances in <span>Neural</span> <span>Information</span> <span>Processing</span> <span>Systems</span></em>, edited by F. Pereira, C. J. Burges, L. Bottou, and K. Q. Weinberger. Vol. 25. Curran Associates, Inc. <a href="https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf</a>.
+</div>
+<div id="ref-li_visualizing_2018" class="csl-entry" role="listitem">
+Li, Hao, Zheng Xu, Gavin Taylor, Christoph Studer, and Tom Goldstein. 2018. <span>“Visualizing the <span>Loss</span> <span>Landscape</span> of <span>Neural</span> <span>Nets</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1712.09913">http://arxiv.org/abs/1712.09913</a>.
+</div>
+<div id="ref-liu_convnet_2022" class="csl-entry" role="listitem">
+Liu, Zhuang, Hanzi Mao, Chao-Yuan Wu, Christoph Feichtenhofer, Trevor Darrell, and Saining Xie. 2022. <span>“A <span>ConvNet</span> for the 2020s.”</span> arXiv. <a href="http://arxiv.org/abs/2201.03545">http://arxiv.org/abs/2201.03545</a>.
+</div>
+<div id="ref-llamas_classification_2017" class="csl-entry" role="listitem">
+Llamas, Jose, Pedro M. Lerones, Roberto Medina, Eduardo Zalama, and Jaime Gómez-García-Bermejo. 2017. <span>“Classification of <span>Architectural</span> <span>Heritage</span> <span>Images</span> <span>Using</span> <span>Deep</span> <span>Learning</span> <span>Techniques</span>.”</span> <em>Applied Sciences</em> 7 (10): 992. <a href="https://doi.org/10.3390/app7100992">https://doi.org/10.3390/app7100992</a>.
+</div>
+<div id="ref-qiao_micro-batch_2020" class="csl-entry" role="listitem">
+Qiao, Siyuan, Huiyu Wang, Chenxi Liu, Wei Shen, and Alan Yuille. 2020. <span>“Micro-<span>Batch</span> <span>Training</span> with <span>Batch</span>-<span>Channel</span> <span>Normalization</span> and <span>Weight</span> <span>Standardization</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1903.10520">http://arxiv.org/abs/1903.10520</a>.
+</div>
+<div id="ref-simonyan_very_2015" class="csl-entry" role="listitem">
+Simonyan, Karen, and Andrew Zisserman. 2015. <span>“Very <span>Deep</span> <span>Convolutional</span> <span>Networks</span> for <span>Large</span>-<span>Scale</span> <span>Image</span> <span>Recognition</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1409.1556">http://arxiv.org/abs/1409.1556</a>.
 </div>
 </div>
 
