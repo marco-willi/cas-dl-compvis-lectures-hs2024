@@ -4,6 +4,8 @@ params:
    images_path: "/assets/images/frameworks/"
 ---
 
+
+
 # Overview
 
 - Software
@@ -33,7 +35,7 @@ The core of neural networks is the *Computational Graph*. Dependent operations a
 ## Computational Graph
 
 \begin{equation*}
-    f(\m{A}, \m{B}, \m{C}) =  \sum_{ij} \big((\m{A} \odot \m{B}) + \m{C}\big)_{ij}
+    f(\mathbf{A}, \mathbf{B}, \mathbf{C}) =  \sum_{ij} \big((\mathbf{A} \odot \mathbf{B}) + \mathbf{C}\big)_{ij}
 \end{equation*}
 
 ![Computational Graph]({{< meta params.images_path >}}comp-graph2.jpg){width=0.5\linewidth}
@@ -41,16 +43,16 @@ The core of neural networks is the *Computational Graph*. Dependent operations a
 ## Computational Graph & Autograd
 
 \begin{align*}
-    f(\m{A}, \m{B}, \m{C}) &=  \sum_{ij} \big((\m{A} \odot \m{B}) + \m{C}\big)_{ij} \\
-    \m{D} &= \m{A} \odot \m{B} \\
-    \m{E} &= D + \m{C} \\
-    F &= \sum_{ij} \m{E}_{ij} 
+    f(\mathbf{A}, \mathbf{B}, \mathbf{C}) &=  \sum_{ij} \big((\mathbf{A} \odot \mathbf{B}) + \mathbf{C}\big)_{ij} \\
+    \mathbf{D} &= \mathbf{A} \odot \mathbf{B} \\
+    \mathbf{E} &= D + \mathbf{C} \\
+    F &= \sum_{ij} \mathbf{E}_{ij} 
 \end{align*}
 
 **Partial Derivative with Autograd and Chain Rule**
 
 \begin{equation*}
-    \frac{\partial F}{\partial A_{ij}} = \frac{\partial F}{\partial \m{E}} \frac{\partial \m{E}}{\partial \m{D}} \frac{\partial \m{D}}{\partial \m{A}_{ij}}
+    \frac{\partial F}{\partial A_{ij}} = \frac{\partial F}{\partial \mathbf{E}} \frac{\partial \mathbf{E}}{\partial \mathbf{D}} \frac{\partial \mathbf{D}}{\partial \mathbf{A}_{ij}}
 \end{equation*}
 
 ![Computational Graph]({{< meta params.images_path >}}comp-graph2.jpg){width=0.5\linewidth}
