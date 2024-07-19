@@ -25,14 +25,14 @@
     "href": "slides/frameworks/index.html#computational-graph",
     "title": "Deep Learning Frameworks",
     "section": "Computational Graph",
-    "text": "Computational Graph\n\\[\\begin{equation*}\n    f(\\m{A}, \\m{B}, \\m{C}) =  \\sum_{ij} \\big((\\m{A} \\odot \\m{B}) + \\m{C}\\big)_{ij}\n\\end{equation*}\\]\n\nComputational Graph"
+    "text": "Computational Graph\n\\[\\begin{equation*}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation*}\\]\n\nComputational Graph"
   },
   {
     "objectID": "slides/frameworks/index.html#computational-graph-autograd-1",
     "href": "slides/frameworks/index.html#computational-graph-autograd-1",
     "title": "Deep Learning Frameworks",
     "section": "Computational Graph & Autograd",
-    "text": "Computational Graph & Autograd\n\\[\\begin{align*}\n    f(\\m{A}, \\m{B}, \\m{C}) &=  \\sum_{ij} \\big((\\m{A} \\odot \\m{B}) + \\m{C}\\big)_{ij} \\\\\n    \\m{D} &= \\m{A} \\odot \\m{B} \\\\\n    \\m{E} &= D + \\m{C} \\\\\n    F &= \\sum_{ij} \\m{E}_{ij}\n\\end{align*}\\]\nPartial Derivative with Autograd and Chain Rule\n\\[\\begin{equation*}\n    \\frac{\\partial F}{\\partial A_{ij}} = \\frac{\\partial F}{\\partial \\m{E}} \\frac{\\partial \\m{E}}{\\partial \\m{D}} \\frac{\\partial \\m{D}}{\\partial \\m{A}_{ij}}\n\\end{equation*}\\]\n\nComputational Graph"
+    "text": "Computational Graph & Autograd\n\\[\\begin{align*}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) &=  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij} \\\\\n    \\mathbf{D} &= \\mathbf{A} \\odot \\mathbf{B} \\\\\n    \\mathbf{E} &= D + \\mathbf{C} \\\\\n    F &= \\sum_{ij} \\mathbf{E}_{ij}\n\\end{align*}\\]\nPartial Derivative with Autograd and Chain Rule\n\\[\\begin{equation*}\n    \\frac{\\partial F}{\\partial A_{ij}} = \\frac{\\partial F}{\\partial \\mathbf{E}} \\frac{\\partial \\mathbf{E}}{\\partial \\mathbf{D}} \\frac{\\partial \\mathbf{D}}{\\partial \\mathbf{A}_{ij}}\n\\end{equation*}\\]\n\nComputational Graph"
   },
   {
     "objectID": "slides/frameworks/index.html#numpy-example",
