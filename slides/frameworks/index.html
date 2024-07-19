@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Marco Willi">
-  <title>CAS Deep Learning - Computer Vision (Part1) – Convolutional Neural Networks</title>
+  <title>CAS Deep Learning - Computer Vision (Part1) – Deep Learning Frameworks</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     /* CSS for citations */
     div.csl-bib-body { }
     div.csl-entry {
@@ -357,7 +422,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Convolutional Neural Networks</h1>
+  <h1 class="title">Deep Learning Frameworks</h1>
   <p class="subtitle">CAS Deep Learning - Computer Vision (Part1)</p>
 
 <div class="quarto-title-authors">
@@ -372,427 +437,323 @@ Marco Willi
 </div>
 
 </section>
-<section id="overview" class="slide level2">
-<h2>Overview</h2>
+<section id="overview" class="title-slide slide level1 center">
+<h1>Overview</h1>
 <ul>
-<li>Introduction &amp; Motivation</li>
-<li>Convolutional Layers</li>
-<li>Properties</li>
-<li>Variants and Layers</li>
-<li>Visualizations and Architectures</li>
+<li>Software</li>
+<li>PyTorch</li>
+<li>Hardware</li>
+<li>References</li>
 </ul>
 </section>
+
 <section>
-<section id="introduction-motivation" class="title-slide slide level1 center">
-<h1>Introduction &amp; Motivation</h1>
+<section id="software" class="title-slide slide level1 center">
+<h1>Software</h1>
 
 </section>
-<section id="multilayer-perceptron" class="slide level2">
-<h2>Multilayer Perceptron</h2>
+<section id="deep-learning-frameworks" class="slide level2">
+<h2>Deep Learning Frameworks</h2>
+<p>Components / important features of such frameworks are:</p>
+<ul>
+<li>Fast development and testing of neural networks</li>
+<li>Automatic differentiation of operations</li>
+<li>Efficient execution on diverse hardware</li>
+</ul>
+</section>
+<section id="frameworks" class="slide level2">
+<h2>Frameworks</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../assets/images/cnns/mlp.jpeg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></figcaption>
+<p><img data-src="../../assets/images/frameworks/frameworks.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Frameworks (from <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>).</figcaption>
 </figure>
 </div>
 </section>
-<section id="mlps-on-images" class="slide level2">
-<h2>MLPs on Images</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/mlp_images.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
+<section id="computational-graph-autograd" class="slide level2">
+<h2>Computational Graph &amp; Autograd</h2>
+<p>The core of neural networks is the <em>Computational Graph</em>. Dependent operations are automatically integrated into a <em>directed acyclic graph (DAG)</em>. Gradients are tracked as needed, allowing variables to be efficiently updated/trained.</p>
 </section>
-<section id="mlps-on-images-1" class="slide level2">
-<h2>MLPs on Images</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/mlp-spatial-structure.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="li_cs231n_2023">Li (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="cnns" class="slide level2">
-<h2>CNNs</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/convnet.jpeg" style="width:100.0%;height:70.0%"></p>
-<figcaption>The activations of a ConvNet architecture. The input image is on the left, and the predictions are on the right. Source: <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></figcaption>
-</figure>
-</div>
-</section></section>
-<section>
-<section id="convolutional-layers" class="title-slide slide level1 center">
-<h1>Convolutional Layers</h1>
+<section id="computational-graph" class="slide level2">
+<h2>Computational Graph</h2>
+<p><span class="math display">\[\begin{equation*}
+    f(\m{A}, \m{B}, \m{C}) =  \sum_{ij} \big((\m{A} \odot \m{B}) + \m{C}\big)_{ij}
+\end{equation*}\]</span></p>
 
-</section>
-<section id="convolution" class="slide level2">
-<h2>Convolution?</h2>
-<p>Convolution in Deep Learning is typically implemented as cross-correlation.</p>
-<p><span class="math display">\[\begin{equation}
-S(i, j) = (K * I)(i, j) = \sum_m \sum_n I(i + m, j + n) K(m, n)
-\end{equation}\]</span></p>
-</section>
-<section id="convolutional-layers-1" class="slide level2">
-<h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/cnn_conv_one_number.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="convolutional-layers-2" class="slide level2">
-<h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/conv_activation_map.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="convolutional-layers-3" class="slide level2">
-<h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/conv_activation_map2.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="convolutional-layers-4" class="slide level2">
-<h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/conv_activation_map3.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="convolutional-layers-5" class="slide level2">
-<h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/conv_activation_map4.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="hyper-parameters" class="slide level2">
-<h2>Hyper-Parameters</h2>
-<p>Convolutional Layers are parameterized:</p>
-<ul>
-<li>Depth: How many activation maps?</li>
-<li>Padding: How much padding is added to the input?</li>
-<li>Stride: What is the step size of the convolution?</li>
-<li>Kernel-Size: What is the kernel size?</li>
-</ul>
-</section>
-<section id="padding-why" class="slide level2">
-<h2>Padding: Why?</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/padding_issue.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="padding" class="slide level2">
-<h2>Padding</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/padding.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.</figcaption>
-</figure>
-</div>
-</section>
-<section id="padding-1" class="slide level2">
-<h2>Padding</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/padding.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.</figcaption>
-</figure>
-</div>
-</section>
-<section id="padding-and-stride" class="slide level2">
-<h2>Padding and Stride</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/stride_and_padding.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Stride with Padding. Red indicates the position of the corresponding filter value on the input activations.</figcaption>
-</figure>
-</div>
-</section>
-<section id="padding-and-stride-animations" class="slide level2">
-<h2>Padding and Stride: Animations</h2>
-<p><span class="citation" data-cites="dumoulin_guide_2016">Dumoulin and Visin (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span> has created some animations to better understand convolutions, available here: <a href="../../assets/images/cnns/https://github.com/vdumoulin/conv_arithmetic">Link</a>.</p>
-</section>
-<section id="calculations" class="slide level2">
-<h2>Calculations</h2>
-<p>You can calculate the dimensionality of the activation maps with the following formulas:</p>
-<ul>
-<li><span class="math inline">\(i\)</span>: Side length of the input activations (assumption: square inputs)</li>
-<li><span class="math inline">\(k\)</span>: Kernel size (assumption: square kernel)</li>
-<li><span class="math inline">\(o\)</span>: Side length of the output activation maps</li>
-<li><span class="math inline">\(s\)</span>: Stride (assumption: same stride along spatial dimensions)</li>
-<li><span class="math inline">\(p\)</span>: Number of paddings on each side (assumption: same number of paddings along spatial dimensions)</li>
-</ul>
-</section>
-<section id="calculations-1" class="slide level2">
-<h2>Calculations</h2>
-<p>This formula covers all scenarios!</p>
-<p><strong>Size of Activation Map</strong></p>
-<p><span class="math display">\[\begin{equation}
-o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
-\end{equation}\]</span></p>
-</section>
-<section id="quiz" class="slide level2">
-<h2>Quiz</h2>
-<p><strong>Scenario:</strong></p>
-<ul>
-<li>Input: 3 x 32 x 32</li>
-<li>Convolution: 10 filters with 5x5 kernel size, stride=1, pad=2</li>
-</ul>
-<p>What is the size of the activation map?</p>
-<p>How many weights are there?</p>
-<p><strong>Size of Activation Map</strong></p>
-<p><span class="math display">\[\begin{equation}
-o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
-\end{equation}\]</span></p>
-</section></section>
-<section>
-<section id="properties" class="title-slide slide level1 center">
-<h1>Properties</h1>
+<img data-src="../../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section>
+<section id="computational-graph-autograd-1" class="slide level2">
+<h2>Computational Graph &amp; Autograd</h2>
+<p><span class="math display">\[\begin{align*}
+    f(\m{A}, \m{B}, \m{C}) &amp;=  \sum_{ij} \big((\m{A} \odot \m{B}) + \m{C}\big)_{ij} \\
+    \m{D} &amp;= \m{A} \odot \m{B} \\
+    \m{E} &amp;= D + \m{C} \\
+    F &amp;= \sum_{ij} \m{E}_{ij}
+\end{align*}\]</span></p>
+<p><strong>Partial Derivative with Autograd and Chain Rule</strong></p>
+<p><span class="math display">\[\begin{equation*}
+    \frac{\partial F}{\partial A_{ij}} = \frac{\partial F}{\partial \m{E}} \frac{\partial \m{E}}{\partial \m{D}} \frac{\partial \m{D}}{\partial \m{A}_{ij}}
+\end{equation*}\]</span></p>
 
-</section>
-<section id="sparse-connectivity-and-parameter-sharing" class="slide level2">
-<h2>Sparse Connectivity and Parameter Sharing</h2>
-<p><strong>Local (Sparse) Connectivity</strong>: Neurons are only locally connected.</p>
-<p><strong>Parameter Sharing</strong>: Weights of a neuron are applied locally but are the same across the entire input.</p>
-</section>
-<section id="convolution-is-parameter-sharing-always-useful" class="slide level2">
-<h2>Convolution: Is Parameter Sharing Always Useful?</h2>
-<p><strong>Question</strong>: Is parameter sharing always useful?</p>
-</section>
-<section id="mlp-parameters" class="slide level2">
-<h2>MLP Parameters</h2>
-<div id="c2d2c735" class="cell" data-execution_count="1">
+<img data-src="../../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section>
+<section id="numpy-example" class="slide level2">
+<h2>Numpy Example</h2>
+<div id="869ae8bc" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb1-4"><a></a></span>
+<span id="cb1-5"><a></a>H, W <span class="op">=</span> <span class="dv">2</span>, <span class="dv">3</span></span>
+<span id="cb1-6"><a></a></span>
+<span id="cb1-7"><a></a>a <span class="op">=</span> np.random.random(size<span class="op">=</span>(H, W))</span>
+<span id="cb1-8"><a></a>b <span class="op">=</span> np.random.random(size<span class="op">=</span>(H, W))</span>
+<span id="cb1-9"><a></a>c <span class="op">=</span> np.random.random(size<span class="op">=</span>(H, W))</span>
+<span id="cb1-10"><a></a></span>
+<span id="cb1-11"><a></a>d <span class="op">=</span> a <span class="op">*</span> b</span>
+<span id="cb1-12"><a></a>e <span class="op">=</span> d <span class="op">+</span> c</span>
+<span id="cb1-13"><a></a>f <span class="op">=</span> e.<span class="bu">sum</span>()</span>
+<span id="cb1-14"><a></a></span>
+<span id="cb1-15"><a></a>df_de <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb1-16"><a></a>de_dd <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb1-17"><a></a>de_dc <span class="op">=</span> c</span>
+<span id="cb1-18"><a></a>dd_da <span class="op">=</span> b</span>
+<span id="cb1-19"><a></a></span>
+<span id="cb1-20"><a></a>df_da <span class="op">=</span> df_de <span class="op">*</span> de_dd <span class="op">*</span> dd_da</span>
+<span id="cb1-21"><a></a></span>
+<span id="cb1-22"><a></a><span class="bu">print</span>(df_da)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>==========================================================================================
-Layer (type:depth-idx)                   Output Shape              Param #
-==========================================================================================
-MLP                                      [1, 10]                   --
-├─Flatten: 1-1                           [1, 3072]                 --
-├─Linear: 1-2                            [1, 64]                   196,672
-├─Linear: 1-3                            [1, 32]                   2,080
-├─Linear: 1-4                            [1, 10]                   330
-==========================================================================================
-Total params: 199,082
-Trainable params: 199,082
-Non-trainable params: 0
-Total mult-adds (Units.MEGABYTES): 0.20
-==========================================================================================
-Input size (MB): 0.01
-Forward/backward pass size (MB): 0.00
-Params size (MB): 0.80
-Estimated Total Size (MB): 0.81
-==========================================================================================</code></pre>
+<pre><code>[[0.9807642  0.68482974 0.4809319 ]
+ [0.39211752 0.34317802 0.72904971]]</code></pre>
 </div>
 </div>
-</section>
-<section id="cnn-parameters" class="slide level2">
-<h2>CNN Parameters</h2>
-<div id="92a231cc" class="cell" data-execution_count="2">
+
+<img data-src="../../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section>
+<section id="pytorch-example" class="slide level2">
+<h2>PyTorch Example</h2>
+<div id="2b2e6158" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">import</span> torch</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a>H, W <span class="op">=</span> <span class="dv">2</span>, <span class="dv">3</span></span>
+<span id="cb3-6"><a></a></span>
+<span id="cb3-7"><a></a>a <span class="op">=</span> torch.tensor(a, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-8"><a></a>b <span class="op">=</span> torch.tensor(b, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-9"><a></a>c <span class="op">=</span> torch.tensor(c, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-10"><a></a></span>
+<span id="cb3-11"><a></a>d <span class="op">=</span> a <span class="op">*</span> b</span>
+<span id="cb3-12"><a></a>e <span class="op">=</span> d <span class="op">+</span> c</span>
+<span id="cb3-13"><a></a>f <span class="op">=</span> e.<span class="bu">sum</span>()</span>
+<span id="cb3-14"><a></a></span>
+<span id="cb3-15"><a></a>f.backward()</span>
+<span id="cb3-16"><a></a><span class="bu">print</span>(a.grad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>==========================================================================================
-Layer (type:depth-idx)                   Output Shape              Param #
-==========================================================================================
-CNN                                      [1, 10]                   --
-├─Conv2d: 1-1                            [1, 16, 16, 16]           2,368
-├─Conv2d: 1-2                            [1, 16, 8, 8]             2,320
-├─Flatten: 1-3                           [1, 1024]                 --
-├─Linear: 1-4                            [1, 10]                   10,250
-==========================================================================================
-Total params: 14,938
-Trainable params: 14,938
-Non-trainable params: 0
-Total mult-adds (Units.MEGABYTES): 0.76
-==========================================================================================
-Input size (MB): 0.01
-Forward/backward pass size (MB): 0.04
-Params size (MB): 0.06
-Estimated Total Size (MB): 0.11
-==========================================================================================</code></pre>
+<pre><code>tensor([[0.9808, 0.6848, 0.4809],
+        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)</code></pre>
 </div>
 </div>
+
+<img data-src="../../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section></section>
+<section>
+<section id="pytorch" class="title-slide slide level1 center">
+<h1>PyTorch</h1>
+
 </section>
-<section id="quiz-linear-transformation-vs-convolution" class="slide level2">
-<h2>Quiz: Linear Transformation vs Convolution</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/linear_transf.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Input in 2-D (top left), the flat version (bottom left), expected output (right), and unknown transformation (center).</figcaption>
-</figure>
-</div>
+<section id="pytorch---why" class="slide level2">
+<h2>PyTorch - Why?</h2>
+<p>In this class, we use PyTorch. PyTorch has gained immense popularity in recent years, characterized by high flexibility, a clean API, and many open-source resources.</p>
 </section>
-<section id="translation-invariance-equivariance" class="slide level2">
-<h2>Translation Invariance / Equivariance</h2>
-<p>Given a translation <span class="math inline">\(g()\)</span>, which spatially shifts inputs:</p>
+<section id="fundamental-concepts" class="slide level2">
+<h2>Fundamental Concepts</h2>
 <ul>
-<li>Translation invariance: <span class="math inline">\(f(g(x))=f(x)\)</span></li>
-<li>Translation equivariance: <span class="math inline">\(f(g(x))=g(f(x))\)</span></li>
+<li>Tensor: N-dimensional array, like <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">numpy.array</a></li>
+<li>Autograd: Functionality to create <em>computational graphs</em> and compute gradients.</li>
+<li>Module: Class to define components of neural networks</li>
 </ul>
-<p>Convolutions are translation equivariant: <a href="../../assets/images/cnns/https://www.youtube.com/embed/qoWAFBYOtoU?start=50">Example Video</a></p>
 </section>
-<section id="stacking-convolutions" class="slide level2">
-<h2>Stacking Convolutions</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/conv_stacking.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
+<section id="tensors" class="slide level2">
+<h2>Tensors</h2>
+<p>The central data structure in PyTorch is <a href="https://pytorch.org/docs/stable/tensors.html">torch.Tensor</a>.</p>
+<p>It is very similar to <em>numpy.array</em> but can be easily loaded onto GPUs. Tensors can be created in various ways, for example from lists:</p>
+<div id="40279d8f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">import</span> torch</span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a>data <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>],[<span class="dv">3</span>, <span class="dv">4</span>]]</span>
+<span id="cb5-4"><a></a>x_data <span class="op">=</span> torch.tensor(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="receptive-field" class="slide level2">
-<h2>Receptive Field</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/receptive_field.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
+<section id="autograd" class="slide level2">
+<h2>Autograd</h2>
+<p>With <a href="https://pytorch.org/docs/stable/autograd.html">torch.autograd</a>, gradients can be automatically computed for a <em>computational graph</em>.</p>
+<div id="e46e84b7" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> torch</span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a>x <span class="op">=</span> torch.ones(<span class="dv">5</span>)  <span class="co"># input tensor</span></span>
+<span id="cb6-4"><a></a>y <span class="op">=</span> torch.zeros(<span class="dv">3</span>)  <span class="co"># expected output</span></span>
+<span id="cb6-5"><a></a>w <span class="op">=</span> torch.randn(<span class="dv">5</span>, <span class="dv">3</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-6"><a></a>b <span class="op">=</span> torch.randn(<span class="dv">3</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-7"><a></a>z <span class="op">=</span> torch.matmul(x, w)<span class="op">+</span>b</span>
+<span id="cb6-8"><a></a>loss <span class="op">=</span> torch.nn.functional.binary_cross_entropy_with_logits(z, y)</span>
+<span id="cb6-9"><a></a></span>
+<span id="cb6-10"><a></a>loss.backward()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="receptive-field-1" class="slide level2">
-<h2>Receptive Field</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/receptive_field2.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
+<section id="torch.nn" class="slide level2">
+<h2>torch.nn</h2>
+<p>With <a href="https://pytorch.org/docs/stable/nn.html">torch.nn</a>, components of neural networks can be defined. These components provide methods and have a state to store data such as weights and gradients.</p>
+</section>
+<section id="torch.nn---example" class="slide level2">
+<h2>torch.nn - Example</h2>
+<div id="ab4d465e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a><span class="kw">class</span> NeuralNetwork(nn.Module):</span>
+<span id="cb7-4"><a></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb7-5"><a></a>        <span class="bu">super</span>(NeuralNetwork, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb7-6"><a></a>        <span class="va">self</span>.flatten <span class="op">=</span> nn.Flatten()</span>
+<span id="cb7-7"><a></a>        <span class="va">self</span>.linear_relu_stack <span class="op">=</span> nn.Sequential(</span>
+<span id="cb7-8"><a></a>            nn.Linear(<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>, <span class="dv">512</span>),</span>
+<span id="cb7-9"><a></a>            nn.ReLU(),</span>
+<span id="cb7-10"><a></a>            nn.Linear(<span class="dv">512</span>, <span class="dv">512</span>),</span>
+<span id="cb7-11"><a></a>            nn.ReLU(),</span>
+<span id="cb7-12"><a></a>            nn.Linear(<span class="dv">512</span>, <span class="dv">10</span>),</span>
+<span id="cb7-13"><a></a>        )</span>
+<span id="cb7-14"><a></a></span>
+<span id="cb7-15"><a></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb7-16"><a></a>        x <span class="op">=</span> <span class="va">self</span>.flatten(x)</span>
+<span id="cb7-17"><a></a>        logits <span class="op">=</span> <span class="va">self</span>.linear_relu_stack(x)</span>
+<span id="cb7-18"><a></a>        <span class="cf">return</span> logits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="torch.optim" class="slide level2">
+<h2>torch.optim</h2>
+<p>With <a href="https://pytorch.org/docs/stable/optim.html">torch.optim</a>, model parameters can be optimized using various algorithms.</p>
+<div id="877b6e48" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> torch <span class="im">import</span> optim</span>
+<span id="cb8-2"><a></a>optimizer <span class="op">=</span> optim.SGD(model.parameters(), lr<span class="op">=</span><span class="fl">0.01</span>, momentum<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb8-3"><a></a></span>
+<span id="cb8-4"><a></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb8-5"><a></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>):</span>
+<span id="cb8-6"><a></a>    <span class="bu">input</span>, target <span class="op">=</span> torch.rand(<span class="dv">1</span>, <span class="dv">28</span>, <span class="dv">28</span>), torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span>(<span class="dv">1</span>, ))</span>
+<span id="cb8-7"><a></a>    optimizer.zero_grad()</span>
+<span id="cb8-8"><a></a>    output <span class="op">=</span> model(<span class="bu">input</span>)</span>
+<span id="cb8-9"><a></a>    loss <span class="op">=</span> loss_fn(output, target)</span>
+<span id="cb8-10"><a></a>    loss.backward()</span>
+<span id="cb8-11"><a></a>    optimizer.step()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="training-loops" class="slide level2">
+<h2>Training Loops</h2>
+<p>A training loop iterates over <em>mini-batches</em> and optimizes the model parameters.</p>
+<div id="1a49304d" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="kw">def</span> train_loop(dataloader, model, loss_fn, optimizer):</span>
+<span id="cb9-2"><a></a>    size <span class="op">=</span> <span class="bu">len</span>(dataloader.dataset)</span>
+<span id="cb9-3"><a></a>    <span class="cf">for</span> batch, (X, y) <span class="kw">in</span> <span class="bu">enumerate</span>(dataloader):</span>
+<span id="cb9-4"><a></a>        <span class="co"># Compute prediction and loss</span></span>
+<span id="cb9-5"><a></a>        pred <span class="op">=</span> model(X)</span>
+<span id="cb9-6"><a></a>        loss <span class="op">=</span> loss_fn(pred, y)</span>
+<span id="cb9-7"><a></a></span>
+<span id="cb9-8"><a></a>        <span class="co"># Backpropagation</span></span>
+<span id="cb9-9"><a></a>        optimizer.zero_grad()</span>
+<span id="cb9-10"><a></a>        loss.backward()</span>
+<span id="cb9-11"><a></a>        optimizer.step()</span>
+<span id="cb9-12"><a></a></span>
+<span id="cb9-13"><a></a>        <span class="cf">if</span> batch <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-14"><a></a>            loss, current <span class="op">=</span> loss.item(), batch <span class="op">*</span> <span class="bu">len</span>(X)</span>
+<span id="cb9-15"><a></a>            <span class="bu">print</span>(<span class="ss">f"loss: </span><span class="sc">{</span>loss<span class="sc">:&gt;7f}</span><span class="ss">  [</span><span class="sc">{</span>current<span class="sc">:&gt;5d}</span><span class="ss">/</span><span class="sc">{</span>size<span class="sc">:&gt;5d}</span><span class="ss">]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="training-loops-2" class="slide level2">
+<h2>Training Loops 2</h2>
+<div id="812f3001" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a>loss_fn <span class="op">=</span> nn.CrossEntropyLoss()</span>
+<span id="cb10-2"><a></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr<span class="op">=</span>learning_rate)</span>
+<span id="cb10-3"><a></a></span>
+<span id="cb10-4"><a></a>epochs <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb10-5"><a></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb10-6"><a></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>t<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">-------------------------------"</span>)</span>
+<span id="cb10-7"><a></a>    train_loop(train_dataloader, model, loss_fn, optimizer)</span>
+<span id="cb10-8"><a></a>    test_loop(test_dataloader, model, loss_fn)</span>
+<span id="cb10-9"><a></a><span class="bu">print</span>(<span class="st">"Done!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pytorch-ecosystem" class="slide level2">
+<h2>PyTorch Ecosystem</h2>
+<p>There are many packages that extend PyTorch with functionalities. One example is <a href="https://www.pytorchlightning.ai/">PyTorch-Lightning</a> which simplifies managing training loops.</p>
+</section>
+<section id="other-frameworks-and-tools" class="slide level2">
+<h2>Other Frameworks and Tools</h2>
+<ul>
+<li><a href="https://www.tensorflow.org">TensorFlow with Keras</a></li>
+<li><a href="https://scikit-learn.org/stable/">Scikit-Learn</a></li>
+<li><a href="https://onnx.ai/">ONNX</a></li>
+<li><a href="https://www.tensorflow.org/tensorboard">Monitoring: TensorBoard</a></li>
+<li><a href="https://wandb.ai/site">Monitoring: Weights &amp; Biases</a></li>
+</ul>
 </section></section>
 <section>
-<section id="variants-and-layers" class="title-slide slide level1 center">
-<h1>Variants and Layers</h1>
+<section id="hardware" class="title-slide slide level1 center">
+<h1>Hardware</h1>
 
 </section>
-<section id="dilated-convolutions" class="slide level2">
-<h2>Dilated Convolutions</h2>
+<section id="tensor-operations" class="slide level2">
+<h2>Tensor Operations</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../assets/images/cnns/dilation1.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1.</figcaption>
+<p><img data-src="../../assets/images/frameworks/matrix_mult.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Matrix Multiplication (from <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>).</figcaption>
 </figure>
 </div>
 </section>
-<section id="dilated-convolutions-1" class="slide level2">
-<h2>Dilated Convolutions</h2>
+<section id="cpu-vs-gpu" class="slide level2">
+<h2>CPU vs GPU</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../assets/images/cnns/dilation2.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2.</figcaption>
+<p><img data-src="../../assets/images/frameworks/cpu_vs_gpu.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>CPU vs GPU example (from <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>).</figcaption>
 </figure>
 </div>
 </section>
-<section id="x1-convolutions" class="slide level2">
-<h2>1x1 Convolutions</h2>
+<section id="speed-comparison" class="slide level2">
+<h2>Speed Comparison</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../assets/images/cnns/1x1_conv.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
+<p><img data-src="../../assets/images/frameworks/speed_gpu_cpu.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>Speed comparison (from <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>), data from <a href="https://github.com/jcjohnson/cnn-benchmarks">Link</a>.</figcaption>
 </figure>
 </div>
 </section>
-<section id="depthwise-separable-convolutions" class="slide level2">
-<h2>Depthwise Separable Convolutions</h2>
+<section id="data-loading" class="slide level2">
+<h2>Data Loading</h2>
+<p>A critical bottleneck in practice is transferring data (such as images) from the disk to the GPU. If this transfer is not fast enough, it is called <em>GPU starvation</em>. Solutions include:</p>
+<ul>
+<li>Reading data into RAM</li>
+<li>Using fast disks like SSDs</li>
+<li>Utilizing multiple CPU threads to read data in parallel and keep it in RAM (pre-fetching)</li>
+</ul>
+</section>
+<section id="gpu-starvation" class="slide level2">
+<h2>GPU Starvation</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../assets/images/cnns/depthwise.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <a href="../../assets/images/cnns/https://paperswithcode.com/method/depthwise-convolution">https://paperswithcode.com/method/depthwise-convolution</a></figcaption>
+<p><img data-src="../../assets/images/frameworks/gpu_starvation.png" style="width:100.0%;height:70.0%"></p>
+<figcaption>The Y-axis shows the GPU utilization in percent, while the X-axis represents time. <a href="https://stackoverflow.com/questions/44598246/tensorflow-data-starved-gpu">Source</a>.</figcaption>
 </figure>
 </div>
 </section>
-<section id="depthwise-separable-convolutions-1" class="slide level2">
-<h2>Depthwise Separable Convolutions</h2>
+<section id="gpu-parallelism" class="slide level2">
+<h2>GPU Parallelism</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../../assets/images/cnns/depthwise_separabel.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="yu_multi-scale_2016">Yu and Koltun (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="pooling-layers" class="slide level2">
-<h2>Pooling Layers</h2>
-
-<img data-src="../../assets/images/cnns/pool.jpeg" width="300" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p></section>
-<section id="max-pooling" class="slide level2">
-<h2>Max Pooling</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/max_pooling.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Max pooling, input (left) and output (right).</figcaption>
-</figure>
-</div>
-</section>
-<section id="average-pooling" class="slide level2">
-<h2>Average Pooling</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/average_pooling.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Average pooling, input (left) and output (right).</figcaption>
-</figure>
-</div>
-</section>
-<section id="other-pooling-layers" class="slide level2">
-<h2>Other Pooling Layers</h2>
-<p><strong>Global Average Pooling</strong> is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.</p>
-</section>
-<section id="global-average-pooling" class="slide level2">
-<h2>Global Average Pooling</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/global_average_pooling.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Global Average pooling, input (left) and output (right).</figcaption>
-</figure>
-</div>
-</section></section>
-<section>
-<section id="visualizations-and-architectures" class="title-slide slide level1 center">
-<h1>Visualizations and Architectures</h1>
-
-</section>
-<section id="learned-filters" class="slide level2">
-<h2>Learned Filters</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/images/cnns/learned_filters.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="krizhevsky_imagenet_2012">Krizhevsky, Sutskever, and Hinton (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span></figcaption>
+<p><img data-src="../../assets/images/frameworks/parallelism.jpg" style="width:100.0%;height:70.0%"></p>
+<figcaption>Data and Model Parallelism (from <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>).</figcaption>
 </figure>
 </div>
 </section></section>
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-dumoulin_guide_2016" class="csl-entry" role="listitem">
-Dumoulin, Vincent, and Francesco Visin. 2016. <span>“A Guide to Convolution Arithmetic for Deep Learning.”</span> <em>ArXiv e-Prints</em>, March.
-</div>
-<div id="ref-johnson_eecs_2019" class="csl-entry" role="listitem">
-Johnson, Justin. 2019. <span>“<span>EECS</span> 498-007 / 598-005: <span>Deep</span> <span>Learning</span> for <span>Computer</span> <span>Vision</span>.”</span> Lecture {Notes} / {Slides}. <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/">https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/</a>.
-</div>
-<div id="ref-krizhevsky_imagenet_2012" class="csl-entry" role="listitem">
-Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E Hinton. 2012. <span>“<span>ImageNet</span> <span>Classification</span> with <span>Deep</span> <span>Convolutional</span> <span>Neural</span> <span>Networks</span>.”</span> In <em>Advances in <span>Neural</span> <span>Information</span> <span>Processing</span> <span>Systems</span></em>, edited by F. Pereira, C. J. Burges, L. Bottou, and K. Q. Weinberger. Vol. 25. Curran Associates, Inc. <a href="https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf</a>.
-</div>
 <div id="ref-li_cs231n_2022" class="csl-entry" role="listitem">
 Li, Fei-Fei. 2022. <span>“<span>CS231n</span> <span>Convolutional</span> <span>Neural</span> <span>Networks</span> for <span>Visual</span> <span>Recognition</span>.”</span> Lecture {Notes}. <a href="https://cs231n.github.io">https://cs231n.github.io</a>.
-</div>
-<div id="ref-li_cs231n_2023" class="csl-entry" role="listitem">
-———. 2023. <span>“<span>CS231n</span> <span>Convolutional</span> <span>Neural</span> <span>Networks</span> for <span>Visual</span> <span>Recognition</span>.”</span> Lecture {Notes}. <a href="http://cs231n.stanford.edu/schedule.html">http://cs231n.stanford.edu/schedule.html</a>.
-</div>
-<div id="ref-yu_multi-scale_2016" class="csl-entry" role="listitem">
-Yu, Fisher, and Vladlen Koltun. 2016. <span>“Multi-<span>Scale</span> <span>Context</span> <span>Aggregation</span> by <span>Dilated</span> <span>Convolutions</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1511.07122">http://arxiv.org/abs/1511.07122</a>.
 </div>
 </div>
 
