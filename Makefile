@@ -18,16 +18,6 @@ current_dir = $(shell pwd)
 docker-build:	## Build docker image
 	cd docker; docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} .
 
-# docker-build-quarto:	## Build docker image
-# 	cd docker; docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG}-quarto -f Dockerfile.quarto .
-
-# docker-run:	## Run docker container
-# 	cd docker; docker run -d \
-# 	  --name ${REPO_NAME} \
-# 	  -p 8881:8888 \
-# 	  -v "${current_dir}":/home/jovyan/work \
-# 	  ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} start.sh jupyter lab --LabApp.token=''
-
 docker-run:	## Run docker container
 	cd docker; docker run -d \
 	  --name ${REPO_NAME} \

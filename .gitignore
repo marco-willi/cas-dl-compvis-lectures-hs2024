@@ -9,3 +9,4 @@ _output*
 **/.jupyter_cache
 /.quarto/
 /_*.local
+_freeze/*

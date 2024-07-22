@@ -14,7 +14,11 @@ dependencies:
   - scikit-image
   # --------- machine learning --------- #
   - conda-forge::mlxtend
-  - scikit-learn
+  - anaconda::scikit-learn
+  - conda-forge::transformers
+  - conda-forge::ray-tune
+  - conda-forge::timm
+  # --------- PyTorch & Related --------- #
   - pytorch::pytorch
   - pytorch::cpuonly
   - pytorch::torchvision
@@ -23,20 +27,15 @@ dependencies:
   - pytorch::pytorch-cuda=11.8
   - pytorch::captum
   - pytorch-lightning
-  - conda-forge::timm
-  - conda-forge::pyppeteer
   # --------- Experiment Tracking --------- #
   - conda-forge::tensorboard
   - conda-forge::wandb
   # --------- juypter --------- #
-  #- conda-forge::jupyter_contrib_nbextensions
   - conda-forge::texinfo
   - conda-forge::ipywidgets
   - conda-forge::xeus-python
   - conda-forge::nbgrader
   - conda-forge::jupyter_client
-  - conda-forge::jupyter-book
-  - python-gitlab
   # --------- Development --------- #
   - black
   - conda-forge::tabulate
