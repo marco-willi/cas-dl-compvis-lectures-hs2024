@@ -144,7 +144,7 @@ How would you train a model for image super resolution? The task of the model wo
 
 ## Machine Learning Pipeline
 
-![Machine Learning Pipeline (Source: @raschka_python_2020)]({{< meta params.images_path >}}python_ml.png){width=100% height=70%}
+![Machine Learning Pipeline (Source: @raschka_python_2020)]({{< meta params.images_path >}}python_ml.png){width=600}
 
 ## Model
 
@@ -174,7 +174,7 @@ The optimization procedure is influenced by hyperparameters ($\alpha, \lambda, \
 
 ## Train (Validation) Test Split
 
-![Train-Test Split to select and measure models.]({{< meta params.images_path >}}train_test_split.png){width=100% height=70%}
+![Train-Test Split to select and measure models.]({{< meta params.images_path >}}train_test_split.png){width=600}
 
 ## Machine Learning on Images
 
@@ -213,7 +213,7 @@ We can use methods from classical computer vision.
 
 ## CIFAR10
 
-![CIFAR10 Dataset [Source](https://www.cs.toronto.edu/~kriz/cifar.html)]({{< meta params.images_path >}}cifar10.jpg){width=100% height=70%}
+![CIFAR10 Dataset [Source](https://www.cs.toronto.edu/~kriz/cifar.html)]({{< meta params.images_path >}}cifar10.jpg){width=600}
 
 ## Exercise 1 - Recap ML
 
@@ -223,11 +223,11 @@ In the first exercise, we will model the CIFAR10 dataset.
 
 ## PASCAL VOC
 
-![Images / Illustrations from [Link](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/) and @johnson_eecs_2022. Left: Object annotations in images, Right: Development of Mean Average Precision over the years.]({{< meta params.images_path >}}pascal_voc_2007.png){width=100% height=70%}
+![Images / Illustrations from [Link](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/) and @johnson_eecs_2022. Left: Object annotations in images, Right: Development of Mean Average Precision over the years.]({{< meta params.images_path >}}pascal_voc_2007.png){width=600}
 
 ## ImageNet
 
-![ImageNet, [Image Source](https://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_full_1k.jpg), details in @deng_imagenet_2009]({{< meta params.images_path >}}imagenet.jpg){width=100% height=70%}
+![ImageNet, [Image Source](https://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_full_1k.jpg), details in @deng_imagenet_2009]({{< meta params.images_path >}}imagenet.jpg){width=600}
 
 ## ImageNet - Performance
 
@@ -258,15 +258,15 @@ In the first exercise, we will model the CIFAR10 dataset.
 
 ## Experiments on Cats
 
-![Illustration [Source](https://link.springer.com/chapter/10.1007/978-3-030-28954-6_4/figures/1)]({{< meta params.images_path >}}huber_wiesel_cat_experiment.jpg){width=100% height=70%}
+![Illustration [Source](https://link.springer.com/chapter/10.1007/978-3-030-28954-6_4/figures/1)]({{< meta params.images_path >}}huber_wiesel_cat_experiment.jpg){width=600}
 
 ## Neocognitron
 
-![The Neocognitron @fukushima_neocognitron_1980]({{< meta params.images_path >}}neocogitron.png){width=100% height=70%}
+![The Neocognitron @fukushima_neocognitron_1980]({{< meta params.images_path >}}neocogitron.png){width=600}
 
 ## Backpropagation
 
-![Backpropagation in Neural Networks @rumelhart_learning_1986]({{< meta params.images_path >}}rumelhart_backprop.png){width=100% height=70%}
+![Backpropagation in Neural Networks @rumelhart_learning_1986]({{< meta params.images_path >}}rumelhart_backprop.png){width=600}
 
 ## CNNs
 

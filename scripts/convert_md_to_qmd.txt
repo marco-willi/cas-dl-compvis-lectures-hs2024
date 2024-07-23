@@ -1,0 +1,1275 @@
+Convert the following *.md file to a *.qmd file. Consider the following convertion rules:
+
+Rules 
+--------------
+
+Citations:
+
+From: {numref}`dfdfd_xy`
+
+To: @dfdfd_xy
+
+Figures:
+
+From: <img src="{{< meta params.images_path >}}foto_beispiel1.png" alt="image manipulation example1" class="bg-primary mb-1" width="600px">
+
+To: ![]({{< meta params.images_path >}}foto_beispiel1.png){width=600}
+
+Escape all code blocks and other triple quotes with a backslash.
+
+Convert German to English.
+
+Convert admonitions:
+
+To: 
+
+::: {.callout-note appearance="simple"}
+
+**Question**
+
+What steps do you think the model in @fig-intro-photo-example3 performs?
+
+:::
+
+Remove any LaTex commented out code.
+
+
+
+
+Example File
+--------------
+
+---
+title: "Introduction"
+params:
+   images_path: "/assets/images/intro/"
+---
+
+# Motivation
+
+Deep Learning models have played a transformative role in Computer Vision over the last decade, significantly enhancing and expanding the capabilities to process visual data.
+
+The integration of Deep Learning in Computer Vision has massively improved the accuracy and efficiency of visual recognition, classification, and analysis. This has opened up new possibilities in applications such as automated driving, facial recognition, and medical image analysis. These models are now embedded in a wide variety of products and services. Examples in the field of image processing with Deep Learning are shown in @fig-intro-photo-example1, @fig-intro-photo-example2, and @fig-intro-photo-example3.
+
+::: {#fig-intro-photo-example1}
+
+![]({{< meta params.images_path >}}foto_beispiel1.png){width=600}
+
+Example from [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Left is the original image, right is the version enhanced with Deep Learning.
+:::
+
+::: {#fig-intro-photo-example2}
+
+![]({{< meta params.images_path >}}foto_beispiel2.png){width=600}
+
+
+Example from [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Left is the original image, right is the manipulated version.
+:::
+
+::: {#fig-intro-photo-example3}
+
+![]({{< meta params.images_path >}}foto_beispiel3.png){width=600}
+
+
+Example from [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Left is the original image, right is the manipulated version.
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Question**
+
+What steps do you think the model in @fig-intro-photo-example3 performs?
+
+:::
+
+
+
+File to convert
+--------------
+
+
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
+<!-- ### BEGIN LATEX EXPORT
+\input{../../../slides/setup}
+\input{../../../slides/macros}
+
+
+\graphicspath{{../images}}
+
+\subtitle{Convolutional Neural Networks}
+
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+    \tableofcontents
+\end{frame}
+### END LATEX EXPORT -->
+
+
+<!-- ### BEGIN LATEX EXPORT
+%------------------------------------------------
+\section{Einführung \& Motivation}
+%------------------------------------------------
+### END LATEX EXPORT -->
+
+
+# Convolutional Neural Networks
+
+## Motivation
+
+CNNs funktionieren ähnlich wie MLPs: Sie bestehen aus Neuronen mit _weights_ and _biases_, die in Layers angeordnet sind. Ebenfalls haben CNNs einen Output mit dem eine differenzierbare Loss-Funktion berechnet werden kann, sodass die Gewichte und Biases mit Backpropagation angepasst werden können. 
+
+Im Unterschied zu MLPs, machen CNNs explizit die Annahme, dass Inputs (z.B. Pixel) die nahe beieinander liegen zusammen betrachtet werden müssen und dass Informationen lokal korreliert sind. Dadurch kann man gewisse Eigenschaften in die Architektur von CNNs einbetten (_inductive biases_), um die Modelle viel effizienter (mit weniger Parameter) zu definieren.
+
+Der Input eines MLPs ist ein Vektor $\v{x}^{(i)}$, der über mehrere Hidden-Layers bis zum Output-Layer transformiert wird. Jeder Hidden-Layer hat eine bestimmte Anzahl Neuronen, die jeweils mit allen Neuronen im vorherigen Layer verbunden sind (_fully-connected Layers_), siehe Figure {numref}`fig-cnn-mlp`.
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Multilayer Perceptron -->
+:::{figure-md} fig-cnn-mlp
+<img src="./images/mlp.jpeg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`li_cs231n_2022`.
+:::
+<!-- ### END SLIDE -->
+
+Die Fully Conntected Layers können nur 1-D Vektoren prozessieren. Dadurch müssen Bilder $\in \mathbb{R}^{H \times W \times C}$ zu 1-D Vektoren $\in \mathbb{R}^p$ flach gedrückt werden (_to flatten_). Dabei ist $p= H \times W \times C$. Dadurch sind _MLPs_ schnell sehr gross (haben viele lernbare Parameter) wenn diese auf hochdimensionalen Inputs wie Bildern angewendet werden. Im Datensatz CIFAR-10, der aus sehr kleinen Bildern von 32x32x3 (Höhe, Breite, Farben) besteht, hat ein einzelnes Neuron im ersten Hidden-Layer 32 * 32 * 3 = 3'072 _weights_, die gelernt werden müssen (siehe {numref}`fig-cnn-spatial-structure-mlp` für eine Illustration in einem _MLP_ und {numref}`fig-cnn-mlp-images` für eine Illustration an einem linearen Modell). 
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: MLPs auf Bildern -->
+:::{figure-md} fig-cnn-mlp-images
+<img src="./images/mlp_images.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: MLPs auf Bildern -->
+:::{figure-md} fig-cnn-spatial-structure-mlp
+<img src="./images/mlp-spatial-structure.png" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`li_cs231n_2023`.
+:::
+<!-- ### END SLIDE -->
+
+
+Bei grösseren Bildern, wie Sie häufig in der Praxis anzutreffen sind, ist die Anzahl _weights_ dementsprechend noch deutlich grösser. Auch verwendet man viele Neuronen, was die Anzahl Parameter nochmal stark erhöht, leicht zu Overfitting führt und das Lernen der Weights erschwert.
+
+
+Ein einzelnes Neuron in einem CNN ist nur mit einem kleinen Ausschnitt (_local connectivity_) vom Bild verbunden (siehe {numref}`fig-cnn-cnn-spatial`). Dadurch haben die Neuronen viel weniger Parameter als in einem MLP. Auch bleibt die 2-D Struktur des Bildes erhalten, diese müssen also nicht wie bei einem MLP flach gedrückt werden. Damit nützt man die Eigenschaft von Bildern aus, dass bestimmte _features_ wie Kanten, Ecken, etc., im gesamten Bild relevant sind. Indem man die Neuronen über den gesamten Input _convolved_ kann man so dasselbe Feature mit einem Neuron im gesamten Bild detektieren. Bei einem MLP müsste man an jeder Position ein bestimmtes Feature neu lernen.
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: CNNs - Local Connectivity -->
+:::{figure-md} fig-cnn-cnn-spatial
+<img src="./images/cnn_spatial.jpg" class="bg-primary mb-1" width="200px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+```{note}
+Mit CNNs werden nicht nur Bild-Daten, sondern generell Daten mit räumlichen Abhängigkeiten / lokalen Strukturen modelliert. Dazu gehören neben Bildern auch Zeitreihen,  Videos, Audio und Texte. Entscheidend ist, dass Signale die räumlich nahe beieinander liegen zusammen interpretiert werden sollen.
+```
+
+
+## Architektur
+
+CNNs bestehen aus einer Sequenz von verschiedenen Layers. Jeder Layer transformiert _Activations_ vom vorherigen Layer über eine differenzierbare Operation in neue Activations. Im Folgenden schauen wir uns die wichtigsten Layer-Typen an: _Convolutional Layers_, _Pooling Layers_, _Activation Layers_, und _Fully-Connected Layers_. In einer bestimmten Sequenz angeordnet spricht man  von der Architektur (_architecture_) des Modells. 
+
+{numref}`fig-cnn-convnet` zeigt eine Beispiel-Architektur. Dargestellt sind jeweils die _activation maps_ der verschiedenen Layers. Das sind die entsprechenden Outputs der gezeigten Layers.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: CNNs -->
+:::{figure-md} fig-cnn-convnet
+<img src="./images/convnet.jpeg" class="bg-primary mb-1" width="600px">
+
+Gezeigt werden die _activations_ einer ConvNet Architektur. Links ist das Input Bild und rechts die Predictions. Source: {cite}`li_cs231n_2022`.
+:::
+<!-- ### END SLIDE -->
+
+Manchmal werden verschiedene _Layer_ zusammengefasst und als Block bezeichnet. Z.B. verwendet man oft die Kombination aus _convolutional_ layer, gefolgt von einem _activation layer_ und einem _pooling layer_. Das wäre dann ein CONV-ACT-POOL Block.
+
+<!-- ### BEGIN LATEX EXPORT
+%------------------------------------------------
+\section{Convolutional Layers}
+%------------------------------------------------
+### END LATEX EXPORT -->
+
+## Convolutional Layers
+
+Die _Convolutional layers_ sind die Haupt-Layer im CNN, die verantwortlich sind visuelle Features zu extrahieren. Die Weights von einem Convolutional Layer bestehen aus einem Set von lernbaren _Filters_. Jeder Filter ist typischerweise, relativ zum Input, klein entlang der räumlichen Dimensionen (Höhe, Breite), erstreckt sich jedoch über die gesamte Input Tiefe. Ein typischer Filter im ersten Layer hat z.B. die Dimension $7 \times 7 \times 3$ (7 pixel entlang Höhe / Breite und 3 entlang der Farbkanäle). Während dem Forward-Pass werden die Filter entlang von Höhe / Breite über den Input geführt (_convolved_). Dabei wird an jeder Position das Skalarprodukt (wenn man sich Input und Filter als 1-D Vektoren vorstellt) zwischen Filter und Input berechnet. Dadurch wird eine 2-D _Activation Map_ produziert, welche die Ausprägung vom Filter an jeder Position im Input repräsentiert. Intuitiv lernt das CNN Filters welche typisch visuellen Mustern entsprechen, wie z.B. Kanten, Farben, und so weiter. Ein Set von $K$ Filters produziert Activation Maps mit einer Tiefe von $K$. 
+
+```{note}
+_Filter_ und _Kernel_ werden manchmal synonym verwendet. Hier unterscheiden wir insofern, als dass ein Filter 3-Dimensional ist (CxHxW) und ein Kernel 2-Dimensional (HxW). Ein Filter besteht also aus C Kernels.
+```
+
+
+```{note}
+Convolution (Faltung) in Deep Learning ist typischerweise als _Cross-Correlation_ (Kreuz-Korrelation) implementiert. 
+
+Gegeben:
+- Kernel $K$
+- Image $I$
+
+
+\begin{equation}
+S(i, j) = (K * I)(i, j) =\sum_m\sum_n I(i + m, j + n)K(m, n)
+\end{equation}
+
+```
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Convolution?}
+
+    Convolution (Faltung) in Deep Learning ist typischerweise als \textit{Cross-Correlation}
+    (Kreuz-Korrelation) implementiert. 
+
+    \begin{equation*}
+        S(i, j) = (K * I)(i, j) =\sum_m\sum_n I(i + m, j + n)K(m, n)
+    \end{equation*}
+
+\end{frame}
+### END LATEX EXPORT -->
+
+<!-- {numref}`fig-cnn-kernel` zeigt ein Beispiel von einem _filter_ der auf einem Bild angewandt wird und als Resultat eine _activation map_ erzeugt. {numref}`fig-cnn-kernel2` zeigt zwei verschiedene _filters_, die entsprechend verschiedene _activation maps_ erzeugen.  -->
+
+<!-- :::{figure-md} fig-cnn-kernel
+<img src="./images/input_kernel_output2.png" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`fleuret_deep_2018`.
+:::
+
+
+:::{figure-md} fig-cnn-kernel2
+<img src="./images/input_2kernel_output2.png" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`fleuret_deep_2018`.
+::: -->
+
+{numref}`fig-cnn-conv-one-number`, {numref}`fig-cnn-conv-activation-map`, {numref}`fig-cnn-conv-activation-map2`, {numref}`fig-cnn-conv-activation-map3` und {numref}`fig-cnn-conv-activation-map4`, zeigen ein Beispiel von einem und mehreren Filtern die auf einem Bild angewandt werden und als Resultat Activation Maps erzeugen.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Convolutional Layers -->
+:::{figure-md} fig-cnn-conv-one-number
+<img src="./images/cnn_conv_one_number.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Convolutional Layers -->
+:::{figure-md} fig-cnn-conv-activation-map
+<img src="./images/conv_activation_map.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Convolutional Layers -->
+:::{figure-md} fig-cnn-conv-activation-map2
+<img src="./images/conv_activation_map2.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Convolutional Layers -->
+:::{figure-md} fig-cnn-conv-activation-map3
+<img src="./images/conv_activation_map3.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+Die Daten werden in _mini-batches_ prozessiert, d.h. mehrere Bilder auf einmal, was in {numref}`fig-cnn-conv-activation-map4` ersichtlich ist. 
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Convolutional Layers -->
+:::{figure-md} fig-cnn-conv-activation-map4
+<img src="./images/conv_activation_map4.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+
+
+### Hyper-Parameter
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Hyper-Parameters}
+    Convolutional Layer sind parametrisiert:
+
+    \begin{itemize}
+        \item Depth: Wieviele \textit{activation maps} möchte man?
+        \item Padding: Wieviel Rand fügt man dem Input hinzu?
+        \item Stride: Was ist die Schrittlänge der convolution?
+        \item Kernel-Size: Was ist die Kernel-Size?
+    \end{itemize}
+
+\end{frame}
+### END LATEX EXPORT -->
+
+Um einen Convolutional Layer zu definieren müssen verschiedene Hyper-Parameter definiert werden. Einige der wichtigsten sind folgende:
+- Depth
+- Padding
+- Stride
+- Kernel Size
+
+_Depth_ bestimmt, wieviele Filters man lernen möchte und definiert somit die Dimensionalität ($C_{\text{out}}$) des Output-Volumens (die Anzahl Activation Maps). 
+
+Der _Stride_ eines Filters bestimmt wie man diese über die Input Activations convolved, quasi die Schrittlänge. Ist der Stride 1 dann bewegt man sich jeweils ein Pixel weiter um die nächste Activation zu berechnen. Ist der Stride grösser, z.B. 2, dann bewegt man sich 2 Pixel weiter und die Activation Maps werden entsprechend kleiner entlang Breite und Höhe.
+
+_Padding_ bezeichnet das hinzufügen von (typischerweise) 0-en am Rand der Input Activations, bevor die Convolution durchgeführt wird. Das kann praktisch sein um sicherzustellen, dass z.B. die räumliche Dimension der Activation Maps identisch ist zu derjenigen der Input Activations. Dies ist z.B. bei Segmentierungs-Aufgaben entscheidend. {numref}`fig-cnn-padding-issue` illustriert das Problem. {numref}`fig-cnn-padding` zeigt ein Beispiel mit Padding.
+
+{numref}`fig-cnn-stride-and-padding` zeigt das Zusammenspiel von Stride und Padding.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Padding: Warum? -->
+:::{figure-md} fig-cnn-padding-issue
+<img src="./images/padding_issue.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Padding -->
+:::{figure-md} fig-cnn-padding
+<img src="./images/padding.png" class="bg-primary mb-1" width="600px">
+
+Links Input (Gelb) mit Zero-Padding (1, 1) (Weisser Rand), Filter (Mitte) und Output (rechts).
+:::
+<!-- ### END SLIDE -->
+
+
+Man kann Padding auch mit Strides $>1$ kombinieren, siehe {numref}`fig-cnn-stride-and-padding`
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Padding and Stride -->
+:::{figure-md} fig-cnn-stride-and-padding
+<img src="./images/stride_and_padding.png" class="bg-primary mb-1" width="600px">
+
+Stride mit Padding. Rot gekennzeichnet ist jeweils die Position vom entsprechenden Filter-Wert auf den Input Activations.
+:::
+<!-- ### END SLIDE -->
+
+
+{cite}`dumoulin_guide_2016` hat einige Animationen zum besseren Verständnis zu Convolutions erstellt und hier veröffentlicht: [https://github.com/vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic). 
+
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Padding und Stride: Animationen}
+    \cite{dumoulin_guide_2016} hat einige Animationen zum besseren Verständnis zu \textit{convolutions}
+     erstellt und hier veröffentlicht: \href{https://github.com/vdumoulin/conv_arithmetic}{Link}. 
+\end{frame}
+### END LATEX EXPORT -->
+
+#### Berechnungen
+
+Man kann die Dimensionalität der Activation Maps mit folgenden Formeln berechnen.
+
+- i: Seitenlänge der Input Activations (Annahme: quadratische Inputs)
+- k: Kernel-Size (Annahme: quadratische Kernel)
+- o: Seitenlänge der output Activation Maps
+- s: Stride (Annahme: gleicher Stride entlang der räumlichen Dimensionen)
+- p: Anzahl Paddings an jeder Seite (Annahme: gleiche Anzahl Paddings entlang der räumlichen Dimensionen)
+
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Berechnungen}
+    Man kann die Dimensionalität der Activation Maps mit folgenden Formeln berechnen.
+
+    \small
+
+    \begin{itemize}
+        \item $i$: Seitenlänge der Input Activations (Annahme: quadratische Inputs)
+        \item $k$: Kernel-Size (Annahme: quadratische Kernel)
+        \item $o$: Seitenlänge der output Activation Maps
+        \item $s$: Stride (Annahme: gleicher Stride entlang der räumlichen Dimensionen)
+        \item $p$: Anzahl Paddings an jeder Seite (Annahme: gleiche Anzahl Paddings entlang der räumlichen Dimensionen)
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Berechnungen}
+    Mit dieser Formel deckt man alle Szenarien ab!
+
+    \begin{block}{Grösse \textit{Activation Map}}
+        \begin{equation*}
+            o = \lfloor \frac{i + 2p - k}{s} \rfloor + 1
+        \end{equation*}
+    \end{block}
+
+\end{frame}
+### END LATEX EXPORT -->
+
+**Szenario: _stride_ = 1 und ohne _padding_**
+
+$$
+o = (i - k) + 1
+$$
+
+
+:::{figure-md} fig-cnn-stride-and-padding-gif3
+<img src="./images/no_padding_no_strides.gif" class="bg-primary mb-1" width="200px">
+
+_convolving_ ein 3x3 _kernel_ über einen 5x5 Input ohne _padding_ und _stride_ 1x1. Source {cite}`dumoulin_guide_2016`
+:::
+
+
+**Szenario: _stride_ = 1 mit _padding_**
+
+$$
+o = (i - k) + 2p + 1
+$$
+
+**Szenario: Half (same) Padding -> $o = i$**
+
+Gültig für jedes $i$ und für $k$ ungerade $k = 2n + 1, n ∈ N$, $s = 1$ und $p = \floor{k/2} = n$.
+
+\begin{align}
+o &= i + 2 \floor{k/2} − (k − 1) \\
+o &= i + 2 n - 2 n \\
+o &= i
+\end{align}
+
+:::{figure-md} fig-cnn-same-padding-gif
+<img src="./images/same_padding_no_strides.gif" class="bg-primary mb-1" width="200px">
+
+_convolving_ ein 3x3 _kernel_ über einen 5x5 Input mit 1x1 _padding_ mit _stride_ 1x1. Source {cite}`dumoulin_guide_2016`
+:::
+
+
+**Szenario: Full Padding**
+
+Damit kann die Dimensionalität vom der _output activation_ auch vergrössert werden.
+
+Gültig für jedes $i$ und $k$, $s = 1$ und $p = k - 1$.
+
+\begin{align}
+o &= i + 2 (k − 1) - (k - 1) \\
+o &= i + (k - 1)
+\end{align}
+
+:::{figure-md} fig-cnn-stride-and-padding-gif2
+<img src="./images/full_padding_no_strides.gif" class="bg-primary mb-1" width="200px">
+
+_convolving_ ein 3x3 _kernel_ über einen 5x5 Input mit 2x2 _padding_ mit _stride_ 1x1. Source {cite}`dumoulin_guide_2016`
+:::
+
+
+
+**Szenario: Kein Padding, _stride_ $\gt 1$**
+
+Gültig für jedes $i$ und $k$, $s \gt 1$ und $p = 0$.
+
+\begin{equation}
+o = \floor{\frac{i - k}{s}} + 1
+\end{equation}
+
+:::{figure-md} fig-cnn-stride-and-padding-gif1
+<img src="./images/no_padding_strides.gif" class="bg-primary mb-1" width="200px">
+
+_convolving_ ein 3x3 _kernel_ über einen 5x5 Input ohne _padding_ und 2x2 _stride_. Source {cite}`dumoulin_guide_2016`
+:::
+
+
+**Szenario: _padding_ und _stride_ $\gt 1$**
+
+Gültig für jedes $i, k, s, p$.
+
+\begin{equation}
+o = \lfloor \frac{i + 2p - k}{s} \rfloor + 1
+\end{equation}
+
+
+:::{figure-md} fig-cnn-padding-strides-gif
+<img src="./images/padding_strides.gif" class="bg-primary mb-1" width="200px">
+
+_convolving_ ein 3x3 _kernel_ über einen 5x5 Input mit 1x1 Zero-Padding und 2x2 _stride_. Source {cite}`dumoulin_guide_2016`
+:::
+
+```{Note}
+Mit dieser Formel deckt man alle Szenarien ab!
+
+\begin{equation}
+o = \lfloor \frac{i + 2p - k}{s} \rfloor + 1
+\end{equation}
+```
+
+#### Quiz
+
+
+```{admonition} Frage
+Input: 3 x 32 x 32
+
+Convolution: 10 Filter a 5x5 Kernel-Size mit Stride=1 und Pad=2
+
+Was ist die Grösse der _activation map_?
+```
+
+
+```{admonition} Frage
+Input: 3 x 32 x 32
+
+Convolution: 10 Filter a 5x5 Kernel-Size mit Stride=1 und Pad=2
+
+Wieviele _weights_ gibt es?
+```
+
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Quiz}
+    
+    Szenario:
+    
+    \begin{itemize}
+        \item Input: 3 x 32 x 32
+        \item Convolution: 10 Filter a 5x5 Kernel-Size mit Stride=1 und Pad=2
+    \end{itemize}
+
+    Was ist die Grösse der Activation Map?
+        
+    Wieviele \textit{weights} gibt es?
+
+    \scriptsize
+
+    \begin{block}{Grösse Activation Map}
+        \begin{equation*}
+            o = \lfloor \frac{i + 2p - k}{s} \rfloor + 1
+        \end{equation*}
+    \end{block}
+
+\end{frame}
+### END LATEX EXPORT -->
+
+
+
+<!-- ### BEGIN LATEX EXPORT
+%------------------------------------------------
+\section{Eigenschaften}
+%------------------------------------------------
+### END LATEX EXPORT -->
+
+### Eigenschaften
+
+#### Local (Sparse) Connectivity & Parameter Sharing
+
+_Fully-connected layers_ sind, wie schon diskutiert, unpraktisch wenn man mit hoch-dimensionalen Inputs wie Bildern arbeitet. Würde man alle Neuronen eines Layers mit allen vorherigen Neuronen verbinden müsste man massiv viel mehr Parameter schätzen, was ineffizient ist und zu Overfitting führt. Jedes Neuron ist also nur mit einer lokalen Region vom Input-Volumen verbunden. Die räumliche Ausdehnung dieser Region ist ein Hyper-Parameter und nennt man das _receptive field_ eines Neurons (auch _kernel size_) auf das Input Volumen. Die Verbindungen entlang der Tiefe (C) erstrecken sich über die ganze Tiefe des Input Volumens. Die Verbindungen sind also lokal entlang der räumlichen Dimensionen (Breite und Höhe), jedoch vollständig entlang der Tiefe.
+
+
+_Parameter sharing_ in Convolutional Layers wird verwendet um die Anzahl Parameter zu reduzieren. Da die Filters über die Inputs _convolved_ werden, sind die einzelnen _weights_ der Filters über die räumliche Ausdehnung des Input-Volumens identisch. Eine der wichtigsten Annahmen, die hinter CNNs steht ist folgende: Falls es sinnvoll ist ein bestimmtes (visuelles) Feature an einer bestimmten Position zu lernen, dann ist es wahrscheinlich auch an anderen Positionen nützlich. Anders gesagt: Lerne ich Filters die Kanten, Ecken oder Katzen detektieren, dann ist es eine sinnvolle Annahme, dass ich das im gesamten Bild tun möchte.
+
+```{note}
+Manchmal macht _parameter sharing_ keinen Sinn. Das kann z.B. der Fall sein wenn wir zentrierte Strukturen in den Bildern haben. Dann möchte man vielleicht positions-abhängige Features lernen. Ein Beispiel sind Bilder von Gesichtern die zentriert worden sind, dann möchte man vielleicht _filter_ lernen die z.B. den Mund nur im unteren, mittleren Bereich erkennen können (_locally connected layers_).
+```
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Sparse Connectivity und Parameter-Sharing}
+
+    \textit{Local (Sparse) Connectivity}: Neuronen sind nur lokal verbunden. \\
+
+    \textit{Parameter-Sharing}: Gewichte eines Neurons werden lokal appliziert, jedoch sind es dieselben über den gesamten Input.
+
+\end{frame}
+
+\begin{frame}{Convolution: Parameter-Sharing immer sinnvoll?}
+
+    Frage: Ist Parameter-Sharing immer sinnvoll?
+
+\end{frame}
+
+### END LATEX EXPORT -->
+
+
+
+
+Der folgende Output zeigt die Anzahl Parameter bei einem MLP und einem CNN (mit jweils zwei Hidden Layers) auf dem CIFAR10 Datensatz.
+
+```{code-cell} ipython3
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class MLP(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.hidden_layer1 = nn.Linear(3 * 32 * 32, 64)
+        self.hidden_layer2 = nn.Linear(64, 32)
+        self.output_layer = nn.Linear(32, 10)
+     
+    def forward(self, x):
+        x = self.flatten(x)
+        x = torch.relu(self.hidden_layer1(x))
+        x = torch.relu(self.hidden_layer2(x))
+        x = self.output_layer(x)
+        return x
+
+net = MLP()
+print(torchinfo.summary(net, input_size=(1, 3, 32, 32)))
+```
+
+
+```{code-cell} ipython3
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class CNN(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 16, 7, stride=2, padding=3)
+        self.conv2 = nn.Conv2d(16, 16, 3, stride=2, padding=1)
+        self.flatten = nn.Flatten()
+        self.output_layer = nn.Linear(16 * 8 * 8 , 10)
+        
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.flatten(x)
+        x = self.output_layer(x)
+        return x
+
+cnn = CNN()
+print(torchinfo.summary(cnn, input_size=(1, 3, 32, 32)))
+```
+
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}[fragile]
+    \frametitle{MLP Parameter}
+    \tiny
+    \begin{minted}{python}
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class MLP(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.hidden_layer1 = nn.Linear(3 * 32 * 32, 64)
+        self.hidden_layer2 = nn.Linear(64, 32)
+        self.output_layer = nn.Linear(32, 10)
+     
+    def forward(self, x):
+        x = self.flatten(x)
+        x = torch.relu(self.hidden_layer1(x))
+        x = torch.relu(self.hidden_layer2(x))
+        x = self.output_layer(x)
+        return x
+
+net = MLP()
+print(torchinfo.summary(net, input_size=(1, 3, 32, 32)))
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{CNN Parameter}
+    \tiny
+    \begin{minted}{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class CNN(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 16, 7, stride=2, padding=3)
+        self.conv2 = nn.Conv2d(16, 16, 3, stride=2, padding=1)
+        self.flatten = nn.Flatten()
+        self.output_layer = nn.Linear(16 * 8 * 8 , 10)
+        
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.flatten(x)
+        x = self.output_layer(x)
+        return x
+
+cnn = CNN()
+print(torchinfo.summary(cnn, input_size=(1, 3, 32, 32)))
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+### END LATEX EXPORT -->
+
+
+```{code-cell} ipython3
+---
+tags: [hide-input]
+---
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+def linear_transf_for_feature_det():
+
+    input_matrix = np.array([
+        [1, 1, 0, 0],
+        [1, 1, 0, 0],
+        [0, 0, 1, 1],
+        [0, 0, 1, 1]
+    ])
+
+    # Define the transformation matrix that would detect the 2x2 pattern
+    # This transformation matrix is designed to detect the presence of a "1" in each quadrant of the 2x2 subcell
+    transformation_matrix = np.zeros((16, 4))
+
+    expected_result = np.array([[4, 0], [0, 4]])
+
+    # Perform the linear transformation
+    result_matrix = np.dot(input_matrix.reshape(1, -1), transformation_matrix).reshape(2, 2)
+
+    # Visualization of the input matrix and others
+    plt.figure(figsize=(12, 4))
+
+    # Set up a gridspec with uneven heights and widths
+    gs = plt.GridSpec(2, 3, height_ratios=[1, 0.25], width_ratios=[1, 0.5, 1])
+
+    # Visualization of the input matrix
+    ax0 = plt.subplot(gs[0, 0])
+    _ = sns.heatmap(input_matrix, annot=True, cmap='coolwarm', cbar=False, linewidths=0.1, ax=ax0).set(title="Input Matrix")
+
+    # Visualization of the input matrix reshaped, with only a quarter of the height
+    ax1 = plt.subplot(gs[1, 0])
+    _ = sns.heatmap(input_matrix.reshape(1, -1), annot=True, cmap='coolwarm', cbar=False, linewidths=0.1, ax=ax1).set(title="Input Flat")
+
+    # Visualization of the transformation matrix
+    ax2 = plt.subplot(gs[:, 1])
+    _ = sns.heatmap(transformation_matrix, annot=False, cbar=False,  cmap=["white"], linewidths=0.1, linecolor="black", ax=ax2).set(title="Lineare Transformation")
+
+    # Visualization of the result matrix
+    ax3 = plt.subplot(gs[0, 2])
+    _ = sns.heatmap(expected_result, annot=True, cmap='coolwarm', cbar=False, linewidths=0.1, ax=ax3).set(title="Expected Resultat")
+
+    # Show the visualizations
+    plt.tight_layout()
+linear_transf_for_feature_det()
+plt.savefig("./images/linear_transf.png")
+plt.close()
+```
+
+
+{numref}`fig-cnn-linear-transf-calc` zeigt einen Input in 2-D (oben links), die flache Variante davon (unten links), sowie einen erwarteten Output (rechts) einer undefinierten linearen Transformation (mitte). 
+
+
+**Frage**: Wie ist die lineare Transformation zu definieren um das erwünschte Resultat zu bekommen? Wieviele Parameter benötigt man? Wie könnte man das mit einer Convolution machen?
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Quiz: Lineare Transformation vs Convolution-->
+:::{figure-md} fig-cnn-linear-transf-calc
+<img src="./images/linear_transf.png" alt="linear transf" class="bg-primary mb-1" width="800px">
+
+Input in 2-D (oben links), die flache Variante davon (unten links), erwarteter Output (rechts) und unbekannte Transformation (Mitte).
+:::
+<!-- ### END SLIDE -->
+
+
+#### Translation Invariance / Equivariance
+
+_Translation invariant_ ist eine Funktion, welche unter _translations_ $g()$ vom Input $x$ denselben Wert ausgibt:
+
+$$
+f(g(x))=f(x)
+$$ 
+
+_Translation equivariant_ ist eine Funktion, welche unter _translations_ $g()$ vom Input $x$ denselben Wert ausgibt, insofern dieser ebenfalls mit $g()$ verschoben wird:
+
+$$
+f(g(x))=g(f(x))
+$$
+
+
+Convolutions sind _translation equivariant_, wie im folgenden Beispiel gut illustriert:
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qoWAFBYOtoU?start=50" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Translation Invariance / Equivariance}
+
+    Gegeben eine Translation: $g()$, die Inputs räumlich verschiebt.
+
+    Translation invariance: $f(g(x))=f(x)$
+
+    Translation equivariance: $f(g(x))=g(f(x))$ \\
+
+    Convolutions sind \textit{translation equivariant}:
+    \href{https://www.youtube.com/embed/qoWAFBYOtoU?start=50}{Beispiel-Video}
+    
+\end{frame}
+### END LATEX EXPORT -->
+
+
+
+(receptive-field)=
+#### Stacking  & Receptive Field
+
+
+Man kann nun mehrere Convolutions in Sequenz ausführen (_stacking_). Dabei wird eine Convolution auf den Activation Maps einer anderen, vorhergehenden, Convolution ausgeführt. {numref}`fig-cnn-conv-stacking` illustriert das Ergebnis.
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Stacking Convolutions -->
+:::{figure-md} fig-cnn-conv-stacking
+<img src="./images/conv_stacking.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+Eine Convolution wird also nicht nur direkt auf dem Input (z.B. Bildern) ausgeführt, sondern ist ganz allgem ein auf Inputs der Dimensionalität $H \times W \times C$ definiert! (wobei es auch Varianten in höheren Dimensionalitäten gibt.)
+
+Jedoch muss man nicht-lineare Activation Functions zwischen den Convolutions benutzen , ansonsten kann man die _Stacked Convolution_ mit einer einfachen Convolution ausdrücken (ähnlich wie bei einem MLP, das ohne Activation Functions mit einer linearen Transformation ausgedrückt werden kann).
+
+
+
+Das _Receptive Field_ definiert welche Inputs einen Einfluss auf die Activations eines Neurons haben. {numref}`fig-cnn-receptive-field` illustriert das Konzept.
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Receptive Field-->
+:::{figure-md} fig-cnn-receptive-field
+<img src="./images/receptive_field.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+Stackt man mehrere Convolutions, dann wird das Receptive Field eines Neurons bezüglich dem ursprünglichen Input immer grösser (siehe {numref}`fig-cnn-receptive-field2`)
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Receptive Field-->
+:::{figure-md} fig-cnn-receptive-field2
+<img src="./images/receptive_field2.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+<!-- ### BEGIN LATEX EXPORT
+%------------------------------------------------
+\section{Weitere Varianten und Layers}
+%------------------------------------------------
+### END LATEX EXPORT -->
+
+### Variationen
+
+#### Dilated Convolutions
+
+_Dilated convolutions_ haben einen zusätzlichen Hyper-Parameter, die _dilation_. Dilated Convolutions haben Löcher zwischen den Zeilen und Spalten von einem Kernel. Dadurch wird das Receptive Field grösser, ohne, dass man mehr Parameter lernen muss. Diese Variante wird auch _à trous convolution_ genannt. {numref}`fig-cnn-dilation-gif`, {numref}`fig-cnn-dilation1` und {numref}`fig-cnn-dilation2` zeigen Beispiele.
+
+
+:::{figure-md} fig-cnn-dilation-gif
+<img src="./images/dilation.gif" class="bg-primary mb-1" width="200px">
+
+_convolving_ ein 3x3 _kernel_ über einen 7x7 Input ohne _padding_ mit _stride_ 1x1 und _dilation_ 2. Source {cite}`dumoulin_guide_2016`
+:::
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Dilated Convolutions -->
+:::{figure-md} fig-cnn-dilation1
+<img src="./images/dilation1.png" class="bg-primary mb-1" width="600px">
+
+_convolving_ ein 3x3 _kernel_ über einen 7x7 Input ohne _padding_ mit _stride_ 1x1 und _dilation_ 1.
+:::
+<!-- ### END SLIDE -->
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Dilated Convolutions -->
+:::{figure-md} fig-cnn-dilation2
+<img src="./images/dilation2.png" class="bg-primary mb-1" width="600px">
+
+_convolving_ ein 3x3 _kernel_ über einen 7x7 Input ohne _padding_ mit _stride_ 1x1 und _dilation_ 2.
+:::
+<!-- ### END SLIDE -->
+
+
+#### 1x1 (pointwise) Convolutions
+
+1x1 Convolutions haben eine Kernel Size von 1x1 und damit keine räumliche Ausdehnung. Diese Layers werden in CNNs häufig eingesetzt, um z.B. mit wenigen Parametern die Anzahl ($C$) Activation Maps zu verändern. Man kann z.B.Activation Maps der Dimensionalität ($C \times H \times W$) mit $C2 * (C + 1)$ auf ein Volumen von ($C2 \times H \times W$) verändern. Dies kann z.B. sinnvoll sein um Parameter einzusparen vor komplexeren Layern oder am Ende des CNNs um die Grösser der Activation Maps mit der Anzahl Klassen die man modellieren möchte abzustimmen (bei Klassifikations-Probleme) oder auf 3-Farbkanäle ($C2=3$) zu reduzieren bei Bild-Generationsmodellen. {numref}`fig-cnn-1x1-conv` zeigt ein Beispiel.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: 1x1 Convolutions -->
+:::{figure-md} fig-cnn-1x1-conv
+<img src="./images/1x1_conv.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+
+#### Depthwise Separable Convolutions
+
+_Depthwise separable convolutions_ sind eine Möglichkeit die Anzahl Parametern von Convolutional Layers weiter zu reduzieren. Dabei erstrecken sich die Filters nicht über die gesamte Tiefe von den Input Activations, sondern es wird für jeden Input Channel einen separaten Filter (Kernel) verwendet, dementsprechend haben diese die Dimensionalität ($1 \times K \times K$). {numref}`fig-cnn-depthwise` zeigt ein Beispiel. Anschliessend werden mit 1x1 Convolutions Informationen über die Input-Channels kombiniert. Siehe {numref}`fig-cnn-depthwise-separabel` für einen Vergleich von 'normalen' Convolutions und _depthwise separable convolutions_. Da 1x1 Convolutions weniger Parameter brauchen, kann man mit diesen Activation Maps erzeugen ohne viel Parameter einzusetzen.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Depthwise Separable Convolutions -->
+:::{figure-md} fig-cnn-depthwise
+<img src="./images/depthwise.png" class="bg-primary mb-1" width="600px">
+
+Source: [https://paperswithcode.com/method/depthwise-convolution](https://paperswithcode.com/method/depthwise-convolution)
+:::
+<!-- ### END SLIDE -->
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Depthwise Separable Convolutions -->
+:::{figure-md} fig-cnn-depthwise-separabel
+<img src="./images/depthwise_separabel.png" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`yu_multi-scale_2016`
+:::
+<!-- ### END SLIDE -->
+
+
+<!-- 
+#### Transposed Convolutions
+
+Manchmal möchte man in die entgegengesetzte Richtung einer _convolution_ gehen, insbesondere wenn man die räumliche Ausdehnung von _activation maps_ vergössern möchte. Dies kann z.B. der Fall sein bei _auto encoders_ in denen der _decoder_ von einer kompakten Repräsentation eines z.B. Bildes wieder das ursprüngliche Bild erzeugen soll. _Transposed convolutions_ (auch _fractionally strided convolutions_ oder _deconvolutions_) erzielen diesen Effekt. {numref}`fig-cnn-transposed-gif` zeigt ein Beispiel bei dem ein 2x2 Input einen 4x4 Output erzeugt mit einem 3x3 _kernel_ (man sieht, dass eine _convolution_ auf dem Output die Input-Dimensionalität ergeben würde).
+
+
+:::{figure-md} fig-cnn-transposed-gif
+<img src="./images/no_padding_no_strides_transposed.gif" class="bg-primary mb-1" width="200px">
+
+_transposed convolution_ eines 3x3 _kernel_ über einen 2x2 Input ohne _padding_ mit _stride_ 1x1. Source {cite}`dumoulin_guide_2016`
+::: -->
+
+
+## Pooling Layers
+
+Oft möchte man die räumliche Dimensionalität der Activation Maps sukzessive reduzieren in einem CNN. Dadurch werden weniger Rechenoperationen und Speicher benötigt. Auch wird Information Layer für Layer verdichtet und aggregiert: eine hohe räumliche Auflösung ist also oft nicht mehr nötig. Wir haben bereits gesehen, dass man mit Convolutional Layers die einen Stride $\gt 1$ haben dieses Ziel erreichen kann. Es gibt jedoch auch die Möglichkeit _Pooling Layers_ zu verwenden, die keine (lernbaren) Parameter aufweisen. 
+
+
+Eine häufig verwendete Variante ist der _Max-pooling Layer_. Dieser Layer operiert unabhängig auf jedem Slice entlang der Tiefen-Dimension und gibt den maximalen Wert zurück. Dabei gilt es ebenfals die Kernel Size und den Stride zu definieren. Ein Stride von $2\times2$ bei einem Kernel von $2\times2$ halbiert die Dimensionalität der Activation Maps entlang Höhe und Breite. 
+
+Für jedes $i,k,s$ und ohne Padding gilt:
+
+\begin{equation}
+o = \floor{\frac{i - k}{s}} + 1
+\end{equation}
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Pooling Layers -->
+:::{figure-md} fig-cnn-pool
+<img src="./images/pool.jpeg" class="bg-primary mb-1" width="300px">
+
+Source: {cite}`li_cs231n_2022`.
+:::
+<!-- ### END SLIDE -->
+
+
+
+```{code-cell} ipython3
+---
+tags: [hide-input]
+---
+import torch
+import torch.nn as nn
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create a 2D input tensor
+input_tensor = torch.tensor([[1, 2, 3, 4],
+                             [5, 6, 7, 8],
+                             [9, 10, 11, 12],
+                             [13, 14, 15, 16]], dtype=torch.float32)
+input_tensor = input_tensor.unsqueeze(0).unsqueeze(0)  # Adding batch and channel dimensions
+
+# Define pooling layers
+max_pool = nn.MaxPool2d(kernel_size=2, stride=2)
+avg_pool = nn.AvgPool2d(kernel_size=2, stride=2)
+global_avg_pool = nn.AdaptiveAvgPool2d((1, 1))
+
+# Apply pooling operations
+max_pooled = max_pool(input_tensor)
+avg_pooled = avg_pool(input_tensor)
+global_avg_pooled = global_avg_pool(input_tensor).view(1, 1, 1)
+
+# Function to plot side-by-side heatmaps with manual subplot positioning
+def plot_side_by_side_heatmaps(input_tensor, output_tensor, title):
+    fig = plt.figure(figsize=(6, 3))
+
+    # Input subplot
+    ax1 = fig.add_axes([0.05, 0.1, 0.4, 0.8])  # left, bottom, width, height (range 0 to 1)
+    sns.heatmap(input_tensor.squeeze().numpy(), ax=ax1, cbar=False, annot=True, fmt=".1f", cmap="YlGnBu")
+    ax1.set_title("Input")
+    ax1.set_xticks([])
+    ax1.set_yticks([])
+
+    # Output subplot
+    output_tensor = np.atleast_2d(output_tensor.squeeze().numpy())
+    ax2 = fig.add_axes([0.55, 0.3, 0.2, 0.4])  # Adjust these values as needed
+    sns.heatmap(output_tensor, ax=ax2, cbar=False, annot=True, fmt=".1f", cmap="YlGnBu")
+    ax2.set_title(title)
+    ax2.set_xticks([])
+    ax2.set_yticks([])
+
+
+# Visualize the input and outputs
+plot_side_by_side_heatmaps(input_tensor, max_pooled, "Max Pooling")
+plt.savefig("./images/max_pooling.png")
+plt.close()
+plot_side_by_side_heatmaps(input_tensor, avg_pooled, "Average Pooling")
+plt.savefig("./images/average_pooling.png")
+plt.close()
+plot_side_by_side_heatmaps(input_tensor, global_avg_pooled, "Global Average Pooling")
+plt.savefig("./images/global_average_pooling.png")
+plt.close()
+```
+
+{numref}`fig-cnn-maxpool` zeigt bei einem gegebenen Input (links) (Activation Map) das Resultat (rechts) von Max-Pooling.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Max Pooling -->
+:::{figure-md} fig-cnn-maxpool
+<img src="./images/max_pooling.png" class="bg-primary mb-1" width="600px">
+
+Max pooling, input (left) and output (right).
+:::
+<!-- ### END SLIDE -->
+
+
+Neben Max-pooling gibt es auch andere Varianten, wie zum Beispiel Average-Pooling. Statt das Maximum zu wählen, wird die durchschnittliche Activation berechnet. Abgesehen davon funktioniert Average-pooling gleich wie Max-Pooling. {numref}`fig-cnn-avg-pooling` zeigt bei einem gegebenen Input (links) (Activation Map) das Resultat (rechts) von Average-Pooling.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Average Pooling -->
+:::{figure-md} fig-cnn-avg-pooling
+<img src="./images/average_pooling.png" class="bg-primary mb-1" width="600px">
+
+Average pooling, input (left) and output (right).
+:::
+<!-- ### END SLIDE -->
+
+Eine wichtige Pooling Variante ist Global-Average-Pooling. Dabei wird der Mittelwert der Activations entlag der Tiefendimension berechnet wird (d.h. es gibt hier weder Kernel-Size noch Stride zu definieren). Activation Maps mit ($C \times H \times W$) werden zu ($C \times 1 \times 1$) reduziert. Dies ist hilfreich um z.B. direkt _logits_ zu modellieren bei einem Klassifikationsproblem mit $C$ Klassen. Dadurch sind Architetkuren möglich, die gänzlich ohne Fully-Connected Layers auskommen. {numref}`fig-cnn-glob-avg-pooling` zeigt bei einem gegebenen Input (links) (Activation Map) das Resultat (rechts) von Global-Average-Pooling.
+
+
+
+<!-- ### BEGIN LATEX EXPORT
+\begin{frame}{Weitere Pooling Layer}
+
+ \textit{Global Average Pooling} ist oft eine wichtige Komponente.
+ 
+ Es wird der Mittelwert der Activations entlag der Tiefendimension berechnet, d.h. Activation Maps mit ($C \times H \times W$) werden zu ($C \times 1 \times 1$) reduziert. Dies ist hilfreich um z.B. direkt Logits zu modellieren bei einem Klassifikationsproblem mit C Klassen. Dadurch sind Architetkuren möglich, die gänzlich ohne Fully-Connected Layers auskommen.
+    
+\end{frame}
+### END LATEX EXPORT -->
+
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Average Pooling -->
+:::{figure-md} fig-cnn-glob-avg-pooling
+<img src="./images/global_average_pooling.png" class="bg-primary mb-1" width="600px">
+
+Global Average pooling, input (left) and output (right).
+:::
+<!-- ### END SLIDE -->
+
+
+
+
+<!-- ## Normalization Layers
+
+_Normalization layers_ normalisieren die _activation maps_ um das Lernen der Parameter zu verbessern. Es gibt viele Varianten davon, {numref}`fig-cnn-normalization` zeigt einige Beispiele. In modernen Architekturen werden _normalization layers_ typischerweise eingesetzt. Beliebt ist z.B. die _layer normalization_ (siehe {cite}`ba_layer_2016`). Die generelle Form einer Normalisierung ist in Gleichung {eq}`eq:normalization` gegeben. Die Parameter $\gamma$ und $\beta$ werden jeweils gelernt, die Mittelwerte $E[x]$ und Varianzen $\sigma^2[x]$ werden aus den _activations_ geschätzt. Warum _normalization layers_ funktionieren und welche zu bevorzugen sind ist immernoch Gegenstand der Forschung und wird in der Praxis häufig empirisch ausprobiert (als Hyper-Parameter betrachtet). Man nimmt an, dass die Kostenfunktion insgesamt smoother wird und damit das Trainieren des Netzwerkes schneller und besser gelingt {cite}`santurkar_how_2019`.
+
+
+```{math}
+:label: eq:normalization
+y = \frac{x - E[x]}{\sqrt{\sigma^2[x] + \epsilon}} * \gamma + \beta
+```
+
+:::{figure-md} fig-cnn-normalization
+<img src="./images/normalization.png" class="bg-primary mb-1" width="300px">
+
+Source: {cite}`qiao_micro-batch_2020`.
+:::
+
+
+## Activation Layers / Functions
+
+_Activation Layers_ oder auch einfach _activation functions_ werden benötigt um nicht-lineare Zusammenhänge zu modellieren. Es gibt verschiedene Varianten davon (siehe [Wikipedia](https://en.wikipedia.org/wiki/Activation_function)). Typischerweise sind _activation functions_ ohne lernbare Parameter und operieren elementweise. Eine der bekanntesten Vertreter ist die _ReLU_ (Rectified linear unit) _activation function_ (siehe {numref}`fig-cnn-relu`)
+
+\begin{equation*}
+f_{\text{ReLU}}(x) = \text{max}(0, 1)
+\end{equation*}
+
+
+:::{figure-md} fig-cnn-relu
+<img src="./images/relu.jpg" class="bg-primary mb-1" width="300px">
+
+X-Achse der Input von ReLU, Y-Achse ist der Output. Source: {cite}`johnson_eecs_2019`.
+:::
+
+
+## Fully-Connected Layers
+
+Der Output eines CNNs muss oft eine fixe Grösse haben, z.B. soll dieser der Anzahl Klassen entsprechen. Mit einem _fully connected layer_ werden die extrahierten _activation maps_ der _convolutional layers_ kombiniert und die Outputs gelernt. Man setzt deshalb häufig _fully connected layers_ als der oder die letzten Layers ein in einem CNN. Jedoch ist es möglich auf _fully connected layers_ zu verzichten und diese mit _convolutions_ zu ersetzen. Dies hat den Vorteil, dass Inputs mit unterschiedlicher (räumlicher) Dimensionalität prozessiert werden können, da _fully connected layers_ auf eine fixe Input-Dimensionalität angewiesen sind, _convolutions_ jedoch auf Inputs variabler (räumlicher) Dimensionen funktionieren. -->
+
+
+<!-- ### BEGIN LATEX EXPORT
+%------------------------------------------------
+\section{Visualisierungen und Architekturen}
+%------------------------------------------------
+### END LATEX EXPORT -->
+
+
+## Visualisierungen
+
+{numref}`fig-cnn-learned_filters` zeigt gelernte Filters aus dem Paper von {cite}`krizhevsky_imagenet_2012` vom ersten Convolutional Layer ihres CNNs. Jeder Filter hat eine Dimensionalität von $3 \times 11 \times 11$. Man sieht, dass die Filters einfache Strukturen erkennen, wie horizontale Kanten oder Farb-Blops. Auch sind die gelerneten Filters ähnlich wie [_Gabor-Filter_](https://en.wikipedia.org/wiki/Gabor_filter) aus der Bildprozessierung.
+
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Learned Filters -->
+:::{figure-md} fig-cnn-learned_filters
+<img src="./images/learned_filters.png" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`krizhevsky_imagenet_2012`
+:::
+<!-- ### END SLIDE -->
+
+## Architekturen
+
+Die Architektur bezeichnet die Sequenz der Layer und deren Hyper-Parameter eines CNNs. Es definiert also die Struktur eines (untrainierten) CNNs. Wir werden später einige Architekturen kennenlernen, da diese stark vom jeweilgen Anwendungsfall abhängig sind. Was häufig vorkommt ist folgendes Muster:
+
+INPUT -> [[CONV -> RELU]*N -> POOL?]*M -> [FC -> RELU]*K -> FC
+
+
+{numref}`fig-cnn-lenet-architecture` zeigt die Architektur von _LeNet_ aus {cite}`lecun_gradient-based_1998` mit dem man handgeschriebene Zahlen klassifiziert hat.
+
+<!-- ### BEGIN SLIDE -->
+<!-- Title: Architektur -->
+:::{figure-md} fig-cnn-lenet-architecture
+<img src="./images/lenet_architecture.jpg" class="bg-primary mb-1" width="600px">
+
+Source: {cite}`johnson_eecs_2019`.
+:::
+<!-- ### END SLIDE -->
+
+
+## PyTorch Beispiele
+
+```{code-cell} ipython3
+import numpy as np
+import torch
+from torch.nn import functional as F
+import torchshow as ts
+from PIL import Image
+from matplotlib import pyplot as plt
+```
+
+
+```{code-cell} ipython3
+img = Image.open('./images/cat.jpg')
+img
+```
+
+```{code-cell} ipython3
+filter = torch.tensor(
+    [   [[1, 0, -1], [1, 0, -1], [1, 0, -1]], # R
+        [[1, 0, -1], [1, 0, -1], [1, 0, -1]], # G
+        [[1, 0, -1], [1, 0, -1], [1, 0, -1]], # B
+    ]).unsqueeze(0).float()
+ts.show(filter, show_axis=False)
+```
+
+
+```{code-cell} ipython3
+input = torch.tensor(np.array(img)).unsqueeze(0).permute(0, 3, 1, 2).float() # (N, C, H, W)
+input /= 255.0
+input -= 1.0
+result = F.conv2d(input, filter, stride=1, padding=0, dilation=1, groups=1)
+```
+
+
+```{code-cell} ipython3
+ts.show(result)
+```
+
+2D-Convolution:
+
+```{code-cell} ipython3
+result = F.conv2d(input, filter, stride=6, padding=0, dilation=1, groups=1)
+ts.show(result)
+```
+
+Transposed convolution:
+
+```{code-cell} ipython3
+result = F.conv2d(input, filter, stride=6, padding=0, dilation=1, groups=1)
+result = F.conv_transpose2d(result, weight=torch.ones_like(filter))
+ts.show(result)
+```
+
+Max-Pooling:
+
+```{code-cell} ipython3
+result = F.max_pool2d(input, kernel_size=8, stride=8)
+ts.show(result)
+```
+
+<!-- ### BEGIN LATEX EXPORT
+%------------------------------------------------
+\section{References}
+%------------------------------------------------
+
+\begin{frame}[allowframebreaks]{References} 
+    \bibliographystyle{unsrt}
+    \scriptsize
+    \bibliography{references}
+\end{frame}
+
+\end{document}
+### END LATEX EXPORT -->

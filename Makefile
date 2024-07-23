@@ -22,8 +22,10 @@ docker-run:	## Run docker container
 	cd docker; docker run -d \
 	  --name ${REPO_NAME} \
 	  -p 8882:8888 \
+	  -p 6006:6006 \
 	  -v "${current_dir}":/home/jovyan/work \
 	  ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} start.sh jupyter lab --LabApp.token=''
+
 
 docker-push: ## Push image to registry
 	docker login -u ${CONTAINER_REGISTRY_USER} -p ${CONTAINER_REGISTRY_PUSH_TOKEN}

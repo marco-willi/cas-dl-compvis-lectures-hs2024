@@ -1,6 +1,8 @@
 # Lecture Nodes / Slides for "Computer Vision mit Deep Learning"
 
-This repository contains lecture notes, slides, and Jupyter Book.
+This repository uses Quarto to build a website with lecture notes, materials and slides.
+
+[Quarto](https://quarto.org/)
 
 Module description: https://www.fhnw.ch/de/weiterbildung/technik/computer-vision-mit-deep-learning
 
@@ -25,5 +27,19 @@ quarto render
 
 See documentation: https://quarto.org/docs/publishing/github-pages.html#github-action
 
+
+### Callout blocks
+
+[callouts](https://quarto.org/docs/authoring/callouts.html)
+
+```
+::: {.callout-note appearance="simple"}
+
+**Question**
+
+What steps do you think the model in @fig-intro-photo-example3 performs?
+
+:::
+```
 
 

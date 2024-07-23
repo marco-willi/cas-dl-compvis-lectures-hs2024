@@ -16,7 +16,6 @@ dependencies:
   - conda-forge::mlxtend
   - anaconda::scikit-learn
   - conda-forge::transformers
-  - conda-forge::ray-tune
   - conda-forge::timm
   # --------- PyTorch & Related --------- #
   - pytorch::pytorch
@@ -30,7 +29,11 @@ dependencies:
   # --------- Experiment Tracking --------- #
   - conda-forge::tensorboard
   - conda-forge::wandb
+# --------- Hyper Param opt --------- #
+  - conda-forge::ray-tune
+  - conda-forge::optuna
   # --------- juypter --------- #
+  - conda-forge::jupyter-cache
   - conda-forge::texinfo
   - conda-forge::ipywidgets
   - conda-forge::xeus-python

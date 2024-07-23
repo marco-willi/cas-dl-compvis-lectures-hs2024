@@ -3,6 +3,8 @@ torchshow
 torchviz
 torchinfo
 gdown
-jupyter-black
 Pillow
 kornia
+# development
+jupyter-black
+python-dotenv

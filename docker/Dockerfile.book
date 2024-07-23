@@ -1,5 +1,5 @@
 # CAS Computer Vision with Deep Learning
-FROM quay.io/jupyter/minimal-notebook:2024-06-03
+FROM quay.io/jupyter/minimal-notebook:2024-07-22
 
 LABEL maintainer="Marco Willi <marco.willi@fhnw.ch>"
 LABEL description="CAS DL - Computer Vision with Deep Learning  HS2024"

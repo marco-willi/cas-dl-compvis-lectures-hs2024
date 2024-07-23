@@ -11,9 +11,11 @@ affiliation: "Institute for Data Science I4DS, FHNW"
 execute:
   freeze: auto
 
+pdf-engine: lualatex
+
 website:
   page-navigation: true
-  title: "CAS Deep Learning - Computer Vision (Part1)"
+  title: "CAS Deep Learning - Computer Vision"
   description: "Homepage for CAS Deep Learning - Computer Vision (Part1) with reading materials and exercises"
   
   site-url: "https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/"
@@ -43,8 +45,17 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
+      - section: Learning Units
+        contents:
+          - pages/intro.qmd
+          - pages/frameworks.qmd
+          - pages/cnns.qmd
+          - pages/recent_advances.qmd
       - text: "Slides"
         href: pages/slides.qmd
+      # - section: Demos
+      #   contents:
+      #     - demos/pixelize.qmd
       - text: "Exercises"
         href: pages/exercises.qmd
       - section: Resources

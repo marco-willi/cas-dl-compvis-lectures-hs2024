@@ -6,7 +6,6 @@ slide-format: revealjs
 
 - [Recap Quiz](/slides/recap/index.html){target="_blank"} slides.
 
-
 - [Intro](/slides/intro/index.html){target="_blank"} slides.
 
 - [Frameworks](/slides/frameworks/index.html){target="_blank"} slides.
