@@ -16,10 +16,10 @@ current_dir = $(shell pwd)
 #################################################################################
 
 docker-build:	## Build docker image
-	cd docker; docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} .
+	docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} -f docker/Dockerfile .
 
 docker-run:	## Run docker container
-	cd docker; docker run -d \
+	docker run -d \
 	  --name ${REPO_NAME} \
 	  -p 8882:8888 \
 	  -p 6006:6006 \

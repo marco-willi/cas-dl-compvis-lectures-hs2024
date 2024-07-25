@@ -95,12 +95,15 @@ print(a.grad)
 
 Here are the nodes of the computational graph.
 
+::: {.content-hidden unless-format="html"}
 ```{python}
 #| eval: true
 #| echo: true
 from torchviz import make_dot
-make_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e }).render(format="png")
+make_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })
 ```
+::: 
+
 
 To perform the computation on a GPU, a simple instruction is enough:
 
@@ -325,12 +328,14 @@ print(f"Predicted class: {y_pred}")
 
 The executed operations will look like this:
 
+::: {.content-hidden unless-format="html"}
 ```{python}
 #| eval: true
 #| echo: true
 from torchviz import make_dot
-make_dot(logits).render(format="png")
+make_dot(logits)
 ```
+::: 
 
 ## torch.optim
 

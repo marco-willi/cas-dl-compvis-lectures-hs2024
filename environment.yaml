@@ -23,9 +23,9 @@ dependencies:
   - pytorch::torchvision
   - pytorch::torchaudio
   - conda-forge::torchmetrics
+  - conda-forge::lightning
   - pytorch::pytorch-cuda=11.8
   - pytorch::captum
-  - pytorch-lightning
   # --------- Experiment Tracking --------- #
   - conda-forge::tensorboard
   - conda-forge::wandb
@@ -44,5 +44,18 @@ dependencies:
   - conda-forge::tabulate
   # ---------- Pip Dependencies --- #
   - pip:
-    - -r requirements.txt
+    # PyTorch helper modules
+    - torchshow
+    - torchviz
+    - torchinfo
+    # download from google drive
+    - gdown
+    # images and data augmentation
+    - opencv-python-headless
+    - Pillow
+    - kornia
+    # development
+    - jupyter-black
+    - python-dotenv
+    #- -r requirements.txt
 prefix: /opt/conda

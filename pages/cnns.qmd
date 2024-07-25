@@ -407,8 +407,11 @@ f(g(x))=g(f(x))
 
 Convolutions are translation equivariant, as illustrated well in the following example:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qoWAFBYOtoU?start=50" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{{< video https://www.youtube.com/embed/qoWAFBYOtoU start="50" >}}
 
+
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/qoWAFBYOtoU?start=50" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ -->
 
 
 ### Stacking & Receptive Field
@@ -573,64 +576,6 @@ plot_heatmap(avg_pooled, "Average Pooling")
 plot_heatmap(global_avg_pooled, "Global Average Pooling")
 
 ```
-
-<!-- ```{python}
-#| eval: true
-#| echo: true
-
-import torch
-import torch.nn as nn
-import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Create a 2D input tensor
-input_tensor = torch.tensor([[1, 2, 3, 4],
-                             [5, 6, 7, 8],
-                             [9, 10, 11, 12],
-                             [13, 14, 15, 16]], dtype=torch.float32)
-input_tensor = input_tensor.unsqueeze(0).unsqueeze(0)  # Adding batch and channel dimensions
-
-# Define pooling layers
-max_pool = nn.MaxPool2d(kernel_size=2, stride=2)
-avg_pool = nn.AvgPool2d(kernel_size=2, stride=2)
-global_avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-
-# Apply pooling operations
-max_pooled = max_pool(input_tensor)
-avg_pooled = avg_pool(input_tensor)
-global_avg_pooled = global_avg_pool(input_tensor).view(1, 1, 1)
-
-# Function to plot side-by-side heatmaps with manual subplot positioning
-def plot_side_by_side_heatmaps(input_tensor, output_tensor, title):
-    fig = plt.figure(figsize=(6, 3))
-
-    # Input subplot
-    ax1 = fig.add_axes([0.05, 0.1, 0.4, 0.8])  # left, bottom, width, height (range 0 to 1)
-    sns.heatmap(input_tensor.squeeze().numpy(), ax=ax1, cbar=False, annot=True, fmt=".1f", cmap="YlGnBu")
-    ax1.set_title("Input")
-    ax1.set_xticks([])
-    ax1.set_yticks([])
-
-    # Output subplot
-    output_tensor = np.atleast_2d(output_tensor.squeeze().numpy())
-    ax2 = fig.add_axes([0.55, 0.3, 0.2, 0.4])  # Adjust these values as needed
-    sns.heatmap(output_tensor, ax=ax2, cbar=False, annot=True, fmt=".1f", cmap="YlGnBu")
-    ax2.set_title(title)
-    ax2.set_xticks([])
-    ax2.set_yticks([])
-
-# Visualize the input and outputs
-plot_side_by_side_heatmaps(input_tensor, max_pooled, "Max Pooling")
-# plt.savefig("./images/max_pooling.png")
-# plt.close()
-plot_side_by_side_heatmaps(input_tensor, avg_pooled, "Average Pooling")
-# plt.savefig("./images/average_pooling.png")
-# plt.close()
-plot_side_by_side_heatmaps(input_tensor, global_avg_pooled, "Global Average Pooling")
-# plt.savefig("./images/global_average_pooling.png")
-# plt.close()
-``` -->
 
 @fig-cnn-pooling-illustration shows the result of max-pooling, average-pooling and global average-pooling. In average-pooling, instead of choosing the maximum, the average activation is calculated. Otherwise, average-pooling works the same way as max-pooling. A crucial pooling variant is global average pooling. The average of the activations is calculated along the depth dimension (i.e., no kernel size or stride needs to be defined). Activation maps with ($C \times H \times W$) are reduced to ($C \times 1 \times 1$). This is useful, for example, to directly model logits in a classification problem with $C$ classes. This allows architectures to be created that do not use fully connected layers at all.
 

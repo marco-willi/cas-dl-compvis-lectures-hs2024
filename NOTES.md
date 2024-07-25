@@ -24,9 +24,10 @@ Day 1
 - CNNs and their properties
 - Example MNIST invariance / equivariance
 
-### Architectures
+### Image Classification
 
-- Famouse architectures
+- Theory Image Classification
+- Fameous architectures
 - Example visualize architecture
 - Example Pre-Trained models
 
@@ -40,6 +41,21 @@ Day 1
 
 - zero-shot learning
 - Example: CLIP classifier
+
+
+## Tips & Tricks
+
+Dealing with gifs:
+
+Example:
+```
+::: {.content-hidden unless-format="html"}
+
+![_transposed convolution_ of a 3x3 _kernel_ over a 2x2 input without _padding_ with _stride_ 1x1. Source @dumoulin_guide_2016.]({{< meta params.images_path >}}no_padding_no_strides_transposed.gif){#fig-cnn-transposed-gif width=200}
+
+:::
+```
+
 
 
 ## Conversion 

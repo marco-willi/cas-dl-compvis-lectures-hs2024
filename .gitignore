@@ -10,3 +10,4 @@ _output*
 /.quarto/
 /_*.local
 _freeze/*
+site_libs/*

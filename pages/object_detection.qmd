@@ -1,0 +1,679 @@
+---
+title: "Object Detection"
+params:
+   images_path: "/assets/images/object_detection/"
+---
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+# Introduction
+
+Object detection is a core task of computer vision. In object detection, the goal is to localize and classify all objects (from a set of known object classes) in an image. @fig-yolo-example shows an example from the paper by @redmon_you_2016. Each object is localized with a bounding box and assigned an object class. A bounding box is defined by four parameters: $x, y$, height, and width.
+
+::: {#fig-yolo-example}
+
+![]({{< meta params.images_path >}}yolo_object_detection_example.png){width=600}
+
+Object detection example (from @redmon_you_2016). Bounding boxes localize the objects, with the most probable class and confidence for each object.
+:::
+
+@fig-od-comparison-class illustrates the differences between image classification, classification with localization, and object detection.
+
+::: {#fig-od-comparison-class}
+
+![]({{< meta params.images_path >}}classification_and_detection_intro.png){width=600}
+
+Classification and detection (from @austin_modern_2022).
+:::
+
+We will now look step-by-step at how to go from image classification to object detection. First, we will look at landmark detection. In this step, we want to localize specific points in an image or object. This could be the nose, eyes, etc., of a person. @fig-od-landmark1 shows an example of landmark detection: On the one hand, we want to determine which object class is in the image, and on the other hand, we want to determine the position of the nose. If there are 3 classes, as shown in the example, the network has 3 outputs (logits) $C1, C2, C3$, which are converted into a probability distribution via the softmax transformation.
+
+**The question now is: How can I additionally localize the nose?**
+
+::: {#fig-od-landmark1}
+
+![]({{< meta params.images_path >}}landmark_detection_1.png){width=600}
+
+Landmark detection (from @austin_modern_2022).
+:::
+
+@fig-od-landmark2 shows that a simple extension of the network output by 2 scalars is sufficient. This can be used to model the $x$ and $y$ coordinates of the nose. The coordinates could be defined relative to the entire image in the range $x,y \in [0,1]$.
+
+::: {#fig-od-landmark2}
+
+![]({{< meta params.images_path >}}landmark_detection_2.png){width=600}
+
+Landmark detection (from @austin_modern_2022).
+:::
+
+In the next step, we can go from landmark detection to classification with localization. @fig-od-classification-and-loc1 shows the problem. Now, we want to classify an image and simultaneously localize the object. In addition to $x,y$ coordinates, further outputs need to be defined.
+
+::: {#fig-od-classification-and-loc1}
+
+![]({{< meta params.images_path >}}classification_and_localization_1.png){width=600}
+
+Classification and localization (from @austin_modern_2022).
+:::
+
+@fig-od-classification-and-loc2 illustrates that with two additional outputs, a bounding box can be defined, which specifies height, width, and a corner point (or the center).
+
+::: {#fig-od-classification-and-loc2}
+
+![]({{< meta params.images_path >}}classification_and_localization_2.png){width=600}
+
+Classification and localization (from @austin_modern_2022).
+:::
+
+@fig-od-single-example shows how to modify a CNN to localize and classify a single object. One could add two outputs (_heads_) to the CNN backbone: a classification head that models the probability of the object class via softmax transformation and 4 parameters for the bounding box coordinates, which could be optimized with a regression loss, such as Euclidean distance. Thus, two tasks (localization and classification) would be solved simultaneously (_multitask loss_).
+
+::: {#fig-od-single-example}
+
+![]({{< meta params.images_path >}}single_object_example.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+# The Challenge
+
+::: {.callout-note appearance="simple"}
+
+**Question:**
+
+What happens if you want to detect more than one object?
+
+:::
+
+
+
+@fig-od-multi-object-example illustrates the problem of the variable number of objects. Depending on the image, more or fewer objects need to be detected. This affects the number of outputs the model must have. This variability is one of the biggest challenges in object detection.
+
+::: {#fig-od-multi-object-example}
+
+![]({{< meta params.images_path >}}multi_object_example.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+The main challenges in object detection are:
+
+**Variable number of outputs**: Depending on how many objects are present in an image, the model must be able to output a variable number of detections. This is inherently challenging since model architectures have fixed-size tensors and cannot be easily implemented variably.
+
+**Different output types**: We need to solve a regression problem (where is the object - bounding box) and a classification problem (what kind of object is it - probability).
+
+**Image size**: Unlike image classification, object detection requires significantly larger input resolutions, as smaller objects also need to be recognized. This increases the hardware requirements, and such models are more complex to train.
+
+One approach to this problem is the sliding window method. Here, one would classify all possible bounding boxes and additionally add the class background (no object). @fig-od-sliding-window1 illustrates the approach.
+
+::: {#fig-od-sliding-window1}
+
+![]({{< meta params.images_path >}}sliding_window1.jpg){width=600}
+
+Sliding window approach example.
+:::
+
+The problem is that there are too many possible bounding boxes that need to be evaluated. For an image of dimension $H \times W$ and a fixed bounding box of dimension $h,w$ there would be:
+
+- Possible $x$ positions: $W - w + 1$
+- Possible $y$ positions: $H - h + 1$
+- Possible positions: $(W - w + 1)(H - h +1)$
+
+
+::: {.callout-warning}
+## Object Detection is Hard
+
+Object detection is a difficult problem and requires many design choices and engineering work.
+:::
+
+Object detection has a long history and, like image classification, made a significant leap when deep learning with convolutional neural networks demonstrated efficient image modeling. The publication by @zou_object_2023 describes this evolution up to the most modern methods and approaches. We will focus on a selection of methods from the two most important approaches in object detection: two-stage detectors and single-stage detectors (see @fig-od-history).
+
+::: {#fig-od-history}
+
+![]({{< meta params.images_path >}}object_detection_milestones.png){width=800}
+
+Object detection history (from @zou_object_2023).
+:::
+
+# Two-Stage Detectors
+
+Two-stage detectors conceptually consist of two phases/models: 1) Finding regions of interest (ROIs), i.e., locations with possible objects, and 2) Classifying and refining the found ROIs.
+
+## R-CNN: Region-Based CNN
+
+R-CNN (Regions with CNN Features) was published in 2014 @girshick_rich_2014. A generic region proposal method is applied to a given image. The idea behind region proposals is to find good candidates for bounding boxes (regions) that possibly contain an object. This would significantly reduce the effort to classify regions (compared to the sliding window).
+
+A well-known algorithm for identifying possible objects is selective search (@uijlings_selective_2013). This identifies object candidates based on regions with similar color, texture, or shape. Selective search can be run on the CPU and finds many, e.g., 2000 regions for an image in a few seconds. @fig-od-selective-search-paper shows an example of applying this algorithm to an image.
+
+::: {#fig-od-selective-search-paper}
+
+![]({{< meta params.images_path >}}selective_search_paper.png){width=600}
+
+Left: Results of selective search (at different scales), right: Object hypotheses. Source: @uijlings_selective_2013.
+:::
+
+Then, each of these regions is aligned in dimensionality (warping) so that all ROIs have the same spatial dimensions. This is necessary so that they can be processed with the same CNN (batch-wise). These warped ROIs are then individually classified with a CNN. @fig-od-rcnn illustrates the process.
+
+::: {#fig-od-rcnn}
+
+![]({{< meta params.images_path >}}rcnn.jpg){width=600}
+
+Source: @girshick_rich_2014.
+:::
+
+Additionally, the region proposals are improved by learning a bounding box regression. @fig-od-rcnn-full shows the entire process.
+
+::: {#fig-od-rcnn-full}
+
+![]({{< meta params.images_path >}}rcnn_full.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Note**
+
+Bounding box regression models a transformation of the ROIs. The transformation is parameterized by four numbers $(t_x, t_y, t_h, t_w)$, just like the ROI proposals $(p_x, p_y, p_h, p_w)$. The predicted bounding box is then $(b_x, b_y, b_h, b_w)$. The position and extent are modeled as follows:
+
+\begin{equation}
+b_x = p_x + p_w t_x \\
+b_y = p_y + p_h t_y \\
+b_w = p_w \cdot e^{t_w} \\
+b_h = p_h \cdot e^{t_h}
+\end{equation}
+
+The position of the box is modeled scale-invariant (relative to width/height). Width/height are modeled in log-space, so only valid values are possible (negative would not be possible).
+
+The individual transformations $t_*$ are modeled with a ridge regression, which uses the ROI features $x$ as input, where $i$ indexes individual proposals.
+
+\begin{equation}
+J(w) = \sum_i (t_*^i - w_*^T x_i)^2 + \lambda \lVert w_* \rVert^2
+\end{equation}
+
+@fig-od-bbox-reg illustrates bounding-box regression with an example.
+
+::: {#fig-od-bbox-reg}
+
+![]({{< meta params.images_path >}}bbox_regression.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+:::
+
+R-CNN optimizes cross-entropy for classification and least squares for bounding box coordinates.
+
+## Fast R-CNN
+
+R-CNN is very slow because a forward pass through the CNN is required for each region proposal. The follow-up paper to R-CNN @girshick_fast_2015 changed the method somewhat. Instead of processing each region proposal separately, the entire image is processed once with a CNN (feature extraction) to obtain activation maps that are somewhat reduced in spatial dimension (see @fig-od-fast-rcnn-1).
+
+::: {#fig-od-fast-rcnn-1}
+
+![]({{< meta params.images_path >}}fast_rcnn_vs_rcnn.png){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+Then, the region proposals generated by a separate method (e.g., selective search) are projected onto the extracted activation maps (see @fig-od-fast-rcnn-2).
+
+::: {#fig-od-fast-rcnn-2}
+
+![]({{< meta params.images_path >}}fast_rcnn_vs_rcnn2.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+Next, the extracted features are warped and processed through a small network of region of interest pooling and fully connected layers (see @fig-od-fast-rcnn-3).
+
+::: {#fig-od-fast-rcnn-3}
+
+![]({{< meta params.images_path >}}fast_rcnn_vs_rcnn3.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+Finally, a classification and adjustment of the region of interest are output. @fig-od-fast-rcnn-4 shows the entire architecture and the losses. During model training, classification loss and bounding box regression loss can be calculated on these outputs.
+
+::: {#fig-od-fast-rcnn-4}
+
+![]({{< meta params.images_path >}}fast_rcnn2.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+@fig-od-fast-rcnn3 shows the architecture of Fast R-CNN with a ResNet backbone.
+
+::: {#fig-od-fast-rcnn3}
+
+![]({{< meta params.images_path >}}fast_rcnn3.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+The region proposals from the proposal method must be projected onto the activation maps. An important innovation of Fast R-CNN was ROI pooling, see @fig-od-roi-pooling. Here, the spatial dimension is reduced, for example, with max pooling so that all ROIs have the same dimensionality. This is necessary so that all can be further processed with the same network for classification and regression.
+
+::: {#fig-od-roi-pooling}
+
+![]({{< meta params.images_path >}}roi_pooling.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+@fig-od-fastrcnn-vs-rcnn shows the training and test time for the model, respectively for a single image. In Fast-RCNN, the test time is dominated by the region proposals generated by a separate method.
+
+::: {#fig-od-fastrcnn-vs-rcnn}
+
+![]({{< meta params.images_path >}}training_time_fastrcnn_vs_rcnn.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Note**
+
+The loss function of Fast R-CNN is as follows:
+
+\begin{equation}
+L(p, u, t^u, v) = L_{\text{cls}}(p, u) + \lambda \lbrack u > 1 \rbrack L_{\text{loc}}(t^u, v)
+\end{equation}
+
+where $u$ represents the true class, $p$ the modeled probability for $u$. $t^u$ are the modeled bounding box coordinates (a tuple with 4 numbers) for the class $u$, and $v$ are the true bounding box coordinates for the class $u$. $L_{\text{cls}}(p, u)$ is the cross-entropy loss. $L_{\text{loc}}(t^u, v)$ is only evaluated for non-background classes with $\lbrack u > 1 \rbrack$, as there is no bounding box for the background class. $L_{\text{loc}}(t^u, v)$ is a slightly modified $L_1$ loss (absolute distance).
+
+For bounding-box regression, a smooth-L1 loss is used.
+
+\begin{equation}
+L_{\text{loc}}(t^{u}, v) = \sum_{i \in \{x,y,w,h\}} \text{smooth}_{L_1}(t^{u}_{i} - v_{i}),
+\end{equation}
+
+\begin{equation}
+\text{smooth}_{L_1}(x) = 
+\begin{cases} 
+0.5x^2 & \text{if } |x| < 1 \\
+|x| - 0.5 & \text{otherwise},
+\end{cases}
+\end{equation}
+
+:::
+
+## Faster R-CNN
+
+With Faster R-CNN @Ren2017, the R-CNN family was further improved. In particular, the generation of region proposals was integrated into the method by creating them with a Region Proposal Network (RPN). In line with the end-to-end learning principle, the aim was to use as few heuristics as possible, such as selective search.
+
+::: {#fig-od-faster-rcnn}
+
+![]({{< meta params.images_path >}}faster_rcnn.jpg){width=400}
+
+Source: @Ren2017
+:::
+
+The rest of the architecture corresponds to Fast R-CNN. @fig-od-faster-rcnn shows the architecture.
+
+The RPN generates object proposals (bounding boxes) in a sliding window approach (implemented as a convolution) on the activation maps of the backbone CNN. These proposals are locations where an object is likely to be found. @fig-od-rpn1 illustrates an example image (left) with dimensions $3 \times 640 \times 480$, the resolution of the activation map (right) with $512 \times 5 \times 4$ on which the RPN operates. Each point/grid cell represents the spatial coverage on the input image. It becomes apparent that the spatial resolution has been reduced by the CNN backbone (e.g., with pooling layers or convolutions with stride $>2$). It is illustrated that the activation map (in this case) has 512 channels, i.e., complex and rich features that represent each region defined by the grid cells. As a comparison: In the paper by @Ren2017, they write that an image with a spatial resolution of $1000 \times 600$ results in activation maps with $60 \times 40$ resolution.
+
+::: {#fig-od-rpn1}
+
+![]({{< meta params.images_path >}}rpn1.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+The RPN now models whether an object is present at each point/for each grid cell and whether a correction of a reference bounding box is necessary. @fig-od-rpn2 illustrates the reference box (blue) for one point. In this case, there is no object nearby. This reference box is also called an anchor.
+
+::: {#fig-od-rpn2}
+
+![]({{< meta params.images_path >}}rpn2.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+In @fig-od-rpn3, you see a positive (green) anchor (with an object) and a negative (red) one without an object. The RPN models an objectness score that is high for positive anchors and low for negatives.
+
+::: {#fig-od-rpn3}
+
+![]({{< meta params.images_path >}}rpn3.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+In addition to objectness scores, transformations for the anchors are also modeled (bounding box regression) so that they fully cover the object. During RPN training, transformations for the positive anchors (green box) are calculated/modelled relative to the ground truth box (orange).
+
+::: {#fig-od-rpn4}
+
+![]({{< meta params.images_path >}}rpn4.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Question:**
+
+What happens if 2 or more objects are in the same place?
+
+:::
+
+If two or more objects are in the same place, often the objects overlapping have a different shape. @fig-od-anchor-boxes illustrates two objects with almost the same center but with significantly different bounding boxes. If anchor boxes with different aspect ratios are defined, e.g., for long and tall/narrow objects, this problem can be partially circumvented.
+
+::: {#fig-od-anchor-boxes}
+
+![]({{< meta params.images_path >}}anchor_boxes.png){width=600}
+
+Anchor boxes.
+:::
+
+@fig-od-rpn5 shows that the RPN in Faster R-CNN models $k$ anchors per location. This allows almost all possible objects, even those close to each other, to be assigned to an anchor
+
+ and detected.
+
+::: {#fig-od-rpn5}
+
+![]({{< meta params.images_path >}}rpn_anchors.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+Overall, Faster R-CNN is trained with 4 different losses, as seen in @fig-od-faster-rcc2.
+
+::: {#fig-od-faster-rcc2}
+
+![]({{< meta params.images_path >}}faster_rcnn2.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+Faster R-CNN is a two-stage detector because the RPN is conceptually separated from the final classification/bounding box regression. In particular, the found regions of the RPN must be warped and arranged in a batch of samples so they can then be processed through the second stage.
+
+::: {#fig-od-faster-rcc3}
+
+![]({{< meta params.images_path >}}faster_rcnn3.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+# Single-Stage Detectors
+
+Two-stage detectors process an image with a two-step approach: In the first step, the goal is to detect as many possible objects as possible, thus maximizing recall. In the second step, the detections are refined, focusing more on classification and distinguishing different objects. This approach achieves high accuracy with little effort. However, a problem is their slow inference speed and complexity due to the two stages. Single-stage detectors detect objects in one step, making them inherently more elegant and faster. Such models can therefore be used on mobile devices. Often, single-stage detectors have problems detecting small or closely spaced objects.
+
+## YOLO
+
+A well-known representative is YOLO (You Only Look Once) @Redmon2016a and its variants. An image is reduced to the spatial dimensionality of $SxS$ with a CNN (see @fig-od-yolo-grid).
+
+::: {#fig-od-yolo-grid}
+
+![]({{< meta params.images_path >}}yolo_grid.png){width=300}
+
+Source: @Redmon2016a
+:::
+
+Then, a classification is performed for each grid cell (value on the activation map) (see @fig-od-yolo-class-map).
+
+::: {#fig-od-yolo-class-map}
+
+![]({{< meta params.images_path >}}yolo_class_map.png){width=300}
+
+Source: @Redmon2016a
+:::
+
+Finally, for each grid cell, the following values are modeled for each of the $B$ bounding boxes: a bounding box regression (4 parameters) and an object score that models whether the center of an object is in the grid cell.
+
+::: {#fig-od-yolo-bbx-conf}
+
+![]({{< meta params.images_path >}}yolo_bbx_conf.png){width=300}
+
+Source: @Redmon2016a
+:::
+
+Then, the classification and bounding box regression are merged. @fig-od-yolo shows the whole picture.
+
+::: {#fig-od-yolo}
+
+![]({{< meta params.images_path >}}yolo.jpg){width=600}
+
+Source: @Redmon2016a
+:::
+
+The full architecture of YOLO is shown in @fig-od-yolo-arch. The output is a tensor of dimension $(C+1)xKxHxW$ for the classification of detections and a tensor of $Cx4KxHxW$ for the bounding box regression, where $C$ is the number of classes ($C+1$ with included background class), $K$ is the number of anchor boxes, and $HxW$ is the spatial dimension of the output activation maps.
+
+::: {#fig-od-yolo-arch}
+
+![]({{< meta params.images_path >}}yolo_arch.jpg){width=600}
+
+Source: @Redmon2016a
+:::
+
+Since objects often occupy multiple grid cells, it may be that multiple cells detect the same object. @fig-od-yolo-multi-outputs shows an example where two cells detect the dog and create two bounding boxes accordingly. This is problematic because exactly one bounding box is needed per detection, and no duplicates.
+
+::: {#fig-od-yolo-multi-outputs}
+
+![]({{< meta params.images_path >}}yolo_multiple_outputs_same_object.png){width=600}
+
+Inspired by @austin_modern_2022
+:::
+
+With non-max suppression, such duplicates can be avoided. @fig-od-yolo-non-max shows the effect of NMS on our example image. More on NMS in {ref}`non-max-suppression`.
+
+::: {#fig-od-yolo-non-max}
+
+![]({{< meta params.images_path >}}yolo_non_max.png){width=600}
+
+Inspired by @austin_modern_2022
+:::
+
+Another difficulty is detecting objects that have their center in the same grid cell. Therefore, YOLO uses $B$ bounding boxes per cell. This allows $B$ objects per cell to be detected, as illustrated in @fig-od-yolo-outputs2. A better variant is to work with anchor boxes.
+
+::: {#fig-od-yolo-outputs2}
+
+![]({{< meta params.images_path >}}yolo_multi_outputs2.png){width=600}
+
+Source: @austin_modern_2022
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Note**
+
+The cost function of YOLO is shown below. $\lambda$ weights are for the different terms, and $\mathbb{1}$ turns certain loss terms on and off, depending on whether an object is present or not. $\hat{C}_i$ models the IoU for the predicted box, and $\hat{p}_i(c)$ the presence of class $c$ in a grid cell. It is interesting that the classification part is penalized with a squared error and not, for example, with a cross-entropy loss.
+
+\begin{align}
+& \lambda_{coord} \sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{obj}[(x_i-\hat{x}_i)^2 + (y_i-\hat{y}_i)^2 ] + \lambda_{coord} \sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w}_i})^2 +(\sqrt{h_i}-\sqrt{\hat{h}_i})^2 ]\\
+& + \sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{obj}(C_i - \hat{C}_i)^2 + \lambda_{noobj}\sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{noobj}(C_i - \hat{C}_i)^2 \\
+& + \sum_{i=0}^{S^2} \mathbb{1}_{i}^{obj}\sum_{c \in classes}(p_i(c) - \hat{p}_i(c))^2 
+\end{align}
+
+:::
+
+YOLO did not work with anchors. More modern versions of single-stage detectors sometimes use anchors, just like many two-stage detectors. This allows a single-stage detector to directly output a tensor of dimensions $(C+1)xKxHxW$ for classification of detections and a tensor of $Cx4KxHxW$ for bounding box regression, where $C$ is the number of classes ($C+1$ with included background class), $K$ is the number of anchor boxes, and $HxW$ is the spatial dimension of the output activation maps. @fig-od-ssd illustrates single-shot detection.
+
+::: {#fig-od-ssd}
+
+![]({{< meta params.images_path >}}ssd.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+## CenterNet - Objects as Points
+
+A modern representative of single-shot detectors is CenterNet @zhou_objects_2019. CenterNet divides an image into a finer grid compared to YOLO. The global stride is about 4, meaning the spatial resolution of the grid is 4 times smaller than that of the image. CenterNet assigns each object, according to its center, a grid point. Then, all object properties, such as the bounding box coordinates, are modeled based on the features from the center. @fig-od-centernet-examples illustrates various objects, their centers, and their height and width, which are modeled.
+
+::: {#fig-od-centernet-examples}
+
+![]({{< meta params.images_path >}}centernet_examples.png){width=600}
+
+Source: @zhou_objects_2019.
+:::
+
+The output of CenterNet is a keypoint heatmap $\hat{Y} \in [0, 1]^{\frac{W}{R} \times \frac{H}{R} \times C}$, where $H, W$ are the spatial resolution of the image, $R$ the global stride, and $C$ the number of object classes to be detected. $\hat{Y}_{x, y, c} = 1$ corresponds to a keypoint (center of an object in object detection), $\hat{Y}_{x, y, c} = 0$ corresponds to the background. Additionally, an offset is modeled: the deviation of the object center from the center of the grid cell: $\hat{O} \in \mathbb{R}^{\frac{W}{R} \times \frac{H}{R} \times 2}$, and the bounding box coordinates (height/width): $\hat{S} \in \mathbb{R}^{\frac{W}{R} \times \frac{H}{R} \times 2}$.
+
+@fig-od-centernet-keypoint-offset-size illustrates the keypoint heatmap, the offset prediction, and the object size with an example.
+
+::: {#fig-od-centernet-keypoint-offset-size}
+
+![]({{< meta params.images_path >}}centernet_keypoint_offset_size.png){width=600}
+
+Source: @zhou_objects_2019.
+:::
+
+@fig-od-centernet-keypoints contrasts anchor-based methods with center points. Anchors are divided into positive (green) and negative (red), or ignored (gray), depending on the overlap with ground truth objects. These are then used in model training. CenterNet does not use anchors and thus does not need manually selected positive and negative anchors. Non-max suppression is also unnecessary. This results in fewer manual hyperparameters and heuristics.
+
+::: {#fig-od-centernet-keypoints}
+
+![]({{< meta params.images_path >}}centernet_bbox_vs_points.png){width=800}
+
+Source: @zhou_objects_2019.
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Question**
+
+What could be an inherent limitation of CenterNet?
+:::
+
+# Further Aspects
+
+There are many architectures and tricks used when training object detection models. Some of these are listed below.
+
+## Class Imbalance
+
+An important topic is class imbalance when training models: Often, there is much more background than object classes (e.g., a ratio of 1:1000). This can lead to problems during learning, as the model may have a strong bias towards the background class, and the gradient during model training may be dominated by simple predictions (for the background class). In this context, the **focal loss** is an important milestone @lin_focal_2018. This reduces the loss for simple samples and increases the relative loss for difficult samples. @fig-od-focal-loss shows the effect of focal loss (compared to cross-entropy) for different values of the parameter $\gamma$, which regulates the strength of the focal loss.
+
+::: {#fig-od-focal-loss}
+
+![]({{< meta params.images_path >}}focal_loss.png){width=600}
+
+Source: @lin_focal_2018.
+:::
+
+## Feature Pyramid Networks
+
+One challenge in object detection is the different spatial scaling of various objects. Both relatively small and relatively large objects need to be detected. Global features that provide important contextual information are helpful for classifying objects. Additionally, fine (pixel-accurate), more local features are important for accurately modeling bounding boxes. An innovation is feature pyramid networks (FPNs) @lin_feature_2017. This approach laterally combines and aggregates features from different layers. This allows global and local information to be combined. Additionally, it is possible to model objects of different sizes on different layers in the network. @fig-od-fpn shows how features are increasingly condensed (left) as the spatial resolution decreases. You can see (right) that global information flows back to deeper levels, allowing smaller objects to be better classified with global information.
+
+::: {#fig-od-fpn}
+
+![]({{< meta params.images_path >}}feature_pyramids2.png){width=600}
+
+Source: @lin_feature_2017.
+:::
+
+## Transformers
+
+A newer architecture is the transformer. This was successfully used in natural language processing (NLP) and has also taken an important place in object detection. With a transformer, object detection can be reformulated as a set-prediction problem @carion_end_to_end_2020. This allows object detection to be trained end-to-end, and all objects can be detected in a single forward pass. This makes hand-designed features like anchor boxes or heuristics like non-max suppression unnecessary. Many state-of-the-art models are now based on the transformer architecture, although CNN-based models are still well represented.
+
+::: {#fig-od-detr}
+
+![]({{< meta params.images_path >}}detr.png){width=600}
+
+Source: @carion_end_to_end_2020.
+:::
+
+# Evaluation
+
+The following describes how object detection models are evaluated.
+
+## Intersection over Union (IoU)
+
+Intersection over Union (IoU) is a metric to compare two bounding boxes. @fig-od-iou1, @fig-od-iou2, and @fig-od-iou3 illustrate the concept. An IoU $> 0.5$ is usually considered just acceptable.
+
+::: {#fig-od-iou1}
+
+![]({{< meta params.images_path >}}iou1.jpg){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+::: {#fig-od-iou2}
+
+![]({{< meta params.images_path >}}iou2.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+::: {#fig-od-iou3}
+
+![]({{< meta params.images_path >}}iou3.png){width=600}
+
+Source: @johnson_eecs_2022.
+:::
+
+### Non-Max Suppression
+
+In many methods, such as Faster R-CNN, the same objects can be detected multiple times. Therefore, potential duplicates must be eliminated during test time (inference or applying the model to an image). In practice, such cases are often resolved with non-max suppression (NMS).
+
+Then, using the following heuristic (NMS), duplicates can be removed:
+
+1. Select the box with the highest score (probability of a certain class (excluding background))
+2. Eliminate boxes with a lower score that have an IoU $> \epsilon$, where $\epsilon$ is an arbitrary threshold (e.g., 0.7).
+3. Repeat until no overlapping boxes remain.
+
+@fig-od-nms illustrates NMS with an example:
+
+::: {#fig-od-nms}
+
+![]({{< meta params.images_path >}}nms.jpg){width=400}
+
+Source: @johnson_eecs_2019.
+:::
+
+This becomes problematic when many objects are densely packed or there is a lot of overlap, as shown in @fig-od-ducks. Here, many valid objects would be removed.
+
+::: {#fig-od-ducks}
+
+![]({{< meta params.images_path >}}ducks_with_box.png){width=600}
+
+[Source](https://www.pexels.com/photo/white-duck-with-22-ducklings-in-green-grass-field-160509/)
+:::
+
+## Mean Average Precision (mAP)
+
+Evaluating object detection models is not easy. The most commonly used metric is mean average precision (mAP).
+
+The following metrics are important for understanding mAP. These are based on the confusion matrix, which can be created for all classes. @fig-od-confusion-matrix shows a confusion matrix.
+
+::: {#fig-od-confusion-matrix}
+
+![]({{< meta params.images_path >}}confusion_matrix.jpg){width=400}
+
+[Source](https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html)
+:::
+
+Precision is the proportion of positively classified samples that are actually positive:
+
+\begin{equation}
+\text{Precision} = \frac{TP}{TP + FP}
+\end{equation}
+
+Recall is the proportion of positive samples that were correctly identified as such:
+
+\begin{equation}
+\text{Recall} = \frac{TP}{TP + FN}
+\end{equation}
+
+Average precision is the area under the precision/recall curve for a particular class. All detections of this class are sorted in descending order of their confidence (class score), and precision and recall are calculated after each sample. It is determined how many detections were correct and had a minimum IoU with a ground-truth box. These points can then be plotted. @fig-od-map shows the calculation of average precision with an example.
+
+::: {#fig-od-map}
+
+![]({{< meta params.images_path >}}map.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+Mean average precision (mAP) is the average of all average precisions across all classes. Sometimes, an average over different IoU thresholds is also calculated, which a model must achieve for a hit.
+
+More details can be found in this blog: [Link](https://learnopencv.com/mean-average-precision-map-object-detection-model-evaluation-metric/)
+
+# PyTorch
+
+There are various ways to apply object detection in PyTorch. It is recommended to use an object detection framework.
+
+An example is [Detectron2](https://github.com/facebookresearch/detectron2). There are pre-trained models that can be used directly or adapted to your dataset.
+
+Object detection can also be performed with [torchvision](https://pytorch.org/tutorials/intermediate/torchvision_tutorial.html).
+
+# References
+
+::: {#refs}
+:::

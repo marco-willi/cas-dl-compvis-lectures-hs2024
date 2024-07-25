@@ -11,7 +11,7 @@ affiliation: "Institute for Data Science I4DS, FHNW"
 execute:
   freeze: auto
 
-pdf-engine: lualatex
+pdf-engine: xelatex
 
 website:
   page-navigation: true
@@ -49,8 +49,12 @@ website:
         contents:
           - pages/intro.qmd
           - pages/frameworks.qmd
+          - pages/neural_networks.qmd
           - pages/cnns.qmd
+          - pages/classification.qmd
           - pages/recent_advances.qmd
+          - pages/object_detection.qmd
+          - pages/segmentation.qmd
       - text: "Slides"
         href: pages/slides.qmd
       # - section: Demos
@@ -58,6 +62,8 @@ website:
       #     - demos/pixelize.qmd
       - text: "Exercises"
         href: pages/exercises.qmd
+      - text: "Mini Projects"
+        href: pages/mini_projects.qmd
       - section: Resources
         contents:
           - pages/notation.qmd
@@ -73,6 +79,9 @@ format:
     theme: yeti
     css: styles.css
     toc: true
+    code-fold: false
+    code-tools: true
+    highlight-style: github
     # include-in-header:
     #    - "_dollar.tex"
     #    - "_macros.tex"

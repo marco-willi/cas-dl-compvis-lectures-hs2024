@@ -18,7 +18,7 @@ Links zu verschiedenen Themen in Machine Learning & Deep Learning.
 - Sehr gute Vorlesung zum Thema
 
 
-## Neuronale Netzwerke - Basics
+## Neuronale Netzwerke - Basics {#sec-links-nn}
 
 
 [Perceptron Learning Rule S. Raschka](https://www.youtube.com/watch?v=C8Uns9HEVXI)

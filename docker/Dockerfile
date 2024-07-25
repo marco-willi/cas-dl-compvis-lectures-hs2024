@@ -24,7 +24,7 @@ RUN rm quarto-linux-amd64.deb
 
 USER $NB_UID
 
-COPY environment.yaml requirements.txt /tmp/
+COPY environment.yaml /tmp/environment.yaml
 
 RUN mamba env update -n base --file /tmp/environment.yaml && \
     mamba clean --all -f -y && \

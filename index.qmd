@@ -12,18 +12,30 @@
 ## Inhalte
 
 
-### Tag 1 - Bildklassifikation
+### Tag 1 - Grundlagen Convolutional Neural Networks
 
 | Zeit | Thema |
 |------|--------|
 |8:45 - 9:30	| Einführung Computer Vision mit Deep Learning
 |9:30 - 10:30 	| Übung: Deep Learning für Bilder
 |10:30  - 10:45	| Pause
-|10:45 - 11:30	| Theory CNNs
-|11:30 - 12:15	| Übung CNNs
+|10:45 - 12:00	| Convolutional Neural Networks
+|12:00 - 13:00	| Mittagspause
+|13:00 - 16:30	| Übung: CNNs für Bildklassifikation
+
+
+### Tag 2 - Bildklassifikation und Anwendungen
+
+| Zeit | Thema |
+|------|--------|
+|8:45 - 9:30	| Recap & Quizz
+|9:30 - 10:30 	| Theorie: Praktische Überlegungen
+|10:30  - 10:45	| Pause
+|10:45 - 11:30	| ...
+|11:30 - 12:15	| ....
 |12:15 - 13:15	| Mittagspause
-|13:15 - 14:00	|Bildklassifikation
-|14:00 - 16:30	| Übung: CNNs für Bildklassifikation
+|13:15 - 15:30	| Übung: Bildklassifikation
+|15:30 - 16:30	| Foundation Models
 
 
 <!-- 
