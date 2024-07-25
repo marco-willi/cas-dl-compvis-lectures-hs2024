@@ -1,5 +1,5 @@
 ---
-title: "Software & Hardware for Deep Learning"
+title: "2 - Software & Hardware for Deep Learning"
 params:
    images_path: "/assets/images/frameworks/"
 ---

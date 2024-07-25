@@ -1,5 +1,5 @@
 ---
-title: "Recent Advances"
+title: "8 - Foundation Models"
 params:
    images_path: "/assets/images/recent_advances"
 ---

@@ -45,18 +45,21 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
-      - section: Learning Units
+      - section: Lectures
         contents:
           - pages/intro.qmd
           - pages/frameworks.qmd
           - pages/neural_networks.qmd
           - pages/cnns.qmd
           - pages/classification.qmd
-          - pages/recent_advances.qmd
           - pages/object_detection.qmd
           - pages/segmentation.qmd
+          - pages/recent_advances.qmd
+      - section: Slides
+        contents:
+          - slides_cas/intro.qmd
       - text: "Slides"
-        href: pages/slides.qmd
+        href: pages/slides_cas.qmd
       # - section: Demos
       #   contents:
       #     - demos/pixelize.qmd

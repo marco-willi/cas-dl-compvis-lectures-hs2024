@@ -1,0 +1,20 @@
+---
+title: "Slides"
+slide-format: revealjs
+---
+
+
+- [Recap Quiz](/slides/recap/index.html){target="_blank"} slides.
+
+- [Intro](/slides/intro/index.html){target="_blank"} slides.
+
+- [Frameworks](/slides/frameworks/index.html){target="_blank"} slides.
+
+- [Neural Networks](/slides/neural_networks/index.html){target="_blank"} slides.
+
+- [CNNs](/slides/cnns/index.html){target="_blank"} slides.
+
+- [Image Classification](/slides/image_classification/index.html){target="_blank"} slides.
+
+- [Practical](/slides/practical/index.html){target="_blank"} slides.
+

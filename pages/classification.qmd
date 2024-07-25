@@ -1,5 +1,5 @@
 ---
-title: "Image Classification"
+title: "5 - Image Classification"
 params:
    images_path: "/assets/images/classification/"
 execute:

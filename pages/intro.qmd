@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "1 - Introduction"
 params:
    images_path: "/assets/images/intro/"
 ---
