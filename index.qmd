@@ -9,6 +9,13 @@
  [CAS Page](https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning)
 
 
+## Lernziele
+
+- Bildklassifikation vertieft verstehen
+- Methoden implementieren, anwenden und interpretieren können
+- Mit Deep Learning Frameworks umgehen und Libraries verwenden können
+- Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können
+
 ## Inhalte
 
 
@@ -44,11 +51,4 @@
 | 09 - 1.11.2024 | Einführung in Deep Learning für Computer Vision     | PyTorch Intro
 | 10 - 2.11.2024 | Convolutional Neural Networks                       | Neural Networks / CNNs
            -->
-
-## Lernziele
-
-- Bildklassifikation vertieft verstehen
-- Methoden implementieren, anwenden und interpretieren können
-- Mit Deep Learning Frameworks umgehen und Libraries verwenden können
-- Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können
 

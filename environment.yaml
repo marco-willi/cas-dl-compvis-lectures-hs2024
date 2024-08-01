@@ -15,7 +15,6 @@ dependencies:
   # --------- machine learning --------- #
   - conda-forge::mlxtend
   - anaconda::scikit-learn
-  - conda-forge::transformers
   - conda-forge::timm
   # --------- PyTorch & Related --------- #
   - pytorch::pytorch
@@ -48,6 +47,8 @@ dependencies:
     - torchshow
     - torchviz
     - torchinfo
+    # ML
+    - transformers
     # download from google drive
     - gdown
     # images and data augmentation

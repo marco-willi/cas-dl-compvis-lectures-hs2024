@@ -65,13 +65,16 @@ website:
       #     - demos/pixelize.qmd
       - text: "Exercises"
         href: pages/exercises.qmd
+      - section: Demos
+        contents:
+          - demos/clip.qmd
       - text: "Mini Projects"
         href: pages/mini_projects.qmd
       - section: Resources
         contents:
-          - pages/notation.qmd
           - pages/literature.qmd
           - pages/links.qmd
+          - pages/notation.qmd
 
 bibliography: assets/references.bib
 

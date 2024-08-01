@@ -42,4 +42,21 @@ What steps do you think the model in @fig-intro-photo-example3 performs?
 :::
 ```
 
+### Jupyter Notebooks
+
+To include jupyter notebooks, the first cell must be of type 'raw' and have the following content (example):
+
+```
+---
+title: "CLIP"
+code-links: binder
+---
+```
+
+
+Convert .ipynb to .qmd
+
+```
+quarto convert basics-jupyter.ipynb # converts to qmd
+```
 

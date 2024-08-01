@@ -4,7 +4,6 @@ params:
    images_path: "/assets/images/recent_advances"
 ---
 
-
 # Introduction
 
 Foundation models are large-scale machine learning models trained on vast amounts of data that can be fine-tuned for various downstream tasks. These models have demonstrated remarkable capabilities in natural language processing, computer vision, and other fields.
@@ -64,9 +63,54 @@ similarities = (image_features @ text_features.T).softmax(dim=-1)
 print("Label:", labels[similarities.argmax().item()])
 ```
 
+# Multi-Modal Models: An Example of Visual Question Answering
+
+Multi-modal models extend the capabilities of foundation models by integrating and processing multiple types of data simultaneously. One notable example of a multi-modal model is a Visual Question Answering (VQA) system, which can understand and answer questions about images.
+
+## How VQA Works
+
+VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers.
+
+## Applications of VQA
+
+- **Accessibility**: VQA can help visually impaired users by answering questions about their surroundings based on images captured by a camera.
+- **Educational Tools**: VQA systems can be used in educational applications to assist students in learning by providing answers to questions about visual content.
+- **Customer Support**: VQA can enhance customer support by allowing users to submit images and ask questions about products or services.
+
+## Example
+
+Here's a simple example of a VQA system using a hypothetical multi-modal model:
+
+```{python}
+#| eval: false
+#| echo: true
+# Hypothetical code for a Visual Question Answering system
+import torch
+from PIL import Image
+from transformers import VQAModel, VQATokenizer
+
+# Load the model and the tokenizer
+model = VQAModel.from_pretrained("hypothetical-vqa-model")
+tokenizer = VQATokenizer.from_pretrained("hypothetical-vqa-model")
+
+# Load an image
+image = Image.open("path/to/your/image.jpg")
+
+# Define a question
+question = "What is in the image?"
+
+# Preprocess the image and the question
+inputs = tokenizer(image, question, return_tensors="pt")
+
+# Get the model's answer
+with torch.no_grad():
+    outputs = model(**inputs)
+    answer = outputs.logits.argmax(-1)
+
+# Print the answer
+print("Answer:", tokenizer.decode(answer))
+```
+
 ## Conclusion
 
-Foundation models like CLIP represent a significant advancement in machine learning, offering powerful capabilities across various tasks. Their ability to learn from large datasets and generalize to new tasks makes them a valuable tool in the AI landscape.
-
-For further reading on CLIP, you can refer to the [original paper](https://openai.com/research/clip).
-
+Foundation models like CLIP and multi-modal models such as VQA represent significant advancements in machine learning, offering powerful capabilities across various tasks. Their ability to learn from large datasets and generalize to new tasks makes them valuable tools in the AI landscape.

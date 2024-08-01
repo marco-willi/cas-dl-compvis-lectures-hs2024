@@ -11,3 +11,5 @@ _output*
 /_*.local
 _freeze/*
 site_libs/*
+
+data/*

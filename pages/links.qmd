@@ -1,12 +1,17 @@
-# Links
+---
+title: "Helpful Links & Resources"
+---
 
-Links zu verschiedenen Themen in Machine Learning & Deep Learning.
+Links and ressources to different topics related to Machine Learning, Deep Learning, and Images.
 
-## PyTorch
+
+## Theory
+
+### PyTorch
 
 [PyTorch internals - Blog Post](http://blog.ezyang.com/2019/05/pytorch-internals/)
 
-## Deep Learning and Computer Vision
+### Deep Learning and Computer Vision
 
 [University of Michigan - Deep Learning for Computer Vision](https://www.youtube.com/playlist?list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r)
 
@@ -18,7 +23,7 @@ Links zu verschiedenen Themen in Machine Learning & Deep Learning.
 - Sehr gute Vorlesung zum Thema
 
 
-## Neuronale Netzwerke - Basics {#sec-links-nn}
+### Neuronale Netzwerke - Basics {#sec-links-nn}
 
 
 [Perceptron Learning Rule S. Raschka](https://www.youtube.com/watch?v=C8Uns9HEVXI)
@@ -36,15 +41,19 @@ Links zu verschiedenen Themen in Machine Learning & Deep Learning.
 [Andrej Karpathy - Backpropagation from the ground up](https://www.youtube.com/watch?v=VMj-3S1tku0)
 
 
-## Model Selection
+### Model Selection
 
 [Paper von S.Raschka: "Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning"](https://arxiv.org/pdf/1811.12808.pdf)
 
-## ML Best Practices
 
-[Martin Zinkevich - Best Practices for ML Engineering](https://developers.google.com/machine-learning/guides/rules-of-ml)
+## Practical
+
 
 [Andrej Karpathy - A Recipe for Training Neural Networks](http://karpathy.github.io/2019/04/25/recipe/)
+
+### ML Best Practices Videos
+
+[Martin Zinkevich - Best Practices for ML Engineering](https://developers.google.com/machine-learning/guides/rules-of-ml)
 
 [Andrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next](https://www.youtube.com/watch?v=sZSKGNbrwus&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=59)
 
@@ -58,3 +67,39 @@ Links zu verschiedenen Themen in Machine Learning & Deep Learning.
 
 [Andrew Ng - Machine Learning System Design | Data For Machine Learning](https://www.youtube.com/watch?v=5T77nG7YJhk&list=PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN&index=69)
 
+
+
+## Tools
+
+### Data Science Repository
+
+[Build a Reproducible and Maintainable Data Science Project](https://khuyentran1401.github.io/reproducible-data-science/structure_project/introduction.html)
+
+- great jupyter book to learen about how to structure a repository and more
+
+
+[Lightning-Hydra-Template](https://github.com/ashleve/lightning-hydra-template)
+
+- template to strcuture a repository based on experiment configuration with Hydra and Pytorch-Lightning
+
+
+### Data Handling
+
+[datasets](https://huggingface.co/docs/datasets/en/index)
+
+- Great package to create and manage (large) image datasets
+
+[img2dataset](https://github.com/rom1504/img2dataset)
+
+- Package to download large image datasets from urls
+
+[DVC](https://dvc.org/)
+
+- Package for data version control
+
+
+### PyTorch
+
+[Lightning](https://lightning.ai/docs/pytorch/stable/)
+
+- boilerplate code to easily train models and use gpu, etc.
