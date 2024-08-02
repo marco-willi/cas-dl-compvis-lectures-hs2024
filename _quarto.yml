@@ -60,6 +60,7 @@ website:
         contents:
           - slides_cas/intro.qmd
       - section: Slides bverI
+        contents:
           - slides/intro.qmd
           - slides/frameworks.qmd
           - slides/neural_networks.qmd
