@@ -68,7 +68,7 @@ However, this approach is very inefficient as a forward pass through the CNN wou
 
 ## Fully Convolutional Networks
 
-@cite `shelhamer_fully_2016` proposed one of the first fully convolutional networks (FCNs). An FCN consists solely of convolutional layers (specifically, it has no fully connected/linear layers) and can thus process images of any spatial dimension and produce a segmentation map of the same dimension. By replacing fully connected/linear layers with convolutional layers, the dependency on a fixed input size can be eliminated.
+@shelhamer_fully_2016 proposed one of the first fully convolutional networks (FCNs). An FCN consists solely of convolutional layers (specifically, it has no fully connected/linear layers) and can thus process images of any spatial dimension and produce a segmentation map of the same dimension. By replacing fully connected/linear layers with convolutional layers, the dependency on a fixed input size can be eliminated.
 
 @fig-segmentation-fcn illustrates an FCN. The FCN has an output of dimension $H \times W \times K$ (height, width, depth), where $K$ is the number of classes. The class-specific activation maps model the probability that a pixel belongs to the corresponding class. With the argmax function, each pixel could then be assigned to the class with the highest probability.
 
@@ -81,11 +81,11 @@ Source: @johnson_eecs_2019.
 
 The problem with this approach is that it requires a lot of compute (FLOPs) because the spatial dimensions of the deeper layers still correspond to the input dimension. Therefore, many operations must be performed as the filters must be convolved over a larger area.
 
-The first layers in a CNN learn local structures (as the receptive field is very small, they cannot learn anything else), which are successively aggregated in further layers. The number of channels is typically increased to allow the CNN to recognize different variations of patterns, increasing the model's memory requirements. Additionally, sufficient layers are needed to ensure the receptive field (see {ref}`receptive-field`) is large enough for accurate segmentation.
+The first layers in a CNN learn local structures (as the receptive field is very small, they cannot learn anything else), which are successively aggregated in further layers. The number of channels is typically increased to allow the CNN to recognize different variations of patterns, increasing the model's memory requirements. Additionally, sufficient layers are needed to ensure the receptive field (see @sec-cnn-receptive-field) is large enough for accurate segmentation.
 
 In image classification, the global label of the image is modeled. Thus, this problem does not exist in image classification, as the spatial dimension of the activation maps can be gradually reduced, keeping the compute approximately constant across the network.
 
-@cite `shelhamer_fully_2016` solved the problem by gradually down-sampling the activation maps using convolutions with stride >2 or pooling layers (just like in image classification architectures) but then up-sampling the activation maps from various layers using an up-sampling method (see {ref}`upsampling`). They concatenate information from various layers to obtain activation maps containing rich features with local and global context. These are then reduced to the desired number of classes with $1 \times 1$ convolutions as needed. See @fig-segmentation-fcn-upsampling for an illustration.
+@shelhamer_fully_2016 solved the problem by gradually down-sampling the activation maps using convolutions with stride >2 or pooling layers (just like in image classification architectures) but then up-sampling the activation maps from various layers using an up-sampling method (see @sec-od-upsampling). They concatenate information from various layers to obtain activation maps containing rich features with local and global context. These are then reduced to the desired number of classes with $1 \times 1$ convolutions as needed. See @fig-segmentation-fcn-upsampling for an illustration.
 
 ::: {#fig-segmentation-fcn-upsampling}
 
@@ -123,7 +123,7 @@ An extreme compression (encoding) was applied, for example, by @noh_learning_201
 Source: @noh_learning_2015.
 :::
 
-# Upsampling
+# Upsampling {#sec-od-upsampling}
 
 In encoder-decoder architectures, the encoding of the input must be decoded so that the input's spatial dimension is reached again. Therefore, the network needs components that can upscale activation maps spatially (upsampling). There are several ways to do this.
 

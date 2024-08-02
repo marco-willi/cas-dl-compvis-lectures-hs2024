@@ -27,7 +27,7 @@ Foundation models are large-scale machine learning models trained on vast amount
 
 # CLIP: A Foundation Model Example
 
-CLIP (Contrastive Language-Image Pre-training) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.
+CLIP (Contrastive Language-Image Pre-training) @radford_learning_2021 is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.
 
 ## How CLIP Works
 

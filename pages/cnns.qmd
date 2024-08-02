@@ -414,7 +414,7 @@ Convolutions are translation equivariant, as illustrated well in the following e
  -->
 
 
-### Stacking & Receptive Field
+### Stacking & Receptive Field  {#sec-cnn-receptive-field}
 
 Multiple convolutions can be executed in sequence (stacking). Each convolution is performed on the activation maps of another previous convolution. @fig-cnn-conv-stacking illustrates the result.
 
