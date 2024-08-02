@@ -4,7 +4,6 @@ params:
    images_path: "/assets/images/intro/"
 ---
 
-
 # Motivation
 
 ## Beispiel 1

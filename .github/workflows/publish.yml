@@ -9,8 +9,9 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     container: 
-      image: mwilli13/cas-dl-compvis-lectures-hs2024:v20240724
-      options: --user root
+      # does not work: requires installation of "gh"
+      #image: mwilli13/cas-dl-compvis-lectures-hs2024:v20240724
+      #options: --user root
 
     permissions:
       contents: write
