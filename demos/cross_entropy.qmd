@@ -1,3 +1,4 @@
+
 ---
 title: "Cross-Entropy Loss"
 code-links: binder
@@ -63,7 +64,6 @@ print(f"Total Likelihood: {likelihood:.6f}")
 #| eval: false
 #| echo: true
 from matplotlib import pyplot as plt
-from myst_nb import glue
 import numpy as np
 import seaborn as sns
 

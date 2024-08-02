@@ -1,0 +1,338 @@
+
+---
+title: "Convolutional Neural Networks"
+params:
+   images_path: "/assets/images/cnns/"
+---
+
+
+## Overview
+
+- Introduction & Motivation
+- Convolutional Layers
+- Properties
+- Variants and Layers
+- Visualizations and Architectures
+
+
+# Introduction & Motivation
+
+## Multilayer Perceptron
+
+![Source: @li_cs231n_2022]({{< meta params.images_path >}}mlp.jpeg){width=100% height=70%}
+
+
+## MLPs on Images
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}mlp_images.jpg){width=100% height=70%}
+
+
+## MLPs on Images
+
+![Source: @li_cs231n_2023]({{< meta params.images_path >}}mlp-spatial-structure.png){width=100% height=70%}
+
+
+## CNNs
+
+![The activations of a ConvNet architecture. The input image is on the left, and the predictions are on the right. Source: @li_cs231n_2022]({{< meta params.images_path >}}convnet.jpeg){width=100% height=70%}
+
+
+
+# Convolutional Layers
+
+## Convolution?
+
+Convolution in Deep Learning is typically implemented as cross-correlation.
+
+\begin{equation}
+S(i, j) = (K * I)(i, j) = \sum_m \sum_n I(i + m, j + n) K(m, n)
+\end{equation}
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}cnn_conv_one_number.jpg){width=100% height=70%}
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map.jpg){width=100% height=70%}
+
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map2.jpg){width=100% height=70%}
+
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map3.jpg){width=100% height=70%}
+
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map4.jpg){width=100% height=70%}
+
+
+
+## Hyper-Parameters
+
+Convolutional Layers are parameterized:
+
+- Depth: How many activation maps?
+- Padding: How much padding is added to the input?
+- Stride: What is the step size of the convolution?
+- Kernel-Size: What is the kernel size?
+
+
+
+## Padding: Why?
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}padding_issue.jpg){width=100% height=70%}
+
+
+## Padding
+
+![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
+
+
+## Padding
+
+![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
+
+
+## Padding and Stride
+
+![Stride with Padding. Red indicates the position of the corresponding filter value on the input activations.]({{< meta params.images_path >}}stride_and_padding.png){width=100% height=70%}
+
+
+## Padding and Stride: Animations
+
+@dumoulin_guide_2016 has created some animations to better understand convolutions, available here: [Link]({{< meta params.images_path >}}https://github.com/vdumoulin/conv_arithmetic).
+
+
+
+## Calculations
+
+You can calculate the dimensionality of the activation maps with the following formulas:
+
+- $i$: Side length of the input activations (assumption: square inputs)
+- $k$: Kernel size (assumption: square kernel)
+- $o$: Side length of the output activation maps
+- $s$: Stride (assumption: same stride along spatial dimensions)
+- $p$: Number of paddings on each side (assumption: same number of paddings along spatial dimensions)
+
+
+## Calculations
+
+This formula covers all scenarios!
+
+**Size of Activation Map**
+
+\begin{equation}
+o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+\end{equation}
+
+
+
+## Quiz
+
+**Scenario:**
+
+- Input: 3 x 32 x 32
+- Convolution: 10 filters with 5x5 kernel size, stride=1, pad=2
+
+What is the size of the activation map?
+
+How many weights are there?
+
+**Size of Activation Map**
+
+\begin{equation}
+o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+\end{equation}
+
+
+# Properties
+
+## Sparse Connectivity and Parameter Sharing
+
+**Local (Sparse) Connectivity**: Neurons are only locally connected.
+
+**Parameter Sharing**: Weights of a neuron are applied locally but are the same across the entire input.
+
+
+
+
+## Convolution: Is Parameter Sharing Always Useful?
+
+**Question**: Is parameter sharing always useful?
+
+
+
+
+
+## MLP Parameters
+
+```{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class MLP(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.hidden_layer1 = nn.Linear(3 * 32 * 32, 64)
+        self.hidden_layer2 = nn.Linear(64, 32)
+        self.output_layer = nn.Linear(32, 10)
+     
+    def forward(self, x):
+        x = self.flatten(x)
+        x = torch.relu(self.hidden_layer1(x))
+        x = torch.relu(self.hidden_layer2(x))
+        x = self.output_layer(x)
+        return x
+
+net = MLP()
+print(torchinfo.summary(net, input_size=(1, 3, 32, 32)))
+```
+
+
+## CNN Parameters
+
+```{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class CNN(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 16, 7, stride=2, padding=3)
+        self.conv2 = nn.Conv2d(16, 16, 3, stride=2, padding=1)
+        self.flatten = nn.Flatten()
+        self.output_layer = nn.Linear(16 * 8 * 8, 10)
+        
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.flatten(x)
+        x = self.output_layer(x)
+        return x
+
+cnn = CNN()
+print(torchinfo.summary(cnn, input_size=(1, 3, 32, 32)))
+```
+
+
+
+## Quiz: Linear Transformation vs Convolution
+
+![Input in 2-D (top left), the flat version (bottom left), expected output (right), and unknown transformation (center).]({{< meta params.images_path >}}linear_transf.png){width=100% height=70%}
+
+
+## Translation Invariance / Equivariance
+
+Given a translation $g()$, which spatially shifts inputs:
+
+- Translation invariance: $f(g(x))=f(x)$
+- Translation equivariance: $f(g(x))=g(f(x))$
+
+Convolutions are translation equivariant: [Example Video]({{< meta params.images_path >}}https://www.youtube.com/embed/qoWAFBYOtoU?start=50)
+
+## Stacking Convolutions
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_stacking.jpg){width=100% height=70%}
+
+
+## Receptive Field
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field.jpg){width=100% height=70%}
+
+
+
+## Receptive Field
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field2.jpg){width=100% height=70%}
+
+
+
+
+# Variants and Layers
+
+## Dilated Convolutions
+
+![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1.]({{< meta params.images_path >}}dilation1.png){width=100% height=70%}
+
+
+
+## Dilated Convolutions
+
+![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2.]({{< meta params.images_path >}}dilation2.png){width=100% height=70%}
+
+
+
+## 1x1 Convolutions
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}1x1_conv.jpg){width=100% height=70%}
+
+
+
+## Depthwise Separable Convolutions
+
+![Source: [https://paperswithcode.com/method/depthwise-convolution]({{< meta params.images_path >}}https://paperswithcode.com/method/depthwise-convolution)]({{< meta params.images_path >}}depthwise.png){width=100% height=70%}
+
+
+
+## Depthwise Separable Convolutions
+
+![Source: @yu_multi-scale_2016]({{< meta params.images_path >}}depthwise_separabel.png){width=100% height=70%}
+
+
+
+## Pooling Layers
+
+![Source: @li_cs231n_2022]({{< meta params.images_path >}}pool.jpeg){width=300px}
+
+
+## Max Pooling
+
+![Max pooling, input (left) and output (right).]({{< meta params.images_path >}}max_pooling.png){width=100% height=70%}
+
+
+## Average Pooling
+
+![Average pooling, input (left) and output (right).]({{< meta params.images_path >}}average_pooling.png){width=100% height=70%}
+
+
+## Other Pooling Layers
+
+**Global Average Pooling** is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.
+
+
+## Global Average Pooling
+
+![Global Average pooling, input (left) and output (right).]({{< meta params.images_path >}}global_average_pooling.png){width=100% height=70%}
+
+
+# Visualizations and Architectures
+
+## Learned Filters
+
+![Source: @krizhevsky_imagenet_2012]({{< meta params.images_path >}}learned_filters.png){width=100% height=70%}
+
+
+
+# References
+
+::: {#refs}
+:::
+

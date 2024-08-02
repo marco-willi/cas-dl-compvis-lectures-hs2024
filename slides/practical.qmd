@@ -1,0 +1,296 @@
+---
+title: "Practical Considerations"
+params:
+   images_path: "/assets/images/practical/"
+---
+
+# Overview
+
+- A Recipe
+- Data
+- Baselines
+- Overfit
+- Regularization
+- Tuning
+- Squeeze
+
+
+# A Recipe
+
+## Leaky Abstraction
+
+```{python}
+#| eval: false
+#| echo: true
+
+your_data = # plug your awesome dataset here
+model = SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)
+```
+
+## Silent Failure
+
+Training neural networks *fails silently*!
+
+# 1 - Data
+
+## 1) Get to Know the Data
+
+Thoroughly inspect the data!
+
+## Camera Traps: Errors
+
+![Examples of images from camera traps.]({{< meta params.images_path >}}camera_traps_corrupt.jpg){width=100% height=70%}
+
+## Camera Traps: Difficulties
+
+![Examples of images from camera traps. Source: @Beery2018]({{< meta params.images_path >}}cam_trap_difficulties.png){width=100% height=70%}
+
+## Rare Classes
+
+![An image of a serval. Below are the model confidences.]({{< meta params.images_path >}}wrong_predictions_serval.png){height=600px}
+
+## Multiple Classes
+
+![Examples of an image from a camera trap with different species.]({{< meta params.images_path >}}multi_species.JPG){width=80%}
+
+
+# 2 - Baselines
+
+## 2) Baselines
+
+Evaluation pipeline, metrics, experiment tracking, and baseline model.
+
+## ML Process
+
+![The components of a typical machine learning process. Source: @raschka_python_2020]({{< meta params.images_path >}}ml_process_raschka.png){width=100% height=70%}
+
+## Experiment Tracking
+
+![Weights and Biases experiment tracking.]({{< meta params.images_path >}}wb_example.png){height=70%}
+
+## 2) Baselines
+
+Ensure reproducibility.
+
+```python
+import torch
+torch.manual_seed(0)
+```
+
+## 2) Baselines
+
+Avoid unnecessary techniques and complexities. Reduce error susceptibility.
+
+## 2) Baselines
+
+If possible, use a *human baseline*. How good can the model be?
+
+## Difficult Cases
+
+![An image from a camera trap that is difficult to classify. Here, annotators had a 96.6% agreement with experts.]({{< meta params.images_path >}}camera_trap_difficult.jpeg){width=50%}
+
+## 2) Baselines
+
+Train an input-independent baseline. Is the model learning anything at all?
+
+## 2) Baselines
+
+Overfit the model on a batch of data. Does the optimization work?
+
+## 2) Baselines
+
+Visualize what goes into the model. Is my preprocessing working?
+
+```python
+y_hat = model(x)
+```
+
+## Fixed Sample: Segmentation Example
+
+![Example of a segmentation problem: input on the left and output on the right.]({{< meta params.images_path >}}wb_comparison.jpg){width=100% height=70%}
+
+
+# 3 - Overfit
+
+## 3) Overfit
+
+At this point, you should have a good understanding of the dataset, high confidence in the evaluation pipeline, and initial baselines from simple models. Now, look for a model that performs well on the training set.
+
+## 3) Overfit
+
+Look for a good model architecture. Follow the principle "Don't be a hero". Prefer already implemented/established architectures.
+
+
+# 4 - Regularization
+
+## 4) Regularization
+
+At this point, you should have achieved good performance on the training set. Now, focus on the validation set.
+
+## 4) Regularization
+
+The simplest measure to achieve better performance (and also reduce overfitting) is to collect more training data. However, this is often expensive!
+
+## Learning Curve
+
+Is it worth collecting more data?
+
+![Example of a learning curve. X-axis: Performance, Y-axis: Number of training samples. Left panel with Gaussian Naive Bayes and right panel with Support Vector Classifier.]({{< meta params.images_path >}}learning_curve.jpg){width=70%}
+
+## 4) Regularization
+
+Another possibility is data augmentation. New data points are generated from existing ones by making random changes to the data. Typically, data points are augmented on-the-fly.
+
+## Data Augmentation: Augly
+
+![AugLy]({{< meta params.images_path >}}augly.jpg){width=100% height=70%}
+
+## Data Augmentation: Albumentations
+
+![Albumentations]({{< meta params.images_path >}}albumentations.jpg){width=600px}
+
+## Data Augmentation: Kornia
+
+![Kornia]({{< meta params.images_path >}}kornia.png){width=100% height=70%}
+
+## Data Augmentation: Example
+
+![Data augmentation example.]({{< meta params.images_path >}}augmentation_rhino.png){width=100% height=70%}
+
+## Data Augmentation: Synthetic Data
+
+![From @Beery2020. Synthetic and semi-synthetic data.]({{< meta params.images_path >}}synthetic_camera_trap_images.jpg){width=100% height=70%}
+
+## 4) Regularization
+
+With early stopping, a model is trained and periodically evaluated on a validation set, e.g., after each epoch. Training is stopped if no significant improvement is achieved after x evaluation cycles.
+
+## Early Stopping
+
+![Source: [Link](https://www.oreilly.com/library/view/hands-on-transfer-learning/9781788831307/41172567-9482-4cad-ac87-1cfbd46026df.xhtml)]({{< meta params.images_path >}}early_stopping.png){width=100% height=70%}
+
+## 4) Regularization
+
+Early stopping in PyTorch.
+
+```python
+from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+
+class LitModel(LightningModule):
+    def validation_step(self, batch, batch_idx):
+        loss = ...
+        self.log("val_loss", loss)
+
+model = LitModel()
+trainer = Trainer(callbacks=[EarlyStopping(monitor="val_loss", mode="min")])
+trainer.fit(model)
+```
+
+## 4) Regularization
+
+With *weight decay*, a model can be regularized. The update step in gradient descent is modified.
+
+\begin{equation}
+\theta_{t+1} = \theta_t (1 - \lambda) - \eta \nabla J(\theta)
+\end{equation}
+
+Where $t$ is the iteration, $\theta$ the model parameters, $\eta$ the learning rate, and $\lambda$ the decay parameter.
+
+## 4) Regularization
+
+Transfer learning involves adapting a pre-trained model on a large dataset (e.g., ImageNet) to a new task. The last layer is removed and replaced according to the new task. The network is then further trained. Layers can be frozen (weights not updated) or fine-tuned (weights further trained).
+
+## Transfer Learning
+
+![Source: @johnson_eecs_2021]({{< meta params.images_path >}}transfer_learning.jpg){width=100% height=70%}
+
+## 4) Regularization
+
+In PyTorch, you can freeze the parameters:
+
+```python
+def set_parameter_requires_grad(model, feature_extracting):
+    if feature_extracting:
+        for param in model.parameters():
+            param.requires_grad = False
+```
+
+# 5 - Tuning
+
+## 5) Hyper-Parameter Tuning
+
+In this step, different hyperparameters and architectures are systematically evaluated. Techniques such as grid search or random search can be used, with random search being preferred.
+
+## 5) Hyper-Parameter Tuning
+
+Parameterized architecture:
+
+```python
+class Net(nn.Module):
+    def __init__(self, l1=120, l2=84):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 5 * 5, l1)
+        self.fc2 = nn.Linear(l1, l2)
+        self.fc3 = nn.Linear(l2, 10)
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = x.view(-1, 16 * 5 * 5)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+```
+
+# 6 - Squeeze
+
+## 6) Squeeze out the Juice
+
+After finding the best architectures and hyperparameters, there are further ways to squeeze out more performance.
+
+## 6) Squeeze out the Juice
+
+Model ensembling.
+
+## 6) Squeeze out the Juice
+
+Train longer.
+
+## Double Descent
+
+![Source: @nakkiran_deep_2019]({{< meta params.images_path >}}double_descent.jpg){width=70%}
+
+## 6) Squeeze out the Juice
+
+Other training techniques:
+
+- Special optimizer (AdamW)
+- Complex data augmentation techniques (Mixup, Cutmix, RandAugment)
+- Regularization techniques (Stochastic Depth)
+- Label smoothing
+
+## HuggingFace
+
+[HuggingFace](https://huggingface.co/)
+
+## timm
+
+[PyTorch Image Models (timm)](https://github.com/rwightman/pytorch-image-models)
+
+## Links
+
+- [DS-cookie cutter](https://github.com/drivendata/cookiecutter-data-science)
+- [PyTorch Lightning](https://github.com/PyTorchLightning/deep-learning-project-template)
+- [Hydra](https://hydra.cc/docs/intro/)
+- [Weights & Biases](https://wandb.ai/site)
+- [Neptune AI](https://neptune.ai/experiment-tracking)
+- [Version Control Systems for ML Projects](https://dvc.org/)
+
+# References
+
+::: {#refs}
+:::

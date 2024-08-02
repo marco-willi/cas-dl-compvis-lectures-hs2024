@@ -11,7 +11,7 @@ format:
     height: 1080
     width: 1920
     chalkboard: true
-subtitle: "CAS Deep Learning - Computer Vision (Part1)"
+subtitle: "bverI - Part 2"
 jupyter: /opt/conda/bin/python3
 execute: 
   eval: true

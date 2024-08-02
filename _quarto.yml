@@ -56,11 +56,17 @@ website:
           - pages/segmentation.qmd
           - pages/recent_advances.qmd
       # ------ SLIDES ---------------------------- #
-      - section: Slides
+      - section: Slides CAS
         contents:
           - slides_cas/intro.qmd
-      - text: "Slides"
-        href: pages/slides_cas.qmd
+      - section: Slides bverI
+          - slides/intro.qmd
+          - slides/frameworks.qmd
+          - slides/neural_networks.qmd
+          - slides/image_classification.qmd
+          - slides/object_detection.qmd
+          - slides/segmentation.qmd
+          - slides/practical.qmd
       # ------ Exercises ---------------------------- #
       - text: "Exercises"
         href: pages/exercises.qmd

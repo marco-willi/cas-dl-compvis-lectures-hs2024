@@ -1,8 +1,21 @@
+
 ---
 title: "CLIP"
 code-links: binder
 jupyter: python3
+format-links:
+  - text: Google Colab
+    href: demos/clip.ipynb
 ---
+
+
+Open it Google Colab:
+
+```{=html}
+<a target="_blank" href="{{< var colab_notebook_root >}}demos/clip.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+```
 
 Import libraries.
 
