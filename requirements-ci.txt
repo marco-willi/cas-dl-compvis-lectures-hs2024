@@ -13,3 +13,4 @@ seaborn
 jupyter-cache 
 plotly 
 torchshow
+torchviz
