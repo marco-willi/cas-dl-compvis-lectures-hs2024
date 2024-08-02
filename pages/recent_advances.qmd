@@ -1,8 +1,19 @@
 ---
 title: "8 - Foundation Models"
 params:
-   images_path: "/assets/images/recent_advances"
+   images_path: "/assets/images/recent_advances/"
+execute:
+  cache: true
+  freeze: true
 ---
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+
 
 # Introduction
 
