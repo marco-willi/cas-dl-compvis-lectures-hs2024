@@ -1,3 +1,4 @@
+
 ---
 title: "Einführung Computer Vision mit Deep Learning"
 params:
@@ -90,7 +91,9 @@ params:
 
 ## Segmentierung 2
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wfObVKKKJkE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{{< video https://www.youtube-nocookie.com/embed/wfObVKKKJkE start="50" >}}
+
+<!-- <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wfObVKKKJkE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 
 ## Keypoint Detektierung
 

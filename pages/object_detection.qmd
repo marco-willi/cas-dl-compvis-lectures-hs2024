@@ -1,7 +1,8 @@
+
 ---
 title: "6 - Object Detection"
 params:
-   images_path: "/assets/images/object_detection/"
+  images_path: /assets/images/object_detection/
 ---
 
 ::: {.content-hidden}

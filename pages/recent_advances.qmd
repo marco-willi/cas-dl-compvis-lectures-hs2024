@@ -1,10 +1,11 @@
+
 ---
 title: "8 - Foundation Models"
 params:
    images_path: "/assets/images/recent_advances/"
 execute:
   cache: true
-  freeze: true
+  freeze: false
 ---
 
 ::: {.content-hidden}
