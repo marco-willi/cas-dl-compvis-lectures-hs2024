@@ -4,7 +4,7 @@
     "href": "pages/frameworks.html",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "",
-    "text": "There are a variety of Deep Learning frameworks. These frameworks allow for easy configuration, training, and deploying of neural networks. They are often developed via Python API. Figure 1 shows some frameworks.\n\n\n\n\n\n\nFigure 1: Frameworks (from Li (2022)).\n\n\n\nKey features of such frameworks are:\n\nFast development and testing of neural networks\nAutomatic differentiation of operations\nEfficient execution on diverse hardware\n\n\n\nAt the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f8dd38fdf10&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device",
+    "text": "There are a variety of Deep Learning frameworks. These frameworks allow for easy configuration, training, and deploying of neural networks. They are often developed via Python API. Figure 1 shows some frameworks.\n\n\n\n\n\n\nFigure 1: Frameworks (from Li (2022)).\n\n\n\nKey features of such frameworks are:\n\nFast development and testing of neural networks\nAutomatic differentiation of operations\nEfficient execution on diverse hardware\n\n\n\nAt the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7efe5b9ee810&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device",
     "crumbs": [
       "Lectures",
       "2 - Software & Hardware for Deep Learning"
@@ -15,7 +15,7 @@
     "href": "pages/frameworks.html#computational-graph-autograd",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "",
-    "text": "At the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f8dd38fdf10&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device",
+    "text": "At the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7efe5b9ee810&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device",
     "crumbs": [
       "Lectures",
       "2 - Software & Hardware for Deep Learning"
@@ -37,7 +37,7 @@
     "href": "pages/frameworks.html#tensors",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "Tensors",
-    "text": "Tensors\ntorch.Tensor is the central data structure in PyTorch. Essentially very similar to numpy.array, it can be easily loaded onto GPUs.\nTensors can be created in various ways. For example, from lists:\n\ndata = [[1, 2],[3, 4]]\nx_data = torch.tensor(data)\nprint(x_data)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from numpy.ndarray:\n\nnp_array = np.array(data)\nx_np = torch.from_numpy(np_array)\nprint(x_np)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from other tensors:\n\nx_ones = torch.ones_like(x_data) # retains the properties of x_data\nprint(f\"Ones Tensor: \\n {x_ones} \\n\")\n\nx_rand = torch.rand_like(x_data, dtype=torch.float) # overrides the datatype of x_data\nprint(f\"Random Tensor: \\n {x_rand} \\n\")\n\nOnes Tensor: \n tensor([[1, 1],\n        [1, 1]]) \n\nRandom Tensor: \n tensor([[0.8474, 0.3086],\n        [0.9535, 0.6159]]) \n\n\n\nOr with randomly generated numbers or constants:\n\nshape = (2,3,)\nrand_tensor = torch.rand(shape)\nones_tensor = torch.ones(shape)\nzeros_tensor = torch.zeros(shape)\n\nprint(f\"Random Tensor: \\n {rand_tensor} \\n\")\nprint(f\"Ones Tensor: \\n {ones_tensor} \\n\")\nprint(f\"Zeros Tensor: \\n {zeros_tensor}\")\n\nRandom Tensor: \n tensor([[0.4813, 0.8479, 0.7457],\n        [0.7668, 0.8657, 0.3336]]) \n\nOnes Tensor: \n tensor([[1., 1., 1.],\n        [1., 1., 1.]]) \n\nZeros Tensor: \n tensor([[0., 0., 0.],\n        [0., 0., 0.]])\n\n\nTensor attributes:\n\ntensor = torch.rand(3,4)\n\nprint(f\"Shape of tensor: {tensor.shape}\")\nprint(f\"Datatype of tensor: {tensor.dtype}\")\nprint(f\"Device tensor is stored on: {tensor.device}\")\n\nShape of tensor: torch.Size([3, 4])\nDatatype of tensor: torch.float32\nDevice tensor is stored on: cpu\n\n\nThere are over 100 operations that can be performed on a tensor. The full list is available here.\nIndexing and Slicing:\n\ntensor = torch.ones(4, 4)\nprint(f\"First row: {tensor[0]}\")\nprint(f\"First column: {tensor[:, 0]}\")\nprint(f\"Last column: {tensor[:, -1]}\")\ntensor[:,1] = 0\nprint(tensor)\n\nFirst row: tensor([1., 1., 1., 1.])\nFirst column: tensor([1., 1., 1., 1.])\nLast column: tensor([1., 1., 1., 1.])\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])\n\n\nJoining tensors:\n\nt1 = torch.cat([tensor, tensor, tensor], dim=1)\nprint(t1)\n\ntensor([[1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.]])\n\n\nArithmetic operations:\n\n# This computes the matrix multiplication between two tensors. y1, y2, y3 will have the same value\ny1 = tensor @ tensor.T\ny2 = tensor.matmul(tensor.T)\n\ny3 = torch.rand_like(y1)\ntorch.matmul(tensor, tensor.T, out=y3)\n\n\n# This computes the element-wise product. z1, z2, z3 will have the same value\nz1 = tensor * tensor\nz2 = tensor.mul(tensor)\n\nz3 = torch.rand_like(tensor)\ntorch.mul(tensor, tensor, out=z3)\n\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])",
+    "text": "Tensors\ntorch.Tensor is the central data structure in PyTorch. Essentially very similar to numpy.array, it can be easily loaded onto GPUs.\nTensors can be created in various ways. For example, from lists:\n\ndata = [[1, 2],[3, 4]]\nx_data = torch.tensor(data)\nprint(x_data)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from numpy.ndarray:\n\nnp_array = np.array(data)\nx_np = torch.from_numpy(np_array)\nprint(x_np)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from other tensors:\n\nx_ones = torch.ones_like(x_data) # retains the properties of x_data\nprint(f\"Ones Tensor: \\n {x_ones} \\n\")\n\nx_rand = torch.rand_like(x_data, dtype=torch.float) # overrides the datatype of x_data\nprint(f\"Random Tensor: \\n {x_rand} \\n\")\n\nOnes Tensor: \n tensor([[1, 1],\n        [1, 1]]) \n\nRandom Tensor: \n tensor([[0.9735, 0.2759],\n        [0.1073, 0.7444]]) \n\n\n\nOr with randomly generated numbers or constants:\n\nshape = (2,3,)\nrand_tensor = torch.rand(shape)\nones_tensor = torch.ones(shape)\nzeros_tensor = torch.zeros(shape)\n\nprint(f\"Random Tensor: \\n {rand_tensor} \\n\")\nprint(f\"Ones Tensor: \\n {ones_tensor} \\n\")\nprint(f\"Zeros Tensor: \\n {zeros_tensor}\")\n\nRandom Tensor: \n tensor([[0.2392, 0.3744, 0.3744],\n        [0.4638, 0.3938, 0.1740]]) \n\nOnes Tensor: \n tensor([[1., 1., 1.],\n        [1., 1., 1.]]) \n\nZeros Tensor: \n tensor([[0., 0., 0.],\n        [0., 0., 0.]])\n\n\nTensor attributes:\n\ntensor = torch.rand(3,4)\n\nprint(f\"Shape of tensor: {tensor.shape}\")\nprint(f\"Datatype of tensor: {tensor.dtype}\")\nprint(f\"Device tensor is stored on: {tensor.device}\")\n\nShape of tensor: torch.Size([3, 4])\nDatatype of tensor: torch.float32\nDevice tensor is stored on: cpu\n\n\nThere are over 100 operations that can be performed on a tensor. The full list is available here.\nIndexing and Slicing:\n\ntensor = torch.ones(4, 4)\nprint(f\"First row: {tensor[0]}\")\nprint(f\"First column: {tensor[:, 0]}\")\nprint(f\"Last column: {tensor[:, -1]}\")\ntensor[:,1] = 0\nprint(tensor)\n\nFirst row: tensor([1., 1., 1., 1.])\nFirst column: tensor([1., 1., 1., 1.])\nLast column: tensor([1., 1., 1., 1.])\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])\n\n\nJoining tensors:\n\nt1 = torch.cat([tensor, tensor, tensor], dim=1)\nprint(t1)\n\ntensor([[1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.]])\n\n\nArithmetic operations:\n\n# This computes the matrix multiplication between two tensors. y1, y2, y3 will have the same value\ny1 = tensor @ tensor.T\ny2 = tensor.matmul(tensor.T)\n\ny3 = torch.rand_like(y1)\ntorch.matmul(tensor, tensor.T, out=y3)\n\n\n# This computes the element-wise product. z1, z2, z3 will have the same value\nz1 = tensor * tensor\nz2 = tensor.mul(tensor)\n\nz3 = torch.rand_like(tensor)\ntorch.mul(tensor, tensor, out=z3)\n\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])",
     "crumbs": [
       "Lectures",
       "2 - Software & Hardware for Deep Learning"
@@ -48,7 +48,7 @@
     "href": "pages/frameworks.html#autograd",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "Autograd",
-    "text": "Autograd\nTo train neural networks, backpropagation is typically used. This calculates the gradient of the loss function with respect to the model parameters. To compute these gradients, PyTorch provides an auto-diff functionality: torch.autograd. This can automatically compute gradients for a computational graph.\nThe following is an example using a 1-layer neural network (see Figure 3 ):\n\n\n\n\n\n\nFigure 3: Source: PyTorch\n\n\n\nHere is the definition of the network in PyTorch:\n\nimport torch\n\nx = torch.ones(5)  # input tensor\ny = torch.zeros(3)  # expected output\nw = torch.randn(5\n\n, 3, requires_grad=True)\nb = torch.randn(3, requires_grad=True)\nz = torch.matmul(x, w)+b\nloss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)\n\nWe can now use Autograd to compute the gradient:\n\nloss.backward()\nprint(w.grad)\nprint(b.grad)\n\ntensor([[0.0126, 0.2000, 0.3170],\n        [0.0126, 0.2000, 0.3170],\n        [0.0126, 0.2000, 0.3170],\n        [0.0126, 0.2000, 0.3170],\n        [0.0126, 0.2000, 0.3170]])\ntensor([0.0126, 0.2000, 0.3170])",
+    "text": "Autograd\nTo train neural networks, backpropagation is typically used. This calculates the gradient of the loss function with respect to the model parameters. To compute these gradients, PyTorch provides an auto-diff functionality: torch.autograd. This can automatically compute gradients for a computational graph.\nThe following is an example using a 1-layer neural network (see Figure 3 ):\n\n\n\n\n\n\nFigure 3: Source: PyTorch\n\n\n\nHere is the definition of the network in PyTorch:\n\nimport torch\n\nx = torch.ones(5)  # input tensor\ny = torch.zeros(3)  # expected output\nw = torch.randn(5\n\n, 3, requires_grad=True)\nb = torch.randn(3, requires_grad=True)\nz = torch.matmul(x, w)+b\nloss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)\n\nWe can now use Autograd to compute the gradient:\n\nloss.backward()\nprint(w.grad)\nprint(b.grad)\n\ntensor([[0.0321, 0.1421, 0.2255],\n        [0.0321, 0.1421, 0.2255],\n        [0.0321, 0.1421, 0.2255],\n        [0.0321, 0.1421, 0.2255],\n        [0.0321, 0.1421, 0.2255]])\ntensor([0.0321, 0.1421, 0.2255])",
     "crumbs": [
       "Lectures",
       "2 - Software & Hardware for Deep Learning"
@@ -59,7 +59,7 @@
     "href": "pages/frameworks.html#torch.nn",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "torch.nn",
-    "text": "torch.nn\nPyTorch provides various building blocks for creating neural networks. These are available in torch.nn. Additionally, you can define any compositions of such building blocks that inherit from torch.nn.Module. A neural network is typically a torch.nn.Module. Each module implements the forward() method to define how data is processed.\nHere is an example:\n\nfrom torch import nn\n\nclass NeuralNetwork(nn.Module):\n    def __init__(self):\n        super(NeuralNetwork, self).__init__()\n        self.flatten = nn.Flatten()\n        self.linear_relu_stack = nn.Sequential(\n            nn.Linear(28*28, 512),\n            nn.ReLU(),\n            nn.Linear(512, 512),\n            nn.ReLU(),\n            nn.Linear(512, 10),\n        )\n\n    def forward(self, x):\n        x = self.flatten(x)\n        logits = self.linear_relu_stack(x)\n        return logits\n\nYou can also visualize the model:\n\nmodel = NeuralNetwork()\nprint(model)\n\nNeuralNetwork(\n  (flatten): Flatten(start_dim=1, end_dim=-1)\n  (linear_relu_stack): Sequential(\n    (0): Linear(in_features=784, out_features=512, bias=True)\n    (1): ReLU()\n    (2): Linear(in_features=512, out_features=512, bias=True)\n    (3): ReLU()\n    (4): Linear(in_features=512, out_features=10, bias=True)\n  )\n)\n\n\nTo use the model, you can pass input data. This will execute the forward() method, along with background operations.\n\nX = torch.rand(1, 28, 28)\nlogits = model(X)\npred_probab = nn.Softmax(dim=1)(logits)\ny_pred = pred_probab.argmax(1)\nprint(f\"Predicted class: {y_pred}\")\n\nPredicted class: tensor([2])\n\n\nThe executed operations will look like this:\n\nfrom torchviz import make_dot\nmake_dot(logits)\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f8dd2305790&gt;",
+    "text": "torch.nn\nPyTorch provides various building blocks for creating neural networks. These are available in torch.nn. Additionally, you can define any compositions of such building blocks that inherit from torch.nn.Module. A neural network is typically a torch.nn.Module. Each module implements the forward() method to define how data is processed.\nHere is an example:\n\nfrom torch import nn\n\nclass NeuralNetwork(nn.Module):\n    def __init__(self):\n        super(NeuralNetwork, self).__init__()\n        self.flatten = nn.Flatten()\n        self.linear_relu_stack = nn.Sequential(\n            nn.Linear(28*28, 512),\n            nn.ReLU(),\n            nn.Linear(512, 512),\n            nn.ReLU(),\n            nn.Linear(512, 10),\n        )\n\n    def forward(self, x):\n        x = self.flatten(x)\n        logits = self.linear_relu_stack(x)\n        return logits\n\nYou can also visualize the model:\n\nmodel = NeuralNetwork()\nprint(model)\n\nNeuralNetwork(\n  (flatten): Flatten(start_dim=1, end_dim=-1)\n  (linear_relu_stack): Sequential(\n    (0): Linear(in_features=784, out_features=512, bias=True)\n    (1): ReLU()\n    (2): Linear(in_features=512, out_features=512, bias=True)\n    (3): ReLU()\n    (4): Linear(in_features=512, out_features=10, bias=True)\n  )\n)\n\n\nTo use the model, you can pass input data. This will execute the forward() method, along with background operations.\n\nX = torch.rand(1, 28, 28)\nlogits = model(X)\npred_probab = nn.Softmax(dim=1)(logits)\ny_pred = pred_probab.argmax(1)\nprint(f\"Predicted class: {y_pred}\")\n\nPredicted class: tensor([7])\n\n\nThe executed operations will look like this:\n\nfrom torchviz import make_dot\nmake_dot(logits)\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7efe5a5a3d50&gt;",
     "crumbs": [
       "Lectures",
       "2 - Software & Hardware for Deep Learning"
@@ -546,22 +546,14 @@
     "href": "demos/cross_entropy.html",
     "title": "Cross-Entropy Loss",
     "section": "",
-    "text": "from matplotlib import pyplot as plt\nimport numpy as np\nimport seaborn as sns\n\nnp.random.seed(123)\nlogits = np.random.normal(size=(10, )) * 2\nsoftmax_output = np.exp(logits) / np.exp(logits).sum()\n\nfig, ax = plt.subplots(ncols=2, figsize=(12, 4))\n_ = sns.barplot(x=[i for i in range(0, 10)], y=logits, ax=ax[0]).set(\n    title=\"Logits\")\n_ = sns.barplot(x=[i for i in range(0, 10)], y=softmax_output, ax=ax[1]).set(\n    title=\"Softmax\", ylim=(0, 1))",
-    "crumbs": [
-      "Demos",
-      "Cross-Entropy Loss"
-    ]
+    "text": "from matplotlib import pyplot as plt\nimport numpy as np\nimport seaborn as sns\n\nnp.random.seed(123)\nlogits = np.random.normal(size=(10, )) * 2\nsoftmax_output = np.exp(logits) / np.exp(logits).sum()\n\nfig, ax = plt.subplots(ncols=2, figsize=(12, 4))\n_ = sns.barplot(x=[i for i in range(0, 10)], y=logits, ax=ax[0]).set(\n    title=\"Logits\")\n_ = sns.barplot(x=[i for i in range(0, 10)], y=softmax_output, ax=ax[1]).set(\n    title=\"Softmax\", ylim=(0, 1))"
   },
   {
     "objectID": "demos/cross_entropy.html#cross-entropy",
     "href": "demos/cross_entropy.html#cross-entropy",
     "title": "Cross-Entropy Loss",
     "section": "Cross-Entropy",
-    "text": "Cross-Entropy\n\nfrom matplotlib import pyplot as plt\nfrom myst_nb import glue\nimport numpy as np\nimport seaborn as sns\n\nnp.random.seed(123)\nk = 5\nlogits = np.random.normal(size=(5, )) * 2\ny_hat = np.exp(logits) / np.exp(logits).sum()\ny_true = np.zeros_like(logits)\ny_true[1] = 1\n\nfig, ax = plt.subplots(ncols=2, figsize=(12, 4))\n_ = sns.barplot(x=[i for i in range(0, k)], y=y_true, ax=ax[0]).set(\n    title=\"True Distribution\")\n_ = sns.barplot(x=[i for i in range(0, k)], y=y_hat, ax=ax[1]).set(\n    title=\"Predicted Distribution\", ylim=(0, 1))\n\ncross_entropy = (- y_true * np.log(y_hat)).sum()\nprint(f\"Cross Entropy: {cross_entropy}\")",
-    "crumbs": [
-      "Demos",
-      "Cross-Entropy Loss"
-    ]
+    "text": "Cross-Entropy\n\nfrom matplotlib import pyplot as plt\nfrom myst_nb import glue\nimport numpy as np\nimport seaborn as sns\n\nnp.random.seed(123)\nk = 5\nlogits = np.random.normal(size=(5, )) * 2\ny_hat = np.exp(logits) / np.exp(logits).sum()\ny_true = np.zeros_like(logits)\ny_true[1] = 1\n\nfig, ax = plt.subplots(ncols=2, figsize=(12, 4))\n_ = sns.barplot(x=[i for i in range(0, k)], y=y_true, ax=ax[0]).set(\n    title=\"True Distribution\")\n_ = sns.barplot(x=[i for i in range(0, k)], y=y_hat, ax=ax[1]).set(\n    title=\"Predicted Distribution\", ylim=(0, 1))\n\ncross_entropy = (- y_true * np.log(y_hat)).sum()\nprint(f\"Cross Entropy: {cross_entropy}\")"
   },
   {
     "objectID": "pages/segmentation.html",
@@ -1013,6 +1005,958 @@
     ]
   },
   {
+    "objectID": "slides_cas/intro.html#beispiel-1",
+    "href": "slides_cas/intro.html#beispiel-1",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Beispiel 1",
+    "text": "Beispiel 1\n\nBeispiel aus Link. Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#beispiel-2",
+    "href": "slides_cas/intro.html#beispiel-2",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Beispiel 2",
+    "text": "Beispiel 2\n\nBeispiel aus Link. Links das Original-Bild, rechts die Manipulation.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#beispiel-3",
+    "href": "slides_cas/intro.html#beispiel-3",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Beispiel 3",
+    "text": "Beispiel 3\n\nBeispiel aus Link. Links das Original-Bild, rechts die Manipulation.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#beispiel-4",
+    "href": "slides_cas/intro.html#beispiel-4",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Beispiel 4",
+    "text": "Beispiel 4\n\nAus Link.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#semantic-gap",
+    "href": "slides_cas/intro.html#semantic-gap",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Semantic Gap",
+    "text": "Semantic Gap\n\nIllustration des semantic gap.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#blickwinkel",
+    "href": "slides_cas/intro.html#blickwinkel",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Blickwinkel",
+    "text": "Blickwinkel\n\nSource",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#deformation",
+    "href": "slides_cas/intro.html#deformation",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Deformation",
+    "text": "Deformation\n\nSource",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#beleuchtung",
+    "href": "slides_cas/intro.html#beleuchtung",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Beleuchtung",
+    "text": "Beleuchtung\n\nSource",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#hintergrund",
+    "href": "slides_cas/intro.html#hintergrund",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Hintergrund",
+    "text": "Hintergrund\n\nSource",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#okklusion",
+    "href": "slides_cas/intro.html#okklusion",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Okklusion",
+    "text": "Okklusion\n\nSource",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#intraklass-variation",
+    "href": "slides_cas/intro.html#intraklass-variation",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Intraklass-Variation",
+    "text": "Intraklass-Variation\n\nSource",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#kontext-abhängigkeit",
+    "href": "slides_cas/intro.html#kontext-abhängigkeit",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Kontext-Abhängigkeit",
+    "text": "Kontext-Abhängigkeit\n\n\n\n\n\n\n\n\n\n\nKontext Source",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#image-classification",
+    "href": "slides_cas/intro.html#image-classification",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Image Classification",
+    "text": "Image Classification\n\nMulti-Class Image Classification Beispiel (aus Krizhevsky, Sutskever, and Hinton (2012)).",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#objekt-erkennung",
+    "href": "slides_cas/intro.html#objekt-erkennung",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Objekt-Erkennung",
+    "text": "Objekt-Erkennung\n\nObject Detection Beispiel (aus Redmon et al. (2016)). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#segmentierung",
+    "href": "slides_cas/intro.html#segmentierung",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Segmentierung",
+    "text": "Segmentierung\n\nObject Segmentation Beispiel (aus He et al. (2018)).",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#segmentierung-2",
+    "href": "slides_cas/intro.html#segmentierung-2",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Segmentierung 2",
+    "text": "Segmentierung 2",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#keypoint-detektierung",
+    "href": "slides_cas/intro.html#keypoint-detektierung",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Keypoint Detektierung",
+    "text": "Keypoint Detektierung\n\nKeypoint Detection Beispiel (aus He et al. (2018)).",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#image-translation",
+    "href": "slides_cas/intro.html#image-translation",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Image Translation",
+    "text": "Image Translation\n\nImage Generation Beispiel (aus (isola_image_to_image_2018?)).",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#image-super-resolution",
+    "href": "slides_cas/intro.html#image-super-resolution",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Image Super Resolution",
+    "text": "Image Super Resolution\n\nNvidia dlss: Link",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#image-colorization",
+    "href": "slides_cas/intro.html#image-colorization",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Image Colorization",
+    "text": "Image Colorization\n\nNorwegian Bride (est late 1890s) aus DeOldify: Link",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#machine-learning-approach",
+    "href": "slides_cas/intro.html#machine-learning-approach",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning Approach",
+    "text": "Machine Learning Approach\nWith Machine Learning, we follow a data-driven approach to solve various tasks:\n\nCollect a dataset of images and their labels.\nUse a machine learning algorithm to train a model (e.g., a classifier).\nEvaluate and apply the model to new data.\n\ndef train(images, labels):\n    \"\"\" Train a Model \"\"\"\n    # Fit Model here\n    return model\n\ndef predict(test_images, model):\n    \"\"\" Predict \"\"\"\n    predictions = model(test_images)\n    return predictions",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#question",
+    "href": "slides_cas/intro.html#question",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Question",
+    "text": "Question\nImage Super Resolution\nHow would you train a model for image super resolution? The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#machine-learning-pipeline",
+    "href": "slides_cas/intro.html#machine-learning-pipeline",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning Pipeline",
+    "text": "Machine Learning Pipeline\n\nMachine Learning Pipeline (Source: Raschka and Mirjalili (2020))",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#model",
+    "href": "slides_cas/intro.html#model",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Model",
+    "text": "Model\nA model:\n\\[\\begin{equation}\nf(\\mathbf{x}^{(i)}) = \\hat{y}^{(i)}\n\\end{equation}\\]\nWith model parameters \\(\\theta\\):\n\\[\\begin{equation}\nf_{\\theta}(\\mathbf{x}^{(i)}) \\text{ or } f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#optimization",
+    "href": "slides_cas/intro.html#optimization",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Optimization",
+    "text": "Optimization\nThe coefficients are adapted to a training dataset in an optimization procedure (learning, fitting).\nIn particular, we want to minimize the cost function \\(J\\).\n\\[\\begin{equation}\n\\mathsf{argmin}_{\\theta, \\lambda} J\\Big(f_{\\theta, \\lambda}(\\mathbf{X}), \\mathbf{y}\\Big)\n\\end{equation}\\]\nThe optimization procedure is influenced by hyperparameters (\\(\\alpha, \\lambda, \\dots\\)).",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#train-validation-test-split",
+    "href": "slides_cas/intro.html#train-validation-test-split",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Train (Validation) Test Split",
+    "text": "Train (Validation) Test Split\n\nTrain-Test Split to select and measure models.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#machine-learning-on-images",
+    "href": "slides_cas/intro.html#machine-learning-on-images",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning on Images",
+    "text": "Machine Learning on Images\nImages are high-dimensional:\nAn RGB image with a resolution of \\(800 \\times 600\\) has a dimensionality of \\(800 \\times 600 \\times 3 = 1,440,000\\).\nClassic ML algorithms are:\n\nSlow and resource-intensive.\nUnable to exploit the 2-D structure.\nSensitive to slight changes (e.g., translations).\nProne to overfitting (since \\(n \\sim p\\)).",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#machine-learning-on-images-1",
+    "href": "slides_cas/intro.html#machine-learning-on-images-1",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Machine Learning on Images",
+    "text": "Machine Learning on Images\nTo model images with classic machine learning algorithms, features must be extracted beforehand.\nWe can use methods from classical computer vision.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#color-histograms-as-features",
+    "href": "slides_cas/intro.html#color-histograms-as-features",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Color Histograms as Features",
+    "text": "Color Histograms as Features\n\n\n\nColor Histograms as Features (Source: Johnson (2022))",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#hog-features",
+    "href": "slides_cas/intro.html#hog-features",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "HOG Features",
+    "text": "HOG Features\n\n\n\nHOG as Features (Source: Johnson (2022))",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#bag-of-visual-words",
+    "href": "slides_cas/intro.html#bag-of-visual-words",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Bag of (visual) Words",
+    "text": "Bag of (visual) Words\n\n\n\nBag of (visual) words Features (Source: Johnson (2022))",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#image-features",
+    "href": "slides_cas/intro.html#image-features",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Image Features",
+    "text": "Image Features\n\n\n\nImage Features (Source: Johnson (2022))",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#cifar10",
+    "href": "slides_cas/intro.html#cifar10",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "CIFAR10",
+    "text": "CIFAR10\n\nCIFAR10 Dataset Source",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#exercise-1---recap-ml",
+    "href": "slides_cas/intro.html#exercise-1---recap-ml",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Exercise 1 - Recap ML",
+    "text": "Exercise 1 - Recap ML\nIn the first exercise, we will model the CIFAR10 dataset.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#pascal-voc",
+    "href": "slides_cas/intro.html#pascal-voc",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "PASCAL VOC",
+    "text": "PASCAL VOC\n\nImages / Illustrations from Link and Johnson (2022). Left: Object annotations in images, Right: Development of Mean Average Precision over the years.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#imagenet",
+    "href": "slides_cas/intro.html#imagenet",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "ImageNet",
+    "text": "ImageNet\n\nImageNet, Image Source, details in Deng et al. (2009)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#imagenet---performance",
+    "href": "slides_cas/intro.html#imagenet---performance",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "ImageNet - Performance",
+    "text": "ImageNet - Performance\n\n\n\nSource: Johnson (2022)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#imagenet---winner",
+    "href": "slides_cas/intro.html#imagenet---winner",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "ImageNet - Winner",
+    "text": "ImageNet - Winner\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#classic-ml",
+    "href": "slides_cas/intro.html#classic-ml",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Classic ML",
+    "text": "Classic ML\n\n\n\nIllustration from Johnson (2022)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#end-to-end",
+    "href": "slides_cas/intro.html#end-to-end",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "End-To-End",
+    "text": "End-To-End\n\n\n\nIllustration from Johnson (2022)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#deep-learning-benefits",
+    "href": "slides_cas/intro.html#deep-learning-benefits",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Deep Learning Benefits",
+    "text": "Deep Learning Benefits\n\nAutomatic feature extraction.\nHierarchical features.\nGeneralization.\nEnd-to-end learning.\nRobustness to variability.\nAdaptability and transferability.",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#experiments-on-cats",
+    "href": "slides_cas/intro.html#experiments-on-cats",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Experiments on Cats",
+    "text": "Experiments on Cats\n\nIllustration Source",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#neocognitron",
+    "href": "slides_cas/intro.html#neocognitron",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Neocognitron",
+    "text": "Neocognitron\n\nThe Neocognitron Fukushima (1980)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#backpropagation",
+    "href": "slides_cas/intro.html#backpropagation",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "Backpropagation",
+    "text": "Backpropagation\n\nBackpropagation in Neural Networks Rumelhart, Hinton, and Williams (1986)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#cnns",
+    "href": "slides_cas/intro.html#cnns",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "CNNs",
+    "text": "CNNs\n\n\n\nModern CNN Lecun et al. (1998)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides_cas/intro.html#alexnet",
+    "href": "slides_cas/intro.html#alexnet",
+    "title": "Einführung Computer Vision mit Deep Learning",
+    "section": "AlexNet",
+    "text": "AlexNet\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)",
+    "crumbs": [
+      "Slides",
+      "Einführung Computer Vision mit Deep Learning"
+    ]
+  },
+  {
+    "objectID": "slides/recap/index.html#question-1",
+    "href": "slides/recap/index.html#question-1",
+    "title": "Recap CNNs",
+    "section": "Question 1",
+    "text": "Question 1\nWhat does a convolutional layer do in a Convolutional Neural Network (CNN)?\n\n\nIt combines input features into a single output.\n\n\nIt applies a set of filters to the input to detect patterns.\n\n\nIt reduces the dimensionality of the input data.\n\n\nIt generates a final classification score."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-2",
+    "href": "slides/recap/index.html#question-2",
+    "title": "Recap CNNs",
+    "section": "Question 2",
+    "text": "Question 2\nWhat is the main purpose of using pooling layers in CNNs?\n\n\nTo increase the number of parameters in the network.\n\n\nTo reduce the spatial dimensions (width and height) of the input volume.\n\n\nTo apply non-linear transformations to the data.\n\n\nTo convert the input into a one-dimensional vector."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-3",
+    "href": "slides/recap/index.html#question-3",
+    "title": "Recap CNNs",
+    "section": "Question 3",
+    "text": "Question 3\nIn the context of image classification, what is data augmentation?\n\n\nIncreasing the size of the dataset by generating new images through transformations such as rotation, flipping, and scaling.\n\n\nAdding more layers to the CNN to increase its capacity.\n\n\nUsing pre-trained models to improve accuracy.\n\n\nSplitting the dataset into training and testing sets."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-4",
+    "href": "slides/recap/index.html#question-4",
+    "title": "Recap CNNs",
+    "section": "Question 4",
+    "text": "Question 4\nWhat is transfer learning in the context of deep learning?\n\n\nTraining a new model from scratch on a specific dataset.\n\n\nUsing a pre-trained model on a new but related problem.\n\n\nCombining multiple models to improve performance.\n\n\nApplying data augmentation techniques to the training data."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-5",
+    "href": "slides/recap/index.html#question-5",
+    "title": "Recap CNNs",
+    "section": "Question 5",
+    "text": "Question 5\nWhat is meant by translation invariance in CNNs?\n\n\nThe ability of the network to apply the same weights to different parts of the input.\n\n\nThe ability of the network to recognize an object regardless of its position in the image.\n\n\nThe process of converting data from one format to another.\n\n\nThe use of convolutional layers instead of fully connected layers."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-6",
+    "href": "slides/recap/index.html#question-6",
+    "title": "Recap CNNs",
+    "section": "Question 6",
+    "text": "Question 6\nWhat is weight sharing in CNNs?\n\n\nUsing the same weights for different layers in the network.\n\n\nApplying the same weights across different parts of the input image.\n\n\nSharing weights between different CNNs.\n\n\nUsing pre-trained weights from another model."
+  },
+  {
+    "objectID": "slides/recap/index.html#question-7",
+    "href": "slides/recap/index.html#question-7",
+    "title": "Recap CNNs",
+    "section": "Question 7",
+    "text": "Question 7\nWhat is the difference between translation invariance and translation equivariance in CNNs?\n\n\nInvariance means the output remains unchanged with translation, while equivariance means the output changes in a predictable way with translation.\n\n\nEquivariance means the output remains unchanged with translation, while invariance means the output changes in a predictable way with translation.\n\n\nInvariance and equivariance are the same concepts.\n\n\nBoth terms refer to the ability of CNNs to handle rotations."
+  },
+  {
+    "objectID": "pages/slides_cas.html",
+    "href": "pages/slides_cas.html",
+    "title": "Slides",
+    "section": "",
+    "text": "Recap Quiz slides.\nIntro slides.\nFrameworks slides.\nNeural Networks slides.\nCNNs slides.\nImage Classification slides.\nPractical slides.",
+    "crumbs": [
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "pages/literature.html",
+    "href": "pages/literature.html",
+    "title": "Books",
+    "section": "",
+    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020)\n\nKann als PDF gratis heruntergeladen werden\nEinführung in PyTorch von Grund auf mit Anwendungsbeispielen",
+    "crumbs": [
+      "Resources",
+      "Books"
+    ]
+  },
+  {
+    "objectID": "pages/literature.html#pytorch",
+    "href": "pages/literature.html#pytorch",
+    "title": "Books",
+    "section": "",
+    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020)\n\nKann als PDF gratis heruntergeladen werden\nEinführung in PyTorch von Grund auf mit Anwendungsbeispielen",
+    "crumbs": [
+      "Resources",
+      "Books"
+    ]
+  },
+  {
+    "objectID": "pages/literature.html#deep-learning",
+    "href": "pages/literature.html#deep-learning",
+    "title": "Books",
+    "section": "Deep Learning",
+    "text": "Deep Learning\nSimon J.D. Prince, Understanding Deep Learning, MIT Press, Prince (2023)\n\nBrandaktuelles Buch über Deep Learning\nUmfassende Einführung ins Thema mit sehr guten Illustrationen\nOnline verfügbar: Link\n\nGoodfellow, Ian and Bengio, Yoshua and Courville, Aaron, Deep Learning, MIT Press, Goodfellow, Bengio, and Courville (2016)\n\nSehr gute und umfassende Einführung in Deep Learning\nEtwas älter aber immer noch in weiten Teilen aktuell\nOnline verfügbar: Link\n\nChollet, François, Deep Learning with Python, Second Edition, Manning Publications, Chollet (2021)\n\nchapters 8-9 are about computer vision\nfree access with FHNW-Emailadresse in O’Reilly online Mediathek\n\nStevens et al, Deep Learning with PyTorch, Manning Publications, Stevens, Antiga, and Viehmann (2020)",
+    "crumbs": [
+      "Resources",
+      "Books"
+    ]
+  },
+  {
+    "objectID": "pages/literature.html#machine-learning",
+    "href": "pages/literature.html#machine-learning",
+    "title": "Books",
+    "section": "Machine Learning",
+    "text": "Machine Learning\nGéron A, Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 2nd Edition, O’Reilly 2019\n\nJupyter Notebooks sind öffentlich verfügbar: Link\nEinsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\n\nRaschka S, Python Machine Learning, 3rd Edition, PACKT 2019\n\nEinsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\n\nKevin P. Murphy, Probabilistic Machine Learning: An Introduction, MIT Press 2022\n\nVorabversion gratis verfügbar: Link\nUmfassende Einführung in Machine Learning mit ausführlichen theoretischen Hintergründen\n\nChollet F, Deep Learning with Python, 2nd Edition, MEAP 2020\n\nEin Klassiker für eine Einführung in Deep Learning (und Keras)\n\nHastie T et al., Elements of Statistical Learning, Springer 2009.\n\nKann als pdf gratis runtergeladen werden: Link\nEnthält Machine Learning Grundlagen und viele Methoden (wenig über Neuronale Netzwerke)\n\nVanderPlas J, Python Data Science Handbook, O’Reilly 2017.\n\nWurde mit Jupyter Notebooks geschrieben.\nDer gesamte Inhalt finden sie auf einer website: Link\nDas Repository kann von github runtergelanden werden: Link",
+    "crumbs": [
+      "Resources",
+      "Books"
+    ]
+  },
+  {
+    "objectID": "pages/about.html",
+    "href": "pages/about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "",
+    "section": "",
+    "text": "Code",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#lernziele",
+    "href": "index.html#lernziele",
+    "title": "",
+    "section": "1.1 Lernziele",
+    "text": "1.1 Lernziele\n\nBildklassifikation vertieft verstehen\nMethoden implementieren, anwenden und interpretieren können\nMit Deep Learning Frameworks umgehen und Libraries verwenden können\nPraktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#inhalte",
+    "href": "index.html#inhalte",
+    "title": "",
+    "section": "1.2 Inhalte",
+    "text": "1.2 Inhalte\n\n1.2.1 Tag 1 - Grundlagen Convolutional Neural Networks\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning für Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nConvolutional Neural Networks\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 16:30\nÜbung: CNNs für Bildklassifikation\n\n\n\n\n\n1.2.2 Tag 2 - Bildklassifikation und Anwendungen\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nRecap & Quizz\n\n\n9:30 - 10:30\nTheorie: Praktische Überlegungen\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nÜbung: Bildklassifikation\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 14:30\nÜbung: Bildklassifikation\n\n\n14:30 - 14:45\nPause\n\n\n14:45 - 15:15\nTheorie: Foundation Models\n\n\n15:15 - 16:30\nÜbung: Foundation Models",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "pages/exercises.html",
+    "href": "pages/exercises.html",
+    "title": "",
+    "section": "",
+    "text": "Code\n\n\n\n\n\nExercises\nExercises can be found here: Link",
+    "crumbs": [
+      "Exercises"
+    ]
+  },
+  {
+    "objectID": "pages/links.html",
+    "href": "pages/links.html",
+    "title": "Helpful Links & Resources",
+    "section": "",
+    "text": "Links and ressources to different topics related to Machine Learning, Deep Learning, and Images.",
+    "crumbs": [
+      "Resources",
+      "Helpful Links & Resources"
+    ]
+  },
+  {
+    "objectID": "pages/links.html#theory",
+    "href": "pages/links.html#theory",
+    "title": "Helpful Links & Resources",
+    "section": "Theory",
+    "text": "Theory\n\nPyTorch\nPyTorch internals - Blog Post\n\n\nDeep Learning and Computer Vision\nUniversity of Michigan - Deep Learning for Computer Vision\n\nSehr gute Vorlesung zum Thema\n\nUniversity of California, Berkeley - Modern Computer Vision and Deep Learning\n\nSehr gute Vorlesung zum Thema\n\n\n\nNeuronale Netzwerke - Basics\nPerceptron Learning Rule S. Raschka\nCS229 Stanford MLP Backpropagation\nNotes on Backpropagation\n3Blue1Brown Gradient Descent\n3Blue1Brown Backpropagation Calculus\nAndrew Ng Backprop\nAndrej Karpathy - Backpropagation from the ground up\n\n\nModel Selection\nPaper von S.Raschka: “Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning”",
+    "crumbs": [
+      "Resources",
+      "Helpful Links & Resources"
+    ]
+  },
+  {
+    "objectID": "pages/links.html#practical",
+    "href": "pages/links.html#practical",
+    "title": "Helpful Links & Resources",
+    "section": "Practical",
+    "text": "Practical\nAndrej Karpathy - A Recipe for Training Neural Networks\n\nML Best Practices Videos\nMartin Zinkevich - Best Practices for ML Engineering\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next\nAndrew Ng - Advice For Applying Machine Learning | Learning Curves\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Do Next (Revisited)\nAndrew Ng - Machine Learning System Design | Prioritizing What To Work On\nAndrew Ng - Machine Learning System Design | Error Analysis\nAndrew Ng - Machine Learning System Design | Data For Machine Learning",
+    "crumbs": [
+      "Resources",
+      "Helpful Links & Resources"
+    ]
+  },
+  {
+    "objectID": "pages/links.html#tools",
+    "href": "pages/links.html#tools",
+    "title": "Helpful Links & Resources",
+    "section": "Tools",
+    "text": "Tools\n\nData Science Repository\nBuild a Reproducible and Maintainable Data Science Project\n\ngreat jupyter book to learen about how to structure a repository and more\n\nLightning-Hydra-Template\n\ntemplate to strcuture a repository based on experiment configuration with Hydra and Pytorch-Lightning\n\n\n\nData Handling\ndatasets\n\nGreat package to create and manage (large) image datasets\n\nimg2dataset\n\nPackage to download large image datasets from urls\n\nDVC\n\nPackage for data version control\n\n\n\nPyTorch\nLightning\n\nboilerplate code to easily train models and use gpu, etc.",
+    "crumbs": [
+      "Resources",
+      "Helpful Links & Resources"
+    ]
+  },
+  {
+    "objectID": "pages/slides.html",
+    "href": "pages/slides.html",
+    "title": "Slides",
+    "section": "",
+    "text": "Recap Quiz slides.\nIntro slides.\nFrameworks slides.\nNeural Networks slides.\nCNNs slides.\nImage Classification slides.\nPractical slides."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#overview",
+    "href": "slides/image_classification/index.html#overview",
+    "title": "Image Classification",
+    "section": "Overview",
+    "text": "Overview\n\nIntroduction\nModeling\nLoss Function\nArchitectures"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#adversarial-panda",
+    "href": "slides/image_classification/index.html#adversarial-panda",
+    "title": "Image Classification",
+    "section": "Adversarial Panda",
+    "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#adversarial-panda-1",
+    "href": "slides/image_classification/index.html#adversarial-panda-1",
+    "title": "Image Classification",
+    "section": "Adversarial Panda",
+    "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#image-classification",
+    "href": "slides/image_classification/index.html#image-classification",
+    "title": "Image Classification",
+    "section": "Image Classification",
+    "text": "Image Classification\n\n\n\nExample of Image Classification."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#image-classification-example",
+    "href": "slides/image_classification/index.html#image-classification-example",
+    "title": "Image Classification",
+    "section": "Image Classification: Example",
+    "text": "Image Classification: Example\n\n\n\nExample of Image Classification (from Krizhevsky, Sutskever, and Hinton (2012))."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#image-classification-camera-traps",
+    "href": "slides/image_classification/index.html#image-classification-camera-traps",
+    "title": "Image Classification",
+    "section": "Image Classification: Camera Traps",
+    "text": "Image Classification: Camera Traps\n\n\n\nExample images from camera traps."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#parametric-approach",
+    "href": "slides/image_classification/index.html#parametric-approach",
+    "title": "Image Classification",
+    "section": "Parametric Approach",
+    "text": "Parametric Approach\nWith a parametric approach, we seek a model of the following form:\n\\[\\begin{equation}\n    \\hat{y}^{(i)} = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThe model parameters \\(\\theta\\) define our model and must be learned with an algorithm."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#softmax-classifier",
+    "href": "slides/image_classification/index.html#softmax-classifier",
+    "title": "Image Classification",
+    "section": "Softmax Classifier",
+    "text": "Softmax Classifier\nWe want to model the following probability:\n\\[\\begin{equation}\n    P(Y=\\mathbf{y}^{(i)}| X = \\mathbf{x}^{(i)})\n\\end{equation}\\]\nTo obtain a valid probability distribution, the untransformed outputs \\(\\mathbf{z}\\), also called logits, of a model are transformed with the Softmax function \\(\\sigma(\\mathbf{z})\\)."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#softmax-transformation",
+    "href": "slides/image_classification/index.html#softmax-transformation",
+    "title": "Image Classification",
+    "section": "Softmax Transformation",
+    "text": "Softmax Transformation\n\\[\\begin{equation}\n    P(Y = k| X = \\mathbf{x}^{(i)}) = \\sigma(\\mathbf{z})_k = \\frac{e^{z_k}}{\\sum_i^K e^{z_i}}\n\\end{equation}\\]"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#logits-to-probabilities",
+    "href": "slides/image_classification/index.html#logits-to-probabilities",
+    "title": "Image Classification",
+    "section": "Logits to Probabilities",
+    "text": "Logits to Probabilities\n\n\n\nLogits (left) to probabilities with the Softmax function."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#probabilities",
+    "href": "slides/image_classification/index.html#probabilities",
+    "title": "Image Classification",
+    "section": "Probabilities",
+    "text": "Probabilities\n\nImage classifier with confidences."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#likelihood",
+    "href": "slides/image_classification/index.html#likelihood",
+    "title": "Image Classification",
+    "section": "Likelihood",
+    "text": "Likelihood\nThe likelihood of a data point:\n\\[\\begin{equation}\n    P(Y=y^{(i)}| X = \\mathbf{x}^{(i)}) = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThis is the modeled probability for the actually observed class \\(y^{(i)}\\)."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#likelihood-for-multi-class-classification",
+    "href": "slides/image_classification/index.html#likelihood-for-multi-class-classification",
+    "title": "Image Classification",
+    "section": "Likelihood for Multi-Class Classification",
+    "text": "Likelihood for Multi-Class Classification\nThe likelihood of a data point for multi-class classification:\n\\[\\begin{equation}\n    \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nWhere \\(y^{(i)} \\in \\mathbb{R}^{K}\\) is a one-hot encoded vector, with the \\(1\\) at the true class."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#maximum-likelihood",
+    "href": "slides/image_classification/index.html#maximum-likelihood",
+    "title": "Image Classification",
+    "section": "Maximum Likelihood",
+    "text": "Maximum Likelihood\nThe likelihood of an entire dataset:\n\\[\\begin{equation}\n    \\prod_{i=1}^N \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nUnder the maximum likelihood approach, we seek the parameters \\(\\theta\\) that maximize the likelihood of observing the dataset."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#negative-log-likelihood",
+    "href": "slides/image_classification/index.html#negative-log-likelihood",
+    "title": "Image Classification",
+    "section": "Negative Log-Likelihood",
+    "text": "Negative Log-Likelihood\nEquivalently, we can minimize the negative log likelihood:\n\\[\\begin{align}\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& - \\log \\prod_{i=1}^N \\prod_{j=1}^K  P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j} \\\\\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& -\\sum_{i=1}^N \\sum_{j=1}^K y^{(i)}_j \\log  P(Y = j| X = \\mathbf{x}^{(i)})\n\\end{align}\\]"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#cross-entropy",
+    "href": "slides/image_classification/index.html#cross-entropy",
+    "title": "Image Classification",
+    "section": "Cross-Entropy",
+    "text": "Cross-Entropy\nThe loss function derived with maximum likelihood can also be viewed from the perspective of cross-entropy between two discrete probability distributions.\n\\[\\begin{align}\n    CE = - \\sum_{x \\in X} p(x) \\log q(x) \\\\\n    CE = - \\sum_{i=1}^N \\sum_{j=1}^K y_j^{(i)} \\log \\hat{y}_j^{(i)}\n\\end{align}\\]"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#cross-entropy-1",
+    "href": "slides/image_classification/index.html#cross-entropy-1",
+    "title": "Image Classification",
+    "section": "Cross-Entropy",
+    "text": "Cross-Entropy\n\n\n\nTrue distribution (left) and predicted distribution (right)."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#alexnet",
+    "href": "slides/image_classification/index.html#alexnet",
+    "title": "Image Classification",
+    "section": "AlexNet",
+    "text": "AlexNet\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#alexnet-1",
+    "href": "slides/image_classification/index.html#alexnet-1",
+    "title": "Image Classification",
+    "section": "AlexNet",
+    "text": "AlexNet\n\n\n\nAlexNet Llamas et al. (2017)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#alexnet-table",
+    "href": "slides/image_classification/index.html#alexnet-table",
+    "title": "Image Classification",
+    "section": "AlexNet: Table",
+    "text": "AlexNet: Table\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#vgg",
+    "href": "slides/image_classification/index.html#vgg",
+    "title": "Image Classification",
+    "section": "VGG",
+    "text": "VGG\n\n\n\nVGG Simonyan and Zisserman (2015)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#vgg-1",
+    "href": "slides/image_classification/index.html#vgg-1",
+    "title": "Image Classification",
+    "section": "VGG",
+    "text": "VGG\n\n\n\nSource: Link"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#vgg-2",
+    "href": "slides/image_classification/index.html#vgg-2",
+    "title": "Image Classification",
+    "section": "VGG",
+    "text": "VGG\n\n\n\nSource: Johnson (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet",
+    "href": "slides/image_classification/index.html#resnet",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nSource: He et al. (2016)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-1",
+    "href": "slides/image_classification/index.html#resnet-1",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nSource: He et al. (2016)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-2",
+    "href": "slides/image_classification/index.html#resnet-2",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nResNet He et al. (2016) (Image from Johnson (2019))"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-3",
+    "href": "slides/image_classification/index.html#resnet-3",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nFrom He et al. (2016)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#resnet-4",
+    "href": "slides/image_classification/index.html#resnet-4",
+    "title": "Image Classification",
+    "section": "ResNet",
+    "text": "ResNet\n\n\n\nFrom Li et al. (2018)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#convnext",
+    "href": "slides/image_classification/index.html#convnext",
+    "title": "Image Classification",
+    "section": "ConvNext",
+    "text": "ConvNext\n\n\n\nConvNext Liu et al. (2022)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#imagenet-performance",
+    "href": "slides/image_classification/index.html#imagenet-performance",
+    "title": "Image Classification",
+    "section": "ImageNet Performance",
+    "text": "ImageNet Performance\n\n\n\nImage from Johnson (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#choosing-the-architecture",
+    "href": "slides/image_classification/index.html#choosing-the-architecture",
+    "title": "Image Classification",
+    "section": "Choosing the Architecture",
+    "text": "Choosing the Architecture\nDon’t be a hero!\nTypically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets."
+  },
+  {
+    "objectID": "slides/image_classification/index.html#squeeze-excite-networks",
+    "href": "slides/image_classification/index.html#squeeze-excite-networks",
+    "title": "Image Classification",
+    "section": "Squeeze / Excite Networks",
+    "text": "Squeeze / Excite Networks\n\n\n\nFrom Hu et al. (2019)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#normalization-layers",
+    "href": "slides/image_classification/index.html#normalization-layers",
+    "title": "Image Classification",
+    "section": "Normalization Layers",
+    "text": "Normalization Layers\n\n\n\nSource: Qiao et al. (2020)"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#pre-processing",
+    "href": "slides/image_classification/index.html#pre-processing",
+    "title": "Image Classification",
+    "section": "Pre-Processing",
+    "text": "Pre-Processing\n\nResizing / Cropping to a fixed size\nScaling: from the range [0, 255] to the range [0, 1]\nNormalization: Often normalized along the color channels\n\nPyTorch Examples"
+  },
+  {
+    "objectID": "slides/image_classification/index.html#transfer-learning",
+    "href": "slides/image_classification/index.html#transfer-learning",
+    "title": "Image Classification",
+    "section": "Transfer Learning",
+    "text": "Transfer Learning\nTransfer learning refers to the process of adapting a trained model that models Task A to Task B. Adapting pre-trained models often leads to better results and also reduces the number of training iterations."
+  },
+  {
     "objectID": "slides/intro/index.html#beispiel-1",
     "href": "slides/intro/index.html#beispiel-1",
     "title": "Einführung Computer Vision mit Deep Learning",
@@ -1335,955 +2279,13 @@
     "text": "AlexNet\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)"
   },
   {
-    "objectID": "slides/image_classification/index.html#overview",
-    "href": "slides/image_classification/index.html#overview",
-    "title": "Image Classification",
-    "section": "Overview",
-    "text": "Overview\n\nIntroduction\nModeling\nLoss Function\nArchitectures"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#adversarial-panda",
-    "href": "slides/image_classification/index.html#adversarial-panda",
-    "title": "Image Classification",
-    "section": "Adversarial Panda",
-    "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#adversarial-panda-1",
-    "href": "slides/image_classification/index.html#adversarial-panda-1",
-    "title": "Image Classification",
-    "section": "Adversarial Panda",
-    "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#image-classification",
-    "href": "slides/image_classification/index.html#image-classification",
-    "title": "Image Classification",
-    "section": "Image Classification",
-    "text": "Image Classification\n\n\n\nExample of Image Classification."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#image-classification-example",
-    "href": "slides/image_classification/index.html#image-classification-example",
-    "title": "Image Classification",
-    "section": "Image Classification: Example",
-    "text": "Image Classification: Example\n\n\n\nExample of Image Classification (from Krizhevsky, Sutskever, and Hinton (2012))."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#image-classification-camera-traps",
-    "href": "slides/image_classification/index.html#image-classification-camera-traps",
-    "title": "Image Classification",
-    "section": "Image Classification: Camera Traps",
-    "text": "Image Classification: Camera Traps\n\n\n\nExample images from camera traps."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#parametric-approach",
-    "href": "slides/image_classification/index.html#parametric-approach",
-    "title": "Image Classification",
-    "section": "Parametric Approach",
-    "text": "Parametric Approach\nWith a parametric approach, we seek a model of the following form:\n\\[\\begin{equation}\n    \\hat{y}^{(i)} = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThe model parameters \\(\\theta\\) define our model and must be learned with an algorithm."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#softmax-classifier",
-    "href": "slides/image_classification/index.html#softmax-classifier",
-    "title": "Image Classification",
-    "section": "Softmax Classifier",
-    "text": "Softmax Classifier\nWe want to model the following probability:\n\\[\\begin{equation}\n    P(Y=\\mathbf{y}^{(i)}| X = \\mathbf{x}^{(i)})\n\\end{equation}\\]\nTo obtain a valid probability distribution, the untransformed outputs \\(\\mathbf{z}\\), also called logits, of a model are transformed with the Softmax function \\(\\sigma(\\mathbf{z})\\)."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#softmax-transformation",
-    "href": "slides/image_classification/index.html#softmax-transformation",
-    "title": "Image Classification",
-    "section": "Softmax Transformation",
-    "text": "Softmax Transformation\n\\[\\begin{equation}\n    P(Y = k| X = \\mathbf{x}^{(i)}) = \\sigma(\\mathbf{z})_k = \\frac{e^{z_k}}{\\sum_i^K e^{z_i}}\n\\end{equation}\\]"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#logits-to-probabilities",
-    "href": "slides/image_classification/index.html#logits-to-probabilities",
-    "title": "Image Classification",
-    "section": "Logits to Probabilities",
-    "text": "Logits to Probabilities\n\n\n\nLogits (left) to probabilities with the Softmax function."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#probabilities",
-    "href": "slides/image_classification/index.html#probabilities",
-    "title": "Image Classification",
-    "section": "Probabilities",
-    "text": "Probabilities\n\nImage classifier with confidences."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#likelihood",
-    "href": "slides/image_classification/index.html#likelihood",
-    "title": "Image Classification",
-    "section": "Likelihood",
-    "text": "Likelihood\nThe likelihood of a data point:\n\\[\\begin{equation}\n    P(Y=y^{(i)}| X = \\mathbf{x}^{(i)}) = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThis is the modeled probability for the actually observed class \\(y^{(i)}\\)."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#likelihood-for-multi-class-classification",
-    "href": "slides/image_classification/index.html#likelihood-for-multi-class-classification",
-    "title": "Image Classification",
-    "section": "Likelihood for Multi-Class Classification",
-    "text": "Likelihood for Multi-Class Classification\nThe likelihood of a data point for multi-class classification:\n\\[\\begin{equation}\n    \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nWhere \\(y^{(i)} \\in \\mathbb{R}^{K}\\) is a one-hot encoded vector, with the \\(1\\) at the true class."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#maximum-likelihood",
-    "href": "slides/image_classification/index.html#maximum-likelihood",
-    "title": "Image Classification",
-    "section": "Maximum Likelihood",
-    "text": "Maximum Likelihood\nThe likelihood of an entire dataset:\n\\[\\begin{equation}\n    \\prod_{i=1}^N \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nUnder the maximum likelihood approach, we seek the parameters \\(\\theta\\) that maximize the likelihood of observing the dataset."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#negative-log-likelihood",
-    "href": "slides/image_classification/index.html#negative-log-likelihood",
-    "title": "Image Classification",
-    "section": "Negative Log-Likelihood",
-    "text": "Negative Log-Likelihood\nEquivalently, we can minimize the negative log likelihood:\n\\[\\begin{align}\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& - \\log \\prod_{i=1}^N \\prod_{j=1}^K  P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j} \\\\\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& -\\sum_{i=1}^N \\sum_{j=1}^K y^{(i)}_j \\log  P(Y = j| X = \\mathbf{x}^{(i)})\n\\end{align}\\]"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#cross-entropy",
-    "href": "slides/image_classification/index.html#cross-entropy",
-    "title": "Image Classification",
-    "section": "Cross-Entropy",
-    "text": "Cross-Entropy\nThe loss function derived with maximum likelihood can also be viewed from the perspective of cross-entropy between two discrete probability distributions.\n\\[\\begin{align}\n    CE = - \\sum_{x \\in X} p(x) \\log q(x) \\\\\n    CE = - \\sum_{i=1}^N \\sum_{j=1}^K y_j^{(i)} \\log \\hat{y}_j^{(i)}\n\\end{align}\\]"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#cross-entropy-1",
-    "href": "slides/image_classification/index.html#cross-entropy-1",
-    "title": "Image Classification",
-    "section": "Cross-Entropy",
-    "text": "Cross-Entropy\n\n\n\nTrue distribution (left) and predicted distribution (right)."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#alexnet",
-    "href": "slides/image_classification/index.html#alexnet",
-    "title": "Image Classification",
-    "section": "AlexNet",
-    "text": "AlexNet\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#alexnet-1",
-    "href": "slides/image_classification/index.html#alexnet-1",
-    "title": "Image Classification",
-    "section": "AlexNet",
-    "text": "AlexNet\n\n\n\nAlexNet Llamas et al. (2017)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#alexnet-table",
-    "href": "slides/image_classification/index.html#alexnet-table",
-    "title": "Image Classification",
-    "section": "AlexNet: Table",
-    "text": "AlexNet: Table\n\n\n\nSource: Johnson (2019)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#vgg",
-    "href": "slides/image_classification/index.html#vgg",
-    "title": "Image Classification",
-    "section": "VGG",
-    "text": "VGG\n\n\n\nVGG Simonyan and Zisserman (2015)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#vgg-1",
-    "href": "slides/image_classification/index.html#vgg-1",
-    "title": "Image Classification",
-    "section": "VGG",
-    "text": "VGG\n\n\n\nSource: Link"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#vgg-2",
-    "href": "slides/image_classification/index.html#vgg-2",
-    "title": "Image Classification",
-    "section": "VGG",
-    "text": "VGG\n\n\n\nSource: Johnson (2019)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#resnet",
-    "href": "slides/image_classification/index.html#resnet",
-    "title": "Image Classification",
-    "section": "ResNet",
-    "text": "ResNet\n\n\n\nSource: He et al. (2016)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#resnet-1",
-    "href": "slides/image_classification/index.html#resnet-1",
-    "title": "Image Classification",
-    "section": "ResNet",
-    "text": "ResNet\n\n\n\nSource: He et al. (2016)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#resnet-2",
-    "href": "slides/image_classification/index.html#resnet-2",
-    "title": "Image Classification",
-    "section": "ResNet",
-    "text": "ResNet\n\n\n\nResNet He et al. (2016) (Image from Johnson (2019))"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#resnet-3",
-    "href": "slides/image_classification/index.html#resnet-3",
-    "title": "Image Classification",
-    "section": "ResNet",
-    "text": "ResNet\n\n\n\nFrom He et al. (2016)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#resnet-4",
-    "href": "slides/image_classification/index.html#resnet-4",
-    "title": "Image Classification",
-    "section": "ResNet",
-    "text": "ResNet\n\n\n\nFrom Li et al. (2018)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#convnext",
-    "href": "slides/image_classification/index.html#convnext",
-    "title": "Image Classification",
-    "section": "ConvNext",
-    "text": "ConvNext\n\n\n\nConvNext Liu et al. (2022)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#imagenet-performance",
-    "href": "slides/image_classification/index.html#imagenet-performance",
-    "title": "Image Classification",
-    "section": "ImageNet Performance",
-    "text": "ImageNet Performance\n\n\n\nImage from Johnson (2019)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#choosing-the-architecture",
-    "href": "slides/image_classification/index.html#choosing-the-architecture",
-    "title": "Image Classification",
-    "section": "Choosing the Architecture",
-    "text": "Choosing the Architecture\nDon’t be a hero!\nTypically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets."
-  },
-  {
-    "objectID": "slides/image_classification/index.html#squeeze-excite-networks",
-    "href": "slides/image_classification/index.html#squeeze-excite-networks",
-    "title": "Image Classification",
-    "section": "Squeeze / Excite Networks",
-    "text": "Squeeze / Excite Networks\n\n\n\nFrom Hu et al. (2019)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#normalization-layers",
-    "href": "slides/image_classification/index.html#normalization-layers",
-    "title": "Image Classification",
-    "section": "Normalization Layers",
-    "text": "Normalization Layers\n\n\n\nSource: Qiao et al. (2020)"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#pre-processing",
-    "href": "slides/image_classification/index.html#pre-processing",
-    "title": "Image Classification",
-    "section": "Pre-Processing",
-    "text": "Pre-Processing\n\nResizing / Cropping to a fixed size\nScaling: from the range [0, 255] to the range [0, 1]\nNormalization: Often normalized along the color channels\n\nPyTorch Examples"
-  },
-  {
-    "objectID": "slides/image_classification/index.html#transfer-learning",
-    "href": "slides/image_classification/index.html#transfer-learning",
-    "title": "Image Classification",
-    "section": "Transfer Learning",
-    "text": "Transfer Learning\nTransfer learning refers to the process of adapting a trained model that models Task A to Task B. Adapting pre-trained models often leads to better results and also reduces the number of training iterations."
-  },
-  {
-    "objectID": "pages/slides.html",
-    "href": "pages/slides.html",
-    "title": "Slides",
+    "objectID": "pages/demos.html",
+    "href": "pages/demos.html",
+    "title": "Demos",
     "section": "",
-    "text": "Recap Quiz slides.\nIntro slides.\nFrameworks slides.\nNeural Networks slides.\nCNNs slides.\nImage Classification slides.\nPractical slides."
-  },
-  {
-    "objectID": "pages/links.html",
-    "href": "pages/links.html",
-    "title": "Helpful Links & Resources",
-    "section": "",
-    "text": "Links and ressources to different topics related to Machine Learning, Deep Learning, and Images.",
+    "text": "CLIP Demo",
     "crumbs": [
-      "Resources",
-      "Helpful Links & Resources"
-    ]
-  },
-  {
-    "objectID": "pages/links.html#theory",
-    "href": "pages/links.html#theory",
-    "title": "Helpful Links & Resources",
-    "section": "Theory",
-    "text": "Theory\n\nPyTorch\nPyTorch internals - Blog Post\n\n\nDeep Learning and Computer Vision\nUniversity of Michigan - Deep Learning for Computer Vision\n\nSehr gute Vorlesung zum Thema\n\nUniversity of California, Berkeley - Modern Computer Vision and Deep Learning\n\nSehr gute Vorlesung zum Thema\n\n\n\nNeuronale Netzwerke - Basics\nPerceptron Learning Rule S. Raschka\nCS229 Stanford MLP Backpropagation\nNotes on Backpropagation\n3Blue1Brown Gradient Descent\n3Blue1Brown Backpropagation Calculus\nAndrew Ng Backprop\nAndrej Karpathy - Backpropagation from the ground up\n\n\nModel Selection\nPaper von S.Raschka: “Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning”",
-    "crumbs": [
-      "Resources",
-      "Helpful Links & Resources"
-    ]
-  },
-  {
-    "objectID": "pages/links.html#practical",
-    "href": "pages/links.html#practical",
-    "title": "Helpful Links & Resources",
-    "section": "Practical",
-    "text": "Practical\nAndrej Karpathy - A Recipe for Training Neural Networks\n\nML Best Practices Videos\nMartin Zinkevich - Best Practices for ML Engineering\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Try Next\nAndrew Ng - Advice For Applying Machine Learning | Learning Curves\nAndrew Ng - Advice For Applying Machine Learning | Deciding What To Do Next (Revisited)\nAndrew Ng - Machine Learning System Design | Prioritizing What To Work On\nAndrew Ng - Machine Learning System Design | Error Analysis\nAndrew Ng - Machine Learning System Design | Data For Machine Learning",
-    "crumbs": [
-      "Resources",
-      "Helpful Links & Resources"
-    ]
-  },
-  {
-    "objectID": "pages/links.html#tools",
-    "href": "pages/links.html#tools",
-    "title": "Helpful Links & Resources",
-    "section": "Tools",
-    "text": "Tools\n\nData Science Repository\nBuild a Reproducible and Maintainable Data Science Project\n\ngreat jupyter book to learen about how to structure a repository and more\n\nLightning-Hydra-Template\n\ntemplate to strcuture a repository based on experiment configuration with Hydra and Pytorch-Lightning\n\n\n\nData Handling\ndatasets\n\nGreat package to create and manage (large) image datasets\n\nimg2dataset\n\nPackage to download large image datasets from urls\n\nDVC\n\nPackage for data version control\n\n\n\nPyTorch\nLightning\n\nboilerplate code to easily train models and use gpu, etc.",
-    "crumbs": [
-      "Resources",
-      "Helpful Links & Resources"
-    ]
-  },
-  {
-    "objectID": "pages/exercises.html",
-    "href": "pages/exercises.html",
-    "title": "",
-    "section": "",
-    "text": "Code\n\n\n\n\n\nExercises\nExercises can be found here: Link",
-    "crumbs": [
-      "Exercises"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "",
-    "section": "",
-    "text": "Code",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#lernziele",
-    "href": "index.html#lernziele",
-    "title": "",
-    "section": "1.1 Lernziele",
-    "text": "1.1 Lernziele\n\nBildklassifikation vertieft verstehen\nMethoden implementieren, anwenden und interpretieren können\nMit Deep Learning Frameworks umgehen und Libraries verwenden können\nPraktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#inhalte",
-    "href": "index.html#inhalte",
-    "title": "",
-    "section": "1.2 Inhalte",
-    "text": "1.2 Inhalte\n\n1.2.1 Tag 1 - Grundlagen Convolutional Neural Networks\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning für Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nConvolutional Neural Networks\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 16:30\nÜbung: CNNs für Bildklassifikation\n\n\n\n\n\n1.2.2 Tag 2 - Bildklassifikation und Anwendungen\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nRecap & Quizz\n\n\n9:30 - 10:30\nTheorie: Praktische Überlegungen\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nÜbung: Bildklassifikation\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 14:30\nÜbung: Bildklassifikation\n\n\n14:30 - 14:45\nPause\n\n\n14:45 - 15:15\nTheorie: Foundation Models\n\n\n15:15 - 16:30\nÜbung: Foundation Models",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "pages/about.html",
-    "href": "pages/about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
-    "objectID": "pages/literature.html",
-    "href": "pages/literature.html",
-    "title": "Books",
-    "section": "",
-    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020)\n\nKann als PDF gratis heruntergeladen werden\nEinführung in PyTorch von Grund auf mit Anwendungsbeispielen",
-    "crumbs": [
-      "Resources",
-      "Books"
-    ]
-  },
-  {
-    "objectID": "pages/literature.html#pytorch",
-    "href": "pages/literature.html#pytorch",
-    "title": "Books",
-    "section": "",
-    "text": "Stevens, Eli and Antiga, Luca and Viehmann, Thomas, Deep learning with PyTorch, Manning Publications Co, Stevens, Antiga, and Viehmann (2020)\n\nKann als PDF gratis heruntergeladen werden\nEinführung in PyTorch von Grund auf mit Anwendungsbeispielen",
-    "crumbs": [
-      "Resources",
-      "Books"
-    ]
-  },
-  {
-    "objectID": "pages/literature.html#deep-learning",
-    "href": "pages/literature.html#deep-learning",
-    "title": "Books",
-    "section": "Deep Learning",
-    "text": "Deep Learning\nSimon J.D. Prince, Understanding Deep Learning, MIT Press, Prince (2023)\n\nBrandaktuelles Buch über Deep Learning\nUmfassende Einführung ins Thema mit sehr guten Illustrationen\nOnline verfügbar: Link\n\nGoodfellow, Ian and Bengio, Yoshua and Courville, Aaron, Deep Learning, MIT Press, Goodfellow, Bengio, and Courville (2016)\n\nSehr gute und umfassende Einführung in Deep Learning\nEtwas älter aber immer noch in weiten Teilen aktuell\nOnline verfügbar: Link\n\nChollet, François, Deep Learning with Python, Second Edition, Manning Publications, Chollet (2021)\n\nchapters 8-9 are about computer vision\nfree access with FHNW-Emailadresse in O’Reilly online Mediathek\n\nStevens et al, Deep Learning with PyTorch, Manning Publications, Stevens, Antiga, and Viehmann (2020)",
-    "crumbs": [
-      "Resources",
-      "Books"
-    ]
-  },
-  {
-    "objectID": "pages/literature.html#machine-learning",
-    "href": "pages/literature.html#machine-learning",
-    "title": "Books",
-    "section": "Machine Learning",
-    "text": "Machine Learning\nGéron A, Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 2nd Edition, O’Reilly 2019\n\nJupyter Notebooks sind öffentlich verfügbar: Link\nEinsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\n\nRaschka S, Python Machine Learning, 3rd Edition, PACKT 2019\n\nEinsteigerfreundliche Einführung in Machine Learning mit Scikit-Learn und TensorFlow\n\nKevin P. Murphy, Probabilistic Machine Learning: An Introduction, MIT Press 2022\n\nVorabversion gratis verfügbar: Link\nUmfassende Einführung in Machine Learning mit ausführlichen theoretischen Hintergründen\n\nChollet F, Deep Learning with Python, 2nd Edition, MEAP 2020\n\nEin Klassiker für eine Einführung in Deep Learning (und Keras)\n\nHastie T et al., Elements of Statistical Learning, Springer 2009.\n\nKann als pdf gratis runtergeladen werden: Link\nEnthält Machine Learning Grundlagen und viele Methoden (wenig über Neuronale Netzwerke)\n\nVanderPlas J, Python Data Science Handbook, O’Reilly 2017.\n\nWurde mit Jupyter Notebooks geschrieben.\nDer gesamte Inhalt finden sie auf einer website: Link\nDas Repository kann von github runtergelanden werden: Link",
-    "crumbs": [
-      "Resources",
-      "Books"
-    ]
-  },
-  {
-    "objectID": "pages/slides_cas.html",
-    "href": "pages/slides_cas.html",
-    "title": "Slides",
-    "section": "",
-    "text": "Recap Quiz slides.\nIntro slides.\nFrameworks slides.\nNeural Networks slides.\nCNNs slides.\nImage Classification slides.\nPractical slides.",
-    "crumbs": [
-      "Slides"
-    ]
-  },
-  {
-    "objectID": "slides/recap/index.html#question-1",
-    "href": "slides/recap/index.html#question-1",
-    "title": "Recap CNNs",
-    "section": "Question 1",
-    "text": "Question 1\nWhat does a convolutional layer do in a Convolutional Neural Network (CNN)?\n\n\nIt combines input features into a single output.\n\n\nIt applies a set of filters to the input to detect patterns.\n\n\nIt reduces the dimensionality of the input data.\n\n\nIt generates a final classification score."
-  },
-  {
-    "objectID": "slides/recap/index.html#question-2",
-    "href": "slides/recap/index.html#question-2",
-    "title": "Recap CNNs",
-    "section": "Question 2",
-    "text": "Question 2\nWhat is the main purpose of using pooling layers in CNNs?\n\n\nTo increase the number of parameters in the network.\n\n\nTo reduce the spatial dimensions (width and height) of the input volume.\n\n\nTo apply non-linear transformations to the data.\n\n\nTo convert the input into a one-dimensional vector."
-  },
-  {
-    "objectID": "slides/recap/index.html#question-3",
-    "href": "slides/recap/index.html#question-3",
-    "title": "Recap CNNs",
-    "section": "Question 3",
-    "text": "Question 3\nIn the context of image classification, what is data augmentation?\n\n\nIncreasing the size of the dataset by generating new images through transformations such as rotation, flipping, and scaling.\n\n\nAdding more layers to the CNN to increase its capacity.\n\n\nUsing pre-trained models to improve accuracy.\n\n\nSplitting the dataset into training and testing sets."
-  },
-  {
-    "objectID": "slides/recap/index.html#question-4",
-    "href": "slides/recap/index.html#question-4",
-    "title": "Recap CNNs",
-    "section": "Question 4",
-    "text": "Question 4\nWhat is transfer learning in the context of deep learning?\n\n\nTraining a new model from scratch on a specific dataset.\n\n\nUsing a pre-trained model on a new but related problem.\n\n\nCombining multiple models to improve performance.\n\n\nApplying data augmentation techniques to the training data."
-  },
-  {
-    "objectID": "slides/recap/index.html#question-5",
-    "href": "slides/recap/index.html#question-5",
-    "title": "Recap CNNs",
-    "section": "Question 5",
-    "text": "Question 5\nWhat is meant by translation invariance in CNNs?\n\n\nThe ability of the network to apply the same weights to different parts of the input.\n\n\nThe ability of the network to recognize an object regardless of its position in the image.\n\n\nThe process of converting data from one format to another.\n\n\nThe use of convolutional layers instead of fully connected layers."
-  },
-  {
-    "objectID": "slides/recap/index.html#question-6",
-    "href": "slides/recap/index.html#question-6",
-    "title": "Recap CNNs",
-    "section": "Question 6",
-    "text": "Question 6\nWhat is weight sharing in CNNs?\n\n\nUsing the same weights for different layers in the network.\n\n\nApplying the same weights across different parts of the input image.\n\n\nSharing weights between different CNNs.\n\n\nUsing pre-trained weights from another model."
-  },
-  {
-    "objectID": "slides/recap/index.html#question-7",
-    "href": "slides/recap/index.html#question-7",
-    "title": "Recap CNNs",
-    "section": "Question 7",
-    "text": "Question 7\nWhat is the difference between translation invariance and translation equivariance in CNNs?\n\n\nInvariance means the output remains unchanged with translation, while equivariance means the output changes in a predictable way with translation.\n\n\nEquivariance means the output remains unchanged with translation, while invariance means the output changes in a predictable way with translation.\n\n\nInvariance and equivariance are the same concepts.\n\n\nBoth terms refer to the ability of CNNs to handle rotations."
-  },
-  {
-    "objectID": "slides_cas/intro.html#beispiel-1",
-    "href": "slides_cas/intro.html#beispiel-1",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Beispiel 1",
-    "text": "Beispiel 1\n\nBeispiel aus Link. Links das Original-Bild, rechts die mit Deep Learning verbesserte Version.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#beispiel-2",
-    "href": "slides_cas/intro.html#beispiel-2",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Beispiel 2",
-    "text": "Beispiel 2\n\nBeispiel aus Link. Links das Original-Bild, rechts die Manipulation.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#beispiel-3",
-    "href": "slides_cas/intro.html#beispiel-3",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Beispiel 3",
-    "text": "Beispiel 3\n\nBeispiel aus Link. Links das Original-Bild, rechts die Manipulation.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#beispiel-4",
-    "href": "slides_cas/intro.html#beispiel-4",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Beispiel 4",
-    "text": "Beispiel 4\n\nAus Link.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#semantic-gap",
-    "href": "slides_cas/intro.html#semantic-gap",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Semantic Gap",
-    "text": "Semantic Gap\n\nIllustration des semantic gap.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#blickwinkel",
-    "href": "slides_cas/intro.html#blickwinkel",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Blickwinkel",
-    "text": "Blickwinkel\n\nSource",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#deformation",
-    "href": "slides_cas/intro.html#deformation",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Deformation",
-    "text": "Deformation\n\nSource",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#beleuchtung",
-    "href": "slides_cas/intro.html#beleuchtung",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Beleuchtung",
-    "text": "Beleuchtung\n\nSource",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#hintergrund",
-    "href": "slides_cas/intro.html#hintergrund",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Hintergrund",
-    "text": "Hintergrund\n\nSource",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#okklusion",
-    "href": "slides_cas/intro.html#okklusion",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Okklusion",
-    "text": "Okklusion\n\nSource",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#intraklass-variation",
-    "href": "slides_cas/intro.html#intraklass-variation",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Intraklass-Variation",
-    "text": "Intraklass-Variation\n\nSource",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#kontext-abhängigkeit",
-    "href": "slides_cas/intro.html#kontext-abhängigkeit",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Kontext-Abhängigkeit",
-    "text": "Kontext-Abhängigkeit\n\n\n\n\n\n\n\n\n\n\nKontext Source",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#image-classification",
-    "href": "slides_cas/intro.html#image-classification",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Image Classification",
-    "text": "Image Classification\n\nMulti-Class Image Classification Beispiel (aus Krizhevsky, Sutskever, and Hinton (2012)).",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#objekt-erkennung",
-    "href": "slides_cas/intro.html#objekt-erkennung",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Objekt-Erkennung",
-    "text": "Objekt-Erkennung\n\nObject Detection Beispiel (aus Redmon et al. (2016)). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#segmentierung",
-    "href": "slides_cas/intro.html#segmentierung",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Segmentierung",
-    "text": "Segmentierung\n\nObject Segmentation Beispiel (aus He et al. (2018)).",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#segmentierung-2",
-    "href": "slides_cas/intro.html#segmentierung-2",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Segmentierung 2",
-    "text": "Segmentierung 2",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#keypoint-detektierung",
-    "href": "slides_cas/intro.html#keypoint-detektierung",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Keypoint Detektierung",
-    "text": "Keypoint Detektierung\n\nKeypoint Detection Beispiel (aus He et al. (2018)).",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#image-translation",
-    "href": "slides_cas/intro.html#image-translation",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Image Translation",
-    "text": "Image Translation\n\nImage Generation Beispiel (aus (isola_image?)–image_2018).",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#image-super-resolution",
-    "href": "slides_cas/intro.html#image-super-resolution",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Image Super Resolution",
-    "text": "Image Super Resolution\n\nNvidia dlss: Link",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#image-colorization",
-    "href": "slides_cas/intro.html#image-colorization",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Image Colorization",
-    "text": "Image Colorization\n\nNorwegian Bride (est late 1890s) aus DeOldify: Link",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#machine-learning-approach",
-    "href": "slides_cas/intro.html#machine-learning-approach",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Machine Learning Approach",
-    "text": "Machine Learning Approach\nWith Machine Learning, we follow a data-driven approach to solve various tasks:\n\nCollect a dataset of images and their labels.\nUse a machine learning algorithm to train a model (e.g., a classifier).\nEvaluate and apply the model to new data.\n\ndef train(images, labels):\n    \"\"\" Train a Model \"\"\"\n    # Fit Model here\n    return model\n\ndef predict(test_images, model):\n    \"\"\" Predict \"\"\"\n    predictions = model(test_images)\n    return predictions",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#question",
-    "href": "slides_cas/intro.html#question",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Question",
-    "text": "Question\nImage Super Resolution\nHow would you train a model for image super resolution? The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#machine-learning-pipeline",
-    "href": "slides_cas/intro.html#machine-learning-pipeline",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Machine Learning Pipeline",
-    "text": "Machine Learning Pipeline\n\nMachine Learning Pipeline (Source: Raschka and Mirjalili (2020))",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#model",
-    "href": "slides_cas/intro.html#model",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Model",
-    "text": "Model\nA model:\n\\[\\begin{equation}\nf(\\mathbf{x}^{(i)}) = \\hat{y}^{(i)}\n\\end{equation}\\]\nWith model parameters \\(\\theta\\):\n\\[\\begin{equation}\nf_{\\theta}(\\mathbf{x}^{(i)}) \\text{ or } f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#optimization",
-    "href": "slides_cas/intro.html#optimization",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Optimization",
-    "text": "Optimization\nThe coefficients are adapted to a training dataset in an optimization procedure (learning, fitting).\nIn particular, we want to minimize the cost function \\(J\\).\n\\[\\begin{equation}\n\\mathsf{argmin}_{\\theta, \\lambda} J\\Big(f_{\\theta, \\lambda}(\\mathbf{X}), \\mathbf{y}\\Big)\n\\end{equation}\\]\nThe optimization procedure is influenced by hyperparameters (\\(\\alpha, \\lambda, \\dots\\)).",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#train-validation-test-split",
-    "href": "slides_cas/intro.html#train-validation-test-split",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Train (Validation) Test Split",
-    "text": "Train (Validation) Test Split\n\nTrain-Test Split to select and measure models.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#machine-learning-on-images",
-    "href": "slides_cas/intro.html#machine-learning-on-images",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Machine Learning on Images",
-    "text": "Machine Learning on Images\nImages are high-dimensional:\nAn RGB image with a resolution of \\(800 \\times 600\\) has a dimensionality of \\(800 \\times 600 \\times 3 = 1,440,000\\).\nClassic ML algorithms are:\n\nSlow and resource-intensive.\nUnable to exploit the 2-D structure.\nSensitive to slight changes (e.g., translations).\nProne to overfitting (since \\(n \\sim p\\)).",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#machine-learning-on-images-1",
-    "href": "slides_cas/intro.html#machine-learning-on-images-1",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Machine Learning on Images",
-    "text": "Machine Learning on Images\nTo model images with classic machine learning algorithms, features must be extracted beforehand.\nWe can use methods from classical computer vision.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#color-histograms-as-features",
-    "href": "slides_cas/intro.html#color-histograms-as-features",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Color Histograms as Features",
-    "text": "Color Histograms as Features\n\n\n\nColor Histograms as Features (Source: Johnson (2022))",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#hog-features",
-    "href": "slides_cas/intro.html#hog-features",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "HOG Features",
-    "text": "HOG Features\n\n\n\nHOG as Features (Source: Johnson (2022))",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#bag-of-visual-words",
-    "href": "slides_cas/intro.html#bag-of-visual-words",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Bag of (visual) Words",
-    "text": "Bag of (visual) Words\n\n\n\nBag of (visual) words Features (Source: Johnson (2022))",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#image-features",
-    "href": "slides_cas/intro.html#image-features",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Image Features",
-    "text": "Image Features\n\n\n\nImage Features (Source: Johnson (2022))",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#cifar10",
-    "href": "slides_cas/intro.html#cifar10",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "CIFAR10",
-    "text": "CIFAR10\n\nCIFAR10 Dataset Source",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#exercise-1---recap-ml",
-    "href": "slides_cas/intro.html#exercise-1---recap-ml",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Exercise 1 - Recap ML",
-    "text": "Exercise 1 - Recap ML\nIn the first exercise, we will model the CIFAR10 dataset.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#pascal-voc",
-    "href": "slides_cas/intro.html#pascal-voc",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "PASCAL VOC",
-    "text": "PASCAL VOC\n\nImages / Illustrations from Link and Johnson (2022). Left: Object annotations in images, Right: Development of Mean Average Precision over the years.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#imagenet",
-    "href": "slides_cas/intro.html#imagenet",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "ImageNet",
-    "text": "ImageNet\n\nImageNet, Image Source, details in Deng et al. (2009)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#imagenet---performance",
-    "href": "slides_cas/intro.html#imagenet---performance",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "ImageNet - Performance",
-    "text": "ImageNet - Performance\n\n\n\nSource: Johnson (2022)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#imagenet---winner",
-    "href": "slides_cas/intro.html#imagenet---winner",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "ImageNet - Winner",
-    "text": "ImageNet - Winner\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#classic-ml",
-    "href": "slides_cas/intro.html#classic-ml",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Classic ML",
-    "text": "Classic ML\n\n\n\nIllustration from Johnson (2022)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#end-to-end",
-    "href": "slides_cas/intro.html#end-to-end",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "End-To-End",
-    "text": "End-To-End\n\n\n\nIllustration from Johnson (2022)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#deep-learning-benefits",
-    "href": "slides_cas/intro.html#deep-learning-benefits",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Deep Learning Benefits",
-    "text": "Deep Learning Benefits\n\nAutomatic feature extraction.\nHierarchical features.\nGeneralization.\nEnd-to-end learning.\nRobustness to variability.\nAdaptability and transferability.",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#experiments-on-cats",
-    "href": "slides_cas/intro.html#experiments-on-cats",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Experiments on Cats",
-    "text": "Experiments on Cats\n\nIllustration Source",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#neocognitron",
-    "href": "slides_cas/intro.html#neocognitron",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Neocognitron",
-    "text": "Neocognitron\n\nThe Neocognitron Fukushima (1980)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#backpropagation",
-    "href": "slides_cas/intro.html#backpropagation",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "Backpropagation",
-    "text": "Backpropagation\n\nBackpropagation in Neural Networks Rumelhart, Hinton, and Williams (1986)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#cnns",
-    "href": "slides_cas/intro.html#cnns",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "CNNs",
-    "text": "CNNs\n\n\n\nModern CNN Lecun et al. (1998)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
-    ]
-  },
-  {
-    "objectID": "slides_cas/intro.html#alexnet",
-    "href": "slides_cas/intro.html#alexnet",
-    "title": "Einführung Computer Vision mit Deep Learning",
-    "section": "AlexNet",
-    "text": "AlexNet\n\n\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)",
-    "crumbs": [
-      "Slides",
-      "Einführung Computer Vision mit Deep Learning"
+      "Notebooks"
     ]
   },
   {
@@ -3081,11 +3083,7 @@
     "href": "demos/clip.html",
     "title": "CLIP",
     "section": "",
-    "text": "Import libraries.\n\nfrom PIL import Image\nimport requests\n\nfrom transformers import CLIPProcessor, CLIPModel\n\nSpecify cache dir to which the models are downloaded.\n\ncache_dir=\"/home/jovyan/work/data/hf_cache\"\n\n\nmodel = CLIPModel.from_pretrained(\"openai/clip-vit-base-patch32\", cache_dir=cache_dir)\nprocessor = CLIPProcessor.from_pretrained(\"openai/clip-vit-base-patch32\", cache_dir=cache_dir)\n\nDownload an image.\n\nurl = \"http://images.cocodataset.org/val2017/000000039769.jpg\"\nimage = Image.open(requests.get(url, stream=True).raw)\n\n\nimage\n\nCreate two prompts and process them along with the image.\n\ninputs = processor(text=[\"a photo of a cat\", \"a photo of a dog\"], images=image, return_tensors=\"pt\", padding=True)\n\nNow we create embeddings for the prompts and the image.\n\noutputs = model(**inputs)\n\nWe evaluate the similarities between the text and the image embeddings.\n\nlogits_per_image = outputs.logits_per_image  # this is the image-text similarity score\nprobs = logits_per_image.softmax(dim=1)  # we can take the softmax to get the label probabilities\n\n\nprobs",
-    "crumbs": [
-      "Demos",
-      "CLIP"
-    ]
+    "text": "Import libraries.\n\nfrom PIL import Image\nimport requests\n\nfrom transformers import CLIPProcessor, CLIPModel\n\nSpecify cache dir to which the models are downloaded.\n\ncache_dir=\"/home/jovyan/work/data/hf_cache\"\n\n\nmodel = CLIPModel.from_pretrained(\"openai/clip-vit-base-patch32\", cache_dir=cache_dir)\nprocessor = CLIPProcessor.from_pretrained(\"openai/clip-vit-base-patch32\", cache_dir=cache_dir)\n\nDownload an image.\n\nurl = \"http://images.cocodataset.org/val2017/000000039769.jpg\"\nimage = Image.open(requests.get(url, stream=True).raw)\n\n\nimage\n\nCreate two prompts and process them along with the image.\n\ninputs = processor(text=[\"a photo of a cat\", \"a photo of a dog\"], images=image, return_tensors=\"pt\", padding=True)\n\nNow we create embeddings for the prompts and the image.\n\noutputs = model(**inputs)\n\nWe evaluate the similarities between the text and the image embeddings.\n\nlogits_per_image = outputs.logits_per_image  # this is the image-text similarity score\nprobs = logits_per_image.softmax(dim=1)  # we can take the softmax to get the label probabilities\n\n\nprobs"
   },
   {
     "objectID": "pages/cnns.html",
