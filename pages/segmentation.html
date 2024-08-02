@@ -372,7 +372,7 @@ window.Quarto = {
   <li><a href="#fully-convolutional-networks" id="toc-fully-convolutional-networks" class="nav-link" data-scroll-target="#fully-convolutional-networks">Fully Convolutional Networks</a></li>
   <li><a href="#encoder-decoder-networks" id="toc-encoder-decoder-networks" class="nav-link" data-scroll-target="#encoder-decoder-networks">Encoder-Decoder Networks</a></li>
   </ul></li>
-  <li><a href="#upsampling" id="toc-upsampling" class="nav-link" data-scroll-target="#upsampling">Upsampling</a>
+  <li><a href="#sec-od-upsampling" id="toc-sec-od-upsampling" class="nav-link" data-scroll-target="#sec-od-upsampling">Upsampling</a>
   <ul class="collapse">
   <li><a href="#unet" id="toc-unet" class="nav-link" data-scroll-target="#unet">UNet</a></li>
   <li><a href="#loss" id="toc-loss" class="nav-link" data-scroll-target="#loss">Loss</a></li>
@@ -498,7 +498,7 @@ Figure&nbsp;5: Source: <span class="citation" data-cites="johnson_eecs_2019">Joh
 </section>
 <section id="fully-convolutional-networks" class="level2">
 <h2 class="anchored" data-anchor-id="fully-convolutional-networks">Fully Convolutional Networks</h2>
-<p><span class="citation" data-cites="cite">(<a href="#ref-cite" role="doc-biblioref"><strong>cite?</strong></a>)</span> <code>shelhamer_fully_2016</code> proposed one of the first fully convolutional networks (FCNs). An FCN consists solely of convolutional layers (specifically, it has no fully connected/linear layers) and can thus process images of any spatial dimension and produce a segmentation map of the same dimension. By replacing fully connected/linear layers with convolutional layers, the dependency on a fixed input size can be eliminated.</p>
+<p><span class="citation" data-cites="shelhamer_fully_2016">Shelhamer, Long, and Darrell (<a href="#ref-shelhamer_fully_2016" role="doc-biblioref">2016</a>)</span> proposed one of the first fully convolutional networks (FCNs). An FCN consists solely of convolutional layers (specifically, it has no fully connected/linear layers) and can thus process images of any spatial dimension and produce a segmentation map of the same dimension. By replacing fully connected/linear layers with convolutional layers, the dependency on a fixed input size can be eliminated.</p>
 <p><a href="#fig-segmentation-fcn" class="quarto-xref">Figure&nbsp;6</a> illustrates an FCN. The FCN has an output of dimension <span class="math inline">\(H \times W \times K\)</span> (height, width, depth), where <span class="math inline">\(K\)</span> is the number of classes. The class-specific activation maps model the probability that a pixel belongs to the corresponding class. With the argmax function, each pixel could then be assigned to the class with the highest probability.</p>
 <div id="fig-segmentation-fcn" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -511,9 +511,9 @@ Figure&nbsp;6: Source: <span class="citation" data-cites="johnson_eecs_2019">Joh
 </figure>
 </div>
 <p>The problem with this approach is that it requires a lot of compute (FLOPs) because the spatial dimensions of the deeper layers still correspond to the input dimension. Therefore, many operations must be performed as the filters must be convolved over a larger area.</p>
-<p>The first layers in a CNN learn local structures (as the receptive field is very small, they cannot learn anything else), which are successively aggregated in further layers. The number of channels is typically increased to allow the CNN to recognize different variations of patterns, increasing the model’s memory requirements. Additionally, sufficient layers are needed to ensure the receptive field (see {ref}<code>receptive-field</code>) is large enough for accurate segmentation.</p>
+<p>The first layers in a CNN learn local structures (as the receptive field is very small, they cannot learn anything else), which are successively aggregated in further layers. The number of channels is typically increased to allow the CNN to recognize different variations of patterns, increasing the model’s memory requirements. Additionally, sufficient layers are needed to ensure the receptive field (see <strong>?@sec-cnn-receptive-field</strong>) is large enough for accurate segmentation.</p>
 <p>In image classification, the global label of the image is modeled. Thus, this problem does not exist in image classification, as the spatial dimension of the activation maps can be gradually reduced, keeping the compute approximately constant across the network.</p>
-<p><span class="citation" data-cites="cite">(<a href="#ref-cite" role="doc-biblioref"><strong>cite?</strong></a>)</span> <code>shelhamer_fully_2016</code> solved the problem by gradually down-sampling the activation maps using convolutions with stride &gt;2 or pooling layers (just like in image classification architectures) but then up-sampling the activation maps from various layers using an up-sampling method (see {ref}<code>upsampling</code>). They concatenate information from various layers to obtain activation maps containing rich features with local and global context. These are then reduced to the desired number of classes with <span class="math inline">\(1 \times 1\)</span> convolutions as needed. See <a href="#fig-segmentation-fcn-upsampling" class="quarto-xref">Figure&nbsp;7</a> for an illustration.</p>
+<p><span class="citation" data-cites="shelhamer_fully_2016">Shelhamer, Long, and Darrell (<a href="#ref-shelhamer_fully_2016" role="doc-biblioref">2016</a>)</span> solved the problem by gradually down-sampling the activation maps using convolutions with stride &gt;2 or pooling layers (just like in image classification architectures) but then up-sampling the activation maps from various layers using an up-sampling method (see <a href="#sec-od-upsampling" class="quarto-xref">Section&nbsp;3</a>). They concatenate information from various layers to obtain activation maps containing rich features with local and global context. These are then reduced to the desired number of classes with <span class="math inline">\(1 \times 1\)</span> convolutions as needed. See <a href="#fig-segmentation-fcn-upsampling" class="quarto-xref">Figure&nbsp;7</a> for an illustration.</p>
 <div id="fig-segmentation-fcn-upsampling" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-segmentation-fcn-upsampling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -562,7 +562,7 @@ Figure&nbsp;10: Source: <span class="citation" data-cites="noh_learning_2015">No
 </div>
 </section>
 </section>
-<section id="upsampling" class="level1">
+<section id="sec-od-upsampling" class="level1">
 <h1>Upsampling</h1>
 <p>In encoder-decoder architectures, the encoding of the input must be decoded so that the input’s spatial dimension is reached again. Therefore, the network needs components that can upscale activation maps spatially (upsampling). There are several ways to do this.</p>
 <p>The variants <em>Bed of Nails</em> and <em>Nearest Neighbour</em> are shown in <a href="#fig-segmentation-unpooling" class="quarto-xref">Figure&nbsp;11</a>. Here, the inputs are simply copied and duplicated along the height/width or filled with zeros.</p>
@@ -664,7 +664,7 @@ Figure&nbsp;18: <span class="math inline">\(x\)</span> is the kernel, <span clas
 </div>
 </div>
 <p>The following code shows an example in PyTorch.</p>
-<div id="1bb86120" class="cell" data-execution_count="1">
+<div id="b4d5bb61" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1444,7 +1444,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fully Convolutional Networks</span></span>
 <span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>@cite <span class="in">`shelhamer_fully_2016`</span> proposed one of the first fully convolutional networks (FCNs). An FCN consists solely of convolutional layers (specifically, it has no fully connected/linear layers) and can thus process images of any spatial dimension and produce a segmentation map of the same dimension. By replacing fully connected/linear layers with convolutional layers, the dependency on a fixed input size can be eliminated.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>@shelhamer_fully_2016 proposed one of the first fully convolutional networks (FCNs). An FCN consists solely of convolutional layers (specifically, it has no fully connected/linear layers) and can thus process images of any spatial dimension and produce a segmentation map of the same dimension. By replacing fully connected/linear layers with convolutional layers, the dependency on a fixed input size can be eliminated.</span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>@fig-segmentation-fcn illustrates an FCN. The FCN has an output of dimension $H \times W \times K$ (height, width, depth), where $K$ is the number of classes. The class-specific activation maps model the probability that a pixel belongs to the corresponding class. With the argmax function, each pixel could then be assigned to the class with the highest probability.</span>
 <span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
@@ -1457,11 +1457,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>The problem with this approach is that it requires a lot of compute (FLOPs) because the spatial dimensions of the deeper layers still correspond to the input dimension. Therefore, many operations must be performed as the filters must be convolved over a larger area.</span>
 <span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>The first layers in a CNN learn local structures (as the receptive field is very small, they cannot learn anything else), which are successively aggregated in further layers. The number of channels is typically increased to allow the CNN to recognize different variations of patterns, increasing the model's memory requirements. Additionally, sufficient layers are needed to ensure the receptive field (see {ref}<span class="in">`receptive-field`</span>) is large enough for accurate segmentation.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>The first layers in a CNN learn local structures (as the receptive field is very small, they cannot learn anything else), which are successively aggregated in further layers. The number of channels is typically increased to allow the CNN to recognize different variations of patterns, increasing the model's memory requirements. Additionally, sufficient layers are needed to ensure the receptive field (see @sec-cnn-receptive-field) is large enough for accurate segmentation.</span>
 <span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>In image classification, the global label of the image is modeled. Thus, this problem does not exist in image classification, as the spatial dimension of the activation maps can be gradually reduced, keeping the compute approximately constant across the network.</span>
 <span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>@cite <span class="in">`shelhamer_fully_2016`</span> solved the problem by gradually down-sampling the activation maps using convolutions with stride &gt;2 or pooling layers (just like in image classification architectures) but then up-sampling the activation maps from various layers using an up-sampling method (see {ref}<span class="in">`upsampling`</span>). They concatenate information from various layers to obtain activation maps containing rich features with local and global context. These are then reduced to the desired number of classes with $1 \times 1$ convolutions as needed. See @fig-segmentation-fcn-upsampling for an illustration.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>@shelhamer_fully_2016 solved the problem by gradually down-sampling the activation maps using convolutions with stride &gt;2 or pooling layers (just like in image classification architectures) but then up-sampling the activation maps from various layers using an up-sampling method (see @sec-od-upsampling). They concatenate information from various layers to obtain activation maps containing rich features with local and global context. These are then reduced to the desired number of classes with $1 \times 1$ convolutions as needed. See @fig-segmentation-fcn-upsampling for an illustration.</span>
 <span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>::: {#fig-segmentation-fcn-upsampling}</span>
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
@@ -1499,7 +1499,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>Source: @noh_learning_2015.</span>
 <span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu"># Upsampling</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu"># Upsampling {#sec-od-upsampling}</span></span>
 <span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>In encoder-decoder architectures, the encoding of the input must be decoded so that the input's spatial dimension is reached again. Therefore, the network needs components that can upscale activation maps spatially (upsampling). There are several ways to do this.</span>
 <span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>

@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -383,7 +403,7 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
 </section>
 <section id="clip-a-foundation-model-example" class="level1">
 <h1>CLIP: A Foundation Model Example</h1>
-<p>CLIP (Contrastive Language-Image Pre-training) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.</p>
+<p>CLIP (Contrastive Language-Image Pre-training) <span class="citation" data-cites="radford_learning_2021">Radford et al. (<a href="#ref-radford_learning_2021" role="doc-biblioref">2021</a>)</span> is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.</p>
 <section id="how-clip-works" class="level2">
 <h2 class="anchored" data-anchor-id="how-clip-works">How CLIP Works</h2>
 <p>CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.</p>
@@ -399,7 +419,7 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
 <section id="example" class="level2">
 <h2 class="anchored" data-anchor-id="example">Example</h2>
 <p>Here’s a simple example of using CLIP for zero-shot image classification:</p>
-<div id="ff0cee0d" class="cell" data-execution_count="1">
+<div id="9a27693c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> clip</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
@@ -447,7 +467,7 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
 <section id="example-1" class="level2">
 <h2 class="anchored" data-anchor-id="example-1">Example</h2>
 <p>Here’s a simple example of a VQA system using a hypothetical multi-modal model:</p>
-<div id="e0388e95" class="cell" data-execution_count="2">
+<div id="f30ebd4b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hypothetical code for a Visual Question Answering system</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
@@ -482,10 +502,15 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
 
 <!-- -->
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-radford_learning_2021" class="csl-entry" role="listitem">
+Radford, Alec, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, et al. 2021. <span>“Learning <span>Transferable</span> <span>Visual</span> <span>Models</span> <span>From</span> <span>Natural</span> <span>Language</span> <span>Supervision</span>.”</span> <em>arXiv:2103.00020 [Cs]</em>, February. <a href="http://arxiv.org/abs/2103.00020">http://arxiv.org/abs/2103.00020</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -998,7 +1023,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu"># CLIP: A Foundation Model Example</span></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>CLIP (Contrastive Language-Image Pre-training) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>CLIP (Contrastive Language-Image Pre-training) @radford_learning_2021 is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## How CLIP Works</span></span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
