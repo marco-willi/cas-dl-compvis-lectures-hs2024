@@ -8,7 +8,9 @@ name: Quarto Publish
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    container: mwilli13/cas-dl-compvis-lectures-hs2024:v20240724
+    container: 
+      image: mwilli13/cas-dl-compvis-lectures-hs2024:v20240724
+      options: --user root
 
     permissions:
       contents: write

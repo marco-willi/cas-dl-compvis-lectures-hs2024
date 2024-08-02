@@ -101,7 +101,7 @@ params:
 ## Image Translation
 
 
-![Image Generation Beispiel (aus @isola_image--image_2018).]({{< meta params.images_path >}}pix2pix_examples.png){width=600,#fig-pix2pix-example}
+![Image Generation Beispiel (aus @image_to_image_isola2018).]({{< meta params.images_path >}}pix2pix_examples.png){width=600,#fig-pix2pix-example}
 
 
 
