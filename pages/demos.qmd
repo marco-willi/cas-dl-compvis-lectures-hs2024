@@ -3,10 +3,33 @@ title: "Demos"
 ---
 
 
+# CNN Filters Visualization
+
+Visualize filters and their effect of a pre-trained ResNet-18.
+
+```{=html}
+<a target="_blank" href="{{< var colab_notebook_root >}}demos/cnn_filters.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+```
+
 # CLIP Demo
+
+This model can calculate similarities between and among images and texts. It can be used for zero-shot (no labels) image classification.
 
 ```{=html}
 <a target="_blank" href="{{< var colab_notebook_root >}}demos/clip.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+```
+
+
+# Visual Question Answering
+
+Test a model that can answer questions given an image. The notebook contains a small model which can be run on cpu and a much larger model which ideally is run on GPU.
+
+```{=html}
+<a target="_blank" href="{{< var colab_notebook_root >}}demos/visual_question_answering.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 ```
