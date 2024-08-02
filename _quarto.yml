@@ -55,16 +55,16 @@ website:
           - pages/object_detection.qmd
           - pages/segmentation.qmd
           - pages/recent_advances.qmd
+      # ------ SLIDES ---------------------------- #
       - section: Slides
         contents:
           - slides_cas/intro.qmd
       - text: "Slides"
         href: pages/slides_cas.qmd
-      # - section: Demos
-      #   contents:
-      #     - demos/pixelize.qmd
+      # ------ Exercises ---------------------------- #
       - text: "Exercises"
         href: pages/exercises.qmd
+      # ------ DEMOS ---------------------------- #
       - section: Demos
         contents:
           - demos/cross_entropy.qmd

@@ -32,8 +32,13 @@ jobs:
         with:
           python-version: '3.11.9'
           cache: 'pip'
-      - run: pip install jupyter torchinfo matplotlib numpy scikit-learn mlxtend seaborn jupyter-cache plotly torchshow torchviz
       - run: pip install -r requirements-ci.txt
+
+      - name: Install Dependencies
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: graphviz
+          version: 1.0
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

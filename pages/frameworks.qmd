@@ -21,6 +21,7 @@ Frameworks (from @li_cs231n_2022).
 :::
 
 Key features of such frameworks are:
+
 - Fast development and testing of neural networks
 - Automatic differentiation of operations
 - Efficient execution on diverse hardware
