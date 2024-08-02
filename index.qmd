@@ -38,11 +38,12 @@
 |8:45 - 9:30	| Recap & Quizz
 |9:30 - 10:30 	| Theorie: Praktische Überlegungen
 |10:30  - 10:45	| Pause
-|10:45 - 11:30	| ...
-|11:30 - 12:15	| ....
-|12:15 - 13:15	| Mittagspause
-|13:15 - 15:30	| Übung: Bildklassifikation
-|15:30 - 16:30	| Foundation Models
+|10:45 - 12:00	| Übung: Bildklassifikation
+|12:00 - 13:00	| Mittagspause
+|13:00 - 14:30	| Übung: Bildklassifikation
+|14:30  - 14:45	| Pause
+|14:45  - 15:15	| Theorie: Foundation Models
+|15:15 - 16:30	| Übung: Foundation Models
 
 
 <!-- 
