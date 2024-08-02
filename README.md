@@ -60,3 +60,7 @@ Convert .ipynb to .qmd
 quarto convert basics-jupyter.ipynb # converts to qmd
 ```
 
+
+### Quizes
+
+https://github.com/parmsam/quarto-quiz

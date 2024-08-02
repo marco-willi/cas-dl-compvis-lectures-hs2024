@@ -65,10 +65,12 @@ website:
       - text: "Exercises"
         href: pages/exercises.qmd
       # ------ DEMOS ---------------------------- #
-      - section: Demos
-        contents:
-          - demos/cross_entropy.qmd
-          - demos/clip.qmd
+      - text: "Notebooks"
+        href: pages/demos.qmd
+      # - section: Demos
+      #   contents:
+      #     - demos/cross_entropy.qmd
+      #     - demos/clip.qmd
       - text: "Mini Projects"
         href: pages/mini_projects.qmd
       - section: Resources

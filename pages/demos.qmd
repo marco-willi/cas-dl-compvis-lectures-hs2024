@@ -1,0 +1,12 @@
+---
+title: "Demos"
+---
+
+
+# CLIP Demo
+
+```{=html}
+<a target="_blank" href="{{< var colab_notebook_root >}}demos/clip.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+```
