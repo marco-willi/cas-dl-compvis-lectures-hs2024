@@ -67,6 +67,7 @@ website:
         href: pages/exercises.qmd
       - section: Demos
         contents:
+          - demos/cross_entropy.qmd
           - demos/clip.qmd
       - text: "Mini Projects"
         href: pages/mini_projects.qmd

@@ -1,8 +1,10 @@
 ---
-title: CLIP
+title: "CLIP"
 code-links: binder
 jupyter: python3
 ---
+
+Import libraries.
 
 ```{python}
 #| eval: false
