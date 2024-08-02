@@ -8,10 +8,10 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.55">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Marco Willi">
-  <title>CAS Deep Learning - Computer Vision (Part1) – Deep Learning Frameworks</title>
+  <title>CAS Deep Learning - Computer Vision – Deep Learning Frameworks</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -56,44 +56,44 @@
         -khtml-user-select: none; -moz-user-select: none;
         -ms-user-select: none; user-select: none;
         padding: 0 4px; width: 4em;
-        color: #aaaaaa;
+        color: #767676;
       }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
     div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
+      { color: #545454; background-color: #fefefe; }
     @media screen {
     pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
     code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
     /* CSS for citations */
     div.csl-bib-body { }
     div.csl-entry {
@@ -421,7 +421,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" class="quarto-title-block">
   <h1 class="title">Deep Learning Frameworks</h1>
   <p class="subtitle">CAS Deep Learning - Computer Vision (Part1)</p>
 
@@ -437,7 +437,7 @@ Marco Willi
 </div>
 
 </section>
-<section id="overview" class="title-slide slide level1 center">
+<section id="overview" class="title-slide slide level1">
 <h1>Overview</h1>
 <ul>
 <li>Software</li>
@@ -448,7 +448,7 @@ Marco Willi
 </section>
 
 <section>
-<section id="software" class="title-slide slide level1 center">
+<section id="software" class="title-slide slide level1">
 <h1>Software</h1>
 
 </section>
@@ -497,7 +497,7 @@ Marco Willi
 <img data-src="../../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section>
 <section id="numpy-example" class="slide level2">
 <h2>Numpy Example</h2>
-<div id="befaedb4" class="cell" data-execution_count="1">
+<div id="14a86e0c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a>np.random.seed(<span class="dv">123</span>)</span>
@@ -529,7 +529,7 @@ Marco Willi
 <img data-src="../../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section>
 <section id="pytorch-example" class="slide level2">
 <h2>PyTorch Example</h2>
-<div id="b4d6f591" class="cell" data-execution_count="2">
+<div id="d4bffbd3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb3-2"><a></a></span>
 <span id="cb3-3"><a></a>np.random.seed(<span class="dv">123</span>)</span>
@@ -554,7 +554,7 @@ Marco Willi
 
 <img data-src="../../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section></section>
 <section>
-<section id="pytorch" class="title-slide slide level1 center">
+<section id="pytorch" class="title-slide slide level1">
 <h1>PyTorch</h1>
 
 </section>
@@ -574,7 +574,7 @@ Marco Willi
 <h2>Tensors</h2>
 <p>The central data structure in PyTorch is <a href="https://pytorch.org/docs/stable/tensors.html">torch.Tensor</a>.</p>
 <p>It is very similar to <em>numpy.array</em> but can be easily loaded onto GPUs. Tensors can be created in various ways, for example from lists:</p>
-<div id="664f601e" class="cell" data-execution_count="3">
+<div id="02402edb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb5-2"><a></a></span>
 <span id="cb5-3"><a></a>data <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>],[<span class="dv">3</span>, <span class="dv">4</span>]]</span>
@@ -584,7 +584,7 @@ Marco Willi
 <section id="autograd" class="slide level2">
 <h2>Autograd</h2>
 <p>With <a href="https://pytorch.org/docs/stable/autograd.html">torch.autograd</a>, gradients can be automatically computed for a <em>computational graph</em>.</p>
-<div id="232382b4" class="cell" data-execution_count="4">
+<div id="5116bfc4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb6-2"><a></a></span>
 <span id="cb6-3"><a></a>x <span class="op">=</span> torch.ones(<span class="dv">5</span>)  <span class="co"># input tensor</span></span>
@@ -603,7 +603,7 @@ Marco Willi
 </section>
 <section id="torch.nn---example" class="slide level2">
 <h2>torch.nn - Example</h2>
-<div id="d4fbef02" class="cell" data-execution_count="5">
+<div id="965dc9e6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
 <span id="cb7-2"><a></a></span>
 <span id="cb7-3"><a></a><span class="kw">class</span> NeuralNetwork(nn.Module):</span>
@@ -627,7 +627,7 @@ Marco Willi
 <section id="torch.optim" class="slide level2">
 <h2>torch.optim</h2>
 <p>With <a href="https://pytorch.org/docs/stable/optim.html">torch.optim</a>, model parameters can be optimized using various algorithms.</p>
-<div id="8aa63a43" class="cell" data-execution_count="6">
+<div id="9dc7f43e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> torch <span class="im">import</span> optim</span>
 <span id="cb8-2"><a></a>optimizer <span class="op">=</span> optim.SGD(model.parameters(), lr<span class="op">=</span><span class="fl">0.01</span>, momentum<span class="op">=</span><span class="fl">0.9</span>)</span>
 <span id="cb8-3"><a></a></span>
@@ -644,7 +644,7 @@ Marco Willi
 <section id="training-loops" class="slide level2">
 <h2>Training Loops</h2>
 <p>A training loop iterates over <em>mini-batches</em> and optimizes the model parameters.</p>
-<div id="54711227" class="cell" data-execution_count="7">
+<div id="ae3abc33" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="kw">def</span> train_loop(dataloader, model, loss_fn, optimizer):</span>
 <span id="cb9-2"><a></a>    size <span class="op">=</span> <span class="bu">len</span>(dataloader.dataset)</span>
 <span id="cb9-3"><a></a>    <span class="cf">for</span> batch, (X, y) <span class="kw">in</span> <span class="bu">enumerate</span>(dataloader):</span>
@@ -664,7 +664,7 @@ Marco Willi
 </section>
 <section id="training-loops-2" class="slide level2">
 <h2>Training Loops 2</h2>
-<div id="c9ef4270" class="cell" data-execution_count="8">
+<div id="7d4c25a0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a>loss_fn <span class="op">=</span> nn.CrossEntropyLoss()</span>
 <span id="cb10-2"><a></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr<span class="op">=</span>learning_rate)</span>
 <span id="cb10-3"><a></a></span>
@@ -691,7 +691,7 @@ Marco Willi
 </ul>
 </section></section>
 <section>
-<section id="hardware" class="title-slide slide level1 center">
+<section id="hardware" class="title-slide slide level1">
 <h1>Hardware</h1>
 
 </section>
@@ -759,7 +759,7 @@ Li, Fei-Fei. 2022. <span>“<span>CS231n</span> <span>Convolutional</span> <span
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
-
+<p><a href="https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024">https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/</a></p>
 </div>
 </div>
 </section>
@@ -816,7 +816,7 @@ Li, Fei-Fei. 2022. <span>“<span>CS231n</span> <span>Convolutional</span> <span
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -941,9 +941,9 @@ Li, Fei-Fei. 2022. <span>“<span>CS231n</span> <span>Convolutional</span> <span
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1920,
 
-        height: 700,
+        height: 1080,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
