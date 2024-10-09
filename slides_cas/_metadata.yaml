@@ -11,6 +11,12 @@ format:
     height: 1080
     width: 1920
     chalkboard: true
+    logo: /assets/fhnw_logo.png
+    data-background-image: /assets/fhnw_bg.png
+    title-slide-attributes:
+      data-background-image: /assets/fhnw_bg.png
+      data-background-size: contain
+      data-background-opacity: "1.0"
 subtitle: "CAS Deep Learning - Computer Vision (Part1)"
 jupyter: /opt/conda/bin/python3
 execute: 
