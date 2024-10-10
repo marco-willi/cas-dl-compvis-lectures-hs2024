@@ -1,0 +1,784 @@
+Convert the following .tex file to a *.qmd file. Given is an example *.qmd file that you can use as a template. Convert everything to English.
+
+This is the template:
+-----------------------
+
+
+
+---
+title: "Convolutional Neural Networks"
+params:
+   images_path: "/assets/images/cnns/"
+---
+
+
+## Overview
+
+- Introduction & Motivation
+- Convolutional Layers
+- Properties
+- Variants and Layers
+- Visualizations and Architectures
+
+
+# Introduction & Motivation
+
+## Multilayer Perceptron
+
+![Source: @li_cs231n_2022]({{< meta params.images_path >}}mlp.jpeg){width=100% height=70%}
+
+
+## MLPs on Images
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}mlp_images.jpg){width=100% height=70%}
+
+
+## MLPs on Images
+
+![Source: @li_cs231n_2023]({{< meta params.images_path >}}mlp-spatial-structure.png){width=100% height=70%}
+
+
+## CNNs
+
+![The activations of a ConvNet architecture. The input image is on the left, and the predictions are on the right. Source: @li_cs231n_2022]({{< meta params.images_path >}}convnet.jpeg){width=100% height=70%}
+
+
+
+# Convolutional Layers
+
+## Convolution?
+
+Convolution in Deep Learning is typically implemented as cross-correlation.
+
+\begin{equation}
+S(i, j) = (K * I)(i, j) = \sum_m \sum_n I(i + m, j + n) K(m, n)
+\end{equation}
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}cnn_conv_one_number.jpg){width=100% height=70%}
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map.jpg){width=100% height=70%}
+
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map2.jpg){width=100% height=70%}
+
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map3.jpg){width=100% height=70%}
+
+
+
+## Convolutional Layers
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map4.jpg){width=100% height=70%}
+
+
+
+## Hyper-Parameters
+
+Convolutional Layers are parameterized:
+
+- Depth: How many activation maps?
+- Padding: How much padding is added to the input?
+- Stride: What is the step size of the convolution?
+- Kernel-Size: What is the kernel size?
+
+
+
+## Padding: Why?
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}padding_issue.jpg){width=100% height=70%}
+
+
+## Padding
+
+![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
+
+
+## Padding
+
+![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
+
+
+## Padding and Stride
+
+![Stride with Padding. Red indicates the position of the corresponding filter value on the input activations.]({{< meta params.images_path >}}stride_and_padding.png){width=100% height=70%}
+
+
+## Padding and Stride: Animations
+
+@dumoulin_guide_2016 has created some animations to better understand convolutions, available here: [Link]({{< meta params.images_path >}}https://github.com/vdumoulin/conv_arithmetic).
+
+
+
+## Calculations
+
+You can calculate the dimensionality of the activation maps with the following formulas:
+
+- $i$: Side length of the input activations (assumption: square inputs)
+- $k$: Kernel size (assumption: square kernel)
+- $o$: Side length of the output activation maps
+- $s$: Stride (assumption: same stride along spatial dimensions)
+- $p$: Number of paddings on each side (assumption: same number of paddings along spatial dimensions)
+
+
+## Calculations
+
+This formula covers all scenarios!
+
+**Size of Activation Map**
+
+\begin{equation}
+o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+\end{equation}
+
+
+
+## Quiz
+
+**Scenario:**
+
+- Input: 3 x 32 x 32
+- Convolution: 10 filters with 5x5 kernel size, stride=1, pad=2
+
+What is the size of the activation map?
+
+How many weights are there?
+
+**Size of Activation Map**
+
+\begin{equation}
+o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+\end{equation}
+
+
+# Properties
+
+## Sparse Connectivity and Parameter Sharing
+
+**Local (Sparse) Connectivity**: Neurons are only locally connected.
+
+**Parameter Sharing**: Weights of a neuron are applied locally but are the same across the entire input.
+
+
+
+
+## Convolution: Is Parameter Sharing Always Useful?
+
+**Question**: Is parameter sharing always useful?
+
+
+
+
+
+## MLP Parameters
+
+```{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class MLP(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.hidden_layer1 = nn.Linear(3 * 32 * 32, 64)
+        self.hidden_layer2 = nn.Linear(64, 32)
+        self.output_layer = nn.Linear(32, 10)
+
+    def forward(self, x):
+        x = self.flatten(x)
+        x = torch.relu(self.hidden_layer1(x))
+        x = torch.relu(self.hidden_layer2(x))
+        x = self.output_layer(x)
+        return x
+
+net = MLP()
+print(torchinfo.summary(net, input_size=(1, 3, 32, 32)))
+```
+
+
+## CNN Parameters
+
+```{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchinfo
+
+class CNN(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 16, 7, stride=2, padding=3)
+        self.conv2 = nn.Conv2d(16, 16, 3, stride=2, padding=1)
+        self.flatten = nn.Flatten()
+        self.output_layer = nn.Linear(16 * 8 * 8, 10)
+
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = self.flatten(x)
+        x = self.output_layer(x)
+        return x
+
+cnn = CNN()
+print(torchinfo.summary(cnn, input_size=(1, 3, 32, 32)))
+```
+
+
+
+## Quiz: Linear Transformation vs Convolution
+
+![Input in 2-D (top left), the flat version (bottom left), expected output (right), and unknown transformation (center).]({{< meta params.images_path >}}linear_transf.png){width=100% height=70%}
+
+
+## Translation Invariance / Equivariance
+
+Given a translation $g()$, which spatially shifts inputs:
+
+- Translation invariance: $f(g(x))=f(x)$
+- Translation equivariance: $f(g(x))=g(f(x))$
+
+Convolutions are translation equivariant: [Example Video]({{< meta params.images_path >}}https://www.youtube.com/embed/qoWAFBYOtoU?start=50)
+
+## Stacking Convolutions
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_stacking.jpg){width=100% height=70%}
+
+
+## Receptive Field
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field.jpg){width=100% height=70%}
+
+
+
+## Receptive Field
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field2.jpg){width=100% height=70%}
+
+
+
+
+# Variants and Layers
+
+## Dilated Convolutions
+
+![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1.]({{< meta params.images_path >}}dilation1.png){width=100% height=70%}
+
+
+
+## Dilated Convolutions
+
+![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2.]({{< meta params.images_path >}}dilation2.png){width=100% height=70%}
+
+
+
+## 1x1 Convolutions
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}1x1_conv.jpg){width=100% height=70%}
+
+
+
+## Depthwise Separable Convolutions
+
+![Source: [https://paperswithcode.com/method/depthwise-convolution]({{< meta params.images_path >}}https://paperswithcode.com/method/depthwise-convolution)]({{< meta params.images_path >}}depthwise.png){width=100% height=70%}
+
+
+
+## Depthwise Separable Convolutions
+
+![Source: @yu_multi-scale_2016]({{< meta params.images_path >}}depthwise_separabel.png){width=100% height=70%}
+
+
+
+## Pooling Layers
+
+![Source: @li_cs231n_2022]({{< meta params.images_path >}}pool.jpeg){width=300px}
+
+
+## Max Pooling
+
+![Max pooling, input (left) and output (right).]({{< meta params.images_path >}}max_pooling.png){width=100% height=70%}
+
+
+## Average Pooling
+
+![Average pooling, input (left) and output (right).]({{< meta params.images_path >}}average_pooling.png){width=100% height=70%}
+
+
+## Other Pooling Layers
+
+**Global Average Pooling** is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.
+
+
+## Global Average Pooling
+
+![Global Average pooling, input (left) and output (right).]({{< meta params.images_path >}}global_average_pooling.png){width=100% height=70%}
+
+
+# Visualizations and Architectures
+
+## Learned Filters
+
+![Source: @krizhevsky_imagenet_2012]({{< meta params.images_path >}}learned_filters.png){width=100% height=70%}
+
+
+
+# References
+
+::: {#refs}
+:::
+
+
+
+
+
+
+This is the file you need to convert:
+---------------------------------------
+
+
+\subtitle{Object Detection}
+
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+    \tableofcontents
+\end{frame}
+%------------------------------------------------
+\section{Einführung}
+%------------------------------------------------
+\begin{frame}{Object Detection}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_object_detection_example.png}
+        \caption{Object Detection Beispiel (aus \cite{redmon_you_2016}.) Bounding Boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Classification and Detection}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{classification_and_detection_intro.png}
+        \caption{Classification und Detection (aus \cite{austin_modern_2022}.)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Landmark Detection}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{landmark_detection_1.png}
+        \caption{Landmark Detection (aus \cite{austin_modern_2022}.)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Landmark Detection}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{landmark_detection_2.png}
+        \caption{Landmark Detection (aus \cite{austin_modern_2022}.)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Classification and Localization}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{classification_and_localization_1.png}
+        \caption{Classification and localization (aus \cite{austin_modern_2022}.)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Classification and Detection}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{classification_and_localization_2.png}
+        \caption{Classification and localization (aus \cite{austin_modern_2022}.)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Loss Funktion}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{single_object_example.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Mehrere Objekte}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{multi_object_example.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Sliding Windows}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{sliding_window1.jpg}
+        \caption{Beispiel Sliding-Window Ansatz.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{History}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{object_detection_milestones.png}
+        \caption{Object Detection History (aus \cite{zou_object_2023}.)}
+    \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\section{Two-Stage Detectors}
+%------------------------------------------------
+\begin{frame}{Region Proposals}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{selective_search_paper.png}
+        \caption{Links die Resultate von Selective Search (auf verschiedenen Skalen), rechts die Objekt-Hypothesen. Source: \cite{uijlings_selective_2013}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{R-CNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{rcnn.jpg}
+        \caption{Source: \cite{girshick_rich_2014}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{R-CNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{rcnn_full.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{R RCNN - Bounding Box Regressionn}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{bbox_regression.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Fast R-CNN}
+    R-CNN ist sehr langsam, da für jedes Region Proposal ein Forward-Pass durch das CNN gemacht werden muss. Deshalb hat man Fast R-CNN entwickelt.
+\end{frame}
+\begin{frame}{Fast RCNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{fast_rcnn_vs_rcnn.png}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Fast RCNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{fast_rcnn_vs_rcnn2.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Fast RCNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{fast_rcnn_vs_rcnn3.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Fast RCNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{fast_rcnn3.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Region of Interest Pooling}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{roi_pooling.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Fast R-CNN vs R-CNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{training_time_fastrcnn_vs_rcnn.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster R-CNN}
+   Mit Faster R-CNN hat man das Modell weiter optimiert. Insbesondere möchte man das Generieren von Region Proposals in die Methode integrieren (End-To-End).
+\end{frame}
+\begin{frame}{Faster R-CNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{faster_rcnn.jpg}
+        \caption{Source: \cite{Ren2017}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster RCNN - Region Proposal Network}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{rpn1.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster RCNN - Region Proposal Network}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{rpn2.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster RCNN - Region Proposal Network}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{rpn3.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster RCNN - Region Proposal Network}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{rpn4.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Anchor Boxes}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{anchor_boxes.png}
+        \caption{Anchor boxes.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster RCNN - Region Proposal Network}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{rpn_anchors.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster R-CNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{faster_rcnn2.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Faster R-CNN}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{faster_rcnn3.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\section{Single-Stage Detectors}
+%------------------------------------------------
+\begin{frame}{YOLO - Gitter}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_grid.png}
+        \caption{Source: \cite{Redmon2016a}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO - Class Map}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_class_map.png}
+        \caption{Source: \cite{Redmon2016a}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO - Bounding Box und Objektness}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_bbx_conf.png}
+        \caption{Source: \cite{Redmon2016a}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO: Big Picture}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo.jpg}
+        \caption{Source: \cite{Redmon2016a}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO Architektur}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_arch.jpg}
+        \caption{Source: \cite{Redmon2016a}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO Multiple Outputs}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_multiple_outputs_same_object.png}
+        \caption{Inspired by \cite{austin_modern_2022}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO Non Max Supression}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_non_max.png}
+        \caption{Inspired by \cite{austin_modern_2022}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO Mehrere Objekte am selben Ort}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{yolo_multi_outputs2.png}
+        \caption{Source: \cite{austin_modern_2022}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{YOLO - Loss Function}
+    \scriptsize
+    \begin{align*}
+        &\lambda_{coord} \sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{obj}[(x_i-\hat{x}_i)^2 + (y_i-\hat{y}_i)^2 ] \\
+        &+ \lambda_{coord} \sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w}_i})^2 +(\sqrt{h_i}-\sqrt{\hat{h}_i})^2 ] \\
+        &+ \sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{obj}(C_i - \hat{C}_i)^2 + \lambda_{noobj}\sum_{i=0}^{S^2}\sum_{j=0}^B \mathbb{1}_{ij}^{noobj}(C_i - \hat{C}_i)^2 \\
+        &+ \sum_{i=0}^{S^2} \mathbb{1}_{i}^{obj}\sum_{c \in classes}(p_i(c) - \hat{p}_i(c))^2 \\
+    \end{align*}
+\end{frame}
+\begin{frame}{Generische Single Shot Architektur mit Anchors}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{ssd.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{CenterNet - Objekte als Punkte}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{centernet_examples.png}
+        \caption{Source: \cite{zhou_objects_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{CenterNet - KeyPoints, Offset und Grösse}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{centernet_keypoint_offset_size.png}
+        \caption{Source: \cite{zhou_objects_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{CenterNet: Keypoints vs Anchor Boxes}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{centernet_bbox_vs_points.png}
+        \caption{Source: \cite{zhou_objects_2019}.}
+    \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\section{Weitere Aspekte}
+%------------------------------------------------
+\begin{frame}{Focal Loss: Klassen-Imbalance}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{focal_loss.png}
+        \caption{Source: \cite{lin_focal_2018}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Feature Pyramids}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{feature_pyramids2.png}
+        \caption{Source: \cite{lin_feature_2017}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Transformer}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{detr.png}
+        \caption{Source: \cite{carion_end--end_2020}.}
+    \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\section{Evaluation}
+%------------------------------------------------
+\begin{frame}{IoU}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{iou1.jpg}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{IoU}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{iou2.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{IoU}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{iou3.png}
+        \caption{Source: \cite{johnson_eecs_2022}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Non-Max Suppression}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{nms.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Non-Max Suppression}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{ducks_with_box.png}
+        \caption{\href{https://www.pexels.com/photo/white-duck-with-22-ducklings-in-green-grass-field-160509/}{Source}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Mean Average Precision: Confusion Matrix}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{confusion_matrix.jpg}
+        \caption{\href{https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html}{Source}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Precision und Recall}
+    Precision ist der Anteil der als positiv klassifizierten Sample, die effektiv positiv sind: \\
+
+    $\text{Precision} = \frac{TP}{TP + FP}$ \\
+
+    Recall ist der Anteil der positiven Samples, die man korrekt als solche erkannt hat: \\
+
+    $\text{Recall} = \frac{TP}{TP + FN}$
+\end{frame}
+\begin{frame}{Mean Average Precision}
+    \begin{figure}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{map.jpg}
+        \caption{Source: \cite{johnson_eecs_2019}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Mean Average Precision}
+    Die Mean Average Precision (mAP) ist nun der Mittelwert aller
+    Average Precisions über alle Klassen.
+    Zum Teil wird auch noch ein Mittelwert über verschiedene IoU Thresholds
+     berechnet, die ein Modell mindestens für einen Treffer erreichen muss.
+\end{frame}
+\begin{frame}{Object Detection Frameworks}
+
+    \href{https://github.com/facebookresearch/detectron2}{Detectron2} \\
+    \href{https://pytorch.org/tutorials/intermediate/torchvision_tutorial.htmlhttps://github.com/facebookresearch/detectron2}{torchvision}
+
+\end{frame}
+%------------------------------------------------
+\section{References}
+%------------------------------------------------
+
+\begin{frame}[allowframebreaks]{References}
+    \bibliographystyle{unsrt}
+    \scriptsize
+    \bibliography{references}
+\end{frame}
+
+\end{document}

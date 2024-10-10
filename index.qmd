@@ -27,7 +27,7 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 | Zeit | Thema |
 |------|--------|
 |8:45 - 9:30	| Einführung Computer Vision mit Deep Learning
-|9:30 - 10:30 	| Übung: Deep Learning für Bilder
+|9:30 - 10:30 	| Übung: Deep Learning mit PyTorch und Bilder
 |10:30  - 10:45	| Pause
 |10:45 - 12:00	| Convolutional Neural Networks
 |12:00 - 13:00	| Mittagspause

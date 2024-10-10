@@ -9,7 +9,7 @@ author: "Marco Willi"
 affiliation: "Institute for Data Science I4DS, FHNW"
 
 execute:
-  freeze: auto
+  freeze: True
 
 pdf-engine: xelatex
 
@@ -17,7 +17,7 @@ website:
   page-navigation: true
   title: "CAS Deep Learning - Computer Vision"
   description: "Homepage for CAS Deep Learning - Computer Vision (Part1) with reading materials and exercises"
-  
+
   site-url: "https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/"
   repo-url: https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024
   repo-actions: [issue]
@@ -45,29 +45,30 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
-      - section: Lectures
-        contents:
-          - pages/intro.qmd
-          - pages/frameworks.qmd
-          - pages/neural_networks.qmd
-          - pages/cnns.qmd
-          - pages/classification.qmd
-          - pages/object_detection.qmd
-          - pages/segmentation.qmd
-          - pages/recent_advances.qmd
+      # - section: Lectures
+      #   contents:
+      #     - pages/intro.qmd
+      #     - pages/frameworks.qmd
+      #     - pages/neural_networks.qmd
+      #     - pages/cnns.qmd
+      #     - pages/classification.qmd
+      #     - pages/object_detection.qmd
+      #     - pages/segmentation.qmd
+      #     - pages/recent_advances.qmd
       # ------ SLIDES ---------------------------- #
       - section: Slides CAS
         contents:
           - slides_cas/intro.qmd
-      - section: Slides bverI
-        contents:
-          - slides/intro.qmd
-          - slides/frameworks.qmd
-          - slides/neural_networks.qmd
-          - slides/image_classification.qmd
-          - slides/object_detection.qmd
-          - slides/segmentation.qmd
-          - slides/practical.qmd
+          - slides_cas/cnns.qmd
+      # - section: Slides bverI
+      #   contents:
+      #     - slides/intro.qmd
+      #     - slides/frameworks.qmd
+      #     - slides/neural_networks.qmd
+      #     - slides/image_classification.qmd
+      #     - slides/object_detection.qmd
+      #     - slides/segmentation.qmd
+      #     - slides/practical.qmd
       # ------ Exercises ---------------------------- #
       - text: "Exercises"
         href: pages/exercises.qmd
@@ -102,6 +103,6 @@ format:
     #    - "_dollar.tex"
     #    - "_macros.tex"
     #    - "_dollar.tex"
-  pdf:
-    include-in-header:
-       - "./assets/_macros.tex"
+  # pdf:
+  #   include-in-header:
+  #      - "./assets/_macros.tex"

@@ -1,0 +1,53 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Fira+Mono:400,700);
+
+// fonts
+$font-family-sans-serif: "Lato", sans-serif !default;
+$font-family-serif: "Lato", serif !default;
+$font-family-monospace: "Fira Mono", monospace !default;
+
+// colors
+$body-bg: #fff !default;
+$body-color: #000 !default;
+$link-color: #00008b !default;
+$code-block-bg: #f2f2f2;
+$code-block-font-size: 0.7em;
+
+$presentation-font-smaller: 0.7rem;
+
+/*-- scss:rules --*/
+
+/* Set global styles for h1 without margin-top */
+h1 {
+  font-family: "Fira Mono";
+  font-size: 24px;
+  margin-top: 50px; /* Adjust the value as per your needs 50 default */
+}
+
+/* Adjust margin-top for h1 on the title slide only */
+section.title-slide h1 {
+  margin-top: 50px; /* Adjust as needed */
+}
+
+
+/* Apply padding-top only to the title slide */
+.quarto-title-block {
+  padding-top: 5px; /* Adjust as needed */
+}
+
+.quarto-title-block h1 {
+  margin-top: 100px; /* Adjust as needed */
+}
+
+section {
+  padding-top: 5px; /* Adjust padding for entire section */
+}
+
+
+/* Style for author and date */
+.author, .date {
+  font-size: 34px;
+}

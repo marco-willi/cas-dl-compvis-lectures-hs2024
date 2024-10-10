@@ -1,10 +1,11 @@
 format:
-  revealjs: 
-    theme: ["q-theme.scss"]
+  revealjs:
+    theme: q-slides-theme.scss
     slide-number: c/t
+    show-slide-number: all
     footer: "[https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/](https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024)"
     code-copy: true
-    center-title-slide: false
+    center-title-slide: true
     code-link: true
     code-overflow: wrap
     highlight-style: a11y
@@ -19,6 +20,6 @@ format:
       data-background-opacity: "1.0"
 subtitle: "CAS Deep Learning - Computer Vision (Part1)"
 jupyter: /opt/conda/bin/python3
-execute: 
+execute:
   eval: true
   echo: true

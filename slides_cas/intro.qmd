@@ -286,7 +286,9 @@ def predict(test_images, model):
 
 **Image Super Resolution**
 
-How would you train a model for image super resolution? The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.
+How would you train a model for image super resolution?
+
+The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.
 
 ## Machine Learning Pipeline
 
@@ -337,6 +339,8 @@ Classic ML algorithms are:
 
 
 ## Biological Analogy
+
+
 
 
 ## Machine Learning on Images
