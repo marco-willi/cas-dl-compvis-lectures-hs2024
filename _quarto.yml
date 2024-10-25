@@ -60,6 +60,7 @@ website:
         contents:
           - slides_cas/intro.qmd
           - slides_cas/cnns.qmd
+          - slides_cas/foundation_models.qmd
       # - section: Slides bverI
       #   contents:
       #     - slides/intro.qmd
@@ -73,14 +74,14 @@ website:
       - text: "Exercises"
         href: pages/exercises.qmd
       # ------ DEMOS ---------------------------- #
-      - text: "Notebooks"
-        href: pages/demos.qmd
+      # - text: "Notebooks"
+      #   href: pages/demos.qmd
       # - section: Demos
       #   contents:
       #     - demos/cross_entropy.qmd
       #     - demos/clip.qmd
-      - text: "Mini Projects"
-        href: pages/mini_projects.qmd
+      # - text: "Mini Projects"
+      #   href: pages/mini_projects.qmd
       - section: Resources
         contents:
           - pages/literature.qmd

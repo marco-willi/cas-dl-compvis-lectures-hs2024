@@ -5,23 +5,40 @@ params:
 ---
 
 
-# What are they?
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+## What are they?
 
 Foundation models are large-scale machine learning models trained on vast amounts of data that can be fine-tuned for various downstream tasks. These models have demonstrated remarkable capabilities in natural language processing, computer vision, and other fields.
 
-# Characteristics of Foundation Models
+## Characteristics of Foundation Models
 
 - **Large-scale Pre-training**: Foundation models are pre-trained on extensive datasets, enabling them to capture a wide range of knowledge.
 - **Transfer Learning**: These models can be fine-tuned on specific tasks with relatively small datasets, making them versatile and efficient.
 - **Multimodal Capabilities**: Some foundation models can process and integrate multiple types of data, such as text and images.
 
-# CLIP: A Foundation Model Example
+## CLIP: A Foundation Model Example
 
 CLIP (Contrastive Language-Image Pre-training, @radford_learning_2021) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.
 
+
 ## How CLIP Works
 
+
+![Source: @radford_learning_2021]({{< meta params.images_path >}}clip_part1.jpg)
+
+
 CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.
+
+
+## How CLIP can be applied
+
+![Source: @radford_learning_2021]({{< meta params.images_path >}}clip_part2.jpg)
+
 
 ## Applications of CLIP
 

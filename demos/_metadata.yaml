@@ -1,6 +1,0 @@
-format: 
-  html: default
-  ipynb: default
-execute: 
-  eval: false
-  echo: true

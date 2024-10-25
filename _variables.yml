@@ -1,16 +1,11 @@
 version: 1.2
 
-email:
-  info: info@example.com
-  support: support@example.com
-
 author:
   institute: Institute for Data Science I4DS, FHNW
 
 engine:
   jupyter: "[Jupyter](https://jupyter.org)"
   knitr: "[Knitr](<https://yihui.name/knitr>)"
-
 
 images_root: "/assets/images"
 

@@ -22,7 +22,7 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 # Inhalte
 
 
-## Tag 1 - Grundlagen Convolutional Neural Networks
+##  Grundlagen Convolutional Neural Networks (Tag 1)
 
 | Zeit | Thema |
 |------|--------|
@@ -34,7 +34,7 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 |13:00 - 16:30	| Übung: CNNs für Bildklassifikation
 
 
-## Tag 2 - Bildklassifikation und Anwendungen
+## Bildklassifikation und Anwendungen (Tag 2)
 
 | Zeit | Thema |
 |------|--------|
