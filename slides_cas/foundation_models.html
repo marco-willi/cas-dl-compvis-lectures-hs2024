@@ -437,29 +437,31 @@ Marco Willi
 </div>
 
 </section>
-<section id="what-are-they" class="title-slide slide level1 center">
-<h1>What are they?</h1>
+<section id="what-are-they" class="slide level2">
+<h2>What are they?</h2>
 <p>Foundation models are large-scale machine learning models trained on vast amounts of data that can be fine-tuned for various downstream tasks. These models have demonstrated remarkable capabilities in natural language processing, computer vision, and other fields.</p>
 </section>
-
-<section id="characteristics-of-foundation-models" class="title-slide slide level1 center">
-<h1>Characteristics of Foundation Models</h1>
+<section id="characteristics-of-foundation-models" class="slide level2">
+<h2>Characteristics of Foundation Models</h2>
 <ul>
 <li><strong>Large-scale Pre-training</strong>: Foundation models are pre-trained on extensive datasets, enabling them to capture a wide range of knowledge.</li>
 <li><strong>Transfer Learning</strong>: These models can be fine-tuned on specific tasks with relatively small datasets, making them versatile and efficient.</li>
 <li><strong>Multimodal Capabilities</strong>: Some foundation models can process and integrate multiple types of data, such as text and images.</li>
 </ul>
 </section>
-
-<section>
-<section id="clip-a-foundation-model-example" class="title-slide slide level1 center">
-<h1>CLIP: A Foundation Model Example</h1>
+<section id="clip-a-foundation-model-example" class="slide level2">
+<h2>CLIP: A Foundation Model Example</h2>
 <p>CLIP (Contrastive Language-Image Pre-training, <span class="citation" data-cites="radford_learning_2021">Radford et al. (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span>) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.</p>
 </section>
 <section id="how-clip-works" class="slide level2">
 <h2>How CLIP Works</h2>
-<p>CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.</p>
+
+<img data-src="../assets/images/foundation_models/clip_part1.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="radford_learning_2021">Radford et al. (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span></p><p>CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.</p>
 </section>
+<section id="how-clip-can-be-applied" class="slide level2">
+<h2>How CLIP can be applied</h2>
+
+<img data-src="../assets/images/foundation_models/clip_part2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="radford_learning_2021">Radford et al. (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span></p></section>
 <section id="applications-of-clip" class="slide level2">
 <h2>Applications of CLIP</h2>
 <ul>
@@ -471,7 +473,7 @@ Marco Willi
 <section id="example" class="slide level2">
 <h2>Example</h2>
 <p>Here’s a simple example of using CLIP for zero-shot image classification:</p>
-<div id="a2bbc5ba" class="cell" data-execution_count="1">
+<div id="06b78241" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a></a><span class="im">import</span> clip</span>
 <span id="cb1-3"><a></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
@@ -499,7 +501,7 @@ Marco Willi
 <span id="cb1-25"><a></a><span class="co"># Print the most similar label</span></span>
 <span id="cb1-26"><a></a><span class="bu">print</span>(<span class="st">"Label:"</span>, labels[similarities.argmax().item()])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section>
+</section>
 <section>
 <section id="multi-modal-models-an-example-of-visual-question-answering" class="title-slide slide level1 center">
 <h1>Multi-Modal Models: An Example of Visual Question Answering</h1>
@@ -520,7 +522,7 @@ Marco Willi
 <section id="example-1" class="slide level2">
 <h2>Example</h2>
 <p>Here’s a simple example of a VQA system using a hypothetical multi-modal model:</p>
-<div id="f0452403" class="cell" data-execution_count="2">
+<div id="e5e4498b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Hypothetical code for a Visual Question Answering system</span></span>
 <span id="cb2-2"><a></a><span class="im">import</span> torch</span>
 <span id="cb2-3"><a></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>

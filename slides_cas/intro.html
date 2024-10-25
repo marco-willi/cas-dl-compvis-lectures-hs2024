@@ -621,6 +621,7 @@ Figure&nbsp;3: <a href="https://waymo.com/waymo-driver/">Example from Waymo</a>.
 <li>Image Retrieval</li>
 </ul>
 </div></div>
+<p>List is not exhaustive!</p>
 </section></section>
 <section>
 <section id="challenges" class="title-slide slide level1 center">
@@ -631,39 +632,39 @@ Figure&nbsp;3: <a href="https://waymo.com/waymo-driver/">Example from Waymo</a>.
 <h2>Semantic Gap</h2>
 
 <img data-src="../assets/images/intro/semantic_gap.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption">Illustration des semantic gap.</p></section>
-<section id="blickwinkel" class="slide level2">
-<h2>Blickwinkel</h2>
+<section id="point-of-view" class="slide level2">
+<h2>Point of View</h2>
 
 <img data-src="../assets/images/intro/viewpoint.png" width="600" class="r-stretch quarto-figure-center"><p class="caption"><a href="http://cs231n.stanford.edu/">Source</a></p></section>
 <section id="deformation" class="slide level2">
 <h2>Deformation</h2>
 
 <img data-src="../assets/images/intro/challenge_deformation.png" width="600" class="r-stretch quarto-figure-center"><p class="caption"><a href="http://cs231n.stanford.edu/">Source</a></p></section>
-<section id="beleuchtung" class="slide level2">
-<h2>Beleuchtung</h2>
+<section id="lighting" class="slide level2">
+<h2>Lighting</h2>
 
 <img data-src="../assets/images/intro/challenge_illumination.png" width="600" class="r-stretch quarto-figure-center"><p class="caption"><a href="http://cs231n.stanford.edu/">Source</a></p></section>
-<section id="hintergrund" class="slide level2">
-<h2>Hintergrund</h2>
+<section id="background" class="slide level2">
+<h2>Background</h2>
 
 <img data-src="../assets/images/intro/challenge_background.png" width="600" class="r-stretch quarto-figure-center"><p class="caption"><a href="http://cs231n.stanford.edu/">Source</a></p></section>
-<section id="okklusion" class="slide level2">
-<h2>Okklusion</h2>
+<section id="occlusion" class="slide level2">
+<h2>Occlusion</h2>
 
 <img data-src="../assets/images/intro/challenge_occlusion.png" width="600" class="r-stretch quarto-figure-center"><p class="caption"><a href="http://cs231n.stanford.edu/">Source</a></p></section>
-<section id="intraklass-variation" class="slide level2">
-<h2>Intraklass-Variation</h2>
+<section id="intraclass-variation" class="slide level2">
+<h2>Intraclass Variation</h2>
 
 <img data-src="../assets/images/intro/challenge_intra_class_variation.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.maxpixel.net/Cat-Kittens-Free-Float-Kitten-Rush-Cat-Puppy-555822">Source</a></p></section>
-<section id="kontext-abhängigkeit" class="slide level2">
-<h2>Kontext-Abhängigkeit</h2>
+<section id="context-relevance" class="slide level2">
+<h2>Context Relevance</h2>
 <!-- ![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)](/assets/images/intro/tiger_context.jpg){width=600} -->
 <div>
 
 </div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="fragment quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="../assets/images/intro/context1.png"></p>
@@ -671,7 +672,7 @@ Figure&nbsp;3: <a href="https://waymo.com/waymo-driver/">Example from Waymo</a>.
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="fragment quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img data-src="../assets/images/intro/context2.png"></p>
 </div>
 </div>
@@ -690,6 +691,7 @@ Figure&nbsp;3: <a href="https://waymo.com/waymo-driver/">Example from Waymo</a>.
 <li>Use a machine learning algorithm to train a model (e.g., a classifier).</li>
 <li>Evaluate and apply the model to new data.</li>
 </ul>
+<div class="fragment">
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="kw">def</span> train(images, labels):</span>
 <span id="cb1-2"><a></a>    <span class="co">""" Train a Model """</span></span>
 <span id="cb1-3"><a></a>    <span class="co"># Fit Model here</span></span>
@@ -699,211 +701,42 @@ Figure&nbsp;3: <a href="https://waymo.com/waymo-driver/">Example from Waymo</a>.
 <span id="cb1-7"><a></a>    <span class="co">""" Predict """</span></span>
 <span id="cb1-8"><a></a>    predictions <span class="op">=</span> model(test_images)</span>
 <span id="cb1-9"><a></a>    <span class="cf">return</span> predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="question" class="slide level2">
 <h2>Question</h2>
 <p><strong>Image Super Resolution</strong></p>
 <p>How would you train a model for image super resolution?</p>
 <p>The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.</p>
+<!-- ## Machine Learning Pipeline
+
+![Machine Learning Pipeline (Source: @raschka_python_2020)](/assets/images/intro/python_ml.png){width=600} -->
 </section>
 <section id="machine-learning-pipeline" class="slide level2">
 <h2>Machine Learning Pipeline</h2>
-
-<img data-src="../assets/images/intro/python_ml.png" width="600" class="r-stretch quarto-figure-center"><p class="caption">Machine Learning Pipeline (Source: <span class="citation" data-cites="raschka_python_2020">Raschka and Mirjalili (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>)</p></section>
-<section id="model" class="slide level2">
-<h2>Model</h2>
-<p>A model:</p>
-<p><span class="math display">\[\begin{equation}
-f(\mathbf{x}^{(i)}) = \hat{y}^{(i)}
-\end{equation}\]</span></p>
-<p>With model parameters <span class="math inline">\(\theta\)</span>:</p>
-<p><span class="math display">\[\begin{equation}
-f_{\theta}(\mathbf{x}^{(i)}) \text{ or } f(\theta, \mathbf{x}^{(i)})
-\end{equation}\]</span></p>
+<div class="fragment">
+<p><img data-src="../assets/images/intro/ml_workflow_part1.jpg" height="400"></p>
+</div>
+<div class="fragment">
+<p><img data-src="../assets/images/intro/ml_workflow_part2.jpg" height="400"></p>
+</div>
 </section>
-<section id="optimization" class="slide level2">
-<h2>Optimization</h2>
-<p>The coefficients are adapted to a training dataset in an optimization procedure (learning, fitting).</p>
-<p>In particular, we want to minimize the cost function <span class="math inline">\(J\)</span>.</p>
-<p><span class="math display">\[\begin{equation}
-\mathsf{argmin}_{\theta, \lambda} J\Big(f_{\theta, \lambda}(\mathbf{X}), \mathbf{y}\Big)
-\end{equation}\]</span></p>
-<p>The optimization procedure is influenced by hyperparameters (<span class="math inline">\(\alpha, \lambda, \dots\)</span>).</p>
-</section>
-<section id="train-validation-test-split" class="slide level2">
-<h2>Train (Validation) Test Split</h2>
-
-<img data-src="../assets/images/intro/train_test_split.png" width="600" class="r-stretch quarto-figure-center"><p class="caption">Train-Test Split to select and measure models.</p></section>
-<section id="machine-learning-on-images" class="slide level2">
-<h2>Machine Learning on Images</h2>
-<p>Images are high-dimensional:</p>
-<p>An RGB image with a resolution of <span class="math inline">\(800 \times 600\)</span> has a dimensionality of <span class="math inline">\(800 \times 600 \times 3 = 1,440,000\)</span>.</p>
-<p>Classic ML algorithms are:</p>
+<section id="pytorch" class="slide level2">
+<h2>PyTorch</h2>
+<p>In this class, we use PyTorch. PyTorch has gained immense popularity in recent years, characterized by high flexibility, a clean API, and many open-source resources.</p>
+<p><strong>Fundamental Concepts:</strong></p>
 <ul>
-<li>Slow and resource-intensive.</li>
-<li>Unable to exploit the 2-D structure.</li>
-<li>Sensitive to slight changes (e.g., translations).</li>
-<li>Prone to overfitting (since <span class="math inline">\(n \sim p\)</span>).</li>
+<li>Tensor: N-dimensional array, like <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">numpy.array</a></li>
+<li>Autograd: Functionality to create <em>computational graphs</em> and compute gradients.</li>
+<li>Module: Class to define components of neural networks</li>
 </ul>
-</section>
-<section id="biological-analogy" class="slide level2">
-<h2>Biological Analogy</h2>
-</section>
-<section id="machine-learning-on-images-1" class="slide level2">
-<h2>Machine Learning on Images</h2>
-<p>To model images with classic machine learning algorithms, features must be extracted beforehand.</p>
-<p>We can use methods from classical computer vision.</p>
-</section>
-<section id="color-histograms-as-features" class="slide level2">
-<h2>Color Histograms as Features</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/color_histogram.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Color Histograms as Features (Source: <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>)</figcaption>
-</figure>
-</div>
-</section>
-<section id="hog-features" class="slide level2">
-<h2>HOG Features</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/hog_features.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>HOG as Features (Source: <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>)</figcaption>
-</figure>
-</div>
-</section>
-<section id="bag-of-visual-words" class="slide level2">
-<h2>Bag of (visual) Words</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/bag_of_words_features.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Bag of (visual) words Features (Source: <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>)</figcaption>
-</figure>
-</div>
-</section>
-<section id="image-features" class="slide level2">
-<h2>Image Features</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/features_concat.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Image Features (Source: <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>)</figcaption>
-</figure>
-</div>
-</section>
-<section id="cifar10" class="slide level2">
-<h2>CIFAR10</h2>
-
-<img data-src="../assets/images/intro/cifar10.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption">CIFAR10 Dataset <a href="https://www.cs.toronto.edu/~kriz/cifar.html">Source</a></p></section>
-<section id="exercise-1---recap-ml" class="slide level2">
-<h2>Exercise 1 - Recap ML</h2>
-<p>In the first exercise, we will model the CIFAR10 dataset.</p>
-</section></section>
-<section>
-<section id="deep-learning" class="title-slide slide level1 center">
-<h1>Deep Learning</h1>
-
-</section>
-<section id="pascal-voc" class="slide level2">
-<h2>PASCAL VOC</h2>
-
-<img data-src="../assets/images/intro/pascal_voc_2007.png" width="600" class="r-stretch quarto-figure-center"><p class="caption">Images / Illustrations from <a href="http://host.robots.ox.ac.uk/pascal/VOC/voc2007/">Link</a> and <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>. Left: Object annotations in images, Right: Development of Mean Average Precision over the years.</p></section>
-<section id="imagenet" class="slide level2">
-<h2>ImageNet</h2>
-
-<img data-src="../assets/images/intro/imagenet.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption">ImageNet, <a href="https://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_full_1k.jpg">Image Source</a>, details in <span class="citation" data-cites="deng_imagenet_2009">Deng et al. (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span></p></section>
-<section id="imagenet---performance" class="slide level2">
-<h2>ImageNet - Performance</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/image_net_perf.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="imagenet---winner" class="slide level2">
-<h2>ImageNet - Winner</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/alexnet.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>AlexNet <span class="citation" data-cites="krizhevsky_imagenet_2012">Krizhevsky, Sutskever, and Hinton (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="classic-ml" class="slide level2">
-<h2>Classic ML</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/classical_ml.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Illustration from <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="end-to-end" class="slide level2">
-<h2>End-To-End</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/end-to-end-ml.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Illustration from <span class="citation" data-cites="johnson_eecs_2022">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="deep-learning-benefits" class="slide level2">
-<h2>Deep Learning Benefits</h2>
-<ul>
-<li>Automatic feature extraction.</li>
-<li>Hierarchical features.</li>
-<li>Generalization.</li>
-<li>End-to-end learning.</li>
-<li>Robustness to variability.</li>
-<li>Adaptability and transferability.</li>
-</ul>
-</section></section>
-<section>
-<section id="deep-learning-history" class="title-slide slide level1 center">
-<h1>Deep Learning History</h1>
-
-</section>
-<section id="experiments-on-cats" class="slide level2">
-<h2>Experiments on Cats</h2>
-
-<img data-src="../assets/images/intro/huber_wiesel_cat_experiment.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption">Illustration <a href="https://link.springer.com/chapter/10.1007/978-3-030-28954-6_4/figures/1">Source</a></p></section>
-<section id="neocognitron" class="slide level2">
-<h2>Neocognitron</h2>
-
-<img data-src="../assets/images/intro/neocogitron.png" width="600" class="r-stretch quarto-figure-center"><p class="caption">The Neocognitron <span class="citation" data-cites="fukushima_neocognitron_1980">Fukushima (<a href="#/references" role="doc-biblioref" onclick="">1980</a>)</span></p></section>
-<section id="backpropagation" class="slide level2">
-<h2>Backpropagation</h2>
-
-<img data-src="../assets/images/intro/rumelhart_backprop.png" width="600" class="r-stretch quarto-figure-center"><p class="caption">Backpropagation in Neural Networks <span class="citation" data-cites="rumelhart_learning_1986">Rumelhart, Hinton, and Williams (<a href="#/references" role="doc-biblioref" onclick="">1986</a>)</span></p></section>
-<section id="cnns" class="slide level2">
-<h2>CNNs</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/lecun_cnn.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Modern CNN <span class="citation" data-cites="lecun_gradient-based_1998">Lecun et al. (<a href="#/references" role="doc-biblioref" onclick="">1998</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="alexnet" class="slide level2">
-<h2>AlexNet</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/intro/alexnet.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>AlexNet <span class="citation" data-cites="krizhevsky_imagenet_2012">Krizhevsky, Sutskever, and Hinton (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span></figcaption>
-</figure>
-</div>
+<p>Let’s check it out! (on images)</p>
 </section></section>
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-breitenmoser-wursten_projekt_2024" class="csl-entry" role="listitem">
 Breitenmoser-Würsten, Christine, Fridolin Zimmermann, Kristina Vogt, Manuela von Arx, Sven Signe, and Christian Stauffer. 2024. <span>“Das <span>Projekt</span> <span>LUNO</span> - <span>Abschlussbericht</span>.”</span> 121. Stiftung KORA. <a href="https://portal.issn.org/#">https://portal.issn.org/#</a>.
-</div>
-<div id="ref-deng_imagenet_2009" class="csl-entry" role="listitem">
-Deng, Jia, Wei Dong, Richard Socher, Li-Jia Li, Kai Li, and Li Fei-Fei. 2009. <span>“<span>ImageNet</span>: <span>A</span> Large-Scale Hierarchical Image Database.”</span> In <em>2009 <span>IEEE</span> <span>Conference</span> on <span>Computer</span> <span>Vision</span> and <span>Pattern</span> <span>Recognition</span></em>, 248–55. Miami, FL: IEEE. <a href="https://doi.org/10.1109/CVPR.2009.5206848">https://doi.org/10.1109/CVPR.2009.5206848</a>.
-</div>
-<div id="ref-fukushima_neocognitron_1980" class="csl-entry" role="listitem">
-Fukushima, Kunihiko. 1980. <span>“Neocognitron: <span>A</span> Self-Organizing Neural Network Model for a Mechanism of Pattern Recognition Unaffected by Shift in Position.”</span> <em>Biological Cybernetics</em> 36 (4): 193–202. <a href="https://doi.org/10.1007/BF00344251">https://doi.org/10.1007/BF00344251</a>.
 </div>
 <div id="ref-hani_minneapple_2020" class="csl-entry" role="listitem">
 Häni, Nicolai, Pravakar Roy, and Volkan Isler. 2020. <span>“<span>MinneApple</span>: <span>A</span> <span>Benchmark</span> <span>Dataset</span> for <span>Apple</span> <span>Detection</span> and <span>Segmentation</span>.”</span> <em>IEEE Robotics and Automation Letters</em> 5 (2): 852–58. <a href="https://doi.org/10.1109/LRA.2020.2965061">https://doi.org/10.1109/LRA.2020.2965061</a>.
@@ -914,14 +747,8 @@ He, Kaiming, Georgia Gkioxari, Piotr Dollár, and Ross Girshick. 2018. <span>“
 <div id="ref-image_to_image_isola2018" class="csl-entry" role="listitem">
 Isola, Phillip, Jun-Yan Zhu, Tinghui Zhou, and Alexei A. Efros. 2018. <span>“Image-to-<span>Image</span> <span>Translation</span> with <span>Conditional</span> <span>Adversarial</span> <span>Networks</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1611.07004">http://arxiv.org/abs/1611.07004</a>.
 </div>
-<div id="ref-johnson_eecs_2022" class="csl-entry" role="listitem">
-Johnson, Justin. 2022. <span>“<span>EECS</span> 498.008 / 598.008 <span>Deep</span> <span>Learning</span> for <span>Computer</span> <span>Vision</span>.”</span> Lecture {Notes} / {Slides}. <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/">https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/</a>.
-</div>
 <div id="ref-krizhevsky_imagenet_2012" class="csl-entry" role="listitem">
 Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E Hinton. 2012. <span>“<span>ImageNet</span> <span>Classification</span> with <span>Deep</span> <span>Convolutional</span> <span>Neural</span> <span>Networks</span>.”</span> In <em>Advances in <span>Neural</span> <span>Information</span> <span>Processing</span> <span>Systems</span></em>, edited by F. Pereira, C. J. Burges, L. Bottou, and K. Q. Weinberger. Vol. 25. Curran Associates, Inc. <a href="https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf</a>.
-</div>
-<div id="ref-lecun_gradient-based_1998" class="csl-entry" role="listitem">
-Lecun, Y., L. Bottou, Y. Bengio, and P. Haffner. 1998. <span>“Gradient-Based Learning Applied to Document Recognition.”</span> <em>Proceedings of the IEEE</em> 86 (11): 2278–2324. <a href="https://doi.org/10.1109/5.726791">https://doi.org/10.1109/5.726791</a>.
 </div>
 <div id="ref-ma_segment_2024" class="csl-entry" role="listitem">
 Ma, Jun, Yuting He, Feifei Li, Lin Han, Chenyu You, and Bo Wang. 2024. <span>“Segment Anything in Medical Images.”</span> <em>Nature Communications</em> 15 (1): 654. <a href="https://doi.org/10.1038/s41467-024-44824-z">https://doi.org/10.1038/s41467-024-44824-z</a>.
@@ -929,14 +756,8 @@ Ma, Jun, Yuting He, Feifei Li, Lin Han, Chenyu You, and Bo Wang. 2024. <span>“
 <div id="ref-pan_drag_2023" class="csl-entry" role="listitem">
 Pan, Xingang, Ayush Tewari, Thomas Leimkühler, Lingjie Liu, Abhimitra Meka, and Christian Theobalt. 2023. <span>“Drag <span>Your</span> <span>GAN</span>: <span>Interactive</span> <span>Point</span>-Based <span>Manipulation</span> on the <span>Generative</span> <span>Image</span> <span>Manifold</span>.”</span> arXiv. <a href="http://arxiv.org/abs/2305.10973">http://arxiv.org/abs/2305.10973</a>.
 </div>
-<div id="ref-raschka_python_2020" class="csl-entry" role="listitem">
-Raschka, Sebastian, and Vahid Mirjalili. 2020. <em>Python Machine Learning: Machine Learning and Deep Learning with <span>Python</span>, Scikit-Learn, and <span>TensorFlow</span></em>. Second edition, fourth release,[fully revised and updated]. Expert Insight. Birmingham Mumbai: Packt Publishing.
-</div>
 <div id="ref-redmon_you_2016" class="csl-entry" role="listitem">
 Redmon, Joseph, Santosh Divvala, Ross Girshick, and Ali Farhadi. 2016. <span>“You <span>Only</span> <span>Look</span> <span>Once</span>: <span>Unified</span>, <span>Real</span>-<span>Time</span> <span>Object</span> <span>Detection</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1506.02640">http://arxiv.org/abs/1506.02640</a>.
-</div>
-<div id="ref-rumelhart_learning_1986" class="csl-entry" role="listitem">
-Rumelhart, David E., Geoffrey E. Hinton, and Ronald J. Williams. 1986. <span>“Learning Representations by Back-Propagating Errors.”</span> <em>Nature</em> 323 (6088): 533–36. <a href="https://doi.org/10.1038/323533a0">https://doi.org/10.1038/323533a0</a>.
 </div>
 </div>
 

@@ -497,7 +497,7 @@ Marco Willi
 <img data-src="../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section>
 <section id="numpy-example" class="slide level2">
 <h2>Numpy Example</h2>
-<div id="166ad255" class="cell" data-execution_count="1">
+<div id="bac28af4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a>np.random.seed(<span class="dv">123</span>)</span>
@@ -529,7 +529,7 @@ Marco Willi
 <img data-src="../assets/images/frameworks/comp-graph2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Computational Graph</p></section>
 <section id="pytorch-example" class="slide level2">
 <h2>PyTorch Example</h2>
-<div id="b9398bf0" class="cell" data-execution_count="2">
+<div id="fcb65fa6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb3-2"><a></a></span>
 <span id="cb3-3"><a></a>np.random.seed(<span class="dv">123</span>)</span>
@@ -574,7 +574,7 @@ Marco Willi
 <h2>Tensors</h2>
 <p>The central data structure in PyTorch is <a href="https://pytorch.org/docs/stable/tensors.html">torch.Tensor</a>.</p>
 <p>It is very similar to <em>numpy.array</em> but can be easily loaded onto GPUs. Tensors can be created in various ways, for example from lists:</p>
-<div id="5dd4395d" class="cell" data-execution_count="3">
+<div id="29cde7c6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb5-2"><a></a></span>
 <span id="cb5-3"><a></a>data <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>],[<span class="dv">3</span>, <span class="dv">4</span>]]</span>
@@ -584,7 +584,7 @@ Marco Willi
 <section id="autograd" class="slide level2">
 <h2>Autograd</h2>
 <p>With <a href="https://pytorch.org/docs/stable/autograd.html">torch.autograd</a>, gradients can be automatically computed for a <em>computational graph</em>.</p>
-<div id="ec5284c4" class="cell" data-execution_count="4">
+<div id="44cb63ec" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb6-2"><a></a></span>
 <span id="cb6-3"><a></a>x <span class="op">=</span> torch.ones(<span class="dv">5</span>)  <span class="co"># input tensor</span></span>
@@ -603,7 +603,7 @@ Marco Willi
 </section>
 <section id="torch.nn---example" class="slide level2">
 <h2>torch.nn - Example</h2>
-<div id="7522bae4" class="cell" data-execution_count="5">
+<div id="45c290f1" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
 <span id="cb7-2"><a></a></span>
 <span id="cb7-3"><a></a><span class="kw">class</span> NeuralNetwork(nn.Module):</span>
@@ -627,7 +627,7 @@ Marco Willi
 <section id="torch.optim" class="slide level2">
 <h2>torch.optim</h2>
 <p>With <a href="https://pytorch.org/docs/stable/optim.html">torch.optim</a>, model parameters can be optimized using various algorithms.</p>
-<div id="bac0974f" class="cell" data-execution_count="6">
+<div id="50a214cf" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> torch <span class="im">import</span> optim</span>
 <span id="cb8-2"><a></a>optimizer <span class="op">=</span> optim.SGD(model.parameters(), lr<span class="op">=</span><span class="fl">0.01</span>, momentum<span class="op">=</span><span class="fl">0.9</span>)</span>
 <span id="cb8-3"><a></a></span>
@@ -644,7 +644,7 @@ Marco Willi
 <section id="training-loops" class="slide level2">
 <h2>Training Loops</h2>
 <p>A training loop iterates over <em>mini-batches</em> and optimizes the model parameters.</p>
-<div id="dcc5810a" class="cell" data-execution_count="7">
+<div id="f3165255" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="kw">def</span> train_loop(dataloader, model, loss_fn, optimizer):</span>
 <span id="cb9-2"><a></a>    size <span class="op">=</span> <span class="bu">len</span>(dataloader.dataset)</span>
 <span id="cb9-3"><a></a>    <span class="cf">for</span> batch, (X, y) <span class="kw">in</span> <span class="bu">enumerate</span>(dataloader):</span>
@@ -664,7 +664,7 @@ Marco Willi
 </section>
 <section id="training-loops-2" class="slide level2">
 <h2>Training Loops 2</h2>
-<div id="613ad8e9" class="cell" data-execution_count="8">
+<div id="08d194cf" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a>loss_fn <span class="op">=</span> nn.CrossEntropyLoss()</span>
 <span id="cb10-2"><a></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr<span class="op">=</span>learning_rate)</span>
 <span id="cb10-3"><a></a></span>
