@@ -50,36 +50,45 @@ CLIP is pre-trained on a diverse dataset of images and their corresponding textu
 
 Here's a simple example of using CLIP for zero-shot image classification:
 
+
 ```{python}
 #| eval: false
 #| echo: true
-import torch
-import clip
+
+import requests
 from PIL import Image
+from transformers import CLIPModel, CLIPProcessor
 
-# Load the model and the preprocess function
-model, preprocess = clip.load("ViT-B/32")
+# 1) Get Models and Data Pre-Processors
+model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
-# Load an image
-image = preprocess(Image.open("path/to/your/image.jpg")).unsqueeze(0)
+# 2) Define Input Data: Image and Texts
+url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+image = Image.open(requests.get(url, stream=True).raw)
 
-# Define a set of labels
-labels = ["a dog", "a cat", "a car", "a tree"]
+prompt_template = "a photo of a {}"
+classes = ["cat", "dog", "car", "tree"]
+prompts = [prompt_template.format(class_name) for class_name in classes]
 
-# Tokenize the labels
-text = clip.tokenize(labels)
+# 3) Pre-Process Inputs
+inputs = processor(
+    text=prompts,
+    images=image,
+    return_tensors="pt",
+    padding=True,
+)
 
-# Compute the image and text features
+# 4) Forward-Pass
 with torch.no_grad():
-    image_features = model.encode_image(image)
-    text_features = model.encode_text(text)
+    outputs = model(**inputs)
+logits_per_image = outputs.logits_per_image  # this is the image-text similarity score
 
-# Compute the similarity between the image and each label
-similarities = (image_features @ text_features.T).softmax(dim=-1)
-
-# Print the most similar label
-print("Label:", labels[similarities.argmax().item()])
+# 5) Find most likely label
+probs = logits_per_image.softmax(dim=1)
+print("Label:", classes[probs.argmax().item()])
 ```
+
 
 # Multi-Modal Models: An Example of Visual Question Answering
 

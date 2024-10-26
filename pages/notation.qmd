@@ -1,4 +1,7 @@
-# Notation
+---
+title: "Mathematical Notation"
+---
+
 
 <!---
 https://www.overleaf.com/learn/latex/Mathematical_fonts
@@ -82,4 +85,4 @@ $$
 
 | Syntax    | Description                |
 |-----------|----------------------------|
-| NCHW | The input format of images in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width|
+| NCHW | The input format of images and activations in PyTorch. N: number of images (batch size), C: number of channels, H: height, W: width|

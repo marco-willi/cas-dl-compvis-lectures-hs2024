@@ -1,0 +1,215 @@
+---
+title: "Image Classification"
+params:
+   images_path: "/assets/images/classification/"
+---
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+## Overview
+
+- Introduction
+- Modeling
+- Loss Function
+- Architectures
+
+# Introduction
+
+## Adversarial Panda
+
+![Source: @goodfellow_explaining_2015]({{< meta params.images_path >}}adversarial_panda.jpg){width=40%}
+
+## Adversarial Panda
+
+![Source: @goodfellow_explaining_2015]({{< meta params.images_path >}}adversarial_panda2.jpg){width=80%}
+
+## Image Classification
+
+![Example of Image Classification.]({{< meta params.images_path >}}classification_illustration.jpg){width=100% height=70%}
+
+## Image Classification: Example
+
+![Example of Image Classification (from @krizhevsky_imagenet_2012).]({{< meta params.images_path >}}image_classification_example.png){width=100% height=70%}
+
+## Image Classification: Camera Traps
+
+![Example images from camera traps.]({{< meta params.images_path >}}camera_traps.png){width=100% height=70%}
+
+# Modeling
+
+## Parametric Approach
+
+With a parametric approach, we seek a model of the following form:
+
+\begin{equation}
+    \hat{y}^{(i)} = f(\theta, \mathbf{x}^{(i)})
+\end{equation}
+
+The model parameters $\theta$ define our model and must be learned with an algorithm.
+
+## Softmax Classifier
+
+We want to model the following probability:
+
+\begin{equation}
+    P(Y=\mathbf{y}^{(i)}| X = \mathbf{x}^{(i)})
+\end{equation}
+
+To obtain a valid probability distribution, the untransformed outputs $\mathbf{z}$, also called logits, of a model are transformed with the Softmax function $\sigma(\mathbf{z})$.
+
+## Softmax Transformation
+
+\begin{equation}
+    P(Y = k| X = \mathbf{x}^{(i)}) = \sigma(\mathbf{z})_k = \frac{e^{z_k}}{\sum_i^K e^{z_i}}
+\end{equation}
+
+## Logits to Probabilities
+
+![Logits (left) to probabilities with the Softmax function.]({{< meta params.images_path >}}logits_softmax.png){width=100% height=70%}
+
+## Probabilities
+
+![Image classifier with confidences.]({{< meta params.images_path >}}confidences.jpg){width=80%}
+
+# Loss Function
+
+## Likelihood
+
+The likelihood of a data point:
+
+\begin{equation}
+    P(Y=y^{(i)}| X = \mathbf{x}^{(i)}) = f(\theta, \mathbf{x}^{(i)})
+\end{equation}
+
+This is the modeled probability for the actually observed class $y^{(i)}$.
+
+## Likelihood for Multi-Class Classification
+
+The likelihood of a data point for multi-class classification:
+
+\begin{equation}
+    \prod_{j=1}^K P(Y = j| X = \mathbf{x}^{(i)})^{y^{(i)}_j}
+\end{equation}
+
+Where $y^{(i)} \in \mathbb{R}^{K}$ is a one-hot encoded vector, with the $1$ at the true class.
+
+## Maximum Likelihood
+
+The likelihood of an entire dataset:
+
+\begin{equation}
+    \prod_{i=1}^N \prod_{j=1}^K P(Y = j| X = \mathbf{x}^{(i)})^{y^{(i)}_j}
+\end{equation}
+
+Under the maximum likelihood approach, we seek the parameters $\theta$ that maximize the likelihood of observing the dataset.
+
+## Negative Log-Likelihood
+
+Equivalently, we can minimize the negative log likelihood:
+
+\begin{align}
+    L(\mathbf{X}, \mathbf{y}, \theta) =& - \log \prod_{i=1}^N \prod_{j=1}^K  P(Y = j| X = \mathbf{x}^{(i)})^{y^{(i)}_j} \\
+    L(\mathbf{X}, \mathbf{y}, \theta) =& -\sum_{i=1}^N \sum_{j=1}^K y^{(i)}_j \log  P(Y = j| X = \mathbf{x}^{(i)})
+\end{align}
+
+## Cross-Entropy
+
+The loss function derived with maximum likelihood can also be viewed from the perspective of cross-entropy between two discrete probability distributions.
+
+\begin{align}
+    CE = - \sum_{x \in X} p(x) \log q(x) \\
+    CE = - \sum_{i=1}^N \sum_{j=1}^K y_j^{(i)} \log \hat{y}_j^{(i)}
+\end{align}
+
+## Cross-Entropy
+
+![True distribution (left) and predicted distribution (right).]({{< meta params.images_path >}}cross_entropy.png){width=100% height=70%}
+
+# Architectures
+
+## AlexNet
+
+![AlexNet @krizhevsky_imagenet_2012]({{< meta params.images_path >}}alexnet.png){width=100% height=70%}
+
+## AlexNet
+
+![AlexNet @llamas_classification_2017]({{< meta params.images_path >}}alexnet2.png){width=100% height=70%}
+
+## AlexNet: Table
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}alexnet_table.jpg){width=100% height=70%}
+
+## VGG
+
+![VGG @simonyan_very_2015]({{< meta params.images_path >}}vgg.png){width=100% height=70%}
+
+## VGG
+
+![Source: [Link](https://en.everybodywiki.com/File:VGG_structure.jpg)]({{< meta params.images_path >}}VGG_structure.jpg){width=100% height=70%}
+
+## VGG
+
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}vgg_design.jpg){width=100% height=70%}
+
+## ResNet
+
+![Source: @He2016]({{< meta params.images_path >}}resnet_test_error.jpg){width=100% height=70%}
+
+## ResNet
+
+![Source: @He2016]({{< meta params.images_path >}}resnet_train_error.jpg){width=100% height=70%}
+
+## ResNet
+
+![ResNet @He2016 (Image from @johnson_eecs_2019)]({{< meta params.images_path >}}residual_connection.jpg){width=100% height=70%}
+
+## ResNet
+
+![From @He2016]({{< meta params.images_path >}}resnet_arch_horiz.png){width=100% height=70%}
+
+## ResNet
+
+![From @li_visualizing_2018]({{< meta params.images_path >}}loss_landscape_skip.png){width=100% height=70%}
+
+## ConvNext
+
+![ConvNext @liu_convnet_2022]({{< meta params.images_path >}}convnext.png){width=100% height=70%}
+
+## ImageNet Performance
+
+![Image from @johnson_eecs_2019]({{< meta params.images_path >}}image_net_performance.jpg){width=100% height=70%}
+
+## Choosing the Architecture
+
+Don't be a hero!
+
+Typically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets.
+
+## Squeeze / Excite Networks
+
+![From @hu_squeeze-and-excitation_2019]({{< meta params.images_path >}}se_networks.png){width=100% height=70%}
+
+## Normalization Layers
+
+![Source: @qiao_micro-batch_2020]({{< meta params.images_path >}}normalization.png){width=100% height=70%}
+
+## Pre-Processing
+
+- Resizing / Cropping to a fixed size
+- Scaling: from the range [0, 255] to the range [0, 1]
+- Normalization: Often normalized along the color channels
+
+[PyTorch Examples](https://github.com/pytorch/vision/blob/main/torchvision/transforms/_presets.py)
+
+## Transfer Learning
+
+Transfer learning refers to the process of adapting a trained model that models Task A to Task B. Adapting pre-trained models often leads to better results and also reduces the number of training iterations.
+
+# References
+
+::: {#refs}
+:::

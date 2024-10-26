@@ -60,6 +60,8 @@ website:
         contents:
           - slides_cas/intro.qmd
           - slides_cas/cnns.qmd
+          - slides_cas/image_classification.qmd
+          - slides_cas/practical.qmd
           - slides_cas/foundation_models.qmd
       # - section: Slides bverI
       #   contents:

@@ -12,17 +12,17 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 [CAS Page](https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning)
 
 
-# Lernziele
+## Lernziele
 
-- Bildklassifikation vertieft verstehen
-- Methoden implementieren, anwenden und interpretieren können
+- Convolutional Neural Networks verstehen, implementieren und trainieren können
+- Bildklassifikation vertieft verstehen und systematisch umsetzen können
 - Mit Deep Learning Frameworks umgehen und Libraries verwenden können
-- Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können
+- Praktische Anwendung vorstellen und erklären können
 
-# Inhalte
+## Inhalte
 
 
-##  Grundlagen Convolutional Neural Networks (Tag 1)
+### Tag 1 -  Grundlagen Convolutional Neural Networks
 
 | Zeit | Thema |
 |------|--------|
@@ -34,7 +34,7 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 |13:00 - 16:30	| Übung: CNNs für Bildklassifikation
 
 
-## Bildklassifikation und Anwendungen (Tag 2)
+### Tag 2 -  Bildklassifikation und Anwendungen
 
 | Zeit | Thema |
 |------|--------|
