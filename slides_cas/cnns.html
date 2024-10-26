@@ -460,12 +460,20 @@ Marco Willi
 <li>Stability under transformations: Interpretation of an image does not change under many geomoetric transformations.</li>
 </ul>
 
-<img data-src="../assets/images/cnns/cows2_small.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://unsplash.com/de/fotos/braune-schafe-auf-grunem-grasfeld-tagsuber-olonUwUrmQk">Image Source</a></p><p><strong>How does a Multilayer-Perceptron handle images?</strong></p>
-</section>
+<img data-src="../assets/images/cnns/cows2_small.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://unsplash.com/de/fotos/braune-schafe-auf-grunem-grasfeld-tagsuber-olonUwUrmQk">Image Source</a></p></section>
 <section id="multilayer-perceptron-and-images" class="slide level2">
 <h2>Multilayer-Perceptron and Images</h2>
+<div class="fragment highlight-red">
+<p>How does a Multilayer-Perceptron handle images?</p>
+</div>
+</section>
+<section id="multilayer-perceptron-and-images-1" class="slide level2">
+<h2>Multilayer-Perceptron and Images</h2>
 
-<img data-src="../assets/images/cnns/mlp_images_example.png" class="r-stretch quarto-figure-center"><p class="caption">MLP on example image.</p></section>
+<img data-src="../assets/images/cnns/mlp_images_example.png" class="r-stretch quarto-figure-center"><p class="caption">MLP on example image.</p><div class="fragment">
+<p>MLPs deal with flat inputs: The spatial structure gets lost.</p>
+</div>
+</section>
 <section id="multilayer-perceptrons-and-high-dimensional-inputs" class="slide level2">
 <h2>Multilayer-Perceptrons and High-Dimensional Inputs</h2>
 
@@ -484,7 +492,9 @@ Marco Willi
 <section id="multilayer-perceptrons-and-pattern-learning-2" class="slide level2">
 <h2>Multilayer-Perceptrons and Pattern Learning</h2>
 
-<img data-src="../assets/images/cnns/mlp_images_examples_permutation.png" class="r-stretch quarto-figure-center"><p class="caption">MLP on example image.</p><p>Can an MLP successfully learn patterns in images <span class="math inline">\(\mathbf{x}\)</span> that are permuted with a permutation matrix <span class="math inline">\(\mathbf{P}\)</span>, i.e.&nbsp;<span class="math inline">\(f(P(\mathbf{x}))\)</span>?</p>
+<img data-src="../assets/images/cnns/mlp_images_examples_permutation.png" class="r-stretch quarto-figure-center"><p class="caption">MLP on example image.</p><div class="fragment highlight-red">
+<p>Can an MLP successfully learn patterns in images <span class="math inline">\(\mathbf{x}\)</span> that are permuted with a permutation matrix <span class="math inline">\(\mathbf{P}\)</span>, i.e.&nbsp;<span class="math inline">\(f(P(\mathbf{x}))\)</span>?</p>
+</div>
 </section>
 <section id="multilayer-perceptrons-and-pattern-learning-3" class="slide level2">
 <h2>Multilayer-Perceptrons and Pattern Learning</h2>
@@ -494,10 +504,10 @@ Marco Willi
 <section id="multilayer-perceptrons-and-translations" class="slide level2">
 <h2>Multilayer-Perceptrons and Translations</h2>
 
-<img data-src="../assets/images/cnns/mlp_images_example_pattern_shifts.png" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;7
-</p><p>Often the patterns we want to learn are not spatially constraint. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g.&nbsp;<span class="math inline">\(g(\mathbf{x})\)</span> where <span class="math inline">\(g()\)</span> is a spatial translation.</p>
+<img data-src="../assets/images/cnns/mlp_images_example_pattern_shifts.png" class="r-stretch quarto-figure-center"><p class="caption">MLP and pattern shifts</p><p>Often the patterns we want to learn are not spatially constraint. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g.&nbsp;<span class="math inline">\(g(\mathbf{x})\)</span> where <span class="math inline">\(g()\)</span> is a spatial translation.</p>
+<div class="fragment highlight-red">
 <p><strong>How do MLPs deal with this?</strong></p>
+</div>
 </section>
 <section id="mlp-and-images" class="slide level2">
 <h2>MLP and Images</h2>
@@ -513,19 +523,25 @@ Figure&nbsp;8
 <li>Locality: MLPs have no notion of locality and thus can’t exploit this inherent bias in natural images.</li>
 <li>Stability under transformations: MLPs need to learn position-dependent patterns which is very inefficient.</li>
 </ul>
+<div class="fragment">
 <p><strong>What do we need?</strong></p>
+</div>
 </section>
 <section id="invariance-and-equivariance" class="slide level2">
 <h2>Invariance and Equivariance</h2>
 <p>For many tasks small variations in the input should either <strong>not</strong> change the model output (invariance) or should change the output <strong>in tandem</strong> with the input changes (equivariance).</p>
-<p>A function <span class="math inline">\(f(\mathbf{x})\)</span> (such as a layer in a neural network) of an image <span class="math inline">\(\mathbf{x}\)</span> is <strong>equivariant</strong> with respect to a transformation <span class="math inline">\(g(\mathbf{\mathbf{x}})\)</span> if:</p>
-<p><span class="math display">\[\begin{align}
-f(g(\mathbf{x})) = g(f(\mathbf{x}))
-\end{align}\]</span></p>
+<div class="fragment">
 <p>A function <span class="math inline">\(f(\mathbf{x})\)</span> is <strong>invariant</strong> to a transformation <span class="math inline">\(g(\mathbf{x})\)</span> if:</p>
 <p><span class="math display">\[\begin{align}
 f(g(\mathbf{x})) = f(\mathbf{x})
 \end{align}\]</span></p>
+</div>
+<div class="fragment">
+<p>A function <span class="math inline">\(f(\mathbf{x})\)</span> (such as a layer in a neural network) of an image <span class="math inline">\(\mathbf{x}\)</span> is <strong>equivariant</strong> with respect to a transformation <span class="math inline">\(g(\mathbf{\mathbf{x}})\)</span> if:</p>
+<p><span class="math display">\[\begin{align}
+f(g(\mathbf{x})) = g(f(\mathbf{x}))
+\end{align}\]</span></p>
+</div>
 </section>
 <section id="example-invariance" class="slide level2">
 <h2>Example Invariance</h2>
@@ -545,7 +561,7 @@ f(g(\mathbf{x})) = f(\mathbf{x})
 <section id="biological-inspiration" class="slide level2">
 <h2>Biological Inspiration</h2>
 
-<img data-src="../assets/images/cnns/connected_neurons.png" class="r-stretch quarto-figure-center"><p class="caption">Schematische Darstellung von verbundenen Neuronen. Source: <span class="citation" data-cites="phillips_speed_2015">Phillips (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></p></section>
+<img data-src="../assets/images/cnns/connected_neurons.png" class="r-stretch quarto-figure-center"><p class="caption">Schmatic illustration of connected neurons. Source: <span class="citation" data-cites="phillips_speed_2015">Phillips (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span></p></section>
 <section id="experiments-on-cats" class="slide level2">
 <h2>Experiments on Cats</h2>
 
@@ -558,9 +574,6 @@ f(g(\mathbf{x})) = f(\mathbf{x})
 <h2>CNNs</h2>
 
 <img data-src="../assets/images/cnns/convnet.jpeg" class="r-stretch quarto-figure-center"><p class="caption">The activations of a ConvNet architecture. The input image is on the left, and the predictions are on the right. Source: <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p></section>
-<section id="convolutional-layers" class="slide level2">
-<h2>Convolutional Layers</h2>
-</section>
 <section id="convolution-operation" class="slide level2">
 <h2>Convolution Operation</h2>
 <p>Convolution in Deep Learning is typically implemented as cross-correlation.</p>
@@ -568,13 +581,9 @@ f(g(\mathbf{x})) = f(\mathbf{x})
 S(i, j) = (K * I)(i, j) = b + \sum_m \sum_n I(i + m, j + n) K(m, n)
 \end{equation}\]</span></p>
 <p><span class="math inline">\(I\)</span> is the input (for example an image), <span class="math inline">\(K\)</span> is the kernel (typically smaller than <span class="math inline">\(I\)</span>) and <span class="math inline">\(b\)</span> is a bias term which is being added to the weighted sum.</p>
-<p>If <span class="math inline">\(I\)</span> is an RGB image (in the first layer of a CNN for example), the kernel <span class="math inline">\(K\)</span> would have dimensionality <span class="math inline">\(3 \times K \times K\)</span> (assuming a square kernel). More generally we learn kernels of the dimensionality <span class="math inline">\(\C_{in} \times K \times K\)</span>.</p>
-<p>Multiple kernels, let’s say $<span class="math inline">\(C_o\)</span> kernels, can be grouped together: <span class="math inline">\(C_o \times C_{in} \times K \times K\)</span>.</p>
-<p>We often referr to such tensors as filters or filter banks.</p>
-</section>
-<section id="convolution-on-rgb-images" class="slide level2">
-<h2>Convolution on RGB Images</h2>
-
+<p>If <span class="math inline">\(I\)</span> is an RGB image (in the first layer of a CNN for example), the kernel <span class="math inline">\(K\)</span> would have dimensionality <span class="math inline">\(3 \times K \times K\)</span> (assuming a square kernel). More generally we learn kernels of the dimensionality <span class="math inline">\(C_{in} \times K \times K\)</span>.</p>
+<p>Multiple kernels, let’s say <span class="math inline">\(C_o\)</span> kernels, can be grouped together: <span class="math inline">\(C_o \times C_{in} \times K \times K\)</span>.</p>
+<p>We often refer to such tensors as filters or filter banks.</p>
 <!-- ## Convolution on rGB Images
 
 ::: {#fig-cnns-intro-example}
@@ -582,102 +591,79 @@ S(i, j) = (K * I)(i, j) = b + \sum_m \sum_n I(i + m, j + n) K(m, n)
 ![Illustration Convolution. Source:  @prince_understanding_2023](/assets/images/cnns/convolution_prince_example.png)
 
 :::  -->
-<img data-src="../assets/images/cnns/convolution_prince_rgb.png" class="r-stretch quarto-figure-center"><p class="caption">A 2D convolution applied to an image. Illustrated is the element-wise multiplication of the kernel weights <span class="math inline">\(\Omega\)</span> with the corresponding RGB input values at a specific position. Source: <span class="citation" data-cites="prince_understanding_2023">Prince (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></p></section>
+</section>
+<section id="convolutional-layers" class="slide level2">
+<h2>Convolutional Layers</h2>
+
+<img data-src="../assets/images/cnns/cnn_conv_one_number.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></section>
 <section id="convolutional-layers-1" class="slide level2">
 <h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/cnn_conv_one_number.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
+
+<img data-src="../assets/images/cnns/conv_activation_map.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></section>
 <section id="convolutional-layers-2" class="slide level2">
 <h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/conv_activation_map.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
+
+<img data-src="../assets/images/cnns/conv_activation_map2.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></section>
 <section id="convolutional-layers-3" class="slide level2">
 <h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/conv_activation_map2.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
+
+<img data-src="../assets/images/cnns/conv_activation_map3.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></section>
 <section id="convolutional-layers-4" class="slide level2">
 <h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/conv_activation_map3.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="convolutional-layers-5" class="slide level2">
-<h2>Convolutional Layers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/conv_activation_map4.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="hyper-parameters" class="slide level2">
-<h2>Hyper-Parameters</h2>
-<p>Convolutional Layers are parameterized:</p>
+
+<img data-src="../assets/images/cnns/conv_activation_map4.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></section>
+<section id="convolution-on-rgb-images" class="slide level2">
+<h2>Convolution on RGB Images</h2>
+
+<img data-src="../assets/images/cnns/convolution_prince_rgb.png" class="r-stretch quarto-figure-center"><p class="caption">A 2D convolution applied to an image. Illustrated is the element-wise multiplication of the kernel weights <span class="math inline">\(\Omega\)</span> with the corresponding RGB input values at a specific position. Source: <span class="citation" data-cites="prince_understanding_2023">Prince (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></p></section>
+<section id="padding-stride-kernel-size-dilation" class="slide level2">
+<h2>Padding, Stride, Kernel Size, Dilation</h2>
+<p>There are several options to parameterise a convolution.</p>
+<div>
 <ul>
-<li>Depth: How many activation maps?</li>
-<li>Padding: How much padding is added to the input?</li>
-<li>Stride: What is the step size of the convolution?</li>
-<li>Kernel-Size: What is the kernel size?</li>
+<li class="fragment">Padding: How much padding is added to the input?</li>
+<li class="fragment">Stride: What is the step size (stride) of the kernel?</li>
+<li class="fragment">Kernel-Size: What is the kernel size?</li>
+<li class="fragment">Dilation: What is the dilation rate?</li>
 </ul>
-</section>
-<section id="padding-why" class="slide level2">
-<h2>Padding: Why?</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/padding_issue.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
 </div>
 </section>
 <section id="padding" class="slide level2">
 <h2>Padding</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/padding.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.</figcaption>
-</figure>
-</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="../assets/images/cnns/padding_input_activations_5x5.jpg"> What is the output dimensionality of convolving a 3x3 kernel?</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../assets/images/cnns/padding_input_activations_5x5_with_zero_padding.jpg"> What is the output dimensionality with zero-padding?</p>
+</div></div>
+<!-- ![Source: @johnson_eecs_2019](/assets/images/cnns/padding_issue.jpg){width=100% height=70%} -->
 </section>
 <section id="padding-1" class="slide level2">
 <h2>Padding</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/padding.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.</figcaption>
-</figure>
-</div>
+
+<img data-src="../assets/images/cnns/padding_example_result.jpg" class="r-stretch quarto-figure-center"><p class="caption">Left: Input (Yellow) with Zero-Padding (white border), Middle: Filter, Right: Output.</p></section>
+<section id="stride" class="slide level2">
+<h2>Stride</h2>
+
+<img data-src="../assets/images/cnns/stride1_example.jpg" class="r-stretch quarto-figure-center"><p class="caption">Convolution with stride (1, 1)</p><p>The kernel is shifted by 1 pixel before each new computation.</p>
 </section>
-<section id="padding-and-stride" class="slide level2">
-<h2>Padding and Stride</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/stride_and_padding.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Stride with Padding. Red indicates the position of the corresponding filter value on the input activations.</figcaption>
-</figure>
-</div>
+<section id="stride-1" class="slide level2">
+<h2>Stride</h2>
+
+<img data-src="../assets/images/cnns/stride2_example.jpg" class="r-stretch quarto-figure-center"><p class="caption">Convolution with stride (1, 1)</p><p>The kernel is shifted by 2 pixel before each new computation.</p>
 </section>
-<section id="padding-and-stride-animations" class="slide level2">
-<h2>Padding and Stride: Animations</h2>
-<p><span class="citation" data-cites="dumoulin_guide_2016">Dumoulin and Visin (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span> has created some animations to better understand convolutions, available here: <a href="../assets/images/cnns/https://github.com/vdumoulin/conv_arithmetic">Link</a>.</p>
-</section>
+<section id="kernel-size" class="slide level2">
+<h2>Kernel-Size</h2>
+
+<img data-src="../assets/images/cnns/kernel_size_example_3x3.jpg" class="r-stretch"></section>
+<section id="kernel-size-1" class="slide level2">
+<h2>Kernel-Size</h2>
+
+<img data-src="../assets/images/cnns/kernel_size_example_5x5.jpg" class="r-stretch"></section>
+<section id="dilation" class="slide level2">
+<h2>Dilation</h2>
+
+<img data-src="../assets/images/cnns/dilation_example.jpg" class="r-stretch"></section>
 <section id="calculations" class="slide level2">
 <h2>Calculations</h2>
 <p>You can calculate the dimensionality of the activation maps with the following formulas:</p>
@@ -687,15 +673,14 @@ S(i, j) = (K * I)(i, j) = b + \sum_m \sum_n I(i + m, j + n) K(m, n)
 <li><span class="math inline">\(o\)</span>: Side length of the output activation maps</li>
 <li><span class="math inline">\(s\)</span>: Stride (assumption: same stride along spatial dimensions)</li>
 <li><span class="math inline">\(p\)</span>: Number of paddings on each side (assumption: same number of paddings along spatial dimensions)</li>
+<li><span class="math inline">\(d\)</span>: Dilation rate.</li>
 </ul>
-</section>
-<section id="calculations-1" class="slide level2">
-<h2>Calculations</h2>
-<p>This formula covers all scenarios!</p>
-<p><strong>Size of Activation Map</strong></p>
+<div class="fragment">
 <p><span class="math display">\[\begin{equation}
-o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+o = \left\lfloor \frac{i + 2p - k-(k-1)(d-1)}{s} \right\rfloor + 1
 \end{equation}\]</span></p>
+<p>Note: If dilation is 1 <span class="math inline">\((k-1)(d-1)\)</span> equals 0.</p>
+</div>
 </section>
 <section id="quiz" class="slide level2">
 <h2>Quiz</h2>
@@ -706,11 +691,27 @@ o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
 </ul>
 <p>What is the size of the activation map?</p>
 <p>How many weights are there?</p>
-<p><strong>Size of Activation Map</strong></p>
+<div class="fragment">
 <p><span class="math display">\[\begin{equation}
-o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+o = \left\lfloor \frac{i + 2p - k-(k-1)(d-1)}{s} \right\rfloor + 1
 \end{equation}\]</span></p>
-</section></section>
+</div>
+</section>
+<section id="downsampling" class="slide level2">
+<h2>Downsampling</h2>
+<p>Spatial downsampling is often a desired property of convolutional layers. We can achieve that by choosing a stride <span class="math inline">\(\gt 1\)</span>.</p>
+<p>However, there are other options, such as pooling layers.</p>
+
+<img data-src="../assets/images/cnns/downsampling_with_pooling.jpg" class="r-stretch quarto-figure-center"><p class="caption">a) Sub-Sampling, b) Max Pooling, c) Average Pooling . Source: <span class="citation" data-cites="prince_understanding_2023">Prince (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></p></section>
+<section id="upsampling" class="slide level2">
+<h2>Upsampling</h2>
+<p>Sometimes we need to increase the spatial dimensionality of our activation maps.</p>
+
+<img data-src="../assets/images/cnns/upsampling_options.jpg" class="r-stretch quarto-figure-center"><p class="caption">a) Duplicate, b) Max-Unpooling, c) Bilinear Interpolation . Source: <span class="citation" data-cites="prince_understanding_2023">Prince (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></p></section>
+<section id="upsampling-with-transposed-convolutions" class="slide level2">
+<h2>Upsampling with Transposed Convolutions</h2>
+
+<img data-src="../assets/images/cnns/transposed_convolution.jpg" class="r-stretch"></section></section>
 <section>
 <section id="properties" class="title-slide slide level1 center">
 <h1>Properties</h1>
@@ -727,7 +728,7 @@ o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
 </section>
 <section id="mlp-parameters" class="slide level2">
 <h2>MLP Parameters</h2>
-<div id="49a2b686" class="cell" data-execution_count="1">
+<div id="cb2cdc63" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb1-3"><a></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
@@ -776,7 +777,7 @@ Estimated Total Size (MB): 0.81
 </section>
 <section id="cnn-parameters" class="slide level2">
 <h2>CNN Parameters</h2>
-<div id="ae5e0c2a" class="cell" data-execution_count="2">
+<div id="d404834d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">import</span> torch</span>
 <span id="cb3-2"><a></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb3-3"><a></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
@@ -852,128 +853,73 @@ Estimated Total Size (MB): 0.11
 </section>
 <section id="receptive-field" class="slide level2">
 <h2>Receptive Field</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/receptive_field.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section>
+
+<img data-src="../assets/images/cnns/receptive_field1.jpg" class="r-stretch"></section>
 <section id="receptive-field-1" class="slide level2">
 <h2>Receptive Field</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/receptive_field2.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</section></section>
+
+<img data-src="../assets/images/cnns/receptive_field2.jpg" class="r-stretch"></section>
+<section id="receptive-field-2" class="slide level2">
+<h2>Receptive Field</h2>
+
+<img data-src="../assets/images/cnns/receptive_field3.jpg" class="r-stretch"></section>
+<section id="receptive-field-3" class="slide level2">
+<h2>Receptive Field</h2>
+
+<img data-src="../assets/images/cnns/receptive_field4.jpg" class="r-stretch"></section></section>
 <section>
 <section id="variants-and-layers" class="title-slide slide level1 center">
 <h1>Variants and Layers</h1>
 
 </section>
-<section id="dilated-convolutions" class="slide level2">
-<h2>Dilated Convolutions</h2>
-
-<img data-src="../assets/images/cnns/dilation1.png" class="r-stretch quarto-figure-center"><p class="caption">Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1.</p></section>
-<section id="dilated-convolutions-1" class="slide level2">
-<h2>Dilated Convolutions</h2>
-
-<img data-src="../assets/images/cnns/dilation2.png" class="r-stretch quarto-figure-center"><p class="caption">Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2.</p></section>
 <section id="x1-convolutions" class="slide level2">
 <h2>1x1 Convolutions</h2>
-<div id="fig-cnn-1x1" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-cnn-1x1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/1x1_conv.jpg" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="johnson_eecs_2019">Johnson (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></figcaption>
-</figure>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cnn-1x1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;18
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="depthwise-separable-convolutions" class="slide level2">
-<h2>Depthwise Separable Convolutions</h2>
-<div id="fig-cnn-depthwise-separable" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-cnn-depthwise-separable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/depthwise.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <a href="../assets/images/cnns/https://paperswithcode.com/method/depthwise-convolution">https://paperswithcode.com/method/depthwise-convolution</a></figcaption>
-</figure>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cnn-depthwise-separable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;19
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="depthwise-separable-convolutions-1" class="slide level2">
-<h2>Depthwise Separable Convolutions</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/depthwise_separabel.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Source: <span class="citation" data-cites="yu_multi-scale_2016">Yu and Koltun (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span></figcaption>
-</figure>
-</div>
-</section>
-<section id="pooling-layers" class="slide level2">
-<h2>Pooling Layers</h2>
+<!-- ::: {#fig-cnn-1x1}
 
-<img data-src="../assets/images/cnns/pool.jpeg" width="300" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="li_cs231n_2022">Li (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p></section>
-<section id="max-pooling" class="slide level2">
-<h2>Max Pooling</h2>
+![Source: @johnson_eecs_2019](/assets/images/cnns/1x1_conv.jpg){width=100% height=70%}
 
-<img data-src="../assets/images/cnns/max_pooling.png" class="r-stretch quarto-figure-center"><p class="caption">Max pooling, input (left) and output (right).</p></section>
-<section id="average-pooling" class="slide level2">
-<h2>Average Pooling</h2>
-<div id="fig-cnn-avg-pooling" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-cnn-avg-pooling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/average_pooling.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Average pooling, input (left) and output (right).</figcaption>
-</figure>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cnn-avg-pooling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;21
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="other-pooling-layers" class="slide level2">
-<h2>Other Pooling Layers</h2>
-<p><strong>Global Average Pooling</strong> is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.</p>
-</section>
+::: -->
+
+<!-- ## Depthwise Separable Convolutions
+
+::: {#fig-cnn-depthwise-separable}
+![Source: [https://paperswithcode.com/method/depthwise-convolution](/assets/images/cnns/https://paperswithcode.com/method/depthwise-convolution)](/assets/images/cnns/depthwise.png){width=100% height=70%}
+
+:::
+
+## Depthwise Separable Convolutions
+
+![Source: @yu_multi-scale_2016](/assets/images/cnns/depthwise_separabel.png){width=100% height=70%}
+ -->
+<!-- 
+## Pooling Layers
+
+![Source: @li_cs231n_2022](/assets/images/cnns/pool.jpeg){width=300px}
+
+
+## Max Pooling
+
+::: {#fig-cnn-max-pooling}
+
+![Max pooling, input (left) and output (right).](/assets/images/cnns/max_pooling.png)
+:::
+
+## Average Pooling
+
+::: {#fig-cnn-avg-pooling}
+
+![Average pooling, input (left) and output (right).](/assets/images/cnns/average_pooling.png){width=100% height=70%}
+
+::: -->
+<!-- ## Other Pooling Layers
+
+**Global Average Pooling** is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers. -->
+<img data-src="../assets/images/cnns/1x1_conv_example.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="prince_understanding_2023e">(<a href="#/references" role="doc-biblioref" onclick=""><strong>prince_understanding_2023e?</strong></a>)</span></p></section>
 <section id="global-average-pooling" class="slide level2">
 <h2>Global Average Pooling</h2>
-<div id="fig-cnn-global-avg-pooling" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-cnn-global-avg-pooling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../assets/images/cnns/global_average_pooling.png" style="width:100.0%;height:70.0%"></p>
-<figcaption>Global Average pooling, input (left) and output (right).</figcaption>
-</figure>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cnn-global-avg-pooling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;22
-</figcaption>
-</figure>
-</div>
-</section></section>
+<p>Global Average Pooling is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.</p>
+
+<img data-src="../assets/images/cnns/global_average_pooling.png" class="r-stretch quarto-figure-center"><p class="caption">Global Average pooling, input (left) and output (right).</p></section></section>
 <section>
 <section id="visualizations-and-architectures" class="title-slide slide level1 center">
 <h1>Visualizations and Architectures</h1>
@@ -991,9 +937,6 @@ Figure&nbsp;22
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-dumoulin_guide_2016" class="csl-entry" role="listitem">
-Dumoulin, Vincent, and Francesco Visin. 2016. <span>“A Guide to Convolution Arithmetic for Deep Learning.”</span> <em>ArXiv e-Prints</em>, March.
-</div>
 <div id="ref-johnson_eecs_2019" class="csl-entry" role="listitem">
 Johnson, Justin. 2019. <span>“<span>EECS</span> 498-007 / 598-005: <span>Deep</span> <span>Learning</span> for <span>Computer</span> <span>Vision</span>.”</span> Lecture {Notes} / {Slides}. <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/">https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/</a>.
 </div>
@@ -1011,9 +954,6 @@ Phillips, Devin K. 2015. <span>“Speed of the <span>Human</span> <span>Brain</s
 </div>
 <div id="ref-prince_understanding_2023" class="csl-entry" role="listitem">
 Prince, Simon J. D. 2023. <em>Understanding <span>Deep</span> <span>Learning</span></em>. MIT Press. <a href="https://udlbook.github.io/udlbook/">https://udlbook.github.io/udlbook/</a>.
-</div>
-<div id="ref-yu_multi-scale_2016" class="csl-entry" role="listitem">
-Yu, Fisher, and Vladlen Koltun. 2016. <span>“Multi-<span>Scale</span> <span>Context</span> <span>Aggregation</span> by <span>Dilated</span> <span>Convolutions</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1511.07122">http://arxiv.org/abs/1511.07122</a>.
 </div>
 </div>
 

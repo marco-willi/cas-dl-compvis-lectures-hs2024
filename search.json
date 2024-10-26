@@ -4,14 +4,14 @@
     "href": "pages/frameworks.html",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "",
-    "text": "There are a variety of Deep Learning frameworks. These frameworks allow for easy configuration, training, and deploying of neural networks. They are often developed via Python API. Figure 1 shows some frameworks.\n\n\n\n\n\n\nFigure 1: Frameworks (from Li (2022)).\n\n\n\nKey features of such frameworks are:\n\nFast development and testing of neural networks\nAutomatic differentiation of operations\nEfficient execution on diverse hardware\n\n\n\nAt the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f47c712bfd0&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device"
+    "text": "There are a variety of Deep Learning frameworks. These frameworks allow for easy configuration, training, and deploying of neural networks. They are often developed via Python API. Figure 1 shows some frameworks.\n\n\n\n\n\n\nFigure 1: Frameworks (from Li (2022)).\n\n\n\nKey features of such frameworks are:\n\nFast development and testing of neural networks\nAutomatic differentiation of operations\nEfficient execution on diverse hardware\n\n\n\nAt the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f08b7b2f1d0&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device"
   },
   {
     "objectID": "pages/frameworks.html#computational-graph-autograd",
     "href": "pages/frameworks.html#computational-graph-autograd",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "",
-    "text": "At the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f47c712bfd0&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device"
+    "text": "At the core of neural networks is the Computational Graph. It automatically embeds dependent operations in a directed acyclic graph (DAG). Gradients are tracked as needed, allowing variables to be efficiently updated/trained.\nThe following shows an example in Numpy where we define computations and manually calculate derivatives. The graph is shown in Figure 2.\n\\[\\begin{equation}\n    f(\\mathbf{A}, \\mathbf{B}, \\mathbf{C}) =  \\sum_{ij} \\big((\\mathbf{A} \\odot \\mathbf{B}) + \\mathbf{C}\\big)_{ij}\n\\end{equation}\\]\n\n\n\n\n\n\nFigure 2: Computational Graph.\n\n\n\n\nimport numpy as np\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = np.random.random(size=(H, W))\nb = np.random.random(size=(H, W))\nc = np.random.random(size=(H, W))\n\nd = a * b\ne = d + c\nf = e.sum()\n\ndf_de = 1.0\nde_dd = 1.0\nde_dc = c\ndd_da = b\n\ndf_da = df_de * de_dd * dd_da\n\nprint(df_da)\n\n[[0.9807642  0.68482974 0.4809319 ]\n [0.39211752 0.34317802 0.72904971]]\n\n\nHere’s the same example in PyTorch. Using x.backward(), gradients with respect to x are computed for variables connected to x.\n\nimport torch\n\nnp.random.seed(123)\n\nH, W = 2, 3\n\na = torch.tensor(a, requires_grad=True)\nb = torch.tensor(b, requires_grad=True)\nc = torch.tensor(c, requires_grad=True)\n\nd = a * b\ne = d + c\nf = e.sum()\n\nf.backward()\nprint(a.grad)\n\ntensor([[0.9808, 0.6848, 0.4809],\n        [0.3921, 0.3432, 0.7290]], dtype=torch.float64)\n\n\nHere are the nodes of the computational graph.\n\nfrom torchviz import make_dot\nmake_dot(f, params={'a': a, 'b': b, 'c': c, 'f':f , 'd': d, 'e':e })\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f08b7b2f1d0&gt;\n\n\nTo perform the computation on a GPU, a simple instruction is enough:\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Using {device} device\")\n\na = a.to(device=device)\nb = b.to(device=device)\nc = c.to(device=device)\n\nUsing cpu device"
   },
   {
     "objectID": "pages/frameworks.html#fundamental-concepts",
@@ -25,21 +25,21 @@
     "href": "pages/frameworks.html#tensors",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "Tensors",
-    "text": "Tensors\ntorch.Tensor is the central data structure in PyTorch. Essentially very similar to numpy.array, it can be easily loaded onto GPUs.\nTensors can be created in various ways. For example, from lists:\n\ndata = [[1, 2],[3, 4]]\nx_data = torch.tensor(data)\nprint(x_data)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from numpy.ndarray:\n\nnp_array = np.array(data)\nx_np = torch.from_numpy(np_array)\nprint(x_np)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from other tensors:\n\nx_ones = torch.ones_like(x_data) # retains the properties of x_data\nprint(f\"Ones Tensor: \\n {x_ones} \\n\")\n\nx_rand = torch.rand_like(x_data, dtype=torch.float) # overrides the datatype of x_data\nprint(f\"Random Tensor: \\n {x_rand} \\n\")\n\nOnes Tensor: \n tensor([[1, 1],\n        [1, 1]]) \n\nRandom Tensor: \n tensor([[0.5121, 0.9858],\n        [0.2363, 0.3099]]) \n\n\n\nOr with randomly generated numbers or constants:\n\nshape = (2,3,)\nrand_tensor = torch.rand(shape)\nones_tensor = torch.ones(shape)\nzeros_tensor = torch.zeros(shape)\n\nprint(f\"Random Tensor: \\n {rand_tensor} \\n\")\nprint(f\"Ones Tensor: \\n {ones_tensor} \\n\")\nprint(f\"Zeros Tensor: \\n {zeros_tensor}\")\n\nRandom Tensor: \n tensor([[0.3739, 0.2745, 0.6219],\n        [0.8087, 0.6932, 0.7526]]) \n\nOnes Tensor: \n tensor([[1., 1., 1.],\n        [1., 1., 1.]]) \n\nZeros Tensor: \n tensor([[0., 0., 0.],\n        [0., 0., 0.]])\n\n\nTensor attributes:\n\ntensor = torch.rand(3,4)\n\nprint(f\"Shape of tensor: {tensor.shape}\")\nprint(f\"Datatype of tensor: {tensor.dtype}\")\nprint(f\"Device tensor is stored on: {tensor.device}\")\n\nShape of tensor: torch.Size([3, 4])\nDatatype of tensor: torch.float32\nDevice tensor is stored on: cpu\n\n\nThere are over 100 operations that can be performed on a tensor. The full list is available here.\nIndexing and Slicing:\n\ntensor = torch.ones(4, 4)\nprint(f\"First row: {tensor[0]}\")\nprint(f\"First column: {tensor[:, 0]}\")\nprint(f\"Last column: {tensor[:, -1]}\")\ntensor[:,1] = 0\nprint(tensor)\n\nFirst row: tensor([1., 1., 1., 1.])\nFirst column: tensor([1., 1., 1., 1.])\nLast column: tensor([1., 1., 1., 1.])\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])\n\n\nJoining tensors:\n\nt1 = torch.cat([tensor, tensor, tensor], dim=1)\nprint(t1)\n\ntensor([[1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.]])\n\n\nArithmetic operations:\n\n# This computes the matrix multiplication between two tensors. y1, y2, y3 will have the same value\ny1 = tensor @ tensor.T\ny2 = tensor.matmul(tensor.T)\n\ny3 = torch.rand_like(y1)\ntorch.matmul(tensor, tensor.T, out=y3)\n\n\n# This computes the element-wise product. z1, z2, z3 will have the same value\nz1 = tensor * tensor\nz2 = tensor.mul(tensor)\n\nz3 = torch.rand_like(tensor)\ntorch.mul(tensor, tensor, out=z3)\n\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])"
+    "text": "Tensors\ntorch.Tensor is the central data structure in PyTorch. Essentially very similar to numpy.array, it can be easily loaded onto GPUs.\nTensors can be created in various ways. For example, from lists:\n\ndata = [[1, 2],[3, 4]]\nx_data = torch.tensor(data)\nprint(x_data)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from numpy.ndarray:\n\nnp_array = np.array(data)\nx_np = torch.from_numpy(np_array)\nprint(x_np)\n\ntensor([[1, 2],\n        [3, 4]])\n\n\nOr from other tensors:\n\nx_ones = torch.ones_like(x_data) # retains the properties of x_data\nprint(f\"Ones Tensor: \\n {x_ones} \\n\")\n\nx_rand = torch.rand_like(x_data, dtype=torch.float) # overrides the datatype of x_data\nprint(f\"Random Tensor: \\n {x_rand} \\n\")\n\nOnes Tensor: \n tensor([[1, 1],\n        [1, 1]]) \n\nRandom Tensor: \n tensor([[0.7139, 0.8981],\n        [0.3271, 0.2323]]) \n\n\n\nOr with randomly generated numbers or constants:\n\nshape = (2,3,)\nrand_tensor = torch.rand(shape)\nones_tensor = torch.ones(shape)\nzeros_tensor = torch.zeros(shape)\n\nprint(f\"Random Tensor: \\n {rand_tensor} \\n\")\nprint(f\"Ones Tensor: \\n {ones_tensor} \\n\")\nprint(f\"Zeros Tensor: \\n {zeros_tensor}\")\n\nRandom Tensor: \n tensor([[0.7352, 0.9893, 0.1314],\n        [0.7293, 0.0550, 0.5838]]) \n\nOnes Tensor: \n tensor([[1., 1., 1.],\n        [1., 1., 1.]]) \n\nZeros Tensor: \n tensor([[0., 0., 0.],\n        [0., 0., 0.]])\n\n\nTensor attributes:\n\ntensor = torch.rand(3,4)\n\nprint(f\"Shape of tensor: {tensor.shape}\")\nprint(f\"Datatype of tensor: {tensor.dtype}\")\nprint(f\"Device tensor is stored on: {tensor.device}\")\n\nShape of tensor: torch.Size([3, 4])\nDatatype of tensor: torch.float32\nDevice tensor is stored on: cpu\n\n\nThere are over 100 operations that can be performed on a tensor. The full list is available here.\nIndexing and Slicing:\n\ntensor = torch.ones(4, 4)\nprint(f\"First row: {tensor[0]}\")\nprint(f\"First column: {tensor[:, 0]}\")\nprint(f\"Last column: {tensor[:, -1]}\")\ntensor[:,1] = 0\nprint(tensor)\n\nFirst row: tensor([1., 1., 1., 1.])\nFirst column: tensor([1., 1., 1., 1.])\nLast column: tensor([1., 1., 1., 1.])\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])\n\n\nJoining tensors:\n\nt1 = torch.cat([tensor, tensor, tensor], dim=1)\nprint(t1)\n\ntensor([[1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],\n        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.]])\n\n\nArithmetic operations:\n\n# This computes the matrix multiplication between two tensors. y1, y2, y3 will have the same value\ny1 = tensor @ tensor.T\ny2 = tensor.matmul(tensor.T)\n\ny3 = torch.rand_like(y1)\ntorch.matmul(tensor, tensor.T, out=y3)\n\n\n# This computes the element-wise product. z1, z2, z3 will have the same value\nz1 = tensor * tensor\nz2 = tensor.mul(tensor)\n\nz3 = torch.rand_like(tensor)\ntorch.mul(tensor, tensor, out=z3)\n\ntensor([[1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.],\n        [1., 0., 1., 1.]])"
   },
   {
     "objectID": "pages/frameworks.html#autograd",
     "href": "pages/frameworks.html#autograd",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "Autograd",
-    "text": "Autograd\nTo train neural networks, backpropagation is typically used. This calculates the gradient of the loss function with respect to the model parameters. To compute these gradients, PyTorch provides an auto-diff functionality: torch.autograd. This can automatically compute gradients for a computational graph.\nThe following is an example using a 1-layer neural network (see Figure 3 ):\n\n\n\n\n\n\nFigure 3: Source: PyTorch\n\n\n\nHere is the definition of the network in PyTorch:\n\nimport torch\n\nx = torch.ones(5)  # input tensor\ny = torch.zeros(3)  # expected output\nw = torch.randn(5\n\n, 3, requires_grad=True)\nb = torch.randn(3, requires_grad=True)\nz = torch.matmul(x, w)+b\nloss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)\n\nWe can now use Autograd to compute the gradient:\n\nloss.backward()\nprint(w.grad)\nprint(b.grad)\n\ntensor([[0.1855, 0.2424, 0.0946],\n        [0.1855, 0.2424, 0.0946],\n        [0.1855, 0.2424, 0.0946],\n        [0.1855, 0.2424, 0.0946],\n        [0.1855, 0.2424, 0.0946]])\ntensor([0.1855, 0.2424, 0.0946])"
+    "text": "Autograd\nTo train neural networks, backpropagation is typically used. This calculates the gradient of the loss function with respect to the model parameters. To compute these gradients, PyTorch provides an auto-diff functionality: torch.autograd. This can automatically compute gradients for a computational graph.\nThe following is an example using a 1-layer neural network (see Figure 3 ):\n\n\n\n\n\n\nFigure 3: Source: PyTorch\n\n\n\nHere is the definition of the network in PyTorch:\n\nimport torch\n\nx = torch.ones(5)  # input tensor\ny = torch.zeros(3)  # expected output\nw = torch.randn(5\n\n, 3, requires_grad=True)\nb = torch.randn(3, requires_grad=True)\nz = torch.matmul(x, w)+b\nloss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)\n\nWe can now use Autograd to compute the gradient:\n\nloss.backward()\nprint(w.grad)\nprint(b.grad)\n\ntensor([[0.2495, 0.0281, 0.2801],\n        [0.2495, 0.0281, 0.2801],\n        [0.2495, 0.0281, 0.2801],\n        [0.2495, 0.0281, 0.2801],\n        [0.2495, 0.0281, 0.2801]])\ntensor([0.2495, 0.0281, 0.2801])"
   },
   {
     "objectID": "pages/frameworks.html#torch.nn",
     "href": "pages/frameworks.html#torch.nn",
     "title": "2 - Software & Hardware for Deep Learning",
     "section": "torch.nn",
-    "text": "torch.nn\nPyTorch provides various building blocks for creating neural networks. These are available in torch.nn. Additionally, you can define any compositions of such building blocks that inherit from torch.nn.Module. A neural network is typically a torch.nn.Module. Each module implements the forward() method to define how data is processed.\nHere is an example:\n\nfrom torch import nn\n\nclass NeuralNetwork(nn.Module):\n    def __init__(self):\n        super(NeuralNetwork, self).__init__()\n        self.flatten = nn.Flatten()\n        self.linear_relu_stack = nn.Sequential(\n            nn.Linear(28*28, 512),\n            nn.ReLU(),\n            nn.Linear(512, 512),\n            nn.ReLU(),\n            nn.Linear(512, 10),\n        )\n\n    def forward(self, x):\n        x = self.flatten(x)\n        logits = self.linear_relu_stack(x)\n        return logits\n\nYou can also visualize the model:\n\nmodel = NeuralNetwork()\nprint(model)\n\nNeuralNetwork(\n  (flatten): Flatten(start_dim=1, end_dim=-1)\n  (linear_relu_stack): Sequential(\n    (0): Linear(in_features=784, out_features=512, bias=True)\n    (1): ReLU()\n    (2): Linear(in_features=512, out_features=512, bias=True)\n    (3): ReLU()\n    (4): Linear(in_features=512, out_features=10, bias=True)\n  )\n)\n\n\nTo use the model, you can pass input data. This will execute the forward() method, along with background operations.\n\nX = torch.rand(1, 28, 28)\nlogits = model(X)\npred_probab = nn.Softmax(dim=1)(logits)\ny_pred = pred_probab.argmax(1)\nprint(f\"Predicted class: {y_pred}\")\n\nPredicted class: tensor([8])\n\n\nThe executed operations will look like this:\n\nfrom torchviz import make_dot\nmake_dot(logits)\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f47041a2710&gt;"
+    "text": "torch.nn\nPyTorch provides various building blocks for creating neural networks. These are available in torch.nn. Additionally, you can define any compositions of such building blocks that inherit from torch.nn.Module. A neural network is typically a torch.nn.Module. Each module implements the forward() method to define how data is processed.\nHere is an example:\n\nfrom torch import nn\n\nclass NeuralNetwork(nn.Module):\n    def __init__(self):\n        super(NeuralNetwork, self).__init__()\n        self.flatten = nn.Flatten()\n        self.linear_relu_stack = nn.Sequential(\n            nn.Linear(28*28, 512),\n            nn.ReLU(),\n            nn.Linear(512, 512),\n            nn.ReLU(),\n            nn.Linear(512, 10),\n        )\n\n    def forward(self, x):\n        x = self.flatten(x)\n        logits = self.linear_relu_stack(x)\n        return logits\n\nYou can also visualize the model:\n\nmodel = NeuralNetwork()\nprint(model)\n\nNeuralNetwork(\n  (flatten): Flatten(start_dim=1, end_dim=-1)\n  (linear_relu_stack): Sequential(\n    (0): Linear(in_features=784, out_features=512, bias=True)\n    (1): ReLU()\n    (2): Linear(in_features=512, out_features=512, bias=True)\n    (3): ReLU()\n    (4): Linear(in_features=512, out_features=10, bias=True)\n  )\n)\n\n\nTo use the model, you can pass input data. This will execute the forward() method, along with background operations.\n\nX = torch.rand(1, 28, 28)\nlogits = model(X)\npred_probab = nn.Softmax(dim=1)(logits)\ny_pred = pred_probab.argmax(1)\nprint(f\"Predicted class: {y_pred}\")\n\nPredicted class: tensor([0])\n\n\nThe executed operations will look like this:\n\nfrom torchviz import make_dot\nmake_dot(logits)\n\nThere is no layout engine support for \"dot\"\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n\n\n\n---------------------------------------------------------------------------\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:88, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     87 try:\n---&gt; 88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/subprocess.py:502, in CompletedProcess.check_returncode(self)\n    501 if self.returncode:\n--&gt; 502     raise CalledProcessError(self.returncode, self.args, self.stdout,\n    503                              self.stderr)\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1.\n\nDuring handling of the above exception, another exception occurred:\n\nCalledProcessError                        Traceback (most recent call last)\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/IPython/core/formatters.py:977, in MimeBundleFormatter.__call__(self, obj, include, exclude)\n    974     method = get_real_method(obj, self.print_method)\n    976     if method is not None:\n--&gt; 977         return method(include=include, exclude=exclude)\n    978     return None\n    979 else:\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in JupyterIntegration._repr_mimebundle_(self, include, exclude, **_)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98, in &lt;dictcomp&gt;(.0)\n     96 include = set(include) if include is not None else {self._jupyter_mimetype}\n     97 include -= set(exclude or [])\n---&gt; 98 return {mimetype: getattr(self, method_name)()\n     99         for mimetype, method_name in MIME_TYPES.items()\n    100         if mimetype in include}\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112, in JupyterIntegration._repr_image_svg_xml(self)\n    110 def _repr_image_svg_xml(self) -&gt; str:\n    111     \"\"\"Return the rendered graph as SVG string.\"\"\"\n--&gt; 112     return self.pipe(format='svg', encoding=SVG_ENCODING)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:104, in Pipe.pipe(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n     55 def pipe(self,\n     56          format: typing.Optional[str] = None,\n     57          renderer: typing.Optional[str] = None,\n   (...)\n     61          engine: typing.Optional[str] = None,\n     62          encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n     63     \"\"\"Return the source piped through the Graphviz layout command.\n     64 \n     65     Args:\n   (...)\n    102         '&lt;?xml version='\n    103     \"\"\"\n--&gt; 104     return self._pipe_legacy(format,\n    105                              renderer=renderer,\n    106                              formatter=formatter,\n    107                              neato_no_op=neato_no_op,\n    108                              quiet=quiet,\n    109                              engine=engine,\n    110                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/_tools.py:171, in deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper(*args, **kwargs)\n    162     wanted = ', '.join(f'{name}={value!r}'\n    163                        for name, value in deprecated.items())\n    164     warnings.warn(f'The signature of {func.__name__} will be reduced'\n    165                   f' to {supported_number} positional args'\n    166                   f' {list(supported)}: pass {wanted}'\n    167                   ' as keyword arg(s)',\n    168                   stacklevel=stacklevel,\n    169                   category=category)\n--&gt; 171 return func(*args, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:121, in Pipe._pipe_legacy(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    112 @_tools.deprecate_positional_args(supported_number=2)\n    113 def _pipe_legacy(self,\n    114                  format: typing.Optional[str] = None,\n   (...)\n    119                  engine: typing.Optional[str] = None,\n    120                  encoding: typing.Optional[str] = None) -&gt; typing.Union[bytes, str]:\n--&gt; 121     return self._pipe_future(format,\n    122                              renderer=renderer,\n    123                              formatter=formatter,\n    124                              neato_no_op=neato_no_op,\n    125                              quiet=quiet,\n    126                              engine=engine,\n    127                              encoding=encoding)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/piping.py:149, in Pipe._pipe_future(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)\n    146 if encoding is not None:\n    147     if codecs.lookup(encoding) is codecs.lookup(self.encoding):\n    148         # common case: both stdin and stdout need the same encoding\n--&gt; 149         return self._pipe_lines_string(*args, encoding=encoding, **kwargs)\n    150     try:\n    151         raw = self._pipe_lines(*args, input_encoding=self.encoding, **kwargs)\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212, in pipe_lines_string(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)\n    206 cmd = dot_command.command(engine, format,\n    207                           renderer=renderer,\n    208                           formatter=formatter,\n    209                           neato_no_op=neato_no_op)\n    210 kwargs = {'input_lines': input_lines, 'encoding': encoding}\n--&gt; 212 proc = execute.run_check(cmd, capture_output=True, quiet=quiet, **kwargs)\n    213 return proc.stdout\n\nFile /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:90, in run_check(cmd, input_lines, encoding, quiet, **kwargs)\n     88     proc.check_returncode()\n     89 except subprocess.CalledProcessError as e:\n---&gt; 90     raise CalledProcessError(*e.args)\n     92 return proc\n\nCalledProcessError: Command '[PosixPath('dot'), '-Kdot', '-Tsvg']' returned non-zero exit status 1. [stderr: 'There is no layout engine support for \"dot\"\\nPerhaps \"dot -c\" needs to be run (with installer\\'s privileges) to register the plugins?\\n']\n\n\n\n&lt;graphviz.graphs.Digraph at 0x7f08b75b2450&gt;"
   },
   {
     "objectID": "pages/frameworks.html#torch.optim",
@@ -330,7 +330,7 @@
     "href": "slides_cas/cnns.html#properties-of-image-data",
     "title": "Convolutional Neural Networks",
     "section": "Properties of Image Data",
-    "text": "Properties of Image Data\n\nHigh-Dimensional: An RGB image of size \\(224 \\times 224\\) (height, width) has = \\(150'528\\) values.\nLocality: Nearby pixels are statistically related\nStability under transformations: Interpretation of an image does not change under many geomoetric transformations.\n\n\nImage SourceHow does a Multilayer-Perceptron handle images?",
+    "text": "Properties of Image Data\n\nHigh-Dimensional: An RGB image of size \\(224 \\times 224\\) (height, width) has = \\(150'528\\) values.\nLocality: Nearby pixels are statistically related\nStability under transformations: Interpretation of an image does not change under many geomoetric transformations.\n\n\nImage Source",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -341,7 +341,18 @@
     "href": "slides_cas/cnns.html#multilayer-perceptron-and-images",
     "title": "Convolutional Neural Networks",
     "section": "Multilayer-Perceptron and Images",
-    "text": "Multilayer-Perceptron and Images\n\nMLP on example image.",
+    "text": "Multilayer-Perceptron and Images\n\nHow does a Multilayer-Perceptron handle images?",
+    "crumbs": [
+      "Slides CAS",
+      "Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "slides_cas/cnns.html#multilayer-perceptron-and-images-1",
+    "href": "slides_cas/cnns.html#multilayer-perceptron-and-images-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Multilayer-Perceptron and Images",
+    "text": "Multilayer-Perceptron and Images\n\nMLP on example image.\nMLPs deal with flat inputs: The spatial structure gets lost.",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -385,7 +396,7 @@
     "href": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning-2",
     "title": "Convolutional Neural Networks",
     "section": "Multilayer-Perceptrons and Pattern Learning",
-    "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.Can an MLP successfully learn patterns in images \\(\\mathbf{x}\\) that are permuted with a permutation matrix \\(\\mathbf{P}\\), i.e. \\(f(P(\\mathbf{x}))\\)?",
+    "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.\nCan an MLP successfully learn patterns in images \\(\\mathbf{x}\\) that are permuted with a permutation matrix \\(\\mathbf{P}\\), i.e. \\(f(P(\\mathbf{x}))\\)?",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -407,7 +418,7 @@
     "href": "slides_cas/cnns.html#multilayer-perceptrons-and-translations",
     "title": "Convolutional Neural Networks",
     "section": "Multilayer-Perceptrons and Translations",
-    "text": "Multilayer-Perceptrons and Translations\n\n\nFigure 7\nOften the patterns we want to learn are not spatially constraint. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g. \\(g(\\mathbf{x})\\) where \\(g()\\) is a spatial translation.\nHow do MLPs deal with this?",
+    "text": "Multilayer-Perceptrons and Translations\n\nMLP and pattern shiftsOften the patterns we want to learn are not spatially constraint. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g. \\(g(\\mathbf{x})\\) where \\(g()\\) is a spatial translation.\n\nHow do MLPs deal with this?",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -429,7 +440,7 @@
     "href": "slides_cas/cnns.html#mlps-and-images",
     "title": "Convolutional Neural Networks",
     "section": "MLPs and Images",
-    "text": "MLPs and Images\n\nHigh-Dimensional: The size of an MLP scales with the input dimensionality which might blow beyond memory and compute budgets.\nLocality: MLPs have no notion of locality and thus can’t exploit this inherent bias in natural images.\nStability under transformations: MLPs need to learn position-dependent patterns which is very inefficient.\n\nWhat do we need?",
+    "text": "MLPs and Images\n\nHigh-Dimensional: The size of an MLP scales with the input dimensionality which might blow beyond memory and compute budgets.\nLocality: MLPs have no notion of locality and thus can’t exploit this inherent bias in natural images.\nStability under transformations: MLPs need to learn position-dependent patterns which is very inefficient.\n\n\nWhat do we need?",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -440,7 +451,7 @@
     "href": "slides_cas/cnns.html#invariance-and-equivariance",
     "title": "Convolutional Neural Networks",
     "section": "Invariance and Equivariance",
-    "text": "Invariance and Equivariance\nFor many tasks small variations in the input should either not change the model output (invariance) or should change the output in tandem with the input changes (equivariance).\nA function \\(f(\\mathbf{x})\\) (such as a layer in a neural network) of an image \\(\\mathbf{x}\\) is equivariant with respect to a transformation \\(g(\\mathbf{\\mathbf{x}})\\) if:\n\\[\\begin{align}\nf(g(\\mathbf{x})) = g(f(\\mathbf{x}))\n\\end{align}\\]\nA function \\(f(\\mathbf{x})\\) is invariant to a transformation \\(g(\\mathbf{x})\\) if:\n\\[\\begin{align}\nf(g(\\mathbf{x})) = f(\\mathbf{x})\n\\end{align}\\]",
+    "text": "Invariance and Equivariance\nFor many tasks small variations in the input should either not change the model output (invariance) or should change the output in tandem with the input changes (equivariance).\n\nA function \\(f(\\mathbf{x})\\) is invariant to a transformation \\(g(\\mathbf{x})\\) if:\n\\[\\begin{align}\nf(g(\\mathbf{x})) = f(\\mathbf{x})\n\\end{align}\\]\n\n\nA function \\(f(\\mathbf{x})\\) (such as a layer in a neural network) of an image \\(\\mathbf{x}\\) is equivariant with respect to a transformation \\(g(\\mathbf{\\mathbf{x}})\\) if:\n\\[\\begin{align}\nf(g(\\mathbf{x})) = g(f(\\mathbf{x}))\n\\end{align}\\]",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -473,7 +484,7 @@
     "href": "slides_cas/cnns.html#biological-inspiration",
     "title": "Convolutional Neural Networks",
     "section": "Biological Inspiration",
-    "text": "Biological Inspiration\n\nSchematische Darstellung von verbundenen Neuronen. Source: Phillips (2015)",
+    "text": "Biological Inspiration\n\nSchmatic illustration of connected neurons. Source: Phillips (2015)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -513,33 +524,22 @@
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#convolutional-layers",
-    "href": "slides_cas/cnns.html#convolutional-layers",
-    "title": "Convolutional Neural Networks",
-    "section": "Convolutional Layers",
-    "text": "Convolutional Layers",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
     "objectID": "slides_cas/cnns.html#convolution-operation",
     "href": "slides_cas/cnns.html#convolution-operation",
     "title": "Convolutional Neural Networks",
     "section": "Convolution Operation",
-    "text": "Convolution Operation\nConvolution in Deep Learning is typically implemented as cross-correlation.\n\\[\\begin{equation}\nS(i, j) = (K * I)(i, j) = b + \\sum_m \\sum_n I(i + m, j + n) K(m, n)\n\\end{equation}\\]\n\\(I\\) is the input (for example an image), \\(K\\) is the kernel (typically smaller than \\(I\\)) and \\(b\\) is a bias term which is being added to the weighted sum.\nIf \\(I\\) is an RGB image (in the first layer of a CNN for example), the kernel \\(K\\) would have dimensionality \\(3 \\times K \\times K\\) (assuming a square kernel). More generally we learn kernels of the dimensionality \\(\\C_{in} \\times K \\times K\\).\nMultiple kernels, let’s say $\\(C_o\\) kernels, can be grouped together: \\(C_o \\times C_{in} \\times K \\times K\\).\nWe often referr to such tensors as filters or filter banks.",
+    "text": "Convolution Operation\nConvolution in Deep Learning is typically implemented as cross-correlation.\n\\[\\begin{equation}\nS(i, j) = (K * I)(i, j) = b + \\sum_m \\sum_n I(i + m, j + n) K(m, n)\n\\end{equation}\\]\n\\(I\\) is the input (for example an image), \\(K\\) is the kernel (typically smaller than \\(I\\)) and \\(b\\) is a bias term which is being added to the weighted sum.\nIf \\(I\\) is an RGB image (in the first layer of a CNN for example), the kernel \\(K\\) would have dimensionality \\(3 \\times K \\times K\\) (assuming a square kernel). More generally we learn kernels of the dimensionality \\(C_{in} \\times K \\times K\\).\nMultiple kernels, let’s say \\(C_o\\) kernels, can be grouped together: \\(C_o \\times C_{in} \\times K \\times K\\).\nWe often refer to such tensors as filters or filter banks.",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#convolution-on-rgb-images",
-    "href": "slides_cas/cnns.html#convolution-on-rgb-images",
+    "objectID": "slides_cas/cnns.html#convolutional-layers",
+    "href": "slides_cas/cnns.html#convolutional-layers",
     "title": "Convolutional Neural Networks",
-    "section": "Convolution on RGB Images",
-    "text": "Convolution on RGB Images\n\n\nA 2D convolution applied to an image. Illustrated is the element-wise multiplication of the kernel weights \\(\\Omega\\) with the corresponding RGB input values at a specific position. Source: Prince (2023)",
+    "section": "Convolutional Layers",
+    "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -550,7 +550,7 @@
     "href": "slides_cas/cnns.html#convolutional-layers-1",
     "title": "Convolutional Neural Networks",
     "section": "Convolutional Layers",
-    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)",
+    "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -561,7 +561,7 @@
     "href": "slides_cas/cnns.html#convolutional-layers-2",
     "title": "Convolutional Neural Networks",
     "section": "Convolutional Layers",
-    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)",
+    "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -572,7 +572,7 @@
     "href": "slides_cas/cnns.html#convolutional-layers-3",
     "title": "Convolutional Neural Networks",
     "section": "Convolutional Layers",
-    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)",
+    "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -583,40 +583,29 @@
     "href": "slides_cas/cnns.html#convolutional-layers-4",
     "title": "Convolutional Neural Networks",
     "section": "Convolutional Layers",
-    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)",
+    "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#convolutional-layers-5",
-    "href": "slides_cas/cnns.html#convolutional-layers-5",
+    "objectID": "slides_cas/cnns.html#convolution-on-rgb-images",
+    "href": "slides_cas/cnns.html#convolution-on-rgb-images",
     "title": "Convolutional Neural Networks",
-    "section": "Convolutional Layers",
-    "text": "Convolutional Layers\n\n\n\nSource: Johnson (2019)",
+    "section": "Convolution on RGB Images",
+    "text": "Convolution on RGB Images\n\nA 2D convolution applied to an image. Illustrated is the element-wise multiplication of the kernel weights \\(\\Omega\\) with the corresponding RGB input values at a specific position. Source: Prince (2023)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#hyper-parameters",
-    "href": "slides_cas/cnns.html#hyper-parameters",
+    "objectID": "slides_cas/cnns.html#padding-stride-kernel-size-dilation",
+    "href": "slides_cas/cnns.html#padding-stride-kernel-size-dilation",
     "title": "Convolutional Neural Networks",
-    "section": "Hyper-Parameters",
-    "text": "Hyper-Parameters\nConvolutional Layers are parameterized:\n\nDepth: How many activation maps?\nPadding: How much padding is added to the input?\nStride: What is the step size of the convolution?\nKernel-Size: What is the kernel size?",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#padding-why",
-    "href": "slides_cas/cnns.html#padding-why",
-    "title": "Convolutional Neural Networks",
-    "section": "Padding: Why?",
-    "text": "Padding: Why?\n\n\n\nSource: Johnson (2019)",
+    "section": "Padding, Stride, Kernel Size, Dilation",
+    "text": "Padding, Stride, Kernel Size, Dilation\nThere are several options to parameterise a convolution.\n\n\nPadding: How much padding is added to the input?\nStride: What is the step size (stride) of the kernel?\nKernel-Size: What is the kernel size?\nDilation: What is the dilation rate?",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -627,7 +616,7 @@
     "href": "slides_cas/cnns.html#padding",
     "title": "Convolutional Neural Networks",
     "section": "Padding",
-    "text": "Padding\n\n\n\nLeft: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.",
+    "text": "Padding\n\n\n What is the output dimensionality of convolving a 3x3 kernel?\n\n What is the output dimensionality with zero-padding?",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -638,29 +627,62 @@
     "href": "slides_cas/cnns.html#padding-1",
     "title": "Convolutional Neural Networks",
     "section": "Padding",
-    "text": "Padding\n\n\n\nLeft: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.",
+    "text": "Padding\n\nLeft: Input (Yellow) with Zero-Padding (white border), Middle: Filter, Right: Output.",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#padding-and-stride",
-    "href": "slides_cas/cnns.html#padding-and-stride",
+    "objectID": "slides_cas/cnns.html#stride",
+    "href": "slides_cas/cnns.html#stride",
     "title": "Convolutional Neural Networks",
-    "section": "Padding and Stride",
-    "text": "Padding and Stride\n\n\n\nStride with Padding. Red indicates the position of the corresponding filter value on the input activations.",
+    "section": "Stride",
+    "text": "Stride\n\nConvolution with stride (1, 1)The kernel is shifted by 1 pixel before each new computation.",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#padding-and-stride-animations",
-    "href": "slides_cas/cnns.html#padding-and-stride-animations",
+    "objectID": "slides_cas/cnns.html#stride-1",
+    "href": "slides_cas/cnns.html#stride-1",
     "title": "Convolutional Neural Networks",
-    "section": "Padding and Stride: Animations",
-    "text": "Padding and Stride: Animations\nDumoulin and Visin (2016) has created some animations to better understand convolutions, available here: Link.",
+    "section": "Stride",
+    "text": "Stride\n\nConvolution with stride (1, 1)The kernel is shifted by 2 pixel before each new computation.",
+    "crumbs": [
+      "Slides CAS",
+      "Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "slides_cas/cnns.html#kernel-size",
+    "href": "slides_cas/cnns.html#kernel-size",
+    "title": "Convolutional Neural Networks",
+    "section": "Kernel-Size",
+    "text": "Kernel-Size",
+    "crumbs": [
+      "Slides CAS",
+      "Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "slides_cas/cnns.html#kernel-size-1",
+    "href": "slides_cas/cnns.html#kernel-size-1",
+    "title": "Convolutional Neural Networks",
+    "section": "Kernel-Size",
+    "text": "Kernel-Size",
+    "crumbs": [
+      "Slides CAS",
+      "Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "slides_cas/cnns.html#dilation",
+    "href": "slides_cas/cnns.html#dilation",
+    "title": "Convolutional Neural Networks",
+    "section": "Dilation",
+    "text": "Dilation",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -671,18 +693,7 @@
     "href": "slides_cas/cnns.html#calculations",
     "title": "Convolutional Neural Networks",
     "section": "Calculations",
-    "text": "Calculations\nYou can calculate the dimensionality of the activation maps with the following formulas:\n\n\\(i\\): Side length of the input activations (assumption: square inputs)\n\\(k\\): Kernel size (assumption: square kernel)\n\\(o\\): Side length of the output activation maps\n\\(s\\): Stride (assumption: same stride along spatial dimensions)\n\\(p\\): Number of paddings on each side (assumption: same number of paddings along spatial dimensions)",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#calculations-1",
-    "href": "slides_cas/cnns.html#calculations-1",
-    "title": "Convolutional Neural Networks",
-    "section": "Calculations",
-    "text": "Calculations\nThis formula covers all scenarios!\nSize of Activation Map\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k}{s} \\right\\rfloor + 1\n\\end{equation}\\]",
+    "text": "Calculations\nYou can calculate the dimensionality of the activation maps with the following formulas:\n\n\\(i\\): Side length of the input activations (assumption: square inputs)\n\\(k\\): Kernel size (assumption: square kernel)\n\\(o\\): Side length of the output activation maps\n\\(s\\): Stride (assumption: same stride along spatial dimensions)\n\\(p\\): Number of paddings on each side (assumption: same number of paddings along spatial dimensions)\n\\(d\\): Dilation rate.\n\n\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k-(k-1)(d-1)}{s} \\right\\rfloor + 1\n\\end{equation}\\]\nNote: If dilation is 1 \\((k-1)(d-1)\\) equals 0.",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -693,7 +704,40 @@
     "href": "slides_cas/cnns.html#quiz",
     "title": "Convolutional Neural Networks",
     "section": "Quiz",
-    "text": "Quiz\nScenario:\n\nInput: 3 x 32 x 32\nConvolution: 10 filters with 5x5 kernel size, stride=1, pad=2\n\nWhat is the size of the activation map?\nHow many weights are there?\nSize of Activation Map\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k}{s} \\right\\rfloor + 1\n\\end{equation}\\]",
+    "text": "Quiz\nScenario:\n\nInput: 3 x 32 x 32\nConvolution: 10 filters with 5x5 kernel size, stride=1, pad=2\n\nWhat is the size of the activation map?\nHow many weights are there?\n\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k-(k-1)(d-1)}{s} \\right\\rfloor + 1\n\\end{equation}\\]",
+    "crumbs": [
+      "Slides CAS",
+      "Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "slides_cas/cnns.html#downsampling",
+    "href": "slides_cas/cnns.html#downsampling",
+    "title": "Convolutional Neural Networks",
+    "section": "Downsampling",
+    "text": "Downsampling\nSpatial downsampling is often a desired property of convolutional layers. We can achieve that by choosing a stride \\(\\gt 1\\).\nHowever, there are other options, such as pooling layers.\n\na) Sub-Sampling, b) Max Pooling, c) Average Pooling . Source: Prince (2023)",
+    "crumbs": [
+      "Slides CAS",
+      "Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "slides_cas/cnns.html#upsampling",
+    "href": "slides_cas/cnns.html#upsampling",
+    "title": "Convolutional Neural Networks",
+    "section": "Upsampling",
+    "text": "Upsampling\nSometimes we need to increase the spatial dimensionality of our activation maps.\n\na) Duplicate, b) Max-Unpooling, c) Bilinear Interpolation . Source: Prince (2023)",
+    "crumbs": [
+      "Slides CAS",
+      "Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "slides_cas/cnns.html#upsampling-with-transposed-convolutions",
+    "href": "slides_cas/cnns.html#upsampling-with-transposed-convolutions",
+    "title": "Convolutional Neural Networks",
+    "section": "Upsampling with Transposed Convolutions",
+    "text": "Upsampling with Transposed Convolutions",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -781,7 +825,7 @@
     "href": "slides_cas/cnns.html#receptive-field",
     "title": "Convolutional Neural Networks",
     "section": "Receptive Field",
-    "text": "Receptive Field\n\n\n\nSource: Johnson (2019)",
+    "text": "Receptive Field",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -792,29 +836,29 @@
     "href": "slides_cas/cnns.html#receptive-field-1",
     "title": "Convolutional Neural Networks",
     "section": "Receptive Field",
-    "text": "Receptive Field\n\n\n\nSource: Johnson (2019)",
+    "text": "Receptive Field",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#dilated-convolutions",
-    "href": "slides_cas/cnns.html#dilated-convolutions",
+    "objectID": "slides_cas/cnns.html#receptive-field-2",
+    "href": "slides_cas/cnns.html#receptive-field-2",
     "title": "Convolutional Neural Networks",
-    "section": "Dilated Convolutions",
-    "text": "Dilated Convolutions\n\nConvolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1.",
+    "section": "Receptive Field",
+    "text": "Receptive Field",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#dilated-convolutions-1",
-    "href": "slides_cas/cnns.html#dilated-convolutions-1",
+    "objectID": "slides_cas/cnns.html#receptive-field-3",
+    "href": "slides_cas/cnns.html#receptive-field-3",
     "title": "Convolutional Neural Networks",
-    "section": "Dilated Convolutions",
-    "text": "Dilated Convolutions\n\nConvolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2.",
+    "section": "Receptive Field",
+    "text": "Receptive Field",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -825,73 +869,7 @@
     "href": "slides_cas/cnns.html#x1-convolutions",
     "title": "Convolutional Neural Networks",
     "section": "1x1 Convolutions",
-    "text": "1x1 Convolutions\n\n\n\n\n\n\nSource: Johnson (2019)\n\n\n\n\nFigure 18",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#depthwise-separable-convolutions",
-    "href": "slides_cas/cnns.html#depthwise-separable-convolutions",
-    "title": "Convolutional Neural Networks",
-    "section": "Depthwise Separable Convolutions",
-    "text": "Depthwise Separable Convolutions\n\n\n\n\n\n\nSource: https://paperswithcode.com/method/depthwise-convolution\n\n\n\n\nFigure 19",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#depthwise-separable-convolutions-1",
-    "href": "slides_cas/cnns.html#depthwise-separable-convolutions-1",
-    "title": "Convolutional Neural Networks",
-    "section": "Depthwise Separable Convolutions",
-    "text": "Depthwise Separable Convolutions\n\n\n\nSource: Yu and Koltun (2016)",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#pooling-layers",
-    "href": "slides_cas/cnns.html#pooling-layers",
-    "title": "Convolutional Neural Networks",
-    "section": "Pooling Layers",
-    "text": "Pooling Layers\n\nSource: Li (2022)",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#max-pooling",
-    "href": "slides_cas/cnns.html#max-pooling",
-    "title": "Convolutional Neural Networks",
-    "section": "Max Pooling",
-    "text": "Max Pooling\n\nMax pooling, input (left) and output (right).",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#average-pooling",
-    "href": "slides_cas/cnns.html#average-pooling",
-    "title": "Convolutional Neural Networks",
-    "section": "Average Pooling",
-    "text": "Average Pooling\n\n\n\n\n\n\nAverage pooling, input (left) and output (right).\n\n\n\n\nFigure 21",
-    "crumbs": [
-      "Slides CAS",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#other-pooling-layers",
-    "href": "slides_cas/cnns.html#other-pooling-layers",
-    "title": "Convolutional Neural Networks",
-    "section": "Other Pooling Layers",
-    "text": "Other Pooling Layers\nGlobal Average Pooling is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.",
+    "text": "1x1 Convolutions\n\n\n\n\n\nSource: (prince_understanding_2023e?)",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -902,7 +880,7 @@
     "href": "slides_cas/cnns.html#global-average-pooling",
     "title": "Convolutional Neural Networks",
     "section": "Global Average Pooling",
-    "text": "Global Average Pooling\n\n\n\n\n\n\nGlobal Average pooling, input (left) and output (right).\n\n\n\n\nFigure 22",
+    "text": "Global Average Pooling\nGlobal Average Pooling is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.\n\nGlobal Average pooling, input (left) and output (right).",
     "crumbs": [
       "Slides CAS",
       "Convolutional Neural Networks"
@@ -2465,7 +2443,7 @@
     "href": "index.html#inhalte",
     "title": "Willkommen zum Modul Computer Vision mit Deep Learning",
     "section": "2 Inhalte",
-    "text": "2 Inhalte\n\n2.1 Tag 1 - Grundlagen Convolutional Neural Networks\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning mit PyTorch und Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nConvolutional Neural Networks\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 16:30\nÜbung: CNNs für Bildklassifikation\n\n\n\n\n\n2.2 Tag 2 - Bildklassifikation und Anwendungen\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nRecap & Quizz\n\n\n9:30 - 10:30\nTheorie: Praktische Überlegungen\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nÜbung: Bildklassifikation\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 14:30\nÜbung: Bildklassifikation\n\n\n14:30 - 14:45\nPause\n\n\n14:45 - 15:15\nTheorie: Foundation Models\n\n\n15:15 - 16:30\nÜbung: Foundation Models",
+    "text": "2 Inhalte\n\n2.1 Tag 1 - Grundlagen Convolutional Neural Networks\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nEinführung Computer Vision mit Deep Learning\n\n\n9:30 - 10:30\nÜbung: Deep Learning mit PyTorch und Bilder\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nConvolutional Neural Networks\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 16:30\nÜbung: CNNs für Bildklassifikation\n\n\n\n\n\n2.2 Tag 2 - Bildklassifikation und Anwendungen\n\n\n\nZeit\nThema\n\n\n\n\n8:45 - 9:30\nTheorie: Bildklassifikation & Recap\n\n\n9:30 - 10:30\nTheorie: Praktische Überlegungen\n\n\n10:30 - 10:45\nPause\n\n\n10:45 - 12:00\nÜbung: Bildklassifikation\n\n\n12:00 - 13:00\nMittagspause\n\n\n13:00 - 14:30\nÜbung: Bildklassifikation\n\n\n14:30 - 14:45\nPause\n\n\n14:45 - 15:15\nTheorie: Foundation Models\n\n\n15:15 - 16:30\nÜbung: Foundation Models",
     "crumbs": [
       "Home"
     ]
