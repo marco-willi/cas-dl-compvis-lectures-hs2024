@@ -38,7 +38,7 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 
 | Zeit | Thema |
 |------|--------|
-|8:45 - 9:30	| Recap & Quizz
+|8:45 - 9:30	| Theorie: Bildklassifikation & Recap
 |9:30 - 10:30 	| Theorie: Praktische Überlegungen
 |10:30  - 10:45	| Pause
 |10:45 - 12:00	| Übung: Bildklassifikation

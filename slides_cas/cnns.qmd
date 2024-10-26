@@ -31,18 +31,26 @@ $$
 
 ![[Image Source](https://unsplash.com/de/fotos/braune-schafe-auf-grunem-grasfeld-tagsuber-olonUwUrmQk)]({{< meta params.images_path >}}cows2_small.png)
 
-**How does a Multilayer-Perceptron handle images?**
+## Multilayer-Perceptron and Images
+
+::: {.fragment .highlight-red}
+How does a Multilayer-Perceptron handle images?
+:::
+
 
 
 ## Multilayer-Perceptron and Images
-
-
 
 ::: {#fig-cnns-mlp-example}
 
 ![MLP on example image.]({{< meta params.images_path >}}mlp_images_example.png)
 
 :::
+
+::: {.fragment}
+MLPs deal with flat inputs: The spatial structure gets lost.
+:::
+
 
 
 ## Multilayer-Perceptrons and High-Dimensional Inputs
@@ -87,9 +95,10 @@ The columns of the weight matrix $\m{W}$ (in the first hidden layer) can be visu
 
 :::
 
+::: {.fragment .highlight-red}
 Can an MLP successfully learn patterns in images $\vect{x}$ that are permuted with a permutation matrix $\m{P}$, i.e. $f(P(\vect{x}))$?
 
-
+:::
 
 ## Multilayer-Perceptrons and Pattern Learning
 
@@ -106,13 +115,15 @@ Yes! An MLP has no notion of distance and treats every connection between every 
 
 ::: {#fig-cnns-mlp-example5}
 
-![]({{< meta params.images_path >}}mlp_images_example_pattern_shifts.png)
+![MLP and pattern shifts]({{< meta params.images_path >}}mlp_images_example_pattern_shifts.png)
 
 :::
 
 Often the patterns we want to learn are not spatially constraint. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g. $g(\vect{x})$ where $g()$ is a spatial translation.
 
+::: {.fragment .highlight-red}
 **How do MLPs deal with this?**
+:::
 
 ## MLP and Images
 
@@ -131,27 +142,34 @@ MLPs need to (re-) learn the same pattern at all positions, which is incredibly 
 - Locality: MLPs have no notion of locality and thus can't exploit this inherent bias in natural images.
 - Stability under transformations: MLPs need to learn position-dependent patterns which is very inefficient.
 
+::: {.fragment}
 **What do we need?**
+:::
+
 
 
 ## Invariance and Equivariance
 
 For many tasks small variations in the input should either **not** change the model output (invariance) or should change the output **in tandem** with the input changes (equivariance).
 
+::: {.fragment}
+A function $f(\vect{x})$ is **invariant** to a transformation $g(\vect{x})$ if:
 
+\begin{align}
+f(g(\vect{x})) = f(\vect{x})
+\end{align}
+:::
+
+
+::: {.fragment}
 
 A function $f(\vect{x})$ (such as a layer in a neural network) of an image $\vect{x}$ is **equivariant** with respect to a transformation $g(\vect{\vect{x}})$ if:
 
 \begin{align}
 f(g(\vect{x})) = g(f(\vect{x}))
 \end{align}
+:::
 
-
-A function $f(\vect{x})$ is **invariant** to a transformation $g(\vect{x})$ if:
-
-\begin{align}
-f(g(\vect{x})) = f(\vect{x})
-\end{align}
 
 
 ## Example Invariance
@@ -184,7 +202,7 @@ Example where equivariance is required:
 
 ::: {#fig-cnns-biological-inspiration}
 
-![Schematische Darstellung von verbundenen Neuronen. Source: @phillips_speed_2015]({{< meta params.images_path >}}connected_neurons.png)
+![Schmatic illustration of connected neurons. Source: @phillips_speed_2015]({{< meta params.images_path >}}connected_neurons.png)
 
 :::
 
@@ -216,8 +234,6 @@ Example where equivariance is required:
 
 :::
 
-## Convolutional Layers
-
 
 
 ## Convolution Operation
@@ -231,21 +247,11 @@ S(i, j) = (K * I)(i, j) = b + \sum_m \sum_n I(i + m, j + n) K(m, n)
 
 $I$ is the input (for example an image), $K$ is the kernel (typically smaller than $I$) and $b$ is a bias term which is being added to the weighted sum.
 
-If $I$ is an RGB image (in the first layer of a CNN for example), the kernel $K$ would have dimensionality $3 \times K \times K$ (assuming a square kernel). More generally we learn kernels of the dimensionality $\C_{in} \times K \times K$.
+If $I$ is an RGB image (in the first layer of a CNN for example), the kernel $K$ would have dimensionality $3 \times K \times K$ (assuming a square kernel). More generally we learn kernels of the dimensionality $C_{in} \times K \times K$.
 
-Multiple kernels, let's say $$C_o$ kernels, can be grouped together: $C_o \times C_{in} \times K \times K$.
+Multiple kernels, let's say $C_o$ kernels, can be grouped together: $C_o \times C_{in} \times K \times K$.
 
-We often referr to such tensors as filters or filter banks.
-
-## Convolution on RGB Images
-
-::: {#fig-cnns-intro-example}
-
-![A 2D convolution applied to an image. Illustrated is the element-wise multiplication of the kernel weights $\Omega$ with the corresponding RGB input values at a specific position. Source:  @prince_understanding_2023]({{< meta params.images_path >}}convolution_prince_rgb.png)
-
-:::
-
-
+We often refer to such tensors as filters or filter banks.
 
 <!-- ## Convolution on rGB Images
 
@@ -257,71 +263,110 @@ We often referr to such tensors as filters or filter banks.
 
 
 
-
 ## Convolutional Layers
 
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}cnn_conv_one_number.jpg){width=100% height=70%}
-
-
-## Convolutional Layers
-
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map.jpg){width=100% height=70%}
-
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}cnn_conv_one_number.jpg)
 
 
 ## Convolutional Layers
 
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map2.jpg){width=100% height=70%}
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map.jpg)
 
 
 
 ## Convolutional Layers
 
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map3.jpg){width=100% height=70%}
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map2.jpg)
 
 
 
 ## Convolutional Layers
 
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map4.jpg){width=100% height=70%}
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map3.jpg)
 
 
 
-## Hyper-Parameters
+## Convolutional Layers
 
-Convolutional Layers are parameterized:
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}conv_activation_map4.jpg)
 
-- Depth: How many activation maps?
+
+
+## Convolution on RGB Images
+
+::: {#fig-cnns-intro-example}
+
+![A 2D convolution applied to an image. Illustrated is the element-wise multiplication of the kernel weights $\Omega$ with the corresponding RGB input values at a specific position. Source:  @prince_understanding_2023]({{< meta params.images_path >}}convolution_prince_rgb.png)
+
+:::
+
+
+## Padding, Stride, Kernel Size, Dilation
+
+There are several options to parameterise a convolution.
+
+::: {.incremental}
 - Padding: How much padding is added to the input?
-- Stride: What is the step size of the convolution?
+- Stride: What is the step size (stride) of the kernel?
 - Kernel-Size: What is the kernel size?
-
-
-
-## Padding: Why?
-
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}padding_issue.jpg){width=100% height=70%}
+- Dilation: What is the dilation rate?
+:::
 
 
 ## Padding
 
-![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![ ]({{< meta params.images_path >}}padding_input_activations_5x5.jpg)
+What is the output dimensionality of convolving a 3x3 kernel?
+:::
+
+::: {.column width="50%"}
+![ ]({{< meta params.images_path >}}padding_input_activations_5x5_with_zero_padding.jpg)
+What is the output dimensionality with zero-padding?
+:::
+
+::::
+<!-- ![Source: @johnson_eecs_2019]({{< meta params.images_path >}}padding_issue.jpg){width=100% height=70%} -->
 
 
 ## Padding
 
-![Left: Input (Yellow) with Zero-Padding (1, 1) (White border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding.png){width=100% height=70%}
+
+![Left: Input (Yellow) with Zero-Padding (white border), Middle: Filter, Right: Output.]({{< meta params.images_path >}}padding_example_result.jpg)
 
 
-## Padding and Stride
-
-![Stride with Padding. Red indicates the position of the corresponding filter value on the input activations.]({{< meta params.images_path >}}stride_and_padding.png){width=100% height=70%}
+## Stride
 
 
-## Padding and Stride: Animations
+![Convolution with stride (1, 1)]({{< meta params.images_path >}}stride1_example.jpg)
 
-@dumoulin_guide_2016 has created some animations to better understand convolutions, available here: [Link]({{< meta params.images_path >}}https://github.com/vdumoulin/conv_arithmetic).
+The kernel is shifted by 1 pixel before each new computation.
 
+## Stride
+
+
+![Convolution with stride (1, 1)]({{< meta params.images_path >}}stride2_example.jpg)
+
+The kernel is shifted by 2 pixel before each new computation.
+
+
+## Kernel-Size
+
+
+
+![ ]({{< meta params.images_path >}}kernel_size_example_3x3.jpg)
+
+## Kernel-Size
+
+![ ]({{< meta params.images_path >}}kernel_size_example_5x5.jpg)
+
+
+## Dilation
+
+![ ]({{< meta params.images_path >}}dilation_example.jpg)
 
 
 ## Calculations
@@ -333,17 +378,16 @@ You can calculate the dimensionality of the activation maps with the following f
 - $o$: Side length of the output activation maps
 - $s$: Stride (assumption: same stride along spatial dimensions)
 - $p$: Number of paddings on each side (assumption: same number of paddings along spatial dimensions)
+- $d$: Dilation rate.
 
 
-## Calculations
-
-This formula covers all scenarios!
-
-**Size of Activation Map**
-
+::: {.fragment}
 \begin{equation}
-o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+o = \left\lfloor \frac{i + 2p - k-(k-1)(d-1)}{s} \right\rfloor + 1
 \end{equation}
+
+Note: If dilation is 1 $(k-1)(d-1)$ equals 0.
+:::
 
 
 
@@ -358,11 +402,35 @@ What is the size of the activation map?
 
 How many weights are there?
 
-**Size of Activation Map**
-
+::: {.fragment}
 \begin{equation}
-o = \left\lfloor \frac{i + 2p - k}{s} \right\rfloor + 1
+o = \left\lfloor \frac{i + 2p - k-(k-1)(d-1)}{s} \right\rfloor + 1
 \end{equation}
+:::
+
+## Downsampling
+
+Spatial  downsampling is often a desired property of convolutional layers. We can achieve that by choosing a stride $\gt 1$.
+
+However, there are other options, such as pooling layers.
+
+![a) Sub-Sampling, b) Max Pooling, c) Average Pooling . Source:  @prince_understanding_2023]({{< meta params.images_path >}}downsampling_with_pooling.jpg)
+
+
+
+## Upsampling
+
+Sometimes we need to increase the spatial dimensionality of our activation maps. 
+
+![a) Duplicate, b) Max-Unpooling, c) Bilinear Interpolation . Source:  @prince_understanding_2023]({{< meta params.images_path >}}upsampling_options.jpg)
+
+
+## Upsampling with Transposed Convolutions
+
+
+![ ]({{< meta params.images_path >}}transposed_convolution.jpg)
+
+
 
 
 # Properties
@@ -464,44 +532,54 @@ Convolutions are translation equivariant: [Example Video]({{< meta params.images
 
 ## Receptive Field
 
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field.jpg){width=100% height=70%}
+
+![ ]({{< meta params.images_path >}}receptive_field1.jpg)
 
 
 
 ## Receptive Field
 
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}receptive_field2.jpg){width=100% height=70%}
+
+![ ]({{< meta params.images_path >}}receptive_field2.jpg)
+
+
+
+## Receptive Field
+
+
+![ ]({{< meta params.images_path >}}receptive_field3.jpg)
+
+
+
+## Receptive Field
+
+
+![ ]({{< meta params.images_path >}}receptive_field4.jpg)
 
 
 
 
 # Variants and Layers
 
-## Dilated Convolutions
-
-::: {#fig-cnn-dilated-conv1}
-
-![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 1.]({{< meta params.images_path >}}dilation1.png)
-
-:::
-
-## Dilated Convolutions
-
-::: {#fig-cnn-dilated-conv2}
-
-![Convolving a 3x3 kernel over a 7x7 input without padding with stride 1x1 and dilation 2.]({{< meta params.images_path >}}dilation2.png)
-
-:::
-
 ## 1x1 Convolutions
 
-::: {#fig-cnn-1x1}
+<!-- ::: {#fig-cnn-1x1}
 
 ![Source: @johnson_eecs_2019]({{< meta params.images_path >}}1x1_conv.jpg){width=100% height=70%}
 
+::: -->
+
+
+::: {#fig-cnn-1x1}
+
+![Source: @prince_understanding_2023e]({{< meta params.images_path >}}1x1_conv_example.jpg)
+
 :::
 
-## Depthwise Separable Convolutions
+
+
+
+<!-- ## Depthwise Separable Convolutions
 
 ::: {#fig-cnn-depthwise-separable}
 ![Source: [https://paperswithcode.com/method/depthwise-convolution]({{< meta params.images_path >}}https://paperswithcode.com/method/depthwise-convolution)]({{< meta params.images_path >}}depthwise.png){width=100% height=70%}
@@ -511,9 +589,9 @@ Convolutions are translation equivariant: [Example Video]({{< meta params.images
 ## Depthwise Separable Convolutions
 
 ![Source: @yu_multi-scale_2016]({{< meta params.images_path >}}depthwise_separabel.png){width=100% height=70%}
+ -->
 
-
-
+<!-- 
 ## Pooling Layers
 
 ![Source: @li_cs231n_2022]({{< meta params.images_path >}}pool.jpeg){width=300px}
@@ -532,19 +610,20 @@ Convolutions are translation equivariant: [Example Video]({{< meta params.images
 
 ![Average pooling, input (left) and output (right).]({{< meta params.images_path >}}average_pooling.png){width=100% height=70%}
 
-:::
+::: -->
 
-## Other Pooling Layers
+<!-- ## Other Pooling Layers
 
-**Global Average Pooling** is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.
+**Global Average Pooling** is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers. -->
 
 
 ## Global Average Pooling
 
+Global Average Pooling is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.
+
 ::: {#fig-cnn-global-avg-pooling}
 
-![Global Average pooling, input (left) and output (right).]({{< meta params.images_path >}}global_average_pooling.png){width=100% height=70%}
-
+![Global Average pooling, input (left) and output (right).]({{< meta params.images_path >}}global_average_pooling.png)
 :::
 
 
