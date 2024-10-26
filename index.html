@@ -182,6 +182,18 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./slides_cas/image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Image Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slides_cas/practical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Considerations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./slides_cas/foundation_models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foundation Models</span></a>
   </div>
@@ -218,7 +230,7 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pages/notation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Notation</span></a>
+ <span class="menu-text">Mathematical Notation</span></a>
   </div>
 </li>
       </ul>
@@ -236,8 +248,8 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
   <li><a href="#lernziele" id="toc-lernziele" class="nav-link active" data-scroll-target="#lernziele"><span class="header-section-number">1</span> Lernziele</a></li>
   <li><a href="#inhalte" id="toc-inhalte" class="nav-link" data-scroll-target="#inhalte"><span class="header-section-number">2</span> Inhalte</a>
   <ul class="collapse">
-  <li><a href="#grundlagen-convolutional-neural-networks-tag-1" id="toc-grundlagen-convolutional-neural-networks-tag-1" class="nav-link" data-scroll-target="#grundlagen-convolutional-neural-networks-tag-1"><span class="header-section-number">2.1</span> Grundlagen Convolutional Neural Networks (Tag 1)</a></li>
-  <li><a href="#bildklassifikation-und-anwendungen-tag-2" id="toc-bildklassifikation-und-anwendungen-tag-2" class="nav-link" data-scroll-target="#bildklassifikation-und-anwendungen-tag-2"><span class="header-section-number">2.2</span> Bildklassifikation und Anwendungen (Tag 2)</a></li>
+  <li><a href="#tag-1---grundlagen-convolutional-neural-networks" id="toc-tag-1---grundlagen-convolutional-neural-networks" class="nav-link" data-scroll-target="#tag-1---grundlagen-convolutional-neural-networks"><span class="header-section-number">2.1</span> Tag 1 - Grundlagen Convolutional Neural Networks</a></li>
+  <li><a href="#tag-2---bildklassifikation-und-anwendungen" id="toc-tag-2---bildklassifikation-und-anwendungen" class="nav-link" data-scroll-target="#tag-2---bildklassifikation-und-anwendungen"><span class="header-section-number">2.2</span> Tag 2 - Bildklassifikation und Anwendungen</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -281,19 +293,19 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
 <p>Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.</p>
 <p><a href="https://www.fhnw.ch/de/weiterbildung/technik/computer-vision-mit-deep-learning">Modul Page</a></p>
 <p><a href="https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning">CAS Page</a></p>
-<section id="lernziele" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Lernziele</h1>
+<section id="lernziele" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="lernziele"><span class="header-section-number">1</span> Lernziele</h2>
 <ul>
-<li>Bildklassifikation vertieft verstehen</li>
-<li>Methoden implementieren, anwenden und interpretieren können</li>
+<li>Convolutional Neural Networks verstehen, implementieren und trainieren können</li>
+<li>Bildklassifikation vertieft verstehen und systematisch umsetzen können</li>
 <li>Mit Deep Learning Frameworks umgehen und Libraries verwenden können</li>
-<li>Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können</li>
+<li>Praktische Anwendung vorstellen und erklären können</li>
 </ul>
 </section>
-<section id="inhalte" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Inhalte</h1>
-<section id="grundlagen-convolutional-neural-networks-tag-1" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="grundlagen-convolutional-neural-networks-tag-1"><span class="header-section-number">2.1</span> Grundlagen Convolutional Neural Networks (Tag 1)</h2>
+<section id="inhalte" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="inhalte"><span class="header-section-number">2</span> Inhalte</h2>
+<section id="tag-1---grundlagen-convolutional-neural-networks" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="tag-1---grundlagen-convolutional-neural-networks"><span class="header-section-number">2.1</span> Tag 1 - Grundlagen Convolutional Neural Networks</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -329,8 +341,8 @@ gtag('config', 'G-SCHRGR3LNM', { 'anonymize_ip': true});
 </tbody>
 </table>
 </section>
-<section id="bildklassifikation-und-anwendungen-tag-2" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="bildklassifikation-und-anwendungen-tag-2"><span class="header-section-number">2.2</span> Bildklassifikation und Anwendungen (Tag 2)</h2>
+<section id="tag-2---bildklassifikation-und-anwendungen" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="tag-2---bildklassifikation-und-anwendungen"><span class="header-section-number">2.2</span> Tag 2 - Bildklassifikation und Anwendungen</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -885,17 +897,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">CAS Page</span><span class="co">](https://www.fhnw.ch/de/weiterbildung/technik/cas-deep-learning)</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Lernziele</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lernziele</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bildklassifikation vertieft verstehen</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Methoden implementieren, anwenden und interpretieren können</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Convolutional Neural Networks verstehen, implementieren und trainieren können</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bildklassifikation vertieft verstehen und systematisch umsetzen können</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Mit Deep Learning Frameworks umgehen und Libraries verwenden können</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Praktische Anwendung von Deep Learning Modellen demonstrieren und vorstellen können</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Praktische Anwendung vorstellen und erklären können</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># Inhalte</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Inhalte</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">##  Grundlagen Convolutional Neural Networks (Tag 1)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tag 1 -  Grundlagen Convolutional Neural Networks</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>| Zeit | Thema |</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>|------|--------|</span>
@@ -907,7 +919,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>|13:00 - 16:30  | Übung: CNNs für Bildklassifikation</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bildklassifikation und Anwendungen (Tag 2)</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tag 2 -  Bildklassifikation und Anwendungen</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>| Zeit | Thema |</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>|------|--------|</span>

@@ -230,6 +230,18 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../slides_cas/image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Image Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides_cas/practical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Considerations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../slides_cas/foundation_models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foundation Models</span></a>
   </div>
@@ -266,7 +278,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/notation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Notation</span></a>
+ <span class="menu-text">Mathematical Notation</span></a>
   </div>
 </li>
       </ul>
@@ -495,7 +507,7 @@ Figure&nbsp;8: Hierarchical features, from <span class="citation" data-cites="le
 <section id="implementation-in-pytorch" class="level1">
 <h1>Implementation in PyTorch</h1>
 <p>The following code shows how we can implement a configurable neural network.</p>
-<div id="14533990" class="cell" data-execution_count="2">
+<div id="bc88f2a2" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
@@ -540,7 +552,7 @@ Figure&nbsp;8: Hierarchical features, from <span class="citation" data-cites="le
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> model(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can easily display the architecture details with <code>torchinfo</code></p>
-<div id="08cb25c5" class="cell" data-execution_count="3">
+<div id="39236565" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the model architecture</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchinfo <span class="im">import</span> summary</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>summary(model, input_size<span class="op">=</span>(<span class="dv">32</span>, <span class="dv">784</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
