@@ -111,7 +111,7 @@
     "section": "Leaky Abstraction",
     "text": "Leaky Abstraction\n\nyour_data = # plug your awesome dataset here\nmodel = SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -122,7 +122,7 @@
     "section": "Silent Failure",
     "text": "Silent Failure\nTraining neural networks fails silently!",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -133,7 +133,7 @@
     "section": "1) Get to Know the Data",
     "text": "1) Get to Know the Data\nThoroughly inspect the data!",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -144,7 +144,7 @@
     "section": "Camera Traps: Errors",
     "text": "Camera Traps: Errors\n\n\n\nExamples of images from camera traps.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -155,7 +155,7 @@
     "section": "Camera Traps: Difficulties",
     "text": "Camera Traps: Difficulties\n\n\n\nExamples of images from camera traps. Source: Beery, Van Horn, and Perona (2018)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -166,7 +166,7 @@
     "section": "Rare Classes",
     "text": "Rare Classes\n\n\n\nAn image of a serval. Below are the model confidences.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -177,7 +177,7 @@
     "section": "Multiple Classes",
     "text": "Multiple Classes\n\nExamples of an image from a camera trap with different species.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -188,7 +188,7 @@
     "section": "2) Baselines",
     "text": "2) Baselines\nEvaluation pipeline, metrics, experiment tracking, and baseline model.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -199,7 +199,7 @@
     "section": "ML Process",
     "text": "ML Process\n\n\n\nThe components of a typical machine learning process. Source: Raschka and Mirjalili (2020)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -210,7 +210,7 @@
     "section": "Experiment Tracking",
     "text": "Experiment Tracking\n\n\n\nWeights and Biases experiment tracking.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -221,7 +221,7 @@
     "section": "2) Baselines",
     "text": "2) Baselines\nEnsure reproducibility.\nimport torch\ntorch.manual_seed(0)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -232,7 +232,7 @@
     "section": "2) Baselines",
     "text": "2) Baselines\nAvoid unnecessary techniques and complexities. Reduce error susceptibility.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -243,7 +243,7 @@
     "section": "2) Baselines",
     "text": "2) Baselines\nIf possible, use a human baseline. How good can the model be?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -254,7 +254,7 @@
     "section": "Difficult Cases",
     "text": "Difficult Cases\n\nAn image from a camera trap that is difficult to classify. Here, annotators had a 96.6% agreement with experts.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -265,7 +265,7 @@
     "section": "2) Baselines",
     "text": "2) Baselines\nTrain an input-independent baseline. Is the model learning anything at all?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -276,7 +276,7 @@
     "section": "2) Baselines",
     "text": "2) Baselines\nOverfit the model on a batch of data. Does the optimization work?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -287,7 +287,7 @@
     "section": "2) Baselines",
     "text": "2) Baselines\nVisualize what goes into the model. Is my preprocessing working?\ny_hat = model(x)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -298,7 +298,7 @@
     "section": "Fixed Sample: Segmentation Example",
     "text": "Fixed Sample: Segmentation Example\n\n\n\nExample of a segmentation problem: input on the left and output on the right.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -309,7 +309,7 @@
     "section": "3) Overfit",
     "text": "3) Overfit\nAt this point, you should have a good understanding of the dataset, high confidence in the evaluation pipeline, and initial baselines from simple models. Now, look for a model that performs well on the training set.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -320,7 +320,7 @@
     "section": "3) Overfit",
     "text": "3) Overfit\nLook for a good model architecture. Follow the principle “Don’t be a hero”. Prefer already implemented/established architectures.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -331,7 +331,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nAt this point, you should have achieved good performance on the training set. Now, focus on the validation set.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -342,7 +342,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nThe simplest measure to achieve better performance (and also reduce overfitting) is to collect more training data. However, this is often expensive!",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -353,7 +353,7 @@
     "section": "Learning Curve",
     "text": "Learning Curve\nIs it worth collecting more data?\n\nExample of a learning curve. X-axis: Performance, Y-axis: Number of training samples. Left panel with Gaussian Naive Bayes and right panel with Support Vector Classifier.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -364,7 +364,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nAnother possibility is data augmentation. New data points are generated from existing ones by making random changes to the data. Typically, data points are augmented on-the-fly.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -375,7 +375,7 @@
     "section": "Data Augmentation: Augly",
     "text": "Data Augmentation: Augly\n\n\n\nAugLy",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -386,7 +386,7 @@
     "section": "Data Augmentation: Albumentations",
     "text": "Data Augmentation: Albumentations\n\nAlbumentations",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -397,7 +397,7 @@
     "section": "Data Augmentation: Kornia",
     "text": "Data Augmentation: Kornia\n\n\n\nKornia",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -408,7 +408,7 @@
     "section": "Data Augmentation: Example",
     "text": "Data Augmentation: Example\n\n\n\nData augmentation example.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -419,7 +419,7 @@
     "section": "Data Augmentation: Synthetic Data",
     "text": "Data Augmentation: Synthetic Data\n\n\n\nFrom Beery et al. (2020). Synthetic and semi-synthetic data.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -430,7 +430,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nWith early stopping, a model is trained and periodically evaluated on a validation set, e.g., after each epoch. Training is stopped if no significant improvement is achieved after x evaluation cycles.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -441,7 +441,7 @@
     "section": "Early Stopping",
     "text": "Early Stopping\n\n\n\nSource: Link",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -452,7 +452,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nEarly stopping in PyTorch.\nfrom pytorch_lightning.callbacks.early_stopping import EarlyStopping\n\nclass LitModel(LightningModule):\n    def validation_step(self, batch, batch_idx):\n        loss = ...\n        self.log(\"val_loss\", loss)\n\nmodel = LitModel()\ntrainer = Trainer(callbacks=[EarlyStopping(monitor=\"val_loss\", mode=\"min\")])\ntrainer.fit(model)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -463,7 +463,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nWith weight decay, a model can be regularized. The update step in gradient descent is modified.\n\\[\\begin{equation}\n\\theta_{t+1} = \\theta_t (1 - \\lambda) - \\eta \\nabla J(\\theta)\n\\end{equation}\\]\nWhere \\(t\\) is the iteration, \\(\\theta\\) the model parameters, \\(\\eta\\) the learning rate, and \\(\\lambda\\) the decay parameter.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -474,7 +474,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nTransfer learning involves adapting a pre-trained model on a large dataset (e.g., ImageNet) to a new task. The last layer is removed and replaced according to the new task. The network is then further trained. Layers can be frozen (weights not updated) or fine-tuned (weights further trained).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -485,7 +485,7 @@
     "section": "Transfer Learning",
     "text": "Transfer Learning\n\n\n\nSource: Johnson and Fouhey (2021)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -496,7 +496,7 @@
     "section": "4) Regularization",
     "text": "4) Regularization\nIn PyTorch, you can freeze the parameters:\ndef set_parameter_requires_grad(model, feature_extracting):\n    if feature_extracting:\n        for param in model.parameters():\n            param.requires_grad = False",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -507,7 +507,7 @@
     "section": "5) Hyper-Parameter Tuning",
     "text": "5) Hyper-Parameter Tuning\nIn this step, different hyperparameters and architectures are systematically evaluated. Techniques such as grid search or random search can be used, with random search being preferred.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -518,7 +518,7 @@
     "section": "5) Hyper-Parameter Tuning",
     "text": "5) Hyper-Parameter Tuning\nParameterized architecture:\nclass Net(nn.Module):\n    def __init__(self, l1=120, l2=84):\n        super(Net, self).__init__()\n        self.conv1 = nn.Conv2d(3, 6, 5)\n        self.pool = nn.MaxPool2d(2, 2)\n        self.conv2 = nn.Conv2d(6, 16, 5)\n        self.fc1 = nn.Linear(16 * 5 * 5, l1)\n        self.fc2 = nn.Linear(l1, l2)\n        self.fc3 = nn.Linear(l2, 10)\n\n    def forward(self, x):\n        x = self.pool(F.relu(self.conv1(x)))\n        x = self.pool(F.relu(self.conv2(x)))\n        x = x.view(-1, 16 * 5 * 5)\n        x = F.relu(self.fc1(x))\n        x = F.relu(self.fc2(x))\n        x = self.fc3(x)\n        return x",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -529,7 +529,7 @@
     "section": "6) Squeeze out the Juice",
     "text": "6) Squeeze out the Juice\nAfter finding the best architectures and hyperparameters, there are further ways to squeeze out more performance.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -540,7 +540,7 @@
     "section": "6) Squeeze out the Juice",
     "text": "6) Squeeze out the Juice\nModel ensembling.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -551,7 +551,7 @@
     "section": "6) Squeeze out the Juice",
     "text": "6) Squeeze out the Juice\nTrain longer.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -562,7 +562,7 @@
     "section": "Double Descent",
     "text": "Double Descent\n\nSource: Nakkiran et al. (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -573,7 +573,7 @@
     "section": "6) Squeeze out the Juice",
     "text": "6) Squeeze out the Juice\nOther training techniques:\n\nSpecial optimizer (AdamW)\nComplex data augmentation techniques (Mixup, Cutmix, RandAugment)\nRegularization techniques (Stochastic Depth)\nLabel smoothing",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -584,7 +584,7 @@
     "section": "HuggingFace",
     "text": "HuggingFace\nHuggingFace",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -595,7 +595,7 @@
     "section": "timm",
     "text": "timm\nPyTorch Image Models (timm)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -606,7 +606,7 @@
     "section": "Links",
     "text": "Links\n\nDS-cookie cutter\nPyTorch Lightning\nHydra\nWeights & Biases\nNeptune AI\nVersion Control Systems for ML Projects",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Practical Considerations"
     ]
   },
@@ -946,7 +946,7 @@
     "section": "Overview",
     "text": "Overview\n\nIntroduction\nModeling\nLoss Function\nArchitectures",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -957,7 +957,7 @@
     "section": "Adversarial Panda",
     "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -968,7 +968,7 @@
     "section": "Adversarial Panda",
     "text": "Adversarial Panda\n\nSource: Goodfellow, Shlens, and Szegedy (2015)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -979,7 +979,7 @@
     "section": "Image Classification",
     "text": "Image Classification\n\n\n\nExample of Image Classification.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -990,7 +990,7 @@
     "section": "Image Classification: Example",
     "text": "Image Classification: Example\n\n\n\nExample of Image Classification (from Krizhevsky, Sutskever, and Hinton (2012)).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1001,7 +1001,7 @@
     "section": "Image Classification: Camera Traps",
     "text": "Image Classification: Camera Traps\n\n\n\nExample images from camera traps.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1012,7 +1012,7 @@
     "section": "Parametric Approach",
     "text": "Parametric Approach\nWith a parametric approach, we seek a model of the following form:\n\\[\\begin{equation}\n    \\hat{y}^{(i)} = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThe model parameters \\(\\theta\\) define our model and must be learned with an algorithm.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1023,7 +1023,7 @@
     "section": "Softmax Classifier",
     "text": "Softmax Classifier\nWe want to model the following probability:\n\\[\\begin{equation}\n    P(Y=\\mathbf{y}^{(i)}| X = \\mathbf{x}^{(i)})\n\\end{equation}\\]\nTo obtain a valid probability distribution, the untransformed outputs \\(\\mathbf{z}\\), also called logits, of a model are transformed with the Softmax function \\(\\sigma(\\mathbf{z})\\).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1034,7 +1034,7 @@
     "section": "Softmax Transformation",
     "text": "Softmax Transformation\n\\[\\begin{equation}\n    P(Y = k| X = \\mathbf{x}^{(i)}) = \\sigma(\\mathbf{z})_k = \\frac{e^{z_k}}{\\sum_i^K e^{z_i}}\n\\end{equation}\\]",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1045,7 +1045,7 @@
     "section": "Logits to Probabilities",
     "text": "Logits to Probabilities\n\n\n\nLogits (left) to probabilities with the Softmax function.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1056,7 +1056,7 @@
     "section": "Probabilities",
     "text": "Probabilities\n\nImage classifier with confidences.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1067,7 +1067,7 @@
     "section": "Likelihood",
     "text": "Likelihood\nThe likelihood of a data point:\n\\[\\begin{equation}\n    P(Y=y^{(i)}| X = \\mathbf{x}^{(i)}) = f(\\theta, \\mathbf{x}^{(i)})\n\\end{equation}\\]\nThis is the modeled probability for the actually observed class \\(y^{(i)}\\).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1078,7 +1078,7 @@
     "section": "Likelihood for Multi-Class Classification",
     "text": "Likelihood for Multi-Class Classification\nThe likelihood of a data point for multi-class classification:\n\\[\\begin{equation}\n    \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nWhere \\(y^{(i)} \\in \\mathbb{R}^{K}\\) is a one-hot encoded vector, with the \\(1\\) at the true class.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1089,7 +1089,7 @@
     "section": "Maximum Likelihood",
     "text": "Maximum Likelihood\nThe likelihood of an entire dataset:\n\\[\\begin{equation}\n    \\prod_{i=1}^N \\prod_{j=1}^K P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j}\n\\end{equation}\\]\nUnder the maximum likelihood approach, we seek the parameters \\(\\theta\\) that maximize the likelihood of observing the dataset.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1100,7 +1100,7 @@
     "section": "Negative Log-Likelihood",
     "text": "Negative Log-Likelihood\nEquivalently, we can minimize the negative log likelihood:\n\\[\\begin{align}\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& - \\log \\prod_{i=1}^N \\prod_{j=1}^K  P(Y = j| X = \\mathbf{x}^{(i)})^{y^{(i)}_j} \\\\\n    L(\\mathbf{X}, \\mathbf{y}, \\theta) =& -\\sum_{i=1}^N \\sum_{j=1}^K y^{(i)}_j \\log  P(Y = j| X = \\mathbf{x}^{(i)})\n\\end{align}\\]",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1111,7 +1111,7 @@
     "section": "Cross-Entropy",
     "text": "Cross-Entropy\nThe loss function derived with maximum likelihood can also be viewed from the perspective of cross-entropy between two discrete probability distributions.\n\\[\\begin{align}\n    CE = - \\sum_{x \\in X} p(x) \\log q(x) \\\\\n    CE = - \\sum_{i=1}^N \\sum_{j=1}^K y_j^{(i)} \\log \\hat{y}_j^{(i)}\n\\end{align}\\]",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1122,7 +1122,7 @@
     "section": "Cross-Entropy",
     "text": "Cross-Entropy\n\nTrue distribution (left) and predicted distribution (right).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1133,7 +1133,7 @@
     "section": "AlexNet",
     "text": "AlexNet\n\nAlexNet Krizhevsky, Sutskever, and Hinton (2012)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1144,7 +1144,7 @@
     "section": "AlexNet",
     "text": "AlexNet\n\nAlexNet Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1155,7 +1155,7 @@
     "section": "AlexNet: Table",
     "text": "AlexNet: Table\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1166,7 +1166,7 @@
     "section": "VGG",
     "text": "VGG\n\nVGG Simonyan and Zisserman (2015)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1177,7 +1177,7 @@
     "section": "VGG",
     "text": "VGG\n\n\nVGG Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1188,7 +1188,7 @@
     "section": "VGG",
     "text": "VGG\n\n\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1199,7 +1199,7 @@
     "section": "ResNet",
     "text": "ResNet\n\nSource: He et al. (2016)\nTest error for deeper model is larger. Overfitting?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1210,7 +1210,7 @@
     "section": "ResNet",
     "text": "ResNet\n\nSource: He et al. (2016)\nTraining error for deeper model is also larger? What is going on?!",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1221,7 +1221,7 @@
     "section": "ResNet",
     "text": "ResNet\n\n\n\nResNet He et al. (2016) (Image from Johnson (2019))",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1232,7 +1232,7 @@
     "section": "ResNet",
     "text": "ResNet\n\n\n\nFrom He et al. (2016)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1243,7 +1243,7 @@
     "section": "ResNet",
     "text": "ResNet\n\n\n\nFrom Li et al. (2018)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1254,7 +1254,7 @@
     "section": "ConvNext",
     "text": "ConvNext\n\n\n\n\n\n\n\n\n\n\nFigures from Liu et al. (2022).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1265,7 +1265,7 @@
     "section": "ImageNet Performance",
     "text": "ImageNet Performance\n\nImage from Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1276,7 +1276,7 @@
     "section": "Choosing the Architecture",
     "text": "Choosing the Architecture\n\nDon’t be a hero!\n\nTypically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1287,7 +1287,7 @@
     "section": "Pre-Processing",
     "text": "Pre-Processing\n\nResizing / Cropping to a fixed size\nScaling: from the range [0, 255] to the range [0, 1]\nNormalization: Often normalized along the color channels\n\nPyTorch Examples",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1298,7 +1298,7 @@
     "section": "Transfer Learning",
     "text": "Transfer Learning\nTransfer learning refers to the process of adapting a trained model that models Task A to Task B. Adapting pre-trained models often leads to better results and also reduces the number of training iterations.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Image Classification"
     ]
   },
@@ -1309,7 +1309,7 @@
     "section": "Species Identification",
     "text": "Species Identification\n\nSource: Breitenmoser-Würsten et al. (2024)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1320,7 +1320,7 @@
     "section": "Synthetic Image Detection",
     "text": "Synthetic Image Detection\n\n\n\n\n\n\n\n\nSource\n\n\n\n\n\n\n\nSource\n\n\n\n\n\n\nFigure 2: Examples of synthetic images.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1331,7 +1331,7 @@
     "section": "Object Identification and Translation",
     "text": "Object Identification and Translation\n\n\n\n\n\n\n\n\n\n\n\n(a) Identification & Search\n\n\n\n\n\n\n\n\n\n\n\n(b) Translation\n\n\n\n\n\n\n\nFigure 3: Google Lens",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1342,7 +1342,7 @@
     "section": "Self-Driving",
     "text": "Self-Driving\n\n\n\n\n\n\nFigure 4: Example from Waymo.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1353,7 +1353,7 @@
     "section": "Biometric ID",
     "text": "Biometric ID\n\nExample from Apple Face ID",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1364,7 +1364,7 @@
     "section": "Precision Agriculture",
     "text": "Precision Agriculture\n\n\nExample from Häni, Roy, and Isler (2020)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1375,7 +1375,7 @@
     "section": "Medical Segmentation",
     "text": "Medical Segmentation\n\nExample from Ma et al. (2024).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1386,7 +1386,7 @@
     "section": "Photo Enhancement",
     "text": "Photo Enhancement\n\nExample from Google Magic Editor",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1397,7 +1397,7 @@
     "section": "AI Chips",
     "text": "AI Chips\n\nFrom Link.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1408,7 +1408,7 @@
     "section": "Image Classification",
     "text": "Image Classification\n\nMulti-Class Image Classification Beispiel (aus Krizhevsky, Sutskever, and Hinton (2012)).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1419,7 +1419,7 @@
     "section": "Object Detection",
     "text": "Object Detection\n\nObject Detection Beispiel (aus Redmon et al. (2016)). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1430,7 +1430,7 @@
     "section": "Segmentation",
     "text": "Segmentation\n\n\n\n\n\nObject Segmentation Beispiel (aus He et al. (2018)).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1441,7 +1441,7 @@
     "section": "Image Generation - Manipulation",
     "text": "Image Generation - Manipulation\n\nSource: Link, DragGAN by Pan et al. (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1452,7 +1452,7 @@
     "section": "Image Generation - Translation",
     "text": "Image Generation - Translation\n\nImage Generation Beispiel (aus Isola et al. (2018)).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1463,7 +1463,7 @@
     "section": "Image Generation - Super Resolution",
     "text": "Image Generation - Super Resolution\n\nNvidia dlss: Link",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1474,7 +1474,7 @@
     "section": "Image Generation - Colorization",
     "text": "Image Generation - Colorization\n\nNorwegian Bride (est late 1890s) aus DeOldify: Link",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1485,7 +1485,7 @@
     "section": "Many tasks",
     "text": "Many tasks\n\n\n\nImage Classification\nObject Detection (and Tracking)\nImage Segmentation\n\nSemantic Segmentation\nInstance Segmentation\n\nOptical Character Recognition (OCR)\nPose Estimation\nFacial Recognition\nAction Recognition\n\n\n\nImage Generation\n\nStyle Transfer\nImage Inpainting\nSuper-Resolution\nText-to-Image (and more)\n\nImage Captioning\n3D Reconstruction\nImage Retrieval\n\n\nList is not exhaustive!",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1496,7 +1496,7 @@
     "section": "Semantic Gap",
     "text": "Semantic Gap\n\nIllustration des semantic gap.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1507,7 +1507,7 @@
     "section": "Point of View",
     "text": "Point of View\n\nSource",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1518,7 +1518,7 @@
     "section": "Deformation",
     "text": "Deformation\n\nSource",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1529,7 +1529,7 @@
     "section": "Lighting",
     "text": "Lighting\n\nSource",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1540,7 +1540,7 @@
     "section": "Background",
     "text": "Background\n\nSource",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1551,7 +1551,7 @@
     "section": "Occlusion",
     "text": "Occlusion\n\nSource",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1562,7 +1562,7 @@
     "section": "Intraclass Variation",
     "text": "Intraclass Variation\n\nSource",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1573,7 +1573,7 @@
     "section": "Context Relevance",
     "text": "Context Relevance\n\n\n\n\n\n\n\n\n\n\nKontext Source",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1584,7 +1584,7 @@
     "section": "Machine Learning Approach",
     "text": "Machine Learning Approach\nWith Machine Learning, we follow a data-driven approach to solve various tasks:\n\nCollect a dataset of images and their labels.\nUse a machine learning algorithm to train a model (e.g., a classifier).\nEvaluate and apply the model to new data.\n\n\ndef train(images, labels):\n    \"\"\" Train a Model \"\"\"\n    # Fit Model here\n    return model\n\ndef predict(test_images, model):\n    \"\"\" Predict \"\"\"\n    predictions = model(test_images)\n    return predictions",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1595,7 +1595,7 @@
     "section": "Question",
     "text": "Question\nImage Super Resolution\nHow would you train a model for image super resolution?\nThe task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1606,7 +1606,7 @@
     "section": "Machine Learning Pipeline",
     "text": "Machine Learning Pipeline",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1617,7 +1617,7 @@
     "section": "PyTorch",
     "text": "PyTorch\nIn this class, we use PyTorch. PyTorch has gained immense popularity in recent years, characterized by high flexibility, a clean API, and many open-source resources.\nFundamental Concepts:\n\nTensor: N-dimensional array, like numpy.array\nAutograd: Functionality to create computational graphs and compute gradients.\nModule: Class to define components of neural networks\n\nLet’s check it out! (on images)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Einführung Computer Vision mit Deep Learning"
     ]
   },
@@ -1628,7 +1628,7 @@
     "section": "What are they?",
     "text": "What are they?\nFoundation models are large-scale machine learning models trained on vast amounts of data that can be fine-tuned for various downstream tasks. These models have demonstrated remarkable capabilities in natural language processing, computer vision, and other fields.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1639,7 +1639,7 @@
     "section": "Characteristics of Foundation Models",
     "text": "Characteristics of Foundation Models\n\nLarge-scale Pre-training: Foundation models are pre-trained on extensive datasets, enabling them to capture a wide range of knowledge.\nTransfer Learning: These models can be fine-tuned on specific tasks with relatively small datasets, making them versatile and efficient.\nMultimodal Capabilities: Some foundation models can process and integrate multiple types of data, such as text and images.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1650,7 +1650,7 @@
     "section": "CLIP: A Foundation Model Example",
     "text": "CLIP: A Foundation Model Example\nCLIP (Contrastive Language-Image Pre-training, Radford et al. (2021)) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1661,7 +1661,7 @@
     "section": "How CLIP Works",
     "text": "How CLIP Works\n\nSource: Radford et al. (2021)CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1672,7 +1672,7 @@
     "section": "How CLIP can be applied",
     "text": "How CLIP can be applied\n\nSource: Radford et al. (2021)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1683,7 +1683,7 @@
     "section": "Applications of CLIP",
     "text": "Applications of CLIP\n\nZero-Shot Classification: CLIP can classify images into categories it has not explicitly been trained on by leveraging its understanding of language.\nImage Search: By inputting a textual description, CLIP can retrieve relevant images from a database.\n(near) Duplicate Detection: CLIP can assist in identifying near duplicate images.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1694,7 +1694,7 @@
     "section": "Example",
     "text": "Example\nHere’s a simple example of using CLIP for zero-shot image classification:\n\nimport requests\nfrom PIL import Image\nfrom transformers import CLIPModel, CLIPProcessor\n\n# 1) Get Models and Data Pre-Processors\nmodel = CLIPModel.from_pretrained(\"openai/clip-vit-base-patch32\")\nprocessor = CLIPProcessor.from_pretrained(\"openai/clip-vit-base-patch32\")\n\n# 2) Define Input Data: Image and Texts\nurl = \"http://images.cocodataset.org/val2017/000000039769.jpg\"\nimage = Image.open(requests.get(url, stream=True).raw)\n\nprompt_template = \"a photo of a {}\"\nclasses = [\"cat\", \"dog\", \"car\", \"tree\"]\nprompts = [prompt_template.format(class_name) for class_name in classes]\n\n# 3) Pre-Process Inputs\ninputs = processor(\n    text=prompts,\n    images=image,\n    return_tensors=\"pt\",\n    padding=True,\n)\n\n# 4) Forward-Pass\nwith torch.no_grad():\n    outputs = model(**inputs)\nlogits_per_image = outputs.logits_per_image  # this is the image-text similarity score\n\n# 5) Find most likely label\nprobs = logits_per_image.softmax(dim=1)\nprint(\"Label:\", classes[probs.argmax().item()])",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1705,7 +1705,7 @@
     "section": "Fine-Tuning CLIP",
     "text": "Fine-Tuning CLIP\nIf CLIP does not perform well with zero-shot learning, it can be fine-tuned with various techniques. This is a powerful mechanism because the features that CLIP has learned are very powerful and might be useful for your target task.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1716,7 +1716,7 @@
     "section": "Visual Question Anwering",
     "text": "Visual Question Anwering\nMulti-modal models extend the capabilities of foundation models by integrating and processing multiple types of data simultaneously. One notable example of a multi-modal model is a Visual Question Answering (VQA) system, which can understand and answer questions about images. Figure 1 shows an example.\n\nSource: Li et al. (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1727,7 +1727,7 @@
     "section": "How VQA Works",
     "text": "How VQA Works\nVQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers. Figure 2 shows training data examples that were used in the Flamingo model Alayrac et al. (2022).\n\nSource: Alayrac et al. (2022)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1738,7 +1738,7 @@
     "section": "Applications of VQA",
     "text": "Applications of VQA\n\nAccessibility: VQA can help visually impaired users by answering questions about their surroundings based on images captured by a camera.\nChat Bots with Visual Understanding: VQA systems can be used in chat bots to incorporate visual inputs.\nCustomer Support: VQA can enhance customer support by allowing users to submit images and ask questions about products or services.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1749,7 +1749,7 @@
     "section": "Conclusion",
     "text": "Conclusion\nFoundation models like CLIP and multi-modal models such as VQA represent significant advancements in machine learning, offering powerful capabilities across various tasks. Their ability to learn from large datasets and generalize to new tasks makes them valuable tools in the AI landscape.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Foundation Models"
     ]
   },
@@ -1760,7 +1760,7 @@
     "section": "Overview",
     "text": "Overview\n\nIntroduction & Motivation\nConvolutional Layers\nProperties\nVariants and Layers\nVisualizations and Architectures",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1771,7 +1771,7 @@
     "section": "Properties of Image Data",
     "text": "Properties of Image Data\n\nHigh-Dimensional: An RGB image of size \\(224 \\times 224\\) (height, width) has = \\(150'528\\) values.\nLocality: Nearby pixels are statistically related\nStability under transformations: Interpretation of an image does not change under many geomoetric transformations.\n\n\nImage Source",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1782,7 +1782,7 @@
     "section": "Multilayer-Perceptron and Images",
     "text": "Multilayer-Perceptron and Images\n\nMLP on example image.\nMLPs deal with flat inputs: The spatial structure gets lost.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1793,7 +1793,7 @@
     "section": "Multilayer-Perceptrons and High-Dimensional Inputs",
     "text": "Multilayer-Perceptrons and High-Dimensional Inputs\n\nMLP on example image.Dimensionality of weight matrix \\(\\mathbf{W}\\) scales with input size. \\(\\mathbf{W} \\in \\mathbb{R}^{d \\times k}\\), while \\(d\\) the dimensionality of the inputs, and \\(k\\) the number of neurons in the first hidden layer. \\(k\\) must be sufficiently large to learn the necessary patterns. This can lead to practical problems regarding memory and compute.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1804,7 +1804,7 @@
     "section": "Multilayer-Perceptrons and Pattern Learning",
     "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.The columns of the weight matrix \\(\\mathbf{W}\\) (in the first hidden layer) can be visualized to learn what kind pattern a specific neuron has learned by reshaping them to the dimensionality of the input images \\(\\mathbf{x} \\in \\mathbb{R}^{h \\times w}\\).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1815,7 +1815,7 @@
     "section": "Multilayer-Perceptrons and Pattern Learning",
     "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1826,7 +1826,7 @@
     "section": "Multilayer-Perceptrons and Pattern Learning",
     "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.\nCan an MLP successfully learn patterns in images \\(\\mathbf{x}\\) that are permuted with a permutation matrix \\(\\mathbf{P}\\), i.e. \\(f(P(\\mathbf{x}))\\)?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1837,7 +1837,7 @@
     "section": "Multilayer-Perceptrons and Pattern Learning",
     "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.Yes! An MLP has no notion of distance and treats every connection between every input equally.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1848,7 +1848,7 @@
     "section": "Multilayer-Perceptrons and Translations",
     "text": "Multilayer-Perceptrons and Translations\n\nMLP and pattern shiftsOften the patterns we want to learn are not spatially constraint. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g. \\(g(\\mathbf{x})\\) where \\(g()\\) is a spatial translation.\n\nHow do MLPs deal with this?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1859,7 +1859,7 @@
     "section": "MLP and Images",
     "text": "MLP and Images\n\n\nFigure 8\n\nMLPs need to (re-) learn the same pattern at all positions, which is incredibly inefficient. This also means the training data must contain all patterns at all feasible positions, otherwise the MLP won’t be able to learn how to recognize them.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1870,7 +1870,7 @@
     "section": "MLPs and Images",
     "text": "MLPs and Images\n\nHigh-Dimensional: The size of an MLP scales with the input dimensionality which might blow beyond memory and compute budgets.\nLocality: MLPs have no notion of locality and thus can’t exploit this inherent bias in natural images.\nStability under transformations: MLPs need to learn position-dependent patterns which is very inefficient.\n\n\nDemonstration: https://adamharley.com/nn_vis/mlp/2d.html\n\n\nWhat do we need?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1881,7 +1881,7 @@
     "section": "Invariance and Equivariance",
     "text": "Invariance and Equivariance\nFor many tasks small variations in the input should either not change the model output (invariance) or should change the output in tandem with the input changes (equivariance).\n\nA function \\(f(\\mathbf{x})\\) is invariant to a transformation \\(g(\\mathbf{x})\\) if:\n\\[\\begin{align}\nf(g(\\mathbf{x})) = f(\\mathbf{x})\n\\end{align}\\]\n\n\nA function \\(f(\\mathbf{x})\\) (such as a layer in a neural network) of an image \\(\\mathbf{x}\\) is equivariant with respect to a transformation \\(g(\\mathbf{\\mathbf{x}})\\) if:\n\\[\\begin{align}\nf(g(\\mathbf{x})) = g(f(\\mathbf{x}))\n\\end{align}\\]",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1892,7 +1892,7 @@
     "section": "Example Invariance",
     "text": "Example Invariance\nExample where invariance is required:\n\nWhen objects in the input translate spatially, the output (in this case the classification of the images) does not change. The model \\(f(\\mathbf{x})\\) is thus invariant to spatial translations.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1903,7 +1903,7 @@
     "section": "Example Equivariance",
     "text": "Example Equivariance\nExample where equivariance is required:\n\nWhen objects in the input (first row) translate spatially, the detections (bounding boxes) change accordingly (bottom row). The model \\(f(\\mathbf{x})\\) that produces the bounding boxes is thus equivariant with respect to spatial translations.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1914,7 +1914,7 @@
     "section": "History: Experiments on Cats",
     "text": "History: Experiments on Cats\n\nIllustration Source",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1925,7 +1925,7 @@
     "section": "Visual Cortex",
     "text": "Visual Cortex\n\nRepresentation of transformations in the visual cortex. Source: Kubilius (2017)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1936,7 +1936,7 @@
     "section": "Convolutional Neural Networks",
     "text": "Convolutional Neural Networks\n\nThe activations of a ConvNet architecture. The input image is on the left, and the predictions are on the right. Source: Li (2022)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1947,7 +1947,7 @@
     "section": "Convolution Operation",
     "text": "Convolution Operation\nConvolution in Deep Learning is typically implemented as cross-correlation.\n\\[\\begin{equation}\nS(i, j) = (K * I)(i, j) = b + \\sum_m \\sum_n I(i + m, j + n) K(m, n)\n\\end{equation}\\]\n\\(I\\) is the input (for example an image), \\(K\\) is the kernel (typically smaller than \\(I\\)) and \\(b\\) is a bias term which is being added to the weighted sum.\nIf \\(I\\) is an RGB image (in the first layer of a CNN for example), the kernel \\(K\\) would have dimensionality \\(3 \\times K \\times K\\) (assuming a square kernel). More generally we learn kernels of the dimensionality \\(C_{in} \\times K \\times K\\).\nMultiple kernels, let’s say \\(C_o\\) kernels, can be grouped together: \\(C_o \\times C_{in} \\times K \\times K\\).\nWe often refer to such tensors as filters or filter banks.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1958,7 +1958,7 @@
     "section": "Convolution on RGB Images",
     "text": "Convolution on RGB Images\n\nSource: Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1969,7 +1969,7 @@
     "section": "Convolutional Layers",
     "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1980,7 +1980,7 @@
     "section": "Convolutional Layers",
     "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -1991,7 +1991,7 @@
     "section": "Convolutional Layers",
     "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2002,7 +2002,7 @@
     "section": "Convolutional Layers",
     "text": "Convolutional Layers\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2013,7 +2013,7 @@
     "section": "Convolutional Layers",
     "text": "Convolutional Layers\n\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2024,7 +2024,7 @@
     "section": "Padding, Stride, Kernel Size, Dilation",
     "text": "Padding, Stride, Kernel Size, Dilation\nThere are several options to parameterise a convolution.\n\n\nPadding: How much padding is added to the input?\nStride: What is the step size (stride) of the kernel?\nKernel-Size: What is the kernel size?\nDilation: What is the dilation rate?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2035,7 +2035,7 @@
     "section": "Padding",
     "text": "Padding\nWhat is the output dimensionality when convolving a 3x3 kernel?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2046,7 +2046,7 @@
     "section": "Padding",
     "text": "Padding\n\nLeft: Input (Yellow) with Zero-Padding (white border), Middle: Filter, Right: Output.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2057,7 +2057,7 @@
     "section": "Stride",
     "text": "Stride\n\nConvolution with stride (1, 1)The kernel is shifted by 1 pixel before each new computation.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2068,7 +2068,7 @@
     "section": "Stride",
     "text": "Stride\n\nConvolution with stride (1, 1)The kernel is shifted by 2 pixel before each new computation.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2079,7 +2079,7 @@
     "section": "Kernel-Size",
     "text": "Kernel-Size",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2090,7 +2090,7 @@
     "section": "Kernel-Size",
     "text": "Kernel-Size\n\n\nWhat is the difference between using 3x3 vs 5x5 kernels? What is the same?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2101,7 +2101,7 @@
     "section": "Dilation",
     "text": "Dilation\n\n\nWhy would we use dilation \\(d \\gt 1\\)?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2112,7 +2112,7 @@
     "section": "Calculations: Spatial Dimensionality of Activation Maps",
     "text": "Calculations: Spatial Dimensionality of Activation Maps\nYou can calculate the dimensionality of the activation maps with the following formulas:\n\n\\(i\\): Side length of the input activations (assumption: square inputs)\n\\(k\\): Kernel size (assumption: square kernel)\n\\(o\\): Side length of the output activation maps\n\\(s\\): Stride (assumption: same stride along spatial dimensions)\n\\(p\\): Number of paddings on each side (assumption: same number of paddings along spatial dimensions)\n\\(d\\): Dilation rate.\n\n\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k-(k-1)(d-1)}{s} \\right\\rfloor + 1\n\\end{equation}\\]\nNote: If dilation is 1 \\((k-1)(d-1)\\) equals 0.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2123,7 +2123,7 @@
     "section": "Calculations: Number of Weights in a Convolutional Layer",
     "text": "Calculations: Number of Weights in a Convolutional Layer\nYou can calculate the total number of weights in a convolutional layer with the following formula:\n\n\\(k\\): Kernel size (assumption: square kernel, so kernel has dimensions \\(k \\times k\\))\n\\(C_{in}\\): Number of input channels\n\\(C_{out}\\): Number of output channels\n\n\n\\[\\begin{equation}\n\\text{Total Weights} = (k \\times k) \\times C_{in} \\times C_{out}\n\\end{equation}\\]\n\n\nEach filter has a size of \\(k \\times k \\times C_{in}\\), and there are \\(C_{out}\\) filters in total, resulting in \\((k \\times k \\times C_{in}) \\times C_{out}\\) weights.\n\n\nBiases: If each output channel has a bias term, add an additional \\(C_{out}\\) weights for the biases.\n\\[\\begin{equation}\n\\text{Total Parameters} = (k \\times k \\times C_{in} \\times C_{out}) + C_{out}\n\\end{equation}\\]",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2134,7 +2134,7 @@
     "section": "Quiz",
     "text": "Quiz\nScenario:\n\nInput activations: \\(3 \\times 32 \\times 32\\) (C, H, W)\nConvolution: 10 filters with \\(5  \\times 5\\) kernel size, stride=1, pad=2\n\nQuestions:\n\nWhat is the size of the activation map?\nHow many weights / parameters defines this operation?\n\nFormulas:\n\n\\[\\begin{equation}\no = \\left\\lfloor \\frac{i + 2p - k-(k-1)(d-1)}{s} \\right\\rfloor + 1\n\\end{equation}\\]\n\\[\\begin{equation}\n\\text{Total Parameters} = (k \\times k \\times C_{in} \\times C_{out}) + C_{out}\n\\end{equation}\\]",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2145,7 +2145,7 @@
     "section": "Sparse Connectivity and Parameter Sharing",
     "text": "Sparse Connectivity and Parameter Sharing\nLocal (Sparse) Connectivity: Neurons are only locally connected.\nParameter Sharing: Weights of a neuron are applied locally but are the same across the entire input.\n\n\nCan we recognize cats with a one-layer CNN?\nCan we recognize cats anywhere in an image with a CNN?\nIs parameter sharing always useful?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2156,7 +2156,7 @@
     "section": "Translation Invariance / Equivariance",
     "text": "Translation Invariance / Equivariance\nGiven a translation \\(g()\\), which spatially shifts inputs:\n\nTranslation invariance: \\(f(g(x))=f(x)\\)\nTranslation equivariance: \\(f(g(x))=g(f(x))\\)\n\n\nAre convolutions translation invariant, equivariant, or both?",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2167,7 +2167,7 @@
     "section": "Stacking Convolutions",
     "text": "Stacking Convolutions\n\n\n\nSource: Johnson (2019)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2178,7 +2178,7 @@
     "section": "Receptive Field",
     "text": "Receptive Field\n\nUsing a 5x5 kernel",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2189,7 +2189,7 @@
     "section": "Receptive Field",
     "text": "Receptive Field\n\nUsing a 5x5 kernel and two layers",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2200,7 +2200,7 @@
     "section": "Receptive Field",
     "text": "Receptive Field",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2211,7 +2211,7 @@
     "section": "Receptive Field",
     "text": "Receptive Field",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2222,7 +2222,7 @@
     "section": "Receptive Field",
     "text": "Receptive Field\nThe receptive field \\(r_0\\) of a convolutional neural network can be calculated as follows:\n\nDefine the recurrence relation:\n\n\\[\\begin{equation}\nr_{l-1} = s_l \\cdot r_l + (k_l - s_l)\n\\end{equation}\\]\nwhere: - \\(r_l\\): Receptive field at layer $l $. - \\(s_l\\): Stride of layer \\(l\\). - \\(k_l\\): Kernel size of layer \\(l\\).\n\nSolving this recurrence relation, we get the closed-form solution for the receptive field at the input layer \\(r_0\\):\n\n\\[\\begin{equation}\nr_0 = \\sum_{l=1}^L \\left( (k_l - 1) \\prod_{i=1}^{l-1} s_i \\right) + 1\n\\end{equation}\\]\nwhere: - $L $: Total number of layers. - $k_l $: Kernel size at layer $l $. - $s_i $: Stride at layer $i $, from layer 1 up to $l-1 $.\nThere is a nice article about receptive fields and how to calculate them: Link",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2233,7 +2233,7 @@
     "section": "Architecture",
     "text": "Architecture\nSequence of layers and their hyper-parameters defines an architecture.\n\nVGG - Source: Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2244,7 +2244,7 @@
     "section": "Learned Filters",
     "text": "Learned Filters\n\nSource: Krizhevsky, Sutskever, and Hinton (2012)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2255,7 +2255,7 @@
     "section": "Let’s test it!",
     "text": "Let’s test it!\nLet’s train a CNN.\nHere is an interesting demo: https://poloclub.github.io/cnn-explainer/",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2266,7 +2266,7 @@
     "section": "Downsampling",
     "text": "Downsampling\nSpatial downsampling is often a desired property of convolutional layers.\nWe can achieve that by choosing a stride \\(\\gt 1\\).\nHowever, there are other options, such as pooling layers.\n\na) Sub-Sampling, b) Max Pooling, c) Average Pooling . Source: Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2277,7 +2277,7 @@
     "section": "Upsampling",
     "text": "Upsampling\nSometimes we need to increase the spatial dimensionality of our activation maps.\n\nWhat would be an example when we want to do that?\n\n\n\n\n\na) Duplicate, b) Max-Unpooling, c) Bilinear Interpolation . Source: Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2288,7 +2288,7 @@
     "section": "Upsampling with Transposed Convolutions",
     "text": "Upsampling with Transposed Convolutions",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2299,7 +2299,7 @@
     "section": "Changing the number of channels",
     "text": "Changing the number of channels\nSometimes one needs to just change the number of channels without spatial mixing. This can be achieved with 1x1 convolutions. \n\nSource: Prince (2023)",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2310,7 +2310,7 @@
     "section": "Global Average Pooling",
     "text": "Global Average Pooling\nGlobal Average Pooling is often an important component. It computes the average of the activations along the depth dimension, reducing activation maps from (C x H x W) to (C x 1 x 1). This is useful for directly modeling logits in a classification problem with C classes, enabling architectures that completely eliminate fully-connected layers.\n\nGlobal Average pooling, input (left) and output (right).",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
@@ -2321,7 +2321,7 @@
     "section": "Other Layers",
     "text": "Other Layers\nThere are many other types of layers, also there are more flavours of convolutional layers.",
     "crumbs": [
-      "Slides CAS",
+      "Slides",
       "Convolutional Neural Networks"
     ]
   },
