@@ -63,7 +63,7 @@ website:
       #     - pages/segmentation.qmd
       #     - pages/recent_advances.qmd
       # ------ SLIDES ---------------------------- #
-      - section: Slides CAS
+      - section: Slides
         contents:
           - slides_cas/intro.qmd
           - slides_cas/cnns.qmd
