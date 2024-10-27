@@ -32,7 +32,7 @@ The following questions could be exam questions.
 
 2. Can CNNs be used to model inputs, e.g. satellite data that are not RGB images, i.e. have more than 3 input channels? Justify your answer.
 
-3. You want to model images which are not square. They have a spatial resolution of 800x400. What are the consquences?
+3. You want to model images which are not square. They have a spatial resolution of 800x400. What are the consequences?
 
 
 ## Image Classification
