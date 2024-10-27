@@ -467,13 +467,13 @@ Marco Willi
 <ul>
 <li><strong>Zero-Shot Classification</strong>: CLIP can classify images into categories it has not explicitly been trained on by leveraging its understanding of language.</li>
 <li><strong>Image Search</strong>: By inputting a textual description, CLIP can retrieve relevant images from a database.</li>
-<li><strong>Content Moderation</strong>: CLIP can assist in identifying inappropriate content in images based on textual cues.</li>
+<li><strong>(near) Duplicate Detection</strong>: CLIP can assist in identifying near duplicate images.</li>
 </ul>
 </section>
 <section id="example" class="slide level2">
 <h2>Example</h2>
 <p>Here’s a simple example of using CLIP for zero-shot image classification:</p>
-<div id="f8e96ad7" class="cell" data-execution_count="1">
+<div id="2c686603" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb1-3"><a></a><span class="im">from</span> transformers <span class="im">import</span> CLIPModel, CLIPProcessor</span>
@@ -508,53 +508,32 @@ Marco Willi
 <span id="cb1-32"><a></a><span class="bu">print</span>(<span class="st">"Label:"</span>, classes[probs.argmax().item()])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section>
-<section id="multi-modal-models-an-example-of-visual-question-answering" class="title-slide slide level1 center">
-<h1>Multi-Modal Models: An Example of Visual Question Answering</h1>
-<p>Multi-modal models extend the capabilities of foundation models by integrating and processing multiple types of data simultaneously. One notable example of a multi-modal model is a Visual Question Answering (VQA) system, which can understand and answer questions about images.</p>
+<section id="fine-tuning-clip" class="slide level2">
+<h2>Fine-Tuning CLIP</h2>
+<p>If CLIP does not perform well with zero-shot learning, it can be fine-tuned with various techniques. This is a powerful mechanism because the features that CLIP has learned are very powerful and might be useful for your target task.</p>
 </section>
+<section>
+<section id="multi-modal-models" class="title-slide slide level1 center">
+<h1>Multi-Modal Models</h1>
+
+</section>
+<section id="visual-question-anwering" class="slide level2">
+<h2>Visual Question Anwering</h2>
+<p>Multi-modal models extend the capabilities of foundation models by integrating and processing multiple types of data simultaneously. One notable example of a multi-modal model is a Visual Question Answering (VQA) system, which can understand and answer questions about images. <a href="#/fig-foundation-blip2" class="quarto-xref">Figure&nbsp;1</a> shows an example.</p>
+
+<img data-src="../assets/images/foundation_models/blip2_examples.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="li_blip-2_2023">Li et al. (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></p></section>
 <section id="how-vqa-works" class="slide level2">
 <h2>How VQA Works</h2>
-<p>VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers.</p>
-</section>
+<p>VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers. <a href="#/fig-foundation-flamengo" class="quarto-xref">Figure&nbsp;2</a> shows training data examples that were used in the Flamingo model <span class="citation" data-cites="alayrac_flamingo_2022">Alayrac et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>.</p>
+
+<img data-src="../assets/images/foundation_models/flamengo_training_data.jpg" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="alayrac_flamingo_2022">Alayrac et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p></section>
 <section id="applications-of-vqa" class="slide level2">
 <h2>Applications of VQA</h2>
 <ul>
 <li><strong>Accessibility</strong>: VQA can help visually impaired users by answering questions about their surroundings based on images captured by a camera.</li>
-<li><strong>Educational Tools</strong>: VQA systems can be used in educational applications to assist students in learning by providing answers to questions about visual content.</li>
+<li><strong>Chat Bots with Visual Understanding</strong>: VQA systems can be used in chat bots to incorporate visual inputs.</li>
 <li><strong>Customer Support</strong>: VQA can enhance customer support by allowing users to submit images and ask questions about products or services.</li>
 </ul>
-</section>
-<section id="example-1" class="slide level2">
-<h2>Example</h2>
-<p>Here’s a simple example of a VQA system using a hypothetical multi-modal model:</p>
-<div id="bef045f3" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Hypothetical code for a Visual Question Answering system</span></span>
-<span id="cb2-2"><a></a><span class="im">import</span> torch</span>
-<span id="cb2-3"><a></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb2-4"><a></a><span class="im">from</span> transformers <span class="im">import</span> VQAModel, VQATokenizer</span>
-<span id="cb2-5"><a></a></span>
-<span id="cb2-6"><a></a><span class="co"># Load the model and the tokenizer</span></span>
-<span id="cb2-7"><a></a>model <span class="op">=</span> VQAModel.from_pretrained(<span class="st">"hypothetical-vqa-model"</span>)</span>
-<span id="cb2-8"><a></a>tokenizer <span class="op">=</span> VQATokenizer.from_pretrained(<span class="st">"hypothetical-vqa-model"</span>)</span>
-<span id="cb2-9"><a></a></span>
-<span id="cb2-10"><a></a><span class="co"># Load an image</span></span>
-<span id="cb2-11"><a></a>image <span class="op">=</span> Image.<span class="bu">open</span>(<span class="st">"path/to/your/image.jpg"</span>)</span>
-<span id="cb2-12"><a></a></span>
-<span id="cb2-13"><a></a><span class="co"># Define a question</span></span>
-<span id="cb2-14"><a></a>question <span class="op">=</span> <span class="st">"What is in the image?"</span></span>
-<span id="cb2-15"><a></a></span>
-<span id="cb2-16"><a></a><span class="co"># Preprocess the image and the question</span></span>
-<span id="cb2-17"><a></a>inputs <span class="op">=</span> tokenizer(image, question, return_tensors<span class="op">=</span><span class="st">"pt"</span>)</span>
-<span id="cb2-18"><a></a></span>
-<span id="cb2-19"><a></a><span class="co"># Get the model's answer</span></span>
-<span id="cb2-20"><a></a><span class="cf">with</span> torch.no_grad():</span>
-<span id="cb2-21"><a></a>    outputs <span class="op">=</span> model(<span class="op">**</span>inputs)</span>
-<span id="cb2-22"><a></a>    answer <span class="op">=</span> outputs.logits.argmax(<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb2-23"><a></a></span>
-<span id="cb2-24"><a></a><span class="co"># Print the answer</span></span>
-<span id="cb2-25"><a></a><span class="bu">print</span>(<span class="st">"Answer:"</span>, tokenizer.decode(answer))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
@@ -563,6 +542,12 @@ Marco Willi
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-alayrac_flamingo_2022" class="csl-entry" role="listitem">
+Alayrac, Jean-Baptiste, Jeff Donahue, Pauline Luc, Antoine Miech, Iain Barr, Yana Hasson, Karel Lenc, et al. 2022. <span>“Flamingo: A <span>Visual</span> <span>Language</span> <span>Model</span> for <span>Few</span>-<span>Shot</span> <span>Learning</span>.”</span> arXiv. <a href="http://arxiv.org/abs/2204.14198">http://arxiv.org/abs/2204.14198</a>.
+</div>
+<div id="ref-li_blip-2_2023" class="csl-entry" role="listitem">
+Li, Junnan, Dongxu Li, Silvio Savarese, and Steven Hoi. 2023. <span>“<span>BLIP</span>-2: <span>Bootstrapping</span> <span>Language</span>-<span>Image</span> <span>Pre</span>-Training with <span>Frozen</span> <span>Image</span> <span>Encoders</span> and <span>Large</span> <span>Language</span> <span>Models</span>.”</span> arXiv. <a href="http://arxiv.org/abs/2301.12597">http://arxiv.org/abs/2301.12597</a>.
+</div>
 <div id="ref-radford_learning_2021" class="csl-entry" role="listitem">
 Radford, Alec, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, et al. 2021. <span>“Learning <span>Transferable</span> <span>Visual</span> <span>Models</span> <span>From</span> <span>Natural</span> <span>Language</span> <span>Supervision</span>.”</span> <em>arXiv:2103.00020 [Cs]</em>, February. <a href="http://arxiv.org/abs/2103.00020">http://arxiv.org/abs/2103.00020</a>.
 </div>
