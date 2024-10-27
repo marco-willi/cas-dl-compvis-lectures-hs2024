@@ -4,6 +4,12 @@ project:
   render:
     - "*.qmd"
     - "!NOTES.md"
+    - "!pages/mini_projects.qmd"
+    - "!pages/neural_networks.qmd"
+    - "!pages/object_detection.qmd"
+    - "!pages/segmentation.qmd"
+    - "!slides/*"
+    - "!book/*"
 
 author: "Marco Willi"
 affiliation: "Institute for Data Science I4DS, FHNW"
