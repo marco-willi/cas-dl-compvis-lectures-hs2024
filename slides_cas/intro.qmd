@@ -18,6 +18,19 @@ params:
 :::
 
 
+## Synthetic Image Detection
+
+::: {#fig-intro-sid layout-ncol=2}
+
+![[Source](https://x.com/TheInfiniteDude/status/1637211568692932608)]({{< meta params.images_path >}}sid_trump.jpg)
+
+![[Source](https://x.com/cryptomattk/status/1687908457880367104)]({{< meta params.images_path >}}sid_pope.jpg)
+
+Examples of synthetic images.
+:::
+
+
+
 <!-- ![Camera Trap Image Analysis]({{< meta params.images_path >}}camtrap.jpg){width=400} -->
 
 

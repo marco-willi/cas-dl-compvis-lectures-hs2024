@@ -1,5 +1,6 @@
 ---
 title: "Willkommen zum Modul Computer Vision mit Deep Learning"
+number-sections: false
 ---
 
 

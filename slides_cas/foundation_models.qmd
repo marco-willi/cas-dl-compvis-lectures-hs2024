@@ -44,7 +44,7 @@ CLIP is pre-trained on a diverse dataset of images and their corresponding textu
 
 - **Zero-Shot Classification**: CLIP can classify images into categories it has not explicitly been trained on by leveraging its understanding of language.
 - **Image Search**: By inputting a textual description, CLIP can retrieve relevant images from a database.
-- **Content Moderation**: CLIP can assist in identifying inappropriate content in images based on textual cues.
+- **(near) Duplicate Detection**: CLIP can assist in identifying near duplicate images.
 
 ## Example
 
@@ -90,57 +90,42 @@ print("Label:", classes[probs.argmax().item()])
 ```
 
 
-# Multi-Modal Models: An Example of Visual Question Answering
+## Fine-Tuning CLIP
 
-Multi-modal models extend the capabilities of foundation models by integrating and processing multiple types of data simultaneously. One notable example of a multi-modal model is a Visual Question Answering (VQA) system, which can understand and answer questions about images.
+If CLIP does not perform well with zero-shot learning, it can be fine-tuned with various techniques. This is a powerful mechanism because the features that CLIP has learned are very powerful and might be useful for your target task.
+
+
+# Multi-Modal Models
+
+## Visual Question Anwering
+
+Multi-modal models extend the capabilities of foundation models by integrating and processing multiple types of data simultaneously. One notable example of a multi-modal model is a Visual Question Answering (VQA) system, which can understand and answer questions about images. @fig-foundation-blip2  shows an example.
+
+::: {#fig-foundation-blip2}
+![Source: @li_blip-2_2023]({{< meta params.images_path >}}blip2_examples.jpg)
+:::
 
 ## How VQA Works
 
-VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers.
+VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers. @fig-foundation-flamengo shows training data examples that were used in the Flamingo model @alayrac_flamingo_2022.
+
+::: {#fig-foundation-flamengo}
+![Source: @alayrac_flamingo_2022]({{< meta params.images_path >}}flamengo_training_data.jpg)
+:::
+
+
 
 ## Applications of VQA
 
 - **Accessibility**: VQA can help visually impaired users by answering questions about their surroundings based on images captured by a camera.
-- **Educational Tools**: VQA systems can be used in educational applications to assist students in learning by providing answers to questions about visual content.
+- **Chat Bots with Visual Understanding**: VQA systems can be used in chat bots to incorporate visual inputs.
 - **Customer Support**: VQA can enhance customer support by allowing users to submit images and ask questions about products or services.
 
-## Example
-
-Here's a simple example of a VQA system using a hypothetical multi-modal model:
-
-```{python}
-#| eval: false
-#| echo: true
-# Hypothetical code for a Visual Question Answering system
-import torch
-from PIL import Image
-from transformers import VQAModel, VQATokenizer
-
-# Load the model and the tokenizer
-model = VQAModel.from_pretrained("hypothetical-vqa-model")
-tokenizer = VQATokenizer.from_pretrained("hypothetical-vqa-model")
-
-# Load an image
-image = Image.open("path/to/your/image.jpg")
-
-# Define a question
-question = "What is in the image?"
-
-# Preprocess the image and the question
-inputs = tokenizer(image, question, return_tensors="pt")
-
-# Get the model's answer
-with torch.no_grad():
-    outputs = model(**inputs)
-    answer = outputs.logits.argmax(-1)
-
-# Print the answer
-print("Answer:", tokenizer.decode(answer))
-```
 
 ## Conclusion
 
 Foundation models like CLIP and multi-modal models such as VQA represent significant advancements in machine learning, offering powerful capabilities across various tasks. Their ability to learn from large datasets and generalize to new tasks makes them valuable tools in the AI landscape.
+
 
 
 # References

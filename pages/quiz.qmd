@@ -1,0 +1,53 @@
+---
+title: "Quiz"
+params:
+  images_path: /assets/images/quiz/
+---
+
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+The following questions could be exam questions.
+
+## Convolutions
+
+1. A convolutional layer has 64 activations ($C_{in} = 64$ and $H=16$, $W=16$). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your next convolutional layer?
+
+2. In th example above: How many weights do you need to learn?
+
+3. You have very large images ($8000 \times 8000$ pixels). Your model always crashes with out-of-memory-errors. What options do you have when parameterizing your convolutions?
+
+
+## CNNs
+
+
+1. Can CNNs be used to count objects? Justify your answer.
+
+![Can CNNs count objects]({{< meta params.images_path >}}counting.jpg){width=60%}
+
+
+2. Can CNNs be used to model inputs, e.g. satellite data that are not RGB images, i.e. have more than 3 input channels? Justify your answer.
+
+3. You want to model images which are not square. They have a spatial resolution of 800x400. What are the consquences?
+
+
+## Image Classification
+
+
+1. You trained a model to classify images into synthetic and real. The model is quite good but not perfect. You have the option to verify some images manually. Which do you choose? Justify your answer.
+
+
+
+## Foundation Models
+
+
+1. You applied CLIP on a ataset to identify synthetic / fake images and used the following prompts:
+
+- "A synthetic image".
+- "A real image".
+
+However it does not perform well. What can you do?

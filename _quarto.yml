@@ -75,6 +75,9 @@ website:
       # ------ Exercises ---------------------------- #
       - text: "Exercises"
         href: pages/exercises.qmd
+        # ------ Quiz & Exam Prep---------------------------- #
+      - text: "Quiz & Exam Prep"
+        href: pages/quiz.qmd
       # ------ DEMOS ---------------------------- #
       # - text: "Notebooks"
       #   href: pages/demos.qmd
@@ -102,10 +105,6 @@ format:
     code-fold: false
     code-tools: true
     highlight-style: github
-    # include-in-header:
-    #    - "_dollar.tex"
-    #    - "_macros.tex"
-    #    - "_dollar.tex"
-  # pdf:
-  #   include-in-header:
-  #      - "./assets/_macros.tex"
+  pdf:
+    include-in-header:
+      - "./assets/_macros.tex"
