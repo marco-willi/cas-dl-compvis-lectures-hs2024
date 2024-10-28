@@ -20,15 +20,11 @@ params:
 
 ## Synthetic Image Detection
 
-::: {#fig-intro-sid layout-ncol=2}
-
+::: {layout-ncol=2}
 ![[Source](https://x.com/TheInfiniteDude/status/1637211568692932608)]({{< meta params.images_path >}}sid_trump.jpg)
 
 ![[Source](https://x.com/cryptomattk/status/1687908457880367104)]({{< meta params.images_path >}}sid_pope.jpg)
-
-Examples of synthetic images.
 :::
-
 
 
 <!-- ![Camera Trap Image Analysis]({{< meta params.images_path >}}camtrap.jpg){width=400} -->
@@ -37,27 +33,23 @@ Examples of synthetic images.
 
 ## Object Identification and Translation
 
-::: {#fig-intro-google-lens layout-ncol=2}
+::: {layout-ncol=2}
 
 ![Identification & Search]({{< meta params.images_path >}}google_lens_classification.png
-){#fig-intro-google-lens-class}
+)
 
-![Translation]({{< meta params.images_path >}}google_lens_ocr.png){#fig-intro-google-lens-ocr}
+![Translation]({{< meta params.images_path >}}google_lens_ocr.png)
+:::
 
 [Google Lens](https://search.google/ways-to-search/lens/)
-:::
 
 
 ## Self-Driving
 
 
-::: {#fig-intro-self-driving}
-
 {{< video https://storage.googleapis.com/waymo-uploads/files/site-animations/waymo-driver/cameras.webm width=1600 >}}
 
 [Example from Waymo](https://waymo.com/waymo-driver/).
-
-:::
 
 
 
@@ -343,5 +335,9 @@ Let's check it out! (on images)
 
 # References
 
+::: {style="font-size: 50%;"}
+
 ::: {#refs}
+:::
+
 :::

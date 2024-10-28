@@ -127,8 +127,11 @@ VQA models combine visual data (images) with textual data (questions) to generat
 Foundation models like CLIP and multi-modal models such as VQA represent significant advancements in machine learning, offering powerful capabilities across various tasks. Their ability to learn from large datasets and generalize to new tasks makes them valuable tools in the AI landscape.
 
 
-
 # References
 
+::: {style="font-size: 50%;"}
+
 ::: {#refs}
+:::
+
 :::
