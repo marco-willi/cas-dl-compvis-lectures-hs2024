@@ -667,7 +667,7 @@
     "href": "pages/quiz.html#convolutions",
     "title": "Quiz",
     "section": "Convolutions",
-    "text": "Convolutions\n\nA convolutional layer has 64 activations (\\(C_{in} = 64\\) and \\(H=16\\), \\(W=16\\)). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your next convolutional layer?\nIn th example above: How many weights do you need to learn?\nYou have very large images (\\(8000 \\times 8000\\) pixels). Your model always crashes with out-of-memory-errors. What options do you have when parameterizing your convolutions?",
+    "text": "Convolutions\n\nA convolutional layer has 64 input activations (\\(C_{in} = 64\\) and \\(H=16\\), \\(W=16\\)). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your convolutional layer?\nIn the example above: How many weights do you need to learn?\nYou have very large images (\\(8000 \\times 8000\\) pixels). Your model always crashes with out-of-memory-errors. What options do you have when parameterizing your convolutions?",
     "crumbs": [
       "Quiz & Exam Prep"
     ]
@@ -677,7 +677,7 @@
     "href": "pages/quiz.html#cnns",
     "title": "Quiz",
     "section": "CNNs",
-    "text": "CNNs\n\nCan CNNs be used to count objects? Justify your answer.\n\n\n\n\nCan CNNs count objects\n\n\n\nCan CNNs be used to model inputs, e.g. satellite data that are not RGB images, i.e. have more than 3 input channels? Justify your answer.\nYou want to model images which are not square. They have a spatial resolution of 800x400. What are the consequences?",
+    "text": "CNNs\n\nCan CNNs be used to count objects? Take a look at the following figure. You want to count in how many quadrants an objects occurs. Justify your answer.\n\n\n\n\nCan CNNs count objects\n\n\n\nCan CNNs be used to model inputs, e.g. satellite data that are not RGB images, i.e. have more than 3 input channels? Justify your answer.\nYou want to model images which are not square. They have a spatial resolution of 800x400. What is different within a CNN as opposed to if they were square?",
     "crumbs": [
       "Quiz & Exam Prep"
     ]
@@ -687,7 +687,7 @@
     "href": "pages/quiz.html#image-classification",
     "title": "Quiz",
     "section": "Image Classification",
-    "text": "Image Classification\n\nYou trained a model to classify images into synthetic and real. The model is quite good but not perfect. You have the option to verify some images manually. Which do you choose? Justify your answer.",
+    "text": "Image Classification\n\nYou trained a model to identify synthetic (fake) images. The model is quite good but not perfect. When deploying the model you have the option to send some images for manual verificaiton by an expert. Which do you choose? Justify your answer.",
     "crumbs": [
       "Quiz & Exam Prep"
     ]
@@ -697,7 +697,7 @@
     "href": "pages/quiz.html#foundation-models",
     "title": "Quiz",
     "section": "Foundation Models",
-    "text": "Foundation Models\n\nYou applied CLIP on a ataset to identify synthetic / fake images and used the following prompts:\n\n\n“A synthetic image”.\n“A real image”.\n\nHowever it does not perform well. What can you do?",
+    "text": "Foundation Models\n\nYou applied CLIP on a dataset to identify synthetic / fake images and used the following prompts:\n\n\n“A synthetic image”.\n“A real image”.\n\nWhen you compare to the ground truth labels that you have collected you see that the model does not perform well. What options do you have to improve the model?",
     "crumbs": [
       "Quiz & Exam Prep"
     ]
@@ -1318,7 +1318,7 @@
     "href": "slides_cas/intro.html#synthetic-image-detection",
     "title": "Einführung Computer Vision mit Deep Learning",
     "section": "Synthetic Image Detection",
-    "text": "Synthetic Image Detection\n\n\n\n\n\n\n\n\nSource\n\n\n\n\n\n\n\nSource\n\n\n\n\n\n\nFigure 2: Examples of synthetic images.",
+    "text": "Synthetic Image Detection\n\n\n\n\n\n\n\n\n\nSource\n\n\n\n\n\n\n\nSource",
     "crumbs": [
       "Slides",
       "Einführung Computer Vision mit Deep Learning"
@@ -1329,7 +1329,7 @@
     "href": "slides_cas/intro.html#object-identification-and-translation",
     "title": "Einführung Computer Vision mit Deep Learning",
     "section": "Object Identification and Translation",
-    "text": "Object Identification and Translation\n\n\n\n\n\n\n\n\n\n\n\n(a) Identification & Search\n\n\n\n\n\n\n\n\n\n\n\n(b) Translation\n\n\n\n\n\n\n\nFigure 3: Google Lens",
+    "text": "Object Identification and Translation\n\n\n\n\n\n\n\n\n\nIdentification & Search\n\n\n\n\n\n\n\nTranslation\n\n\n\n\n\nGoogle Lens",
     "crumbs": [
       "Slides",
       "Einführung Computer Vision mit Deep Learning"
@@ -1340,7 +1340,7 @@
     "href": "slides_cas/intro.html#self-driving",
     "title": "Einführung Computer Vision mit Deep Learning",
     "section": "Self-Driving",
-    "text": "Self-Driving\n\n\n\n\n\n\nFigure 4: Example from Waymo.",
+    "text": "Self-Driving\n\nExample from Waymo.",
     "crumbs": [
       "Slides",
       "Einführung Computer Vision mit Deep Learning"
@@ -1780,7 +1780,7 @@
     "href": "slides_cas/cnns.html#multilayer-perceptron-and-images",
     "title": "Convolutional Neural Networks",
     "section": "Multilayer-Perceptron and Images",
-    "text": "Multilayer-Perceptron and Images\n\nMLP on example image.\nMLPs deal with flat inputs: The spatial structure gets lost.",
+    "text": "Multilayer-Perceptron and Images\n\n\nMLPs deal with flat inputs: The spatial structure gets lost.",
     "crumbs": [
       "Slides",
       "Convolutional Neural Networks"
@@ -1791,51 +1791,7 @@
     "href": "slides_cas/cnns.html#multilayer-perceptrons-and-high-dimensional-inputs",
     "title": "Convolutional Neural Networks",
     "section": "Multilayer-Perceptrons and High-Dimensional Inputs",
-    "text": "Multilayer-Perceptrons and High-Dimensional Inputs\n\nMLP on example image.Dimensionality of weight matrix \\(\\mathbf{W}\\) scales with input size. \\(\\mathbf{W} \\in \\mathbb{R}^{d \\times k}\\), while \\(d\\) the dimensionality of the inputs, and \\(k\\) the number of neurons in the first hidden layer. \\(k\\) must be sufficiently large to learn the necessary patterns. This can lead to practical problems regarding memory and compute.",
-    "crumbs": [
-      "Slides",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning",
-    "href": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning",
-    "title": "Convolutional Neural Networks",
-    "section": "Multilayer-Perceptrons and Pattern Learning",
-    "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.The columns of the weight matrix \\(\\mathbf{W}\\) (in the first hidden layer) can be visualized to learn what kind pattern a specific neuron has learned by reshaping them to the dimensionality of the input images \\(\\mathbf{x} \\in \\mathbb{R}^{h \\times w}\\).",
-    "crumbs": [
-      "Slides",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning-1",
-    "href": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning-1",
-    "title": "Convolutional Neural Networks",
-    "section": "Multilayer-Perceptrons and Pattern Learning",
-    "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.",
-    "crumbs": [
-      "Slides",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning-2",
-    "href": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning-2",
-    "title": "Convolutional Neural Networks",
-    "section": "Multilayer-Perceptrons and Pattern Learning",
-    "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.\nCan an MLP successfully learn patterns in images \\(\\mathbf{x}\\) that are permuted with a permutation matrix \\(\\mathbf{P}\\), i.e. \\(f(P(\\mathbf{x}))\\)?",
-    "crumbs": [
-      "Slides",
-      "Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning-3",
-    "href": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning-3",
-    "title": "Convolutional Neural Networks",
-    "section": "Multilayer-Perceptrons and Pattern Learning",
-    "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.Yes! An MLP has no notion of distance and treats every connection between every input equally.",
+    "text": "Multilayer-Perceptrons and High-Dimensional Inputs\n\nDimensionality of weight matrix \\(\\mathbf{W}\\) scales with input size. \\(\\mathbf{W} \\in \\mathbb{R}^{d \\times k}\\), while \\(d\\) the dimensionality of the inputs, and \\(k\\) the number of neurons in the first hidden layer. The columns of the weight matrix \\(\\mathbf{W}\\) (in the first hidden layer) can be visualized to learn what kind pattern a specific neuron has learned.",
     "crumbs": [
       "Slides",
       "Convolutional Neural Networks"
@@ -1846,18 +1802,18 @@
     "href": "slides_cas/cnns.html#multilayer-perceptrons-and-translations",
     "title": "Convolutional Neural Networks",
     "section": "Multilayer-Perceptrons and Translations",
-    "text": "Multilayer-Perceptrons and Translations\n\nMLP and pattern shiftsOften the patterns we want to learn are not spatially constraint. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g. \\(g(\\mathbf{x})\\) where \\(g()\\) is a spatial translation.\n\nHow do MLPs deal with this?",
+    "text": "Multilayer-Perceptrons and Translations\n\nMLP and pattern shiftsOften the patterns we want to learn are not stationary. Ideally we want to recognize them at all positions, particularly under translations of the inputs, e.g. \\(g(\\mathbf{x})\\) where \\(g()\\) is a spatial translation.\n\nHow do MLPs deal with this?",
     "crumbs": [
       "Slides",
       "Convolutional Neural Networks"
     ]
   },
   {
-    "objectID": "slides_cas/cnns.html#mlp-and-images",
-    "href": "slides_cas/cnns.html#mlp-and-images",
+    "objectID": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning",
+    "href": "slides_cas/cnns.html#multilayer-perceptrons-and-pattern-learning",
     "title": "Convolutional Neural Networks",
-    "section": "MLP and Images",
-    "text": "MLP and Images\n\n\nFigure 8\n\nMLPs need to (re-) learn the same pattern at all positions, which is incredibly inefficient. This also means the training data must contain all patterns at all feasible positions, otherwise the MLP won’t be able to learn how to recognize them.",
+    "section": "Multilayer-Perceptrons and Pattern Learning",
+    "text": "Multilayer-Perceptrons and Pattern Learning\n\nMLP on example image.\nCan an MLP successfully learn patterns in images \\(\\mathbf{x}\\) that are permuted with a permutation matrix \\(\\mathbf{P}\\), i.e. \\(f(P(\\mathbf{x}))\\)?",
     "crumbs": [
       "Slides",
       "Convolutional Neural Networks"
@@ -2220,7 +2176,7 @@
     "href": "slides_cas/cnns.html#receptive-field-4",
     "title": "Convolutional Neural Networks",
     "section": "Receptive Field",
-    "text": "Receptive Field\nThe receptive field \\(r_0\\) of a convolutional neural network can be calculated as follows:\n\nDefine the recurrence relation:\n\n\\[\\begin{equation}\nr_{l-1} = s_l \\cdot r_l + (k_l - s_l)\n\\end{equation}\\]\nwhere: - \\(r_l\\): Receptive field at layer $l $. - \\(s_l\\): Stride of layer \\(l\\). - \\(k_l\\): Kernel size of layer \\(l\\).\n\nSolving this recurrence relation, we get the closed-form solution for the receptive field at the input layer \\(r_0\\):\n\n\\[\\begin{equation}\nr_0 = \\sum_{l=1}^L \\left( (k_l - 1) \\prod_{i=1}^{l-1} s_i \\right) + 1\n\\end{equation}\\]\nwhere: - $L $: Total number of layers. - $k_l $: Kernel size at layer $l $. - $s_i $: Stride at layer $i $, from layer 1 up to $l-1 $.\nThere is a nice article about receptive fields and how to calculate them: Link",
+    "text": "Receptive Field\nThe receptive field \\(r_0\\) of a convolutional neural network can be calculated as follows:\n\nDefine the recurrence relation:\n\n\\[\\begin{equation}\nr_{l-1} = s_l \\cdot r_l + (k_l - s_l)\n\\end{equation}\\]\n\n\\(r_l\\): Receptive field at layer $l $.\n\\(s_l\\): Stride of layer \\(l\\).\n\\(k_l\\): Kernel size of layer \\(l\\).\n\n\nSolving this recurrence relation, we get the closed-form solution for the receptive field at the input layer \\(r_0\\):\n\n\\[\\begin{equation}\nr_0 = \\sum_{l=1}^L \\left( (k_l - 1) \\prod_{i=1}^{l-1} s_i \\right) + 1\n\\end{equation}\\]\n\n\\(L\\): Total number of layers.\n\\(k_l\\): Kernel size at layer \\(l\\).\n\\(s_i\\): Stride at layer \\(i\\), from layer 1 up to \\(l-1\\).\n\nThere is a nice article about receptive fields and how to calculate them: Link",
     "crumbs": [
       "Slides",
       "Convolutional Neural Networks"

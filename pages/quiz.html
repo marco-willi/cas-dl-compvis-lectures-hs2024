@@ -327,15 +327,15 @@ window.Quarto = {
 <section id="convolutions" class="level2">
 <h2 class="anchored" data-anchor-id="convolutions">Convolutions</h2>
 <ol type="1">
-<li><p>A convolutional layer has 64 activations (<span class="math inline">\(C_{in} = 64\)</span> and <span class="math inline">\(H=16\)</span>, <span class="math inline">\(W=16\)</span>). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your next convolutional layer?</p></li>
-<li><p>In th example above: How many weights do you need to learn?</p></li>
+<li><p>A convolutional layer has 64 input activations (<span class="math inline">\(C_{in} = 64\)</span> and <span class="math inline">\(H=16\)</span>, <span class="math inline">\(W=16\)</span>). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your convolutional layer?</p></li>
+<li><p>In the example above: How many weights do you need to learn?</p></li>
 <li><p>You have very large images (<span class="math inline">\(8000 \times 8000\)</span> pixels). Your model always crashes with out-of-memory-errors. What options do you have when parameterizing your convolutions?</p></li>
 </ol>
 </section>
 <section id="cnns" class="level2">
 <h2 class="anchored" data-anchor-id="cnns">CNNs</h2>
 <ol type="1">
-<li>Can CNNs be used to count objects? Justify your answer.</li>
+<li>Can CNNs be used to count objects? Take a look at the following figure. You want to count in how many quadrants an objects occurs. Justify your answer.</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -345,25 +345,25 @@ window.Quarto = {
 </div>
 <ol start="2" type="1">
 <li><p>Can CNNs be used to model inputs, e.g.&nbsp;satellite data that are not RGB images, i.e.&nbsp;have more than 3 input channels? Justify your answer.</p></li>
-<li><p>You want to model images which are not square. They have a spatial resolution of 800x400. What are the consequences?</p></li>
+<li><p>You want to model images which are not square. They have a spatial resolution of 800x400. What is different within a CNN as opposed to if they were square?</p></li>
 </ol>
 </section>
 <section id="image-classification" class="level2">
 <h2 class="anchored" data-anchor-id="image-classification">Image Classification</h2>
 <ol type="1">
-<li>You trained a model to classify images into synthetic and real. The model is quite good but not perfect. You have the option to verify some images manually. Which do you choose? Justify your answer.</li>
+<li>You trained a model to identify synthetic (fake) images. The model is quite good but not perfect. When deploying the model you have the option to send some images for manual verificaiton by an expert. Which do you choose? Justify your answer.</li>
 </ol>
 </section>
 <section id="foundation-models" class="level2">
 <h2 class="anchored" data-anchor-id="foundation-models">Foundation Models</h2>
 <ol type="1">
-<li>You applied CLIP on a ataset to identify synthetic / fake images and used the following prompts:</li>
+<li>You applied CLIP on a dataset to identify synthetic / fake images and used the following prompts:</li>
 </ol>
 <ul>
 <li>“A synthetic image”.</li>
 <li>“A real image”.</li>
 </ul>
-<p>However it does not perform well. What can you do?</p>
+<p>When you compare to the ground truth labels that you have collected you see that the model does not perform well. What options do you have to improve the model?</p>
 
 
 <!-- -->
@@ -871,9 +871,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Convolutions</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>A convolutional layer has 64 activations ($C_{in} = 64$ and $H=16$, $W=16$). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your next convolutional layer?</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>A convolutional layer has 64 input activations ($C_{in} = 64$ and $H=16$, $W=16$). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your convolutional layer?</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>In th example above: How many weights do you need to learn?</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>In the example above: How many weights do you need to learn?</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>You have very large images ($8000 \times 8000$ pixels). Your model always crashes with out-of-memory-errors. What options do you have when parameterizing your convolutions?</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
@@ -881,32 +881,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## CNNs</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Can CNNs be used to count objects? Justify your answer.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Can CNNs be used to count objects? Take a look at the following figure. You want to count in how many quadrants an objects occurs. Justify your answer.</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="al">![Can CNNs count objects]({{&lt; meta params.images_path &gt;}}counting.jpg)</span>{width=60%}</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Can CNNs be used to model inputs, e.g. satellite data that are not RGB images, i.e. have more than 3 input channels? Justify your answer.</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>You want to model images which are not square. They have a spatial resolution of 800x400. What are the consequences?</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>You want to model images which are not square. They have a spatial resolution of 800x400. What is different within a CNN as opposed to if they were square?</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## Image Classification</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>You trained a model to classify images into synthetic and real. The model is quite good but not perfect. You have the option to verify some images manually. Which do you choose? Justify your answer.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>You trained a model to identify synthetic (fake) images. The model is quite good but not perfect. When deploying the model you have the option to send some images for manual verificaiton by an expert. Which do you choose? Justify your answer.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Foundation Models</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Foundation Models</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>You applied CLIP on a ataset to identify synthetic / fake images and used the following prompts:</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"A synthetic image".</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"A real image".</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>However it does not perform well. What can you do?</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>You applied CLIP on a dataset to identify synthetic / fake images and used the following prompts:</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"A synthetic image".</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>"A real image".</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>When you compare to the ground truth labels that you have collected you see that the model does not perform well. What options do you have to improve the model?</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
