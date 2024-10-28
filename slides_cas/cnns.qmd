@@ -56,7 +56,7 @@ Dimensionality of weight matrix $\m{W}$ scales with input size.  $\m{W} \in \mat
 
 <!-- For each neuron in the first hidden layer, the model must learn as many weights as there are input neurons. For an RGB image of size $224 \times 224$  (height, width) each neuron connects to each input via $150'528$ weights. To learn many and varying patterns a large number of neurons are often required, leading to practical problems (memory and compute) when training an MLP on such inputs. -->
 
-<!-- 
+<!--
 ## Multilayer-Perceptrons and Pattern Learning
 
 ::: {#fig-cnns-mlp-example3}
@@ -68,7 +68,7 @@ Dimensionality of weight matrix $\m{W}$ scales with input size.  $\m{W} \in \mat
 The columns of the weight matrix $\m{W}$ (in the first hidden layer) can be visualized to learn what kind pattern a specific neuron has learned by reshaping them to the dimensionality of the input images $\vect{x} \in \mathbb{R}^{h \times w}$. -->
 
 
-<!-- 
+<!--
 ## Multilayer-Perceptrons and Pattern Learning
 
 ::: {#fig-cnns-mlp-example4}
