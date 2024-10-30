@@ -20,11 +20,6 @@ demos/*
 
 
 # Data not relevant
-assets/images/mini_projects/*
-assets/images/neural_networks/*
 assets/images/object_detection/*
 assets/images/segmentation/*
-assets/images/frameworks/*
-
-
 **/execute-results/**
