@@ -28,7 +28,7 @@ dependencies:
   # --------- Experiment Tracking --------- #
   - conda-forge::tensorboard
   - conda-forge::wandb
-# --------- Hyper Param opt --------- #
+  # --------- Hyper Param opt --------- #
   - conda-forge::ray-tune
   - conda-forge::optuna
   # --------- juypter --------- #
@@ -43,22 +43,21 @@ dependencies:
   - conda-forge::tabulate
   # ---------- Pip Dependencies --- #
   - pip:
-    # PyTorch helper modules
-    - torchshow
-    - torchviz
-    - torchinfo
-    # ML
-    - transformers
-    # download from google drive
-    - gdown
-    # images and data augmentation
-    - opencv-python-headless
-    - Pillow
-    - kornia
-    # development
-    - jupyter-black
-    - python-dotenv
-    - pre-commit
-    - isort
-    #- -r requirements.txt
+      # PyTorch helper modules
+      - torchshow
+      - torchviz
+      - torchinfo
+      # ML
+      - transformers
+      # download from google drive
+      - gdown
+      # images and data augmentation
+      - opencv-python-headless
+      - Pillow
+      - kornia
+      # development
+      - jupyter-black
+      - python-dotenv
+      - pre-commit
+      - isort
 prefix: /opt/conda

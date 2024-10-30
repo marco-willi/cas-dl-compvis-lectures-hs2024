@@ -1,5 +1,5 @@
 # torch
-#--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch
 torchvision
 torchaudio
@@ -8,9 +8,9 @@ torchinfo
 matplotlib
 numpy
 scikit-learn
-mlxtend 
-seaborn 
-jupyter-cache 
-plotly 
+mlxtend
+seaborn
+jupyter-cache
+plotly
 torchshow
 torchviz
