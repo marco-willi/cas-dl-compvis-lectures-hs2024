@@ -412,7 +412,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="a-recipe">A Recipe</h2>
 <p>How to successfully train Deep Learning models? Below is a step-by-step recipe. This recipe is based in part on Andrej Karpathy’s blog post <a href="http://karpathy.github.io/2019/04/25/recipe/">A Recipe for Training Neural Networks</a>.</p>
 <p>Karpathy observed that training neural networks with modern ML frameworks is highly abstracted, but <strong>these abstractions are “leaky”</strong>, meaning that without a deep understanding of internal mechanisms such as <em>back-propagation</em> and <em>gradient descent</em>, mistakes can occur. Therefore, one is not completely protected from understanding what happens within the abstraction.</p>
-<div id="c625b3c8" class="cell" data-execution_count="1">
+<div id="efc0f69e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>your_data <span class="op">=</span> <span class="co"># plug your awesome dataset here</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -502,7 +502,7 @@ Figure&nbsp;7: Weights and Biases experiment tracking.
 </div>
 <p><strong>Some Tips for This Step:</strong></p>
 <p><strong>Ensure reproducibility</strong> by fixing the <em>random seed</em> so that results remain consistent. See <a href="https://pytorch.org/docs/stable/notes/randomness.html">PyTorch Reproducibility</a>.</p>
-<div id="c5e2ff7c" class="cell" data-execution_count="2">
+<div id="9a73e902" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -531,7 +531,7 @@ Figure&nbsp;9: A challenging image to classify from a camera trap dataset. In th
 <p><strong>Train an input-independent baseline</strong>, setting all pixel values to the same value, such as zero. This helps determine if a simple model is learning anything at all.</p>
 <p>Another option is to <strong>overfit the model on a batch of data</strong>. If everything is functioning correctly, one should achieve perfect train metrics/losses.</p>
 <p>It is also helpful to <strong>visualize what goes into the model</strong>. This can help detect errors in <em>data augmentation</em> or <em>data preprocessing</em>. This should be done just before executing this line of code:</p>
-<div id="f72173f7" class="cell" data-execution_count="3">
+<div id="9bdb7131" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="op">=</span> model(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Observing predictions from a fixed sample throughout training can provide insight into the dynamics of the process. In <em>object detection</em>, one might display bounding boxes and classification scores. <a href="#fig-practical-wb-comparison" class="quarto-xref">Figure&nbsp;10</a> shows an example of a segmentation problem: the input image is on the left, and the model’s segmentation is on the right.</p>
@@ -637,7 +637,7 @@ Figure&nbsp;17: Source: <a href="https://www.oreilly.com/library/view/hands-on-t
 </figure>
 </div>
 <p>Frameworks like <a href="https://pytorch-lightning.readthedocs.io/en/stable/common/early_stopping.html"><code>pytorch-lightning</code></a> provide <code>Callbacks</code> to implement <em>early stopping</em>.</p>
-<div id="3665503c" class="cell" data-execution_count="4">
+<div id="ce52f8fd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pytorch_lightning.callbacks.early_stopping <span class="im">import</span> EarlyStopping</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LitModel(LightningModule):</span>
@@ -666,7 +666,7 @@ Figure&nbsp;18: Source: <span class="citation" data-cites="johnson_eecs_2021">Jo
 </figure>
 </div>
 <p>The following example code <a href="https://pytorch.org/tutorials/beginner/finetuning_torchvision_models_tutorial.html">(PyTorch-Link)</a> shows how to freeze the parameters of a pre-trained model by setting <code>requires_grad = False</code>.</p>
-<div id="b811149f" class="cell" data-execution_count="5">
+<div id="e5cae2a9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_parameter_requires_grad(model, feature_extracting):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> feature_extracting:</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> param <span class="kw">in</span> model.parameters():</span>
@@ -678,7 +678,7 @@ Figure&nbsp;18: Source: <span class="citation" data-cites="johnson_eecs_2021">Jo
 <p>This step involves systematically evaluating various <em>hyper-parameters</em> and architectures. Techniques include <em>grid-search</em> or <em>random-search</em>, with <em>random-search</em> generally preferred.</p>
 <p>Complete packages are available for this, such as <a href="https://pytorch.org/tutorials/beginner/hyperparameter_tuning_tutorial.html">Ray Tune</a>.</p>
 <p>Hyper-parameter tuning requires configurable architecture implementations. Below is an example of configurable fully connected layers.</p>
-<div id="fc9ac48f" class="cell" data-execution_count="6">
+<div id="f3c7a855" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Net(nn.Module):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, l1<span class="op">=</span><span class="dv">120</span>, l2<span class="op">=</span><span class="dv">84</span>):</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(Net, <span class="va">self</span>).<span class="fu">__init__</span>()</span>

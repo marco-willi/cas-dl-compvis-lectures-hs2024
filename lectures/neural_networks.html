@@ -568,7 +568,7 @@ Figure&nbsp;8: Hierarchical features, from <span class="citation" data-cites="le
 <section id="implementation-in-pytorch" class="level2">
 <h2 class="anchored" data-anchor-id="implementation-in-pytorch">Implementation in PyTorch</h2>
 <p>The following code shows how we can implement a configurable neural network.</p>
-<div id="e8c8736f" class="cell" data-execution_count="2">
+<div id="1a02d1a6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
@@ -613,7 +613,7 @@ Figure&nbsp;8: Hierarchical features, from <span class="citation" data-cites="le
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> model(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can easily display the architecture details with <code>torchinfo</code></p>
-<div id="82b3af9b" class="cell" data-execution_count="3">
+<div id="0a76af82" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the model architecture</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchinfo <span class="im">import</span> summary</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>summary(model, input_size<span class="op">=</span>(<span class="dv">32</span>, <span class="dv">784</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
