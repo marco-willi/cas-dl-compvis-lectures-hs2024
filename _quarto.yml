@@ -4,6 +4,7 @@ project:
   render:
     - "*.qmd"
     - "!NOTES.md"
+    - "!demos/*"
 
 author: "Marco Willi"
 affiliation: "Institute for Data Science I4DS, FHNW"
@@ -52,13 +53,23 @@ website:
           - slides/cnns.qmd
           - slides/image_classification.qmd
           - slides/practical.qmd
-          - slides/foundation_models.qmd
+          - slides/recent_advances.qmd
       # ------ Exercises ---------------------------- #
       - text: "Exercises"
         href: pages/exercises.qmd
         # ------ Quiz & Exam Prep---------------------------- #
       - text: "Quiz & Exam Prep"
         href: pages/quiz.qmd
+      # ------ Lecture ---------------------------- #
+      - section: Lectures
+        contents:
+          - lectures/intro.qmd
+          - lectures/frameworks.qmd
+          - lectures/neural_networks.qmd
+          - lectures/cnns.qmd
+          - lectures/classification.qmd
+          #- lectures/practical.qmd
+          - lectures/recent_advances.qmd
       # ------ Misc ---------------------------- #
       - section: Resources
         contents:
@@ -78,6 +89,6 @@ format:
     code-fold: false
     code-tools: true
     highlight-style: github
-  pdf:
-    include-in-header:
-      - "./assets/_macros.tex"
+  # pdf:
+  #   include-in-header:
+  #     - "./assets/_macros.tex"

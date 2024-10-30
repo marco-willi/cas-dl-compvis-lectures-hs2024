@@ -1,0 +1,195 @@
+---
+title: "Recent Advances"
+params:
+   images_path: "/assets/images/recent_advances/"
+---
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+# Foundation Models
+
+## What are they?
+
+Foundation models are large-scale machine learning models trained on vast amounts of data that can be fine-tuned for various downstream tasks. These models have demonstrated remarkable capabilities in natural language processing, computer vision, and other fields.
+
+## Characteristics of Foundation Models
+
+- **Large-scale Pre-training**: Foundation models are pre-trained on extensive datasets, enabling them to capture a wide range of knowledge.
+- **Transfer Learning**: These models can be fine-tuned on specific tasks with relatively small datasets, making them versatile and efficient.
+- **Multimodal Capabilities**: Some foundation models can process and integrate multiple types of data, such as text and images.
+
+::: {.fragment}
+Example: CLIP (Contrastive Language-Image Pre-training, @radford_learning_2021) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.
+:::
+
+## How CLIP Works
+
+::: {#fig-foundation-models-clip}
+![]({{< meta params.images_path >}}clip_part1.jpg)
+
+Illustration of CLIP. From @radford_learning_2021.
+:::
+
+CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.
+
+## How CLIP can be applied
+
+::: {#fig-foundation-models-clip2}
+![]({{< meta params.images_path >}}clip_part2.jpg)
+
+Zero-shot learning with CLIP. From @radford_learning_2021.
+:::
+
+## Applications of CLIP
+
+- **Zero-Shot Classification**: CLIP can classify images into categories it has not explicitly been trained on by leveraging its understanding of language.
+- **Image Search**: By inputting a textual description, CLIP can retrieve relevant images from a database.
+- **(near) Duplicate Detection**: CLIP can assist in identifying near duplicate images.
+
+## Example
+
+Here's a simple example of using CLIP for zero-shot image classification:
+
+```{python}
+#| eval: false
+#| echo: true
+
+import requests
+from PIL import Image
+from transformers import CLIPModel, CLIPProcessor
+
+# 1) Get Models and Data Pre-Processors
+model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+# 2) Define Input Data: Image and Texts
+url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+image = Image.open(requests.get(url, stream=True).raw)
+
+prompt_template = "a photo of a {}"
+classes = ["cat", "dog", "car", "tree"]
+prompts = [prompt_template.format(class_name) for class_name in classes]
+
+# 3) Pre-Process Inputs
+inputs = processor(
+    text=prompts,
+    images=image,
+    return_tensors="pt",
+    padding=True,
+)
+
+# 4) Forward-Pass
+with torch.no_grad():
+    outputs = model(**inputs)
+logits_per_image = outputs.logits_per_image  # this is the image-text similarity score
+
+# 5) Find most likely label
+probs = logits_per_image.softmax(dim=1)
+print("Label:", classes[probs.argmax().item()])
+```
+
+## Fine-Tuning CLIP
+
+If CLIP does not perform well with zero-shot learning, it can be fine-tuned with various techniques. This is a powerful mechanism because the features that CLIP has learned are very powerful and might be useful for your target task.
+
+# Multi-Modal Models
+
+## What are they?
+
+Multi-modal models are able to process multiple types of data (modes) simultaneously.
+
+## Example: Visual Question Answering
+
+One task where multi-modality is required, is Visual Question Answering (VQA). Only by jointly understanding the visual input and the question can such tasks be solved.
+
+::: {#fig-foundation-blip2}
+![]({{< meta params.images_path >}}blip2_examples.jpg)
+
+BLIP2 examples from a chat system. Source: @li_blip-2_2023
+:::
+
+## How VQA Works
+
+VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers.
+
+::: {#fig-foundation-flamengo}
+![]({{< meta params.images_path >}}flamengo_training_data.jpg)
+
+Training data examples. Source: @alayrac_flamingo_2022
+:::
+
+## Applications of VQA
+
+- **Accessibility**: VQA can help visually impaired users by answering questions about their surroundings based on images captured by a camera.
+- **Chat Bots with Visual Understanding**: VQA systems can be used in chat bots to incorporate visual inputs.
+- **Customer Support**: VQA can enhance customer support by allowing users to submit images and ask questions about products or services.
+
+# Vision Transformers
+
+## What Are Transformers?
+
+Transformers, introduced by @Vaswani2017 use a self-attention mechanism that enables the model to consider relationships between different parts of the input data. This enables transformers to process data in parallel and capture long-range dependencies more effectively than previous architectures.
+
+::: {.fragment}
+Key concepts:
+
+- **Self-Attention**: Enables each input element to focus on all other elements, capturing complex dependencies within the data.
+- **Positional Encoding**: Injects information about the order of the sequence, allowing the transformer to process sequential data despite its parallel structure.
+- **Scalability**: The architecture scales well, making it suitable for training on large datasets across various domains.
+:::
+
+## Vision Transformers (ViT)
+
+Vision Transformers (ViTs), proposed by @dosovitskiy_image_2020, apply the transformer architecture to image data by splitting images into fixed-size patches and treating each patch as a token in a sequence. This approach enables ViTs to capture spatial relationships in images without convolutional layers.
+
+::: {#fig-advances-vit}
+![]({{< meta params.images_path >}}vit.png)
+
+Illustration of ViTs. Source: @dosovitskiy_image_2020
+:::
+
+## Applications of Vision Transformers
+
+- Image Classification: ViTs have achieved competitive results in image classification, sometimes outperforming CNNs.
+- Object Detection and Segmentation: Transformers can be adapted for tasks like object detection by directly predicting bounding boxes.
+- Multimodal Models: Transformers enable models to integrate data from different sources, such as text and images, for tasks like image captioning and visual question answering.
+
+## Comparison: Vision Transformers and Convolutional Neural Networks
+
+- Architectural differences
+- Scalability and flexibility
+- robustness and transferability
+
+## Pros and Cons CNNS
+
+- **Pros**:
+  - **Efficiency for Small Datasets**: CNNs excel in small to moderate datasets.
+  - **Robustness to Variations**: Their design enables resilience to real-world applications.
+- **Cons**:
+  - **Limited Long-Range Dependencies**: Due to their focus on local receptive fields, CNNs may struggle with long-range dependencies.
+
+## Pros and Cons ViTs
+
+- **Pros**:
+  - **Scalability and Flexibility**: ViTs perform well with large datasets and benefit from self-supervised pre-training.
+  - **Long-Range Dependency Capture**: Self-attention mechanisms allow ViTs to capture long-range dependencies.
+- **Cons**:
+  - **Data Efficiency**: ViTs often require more data and pre-training.
+  - **Computational Intensity**: Self-attention mechanisms can be computationally demanding.
+
+## Conclusion
+
+Currently, transformers and CNNs perform similarly when pre-trained on massive datasets. Hybrid architectures combining convolutional layers with transformer layers are also being explored. Further research will continue to determine which architecture excels in specific contexts.
+
+# References
+
+::: {style="font-size: 50%;"}
+
+::: {#refs}
+:::
+
+:::

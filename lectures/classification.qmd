@@ -1,0 +1,619 @@
+---
+title: "5 - Image Classification"
+params:
+   images_path: "/assets/images/classification/"
+execute:
+  cache: false
+  freeze: false
+---
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+
+## Introduction
+
+Image classification is a core task of Computer Vision. In image classification, an image is assigned to a predefined set of classes. In multi-class classification, there are ≥ 2 classes; in binary classification, there are 2 classes; and in multi-label classification, there are several sets of classes. @fig-classification-classification-illustration illustrates the problem in multi-class classification.
+
+::: {#fig-classification-classification-illustration}
+![]({{< meta params.images_path >}}classification_illustration.jpg){width=600}
+
+Image Classification example.
+:::
+
+@fig-image-classifier-example shows an example from the paper by @krizhevsky_imagenet_2012, which achieved the best results in the 2012 ImageNet competition, demonstrating how well CNNs work.
+
+::: {#fig-image-classifier-example}
+![]({{< meta params.images_path >}}image_classification_example.png){width=600}
+
+Image Classification example (from @krizhevsky_imagenet_2012).
+:::
+
+@fig-classification-camera-traps illustrates the challenge with images taken by camera traps, which need to be classified along animal species.
+
+::: {#fig-classification-camera-traps}
+![]({{< meta params.images_path >}}camera_traps.png){width=600}
+
+Example images from camera traps.
+:::
+
+## Parametric Approach
+
+In a parametric approach, we seek a model of the following form:
+
+$$
+\hat{y}^{(i)} = f(\theta, \vect{x}^{(i)})
+$$
+
+We want to find model parameters $\theta$ that output a score/prediction $\hat{y}^{(i)}$ for any data points $\vect{x}^{(i)}$ for each class $k \in K$. We then want to assess how good this score is with the help of a loss function.
+
+### Softmax Classifier
+
+With a Softmax Classifier, we interpret model predictions/scores as probabilities of class memberships: $P(Y=\vect{y}^{(i)}| X = \vect{x}^{(i)})$. We interpret the output as a [Categorical Distribution](https://en.wikipedia.org/wiki/Categorical_distribution) over all possible classes.
+
+To obtain a valid probability distribution, the untransformed outputs $\vect{z}$, also called logits, of a model are transformed with the softmax function $\sigma(\vect{z})$:
+
+$$
+P(Y = k| X = \vect{x}^{(i)}) = \sigma(\vect{z})_k = \frac{e^{z_k}}{\sum_i^K e^{z_i}}
+$$
+
+@fig-classification-logits-to-probs shows an example of the effect of the softmax transformation.
+
+```{python}
+#| eval: true
+#| echo: false
+#| fig-width: 600
+#| label: fig-classification-logits-to-probs
+#| fig-cap:
+#|   - "Logits (left) to probabilities with the Softmax function (right)."
+
+from matplotlib import pyplot as plt
+import numpy as np
+import seaborn as sns
+
+np.random.seed(123)
+logits = np.random.normal(size=(10, )) * 2
+softmax_output = np.exp(logits) / np.exp(logits).sum()
+
+fig, ax = plt.subplots(ncols=2, figsize=(9, 3))
+_ = sns.barplot(x=[i for i in range(0, 10)], y=logits, ax=ax[0]).set(
+    title="Logits")
+_ = sns.barplot(x=[i for i in range(0, 10)], y=softmax_output, ax=ax[1]).set(
+    title="Softmax", ylim=(0, 1))
+
+plt.tight_layout()
+plt.show()
+```
+
+
+<!-- {{< embed /demos/logits_to_probabilities.ipynb#fig-demo-logits-to-probs >}} -->
+
+
+
+```{python}
+#| eval: true
+#| echo: false
+#| fig-width: 800
+
+import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+# Function to calculate softmax
+def softmax(logits):
+    e_logits = np.exp(logits - np.max(logits))
+    return e_logits / e_logits.sum()
+
+# Predefined set of logits
+logits_set = {
+    "Set 1": [2.0, 1.0, 0.1],
+    "Set 2": [1.0, 2.0, 3.0],
+    "Set 3": [1.0, 1.0, 1.0],
+    "Set 4": [3.0, 1.0, 0.5],
+    "Set 5": [0.5, 0.2, 0.1]
+}
+
+# Create initial plot
+initial_logits = logits_set["Set 1"]
+initial_probs = softmax(initial_logits)
+
+fig = make_subplots(rows=1, cols=2, subplot_titles=("Logits", "Softmax Probabilities"))
+
+# Add initial logits bar chart
+logits_bar = go.Bar(x=[f'Logit {i+1}' for i in range(len(initial_logits))],
+                    y=initial_logits, name="Logits")
+fig.add_trace(logits_bar, row=1, col=1)
+
+# Add initial softmax probabilities bar chart
+softmax_bar = go.Bar(x=[f'Class {i+1}' for i in range(len(initial_probs))],
+                     y=initial_probs, name="Softmax Probabilities")
+fig.add_trace(softmax_bar, row=1, col=2)
+
+# Function to create update args for a given set of logits
+def create_update_args(logits):
+    return [
+        {"y": [logits, softmax(logits)]}
+    ]
+
+# Update layout
+fig.update_layout(
+    title="Interactive Softmax Calculation",
+    showlegend=False,
+    yaxis2=dict(range=[0, 1]),  # Set y-axis limit for softmax plot
+    updatemenus=[
+        {
+            "buttons": [
+                {
+                    "args": create_update_args(logits),
+                    "label": f"Set {i+1}",
+                    "method": "update"
+                } for i, logits in enumerate(logits_set.values())
+            ],
+            "direction": "down",
+            "showactive": True,
+            "x": 0.5,
+            "xanchor": "center",
+            "y": 1.15,
+            "yanchor": "top"
+        }
+    ]
+)
+
+fig.show()
+```
+
+## Loss Function
+
+Now we look at how to define the loss function $L(\m{X}, \vect{y}, \theta)$ for a multi-class classification problem.
+
+### Likelihood
+
+The likelihood of a data point $(\vect{x}^{(i)}, y^{(i)})$ is the probability of observing/realizing a data point, given a model with certain parameters:
+
+$$
+P(Y=y^{(i)}| X = \vect{x}^{(i)}) = f(\theta, \vect{x}^{(i)})
+$$
+
+This means we formulate a model with a probabilistic interpretation of predictions: $f(\theta, \vect{x}^{(i)}): \mathbb{R}^{n} \mapsto [0, 1]$
+
+For a multi-class classification, the label vector is one-hot encoded $\vect{y}^{(i)} \in \{0, 1\}^K$, where the true class is coded with 1 and the rest with 0. The likelihood of a data point is defined as:
+
+$$
+\prod_{j=1}^K  P(Y = j| X = \vect{x}^{(i)})^{y^{(i)}_j}
+$$
+
+Since only one entry in $\vect{y}^{(i)}$ is 1, the likelihood is simply the prediction for the true class $P(Y = y^{(i)}| X = \vect{x}^{(i)})$.
+
+[More Info](http://www.awebb.info/probability/2017/05/18/cross-entropy-and-log-likelihood.html)
+
+```{python}
+#| eval: true
+#| echo: false
+import numpy as np
+
+# Example For Likelihood Calculation
+
+y_true = np.array(
+    [0, 1, 0, 1, 1]
+)
+
+y_pred = np.array(
+    [0.1, 0.8, 0.2, 0.7, 0.9]
+)
+
+# Perfect Prediction
+#y_pred = np.array([0, 1, 0, 1, 1])
+
+# Larger Dataset
+#y_true = np.repeat(y_true, 10, axis=0)
+#y_pred = np.repeat(y_pred, 10, axis=0)
+
+
+def calculate_likelihood(y_true: float, y_pred: float) -> float:
+    return (y_pred ** y_true) * ((1 - y_pred) ** (1 - y_true))
+
+def display_likelihood(y_true, y_pred):
+    sample_likelihoods = [calculate_likelihood(float(yt), float(yp)) for yt, yp in zip(y_true, y_pred)]
+    likelihood = np.prod(sample_likelihoods)
+    print(f"Total Likelihood: {likelihood:.6f}")
+```
+
+Given $\vect{y} = [0, 1, 0, 1, 1]$ and the following $\hat{\vect{y}}$, calculate the likelihood.
+
+For $\hat{\vect{y}} = [0.1, 0.8, 0.2, 0.7, 0.9]$:
+
+
+::: {.callout-note collapse="true"}
+## Click for result
+```{python}
+#| eval: true
+#| echo: true
+
+y_pred = np.array([0.1, 0.8, 0.2, 0.7, 0.9])
+display_likelihood(y_true, y_pred)
+```
+:::
+
+
+Does it get larger for $\hat{\vect{y}} = [0.1, 0.9, 0.2, 0.7, 0.9]$?
+
+
+::: {.callout-note collapse="true"}
+## Click for result
+```{python}
+#| eval: true
+#| echo: true
+
+y_pred = np.array([0.1, 0.9, 0.2, 0.7, 0.9])
+display_likelihood(y_true, y_pred)
+```
+:::
+
+
+
+What happens if we increase the dataset by copying the vector 10 times? $\hat{\vect{y}} = [0.1, 0.8, 0.2, 0.7, 0.9, 0.1, 0.8, ...]$?
+
+
+::: {.callout-note collapse="true"}
+## Click for result
+```{python}
+#| eval: true
+#| echo: true
+#|
+y_pred = np.array([0.1, 0.8, 0.2, 0.7, 0.9])
+
+y_true = np.repeat(y_true, 10, axis=0)
+y_pred = np.repeat(y_pred, 10, axis=0)
+
+display_likelihood(y_true, y_pred)
+```
+:::
+
+
+### Maximum Likelihood
+
+The likelihood $P(\vect{y} | \theta, \m{X})$ of observing our entire dataset $(\m{X}, \vect{y})$, given the parameters $\theta$ and assuming that the data points $(\vect{x}^{(i)}, y^{(i)})$ are independent and identically distributed, can be calculated as:
+
+\begin{equation}
+\prod_{i=1}^N \prod_{j=1}^K  P(Y = j| X = \vect{x}^{(i)})^{y^{(i)}_j}
+\end{equation}
+
+Under the Maximum Likelihood approach, we seek the parameters $\theta$ that maximize the likelihood of observing the dataset.
+
+### Negative Log-Likelihood
+
+With Maximum Likelihood, we aim to choose the parameters $\theta$ such that $p(\vect{y} | \theta, \m{X})$ is maximized. However, this function can be complex to handle, and we can use some mathematical tricks. We take the logarithm of the likelihood so that the product of probabilities becomes a sum. Since the logarithm is a monotonically increasing function, we can maximize its logarithm instead of the function $p(\vect{y} | \theta, \m{X})$. Finally, we take the negative of the function, allowing us to minimize it.
+
+\begin{equation}
+L(\m{X}, \vect{y}, \theta) = - \log \prod_{i=1}^N \prod_{j=1}^K P(Y = j| X = \vect{x}^{(i)})^{y^{(i)}_j} \\
+L(\m{X}, \vect{y}, \theta) = -\sum_{i=1}^N \sum_{j=1}^K y^{(i)}_j \log  P(Y = j| X = \vect{x}^{(i)})
+\end{equation}
+
+### Cross-Entropy
+
+The loss function, derived with Maximum Likelihood, can also be viewed through the lens of cross-entropy between two discrete probability functions. Specifically, we can calculate and minimize the cross-entropy between the true distribution $\vect{y}^{(i)}$ and the predicted $\vect{\hat{y}}^{(i)}$. Cross-entropy comes from information theory and measures how many bits/nats on average are needed to describe an event of a probability distribution $p(x)$ when using the approximation $q(x)$.
+
+\begin{equation}
+CE = - \sum_{x \in X} p(x) \log q(x) \\
+CE = - \sum_{i=1}^N \sum_{j=1}^K y_j^{(i)} \log \hat{y}_j^{(i)}
+\end{equation}
+
+It is evident that cross-entropy is identical to the negative log-likelihood.
+
+```{python}
+#| eval: true
+#| echo: false
+#| fig-width: 600
+#| label: fig-classification-cross-entropy
+#| fig-cap:
+#|   - "True Distribution (left) and Predicted Distribution (right)."
+
+from matplotlib import pyplot as plt
+import numpy as np
+import seaborn as sns
+
+np.random.seed(123)
+k = 5
+logits = np.random.normal(size=(5, )) * 2
+y_hat = np.exp(logits) / np.exp(logits).sum()
+y_true = np.zeros_like(logits)
+y_true[1] = 1
+
+fig, ax = plt.subplots(ncols=2, figsize=(9, 3))
+_ = sns.barplot(x=[i for i in range(0, k)], y=y_true, ax=ax[0]).set(
+    title="True Distribution")
+_ = sns.barplot(x=[i for i in range(0, k)], y=y_hat, ax=ax[1]).set(
+    title="Predicted Distribution", ylim=(0, 1))
+
+cross_entropy = f"{(- y_true * np.log(y_hat)).sum():.3f}"
+
+plt.tight_layout()
+plt.show()
+```
+
+@fig-classification-cross-entropy shows an example with a cross-entropy value of: `{python} cross_entropy`.
+
+
+
+## Architectures
+
+Architecture refers to the complete definition of an untrained (deep-learning) model, i.e., the sequence and configuration of layers. The following are some important architectures that have been successfully used for image classification.
+
+### AlexNet
+
+CNNs became extremely popular after winning the [ImageNet](https://www.image-net.org/) Competition. @krizhevsky_imagenet_2012 implemented a CNN with multiple layers, known as the AlexNet architecture, as shown in @fig-classification-alexnet. ImageNet is a large, hierarchical image dataset @deng_imagenet_2009, which enabled efficient training of CNNs for the first time.
+
+AlexNet consists of 5 convolutional layers and 3 fully-connected layers. The last layer is a 1000-way softmax output to model the classes in ImageNet.
+
+The model was trained with two GPUs (GTX 580) with 3GB memory each. Since 3GB was insufficient to train the model, the architecture was split across the GPUs. Some layers were split between the GPUs, allowing a larger network to be trained.
+
+@fig-classification-alexnet shows the detailed architecture, including kernel sizes, the number of filters per layer, activation map dimensions, and pooling layers. ReLU was used as the activation function. This representation is from the original paper and shows how the model was split across two GPUs.
+
+::: {#fig-classification-alexnet}
+![]({{< meta params.images_path >}}alexnet.png){width=600}
+
+AlexNet @krizhevsky_imagenet_2012.
+:::
+
+Since the split across two GPUs is no longer necessary, the architecture is somewhat simplified. Modern implementations are shown in @fig-classification-alexnet2.
+
+::: {#fig-classification-alexnet2 width=400}
+
+![]({{< meta params.images_path >}}alexnet_illustration.jpg)
+
+AlexNet @prince_understanding_2023
+:::
+
+@fig-classification-alexnet-table presents the operations in AlexNet in tabular form.
+
+::: {#fig-classification-alexnet-table width=600}
+![]({{< meta params.images_path >}}alexnet_table.jpg)
+
+Source: @johnson_eecs_2019.
+:::
+
+We can also easily load AlexNet via torchvision.
+
+```{python}
+#| eval: true
+#| echo: true
+
+import torch
+import torchvision.models as models
+import torchinfo
+
+alexnet = models.alexnet()
+x = torch.zeros(1, 3, 224, 224, dtype=torch.float, requires_grad=False)
+yhat = alexnet(x)
+
+print(torchinfo.summary(alexnet, input_size=(1, 3, 224, 224)))
+```
+
+### VGG
+
+@simonyan_very_2015 won the ImageNet Challenge in 2014 with their VGG architecture. They showed that smaller 3x3 kernels work significantly better and that deeper networks with 16-19 layers can be trained. @fig-classification-vgg shows the architecture as presented in the original paper. @fig-classification-vgg-arch visualizes the architecture.
+
+::: {#fig-classification-vgg}
+![]({{< meta params.images_path >}}vgg.png){width=600}
+
+VGG @simonyan_very_2015.
+:::
+
+::: {#fig-classification-vgg-arch}
+
+![]({{< meta params.images_path >}}vgg_illustration.jpg)
+
+VGG @prince_understanding_2023
+
+:::
+
+VGG introduced a popular design element: A layer has the same number of filters as the previous layer unless the activation map dimensions are halved, in which case the number of filters is doubled (see also @fig-classification-vgg-arch). This was done to maintain the time complexity of the layers. VGG does not use normalization layers.
+
+@fig-classification-vgg-design compares VGG with AlexNet.
+
+::: {#fig-classification-vgg-design}
+![]({{< meta params.images_path >}}vgg_design.jpg){width=600}
+
+Source: @johnson_eecs_2019.
+:::
+
+### ResNet
+
+@He2016 wondered whether CNNs could be improved simply by making them deeper, i.e., adding more layers. Their experiments showed that adding layers eventually stops being beneficial, and performance saturates and then rapidly degrades (see @fig-classification-resnet-motivation1). They noticed that the performance did not degrade due to overfitting (see @fig-classification-resnet-motivation2, which shows that training error is also poor), but because back-propagation becomes less effective and the weights do not optimize well. @He2016 hypothesized that deeper networks could not perform worse than shallower ones because the additional layers could simply pass on activations unchanged.
+
+::: {#fig-classification-resnet-motivation1}
+![]({{< meta params.images_path >}}resnet_test_error.jpg){width=600}
+
+Source: @He2016
+:::
+
+::: {#fig-classification-resnet-motivation2}
+![]({{< meta params.images_path >}}resnet_train_error.jpg){width=600}
+
+Source: @He2016
+:::
+
+They then hypothesized that passing on activations unchanged as a default behavior could avoid this problem. They introduced identity mappings. @fig-classification-residual-connection shows such a connection. These connections are also called residual connections because the network only needs to learn the change in activations from layer $i$ to layer $i+1$, the residue.
+
+::: {#fig-classification-residual-connection}
+![]({{< meta params.images_path >}}residual_connection.jpg){width=600}
+
+ResNet @He2016 (Graphic from @johnson_eecs_2019.)
+:::
+
+ResNet was otherwise inspired by VGG16. The convolutional layers consist of 3x3 kernels (except the first one), and the number of filters is doubled when the activation map dimensions are halved. ResNet uses convolutions with stride 2 for down-sampling and no max pooling. At the end, ResNet uses a global average pooling layer followed by a fully-connected layer with the number of classes. Variants of ResNet have 18, 34, 50, and over 100 layers. ResNet also uses batch normalization. @fig-classification-resnet-struk shows the architecture.
+
+::: {#fig-classification-resnet-struk}
+![]({{< meta params.images_path >}}resnet_arch_horiz.png){width=600}
+
+Source: @He2016.
+:::
+
+ResNet is very popular and is still widely used today (there are now more modern variants). Recent studies of identity mappings (or more generally skip connections) have shown that the gradient surface of the loss function becomes smoother, allowing the network to be optimized better. This is impressively illustrated in @fig-classification-skip-loss-landscape.
+
+::: {#fig-classification-skip-loss-landscape}
+![]({{< meta params.images_path >}}loss_landscape_skip.png){width=600}
+
+Source: @li_visualizing_2018.
+:::
+
+### ConvNext
+
+One of the most modern CNN architectures was described in @liu_convnet_2022. This architecture uses tricks and implementation ideas accumulated over decades from various architectures. @fig-classification-convnext shows, starting from a modern version of ResNet, what has been adjusted to define this state-of-the-art architecture. Examples include: larger kernels, different activation functions, layer normalization instead of batch normalization, and depthwise separable convolutions.
+
+::: {#fig-classification-convnext}
+![]({{< meta params.images_path >}}convnext.png){width=600}
+
+Convnext @liu_convnet_2022.
+:::
+
+There is already a new version of this architecture @woo_convnext_2023.
+
+### ImageNet Performance
+
+@fig-classification-image-net-performance shows the development of ImageNet performance. As of 2023, we are much closer to 100%, see [Link](https://paperswithcode.com/sota/image-classification-on-imagenet?metric=Top%205%20Accuracy).
+
+::: {#fig-classification-image-net-performance}
+![]({{< meta params.images_path >}}image_net_performance.jpg){width=600}
+
+Graphic from @johnson_eecs_2019
+:::
+
+### Which Architecture?
+
+Which architecture should be chosen for a specific problem? A common tip is: *Don't be a hero.*
+
+One should rely on off-the-shelf architectures and not implement their own without a good reason.
+
+Typically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets.
+
+Important considerations are also the requirements regarding accuracy, performance (FLOPs), and model size (memory).
+
+## Further Variations
+
+There are countless other architectures and especially specific layers or layer blocks that can be used in various architectures. The following are Squeeze/Excite Networks and the important class of normalization layers, which are often used and can significantly improve models or accelerate the optimization process.
+
+### Squeeze/Excite Networks
+
+Squeeze-and-Excite Networks (SE-Networks) were introduced in 2019 @hu_squeeze-and-excitation_2019. These include so-called Squeeze and Excite blocks (SE blocks), which allow the scaling of activation maps of a layer. This scaling is learnable through a few additional parameters. In practice, significant performance gains have been observed. @fig-classification-se-networks shows an illustration.
+
+::: {#fig-classification-se-networks}
+![]({{< meta params.images_path >}}se_networks.png){width=800}
+
+Source: @hu_squeeze-and-excitation_2019.
+:::
+
+
+These SE blocks can be easily applied to arbitrary activation maps. @fig-classification-se-networks shows an input feature map $\tensor{X} \in \mathbb{R}^{H' \times W' \times C'}$ that is transformed with $F_{tr}$ (e.g., with a convolutional layer). This results in the activation maps $\tensor{U} \in \mathbb{R}^{H \times W \times C}$.
+
+The transformation $F_{sq}(\cdot)$ applies the squeeze operation, a global average pooling, to generate a description of each channel by aggregating spatial information of the activation map $\tensor{U}$. This results in a vector $z \in \mathbb{R}^{1 \times 1 \times C}$.
+
+The excitation operation $F_{ex}(\cdot, W)$ uses a gating mechanism with parameters $W$, implemented with two fully-connected layers and activation functions. The result is $s \in \mathbb{R}^{1 \times 1 \times C}$, the channel weights. It is called gating because the weights range from $[0, 1]$ and thus control how much information of a channel flows through (gatekeeping).
+
+Finally, $F_{scale}(\cdot)$ scales the activation maps $\tensor{U}$ with the channel weights.
+
+The operation can be described as follows:
+
+\begin{equation}
+U = F_{tr}(X) \\
+z = F_{sq}(U) = \text{GlobalAvgPool}(U) \\
+s = F_{ex}(z, W) = \sigma(\mathbf{W}_2 g(\mathbf{W}_1 z)) \\
+\hat{X} = F_{scale}(U, s) = U \odot s
+\end{equation}
+
+where $g()$ represents the ReLU function, and $\sigma$ represents the sigmoid function.
+
+### Normalization Layers
+
+Normalization layers normalize activation maps to improve parameter learning. There are many variations, as shown in @fig-classification-normalization. In modern architectures, normalization layers are typically used. Popular is, for example, layer normalization (see @ba_layer_2016). The general form of normalization is given in equation @eq-classification-normalization. The parameters $\gamma$ and $\beta$ are learned, while the means $E[x]$ and variances $\sigma^2[x]$ are estimated from the activations. Why normalization layers work and which ones to prefer are still subjects of research and are often empirically tested in practice (considered as hyper-parameters). It is believed that the cost function becomes smoother overall, allowing the network to train faster and better @santurkar_how_2019.
+
+
+$$
+y = \frac{x - E[x]}{\sqrt{\sigma^2[x] + \epsilon}} * \gamma + \beta
+$$ {#eq-classification-normalization}
+
+::: {#fig-classification-normalization}
+![]({{< meta params.images_path >}}normalization.png){width=300}
+
+Source: @qiao_micro-batch_2020.
+:::
+
+## Pre-Processing
+
+Typically, images are pre-processed before being processed by the CNN. This is done to make the optimization process converge faster. Common steps include:
+
+- Resizing/cropping to a fixed size, e.g., 224x224x3. This is necessary for the images to be processed in a batch (they must have the same dimensions).
+- Scaling: Images are scaled from the interval [0, 255] to the interval [0, 1].
+- Normalization: Normalization is often done along the color channels so that the mean value of the pixel values is 0.
+
+In `torchvision`, the following pre-processing steps are used: [Link](https://github.com/pytorch/vision/blob/main/torchvision/transforms/_presets.py)
+
+## Transfer Learning
+
+Transfer Learning refers to the process of adapting a trained model for Task A to Task B. Adapting pre-trained models often leads to better results and also reduces the number of training iterations. Deep learning frameworks often provide easy access to such models (also known as Model Zoo). For example, from PyTorch: https://pytorch.org/vision/stable/models.html.
+
+```{python}
+#| eval: false
+#| echo: true
+
+from torchvision.models import resnet50, ResNet50_Weights
+resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
+```
+
+## PyTorch Example
+
+### Architecture
+
+Example of a CNN architecture.
+
+```{python}
+#| eval: false
+#| echo: true
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+class Net(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = torch.flatten(x, 1)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+net = Net()
+```
+
+### Loss Function
+
+```{python}
+#| eval: false
+#| echo: true
+
+import torch.optim as optim
+
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+```
+
+
+## References
+
+::: {#refs}
+:::

@@ -1,0 +1,302 @@
+---
+title: "3 - Neural Networks"
+params:
+   images_path: "/assets/images/neural_networks/"
+---
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+## Biological Neural Networks
+
+A biological neural network is a part of the nervous system and consists of interconnected neurons. A neuron is connected to other neurons via dendrites (these are "weighted" input signals) and via the axon (output signal) (see @fig-nn-neurons). If the input signals exceed a certain threshold, the neuron "fires" and sends a signal through the axon, which then serves as an input signal for other neurons. Humans have about 86 billion neurons, each connected to about 1000 others on average ([source](https://en.wikipedia.org/wiki/Brain)).
+
+::: {#fig-nn-neurons}
+
+![]({{< meta params.images_path >}}connected_neurons.png){width=600}
+
+Schematic representation of connected neurons. @phillips_speed_2015
+:::
+
+Optical signals are processed, among other things, in the visual cortex (@fig-nn-visual-cortex). Signals are processed hierarchically, with the first layers recognizing simple patterns and later layers recognizing shapes and objects. See also the work of Hubel and Wiesel @hubel_receptive_1959.
+
+::: {#fig-nn-visual-cortex}
+
+![]({{< meta params.images_path >}}ventralvisualstream_v2.png){width=600}
+
+Representation of transformations in the visual cortex. @kubilius_ventral_2017
+:::
+
+The question that arises is:
+
+**Can we create artificial neural networks and reproduce the performance of biological neural networks?**
+
+## Artificial Neural Networks
+
+Artificial neural networks are models of biological networks. Such models were created and implemented technically as early as the 1940s.
+
+Neural networks are often represented with a graph. The _nodes_ are individual neurons in the network, and the _edges_ are connections between the neurons (see @fig-mlp-structure). The neurons are arranged in _layers_, with each neuron in a layer connected to every neuron in adjacent layers. The _input layer_ represents the data, the _output layer_ the (observable) outputs, and the _hidden layers_ are within the network. The connections between the neurons are weighted.
+
+::: {#fig-mlp-structure}
+
+![]({{< meta params.images_path >}}mlp.jpeg){width=600}
+
+A neural network with two _hidden layers_. The lines show connections between neurons. Source: @li_cs231n_2022.
+:::
+
+## From Linear Models to Neural Networks
+
+In the following, we will describe neural networks mathematically. We start with a linear model. A linear model has the following form:
+
+\begin{equation}
+   f(\mathbf{x}^{(i)}) = \mathbf{W} \mathbf{x}^{(i)}  +  \mathbf{b}
+\end{equation}
+
+The data point $i$ is:
+
+\begin{equation}
+    \mathbf{x}^{(i)} \in \mathbb{R}^{p \times 1}
+\end{equation}
+
+And model weights:
+
+\begin{equation}
+   \mathbf{W} \in \mathbb{R}^{k \times p}
+\end{equation}
+
+As well as a bias term:
+
+\begin{equation}
+   \mathbf{b} \in \mathbb{R}^{k \times 1}
+\end{equation}
+
+The following parameters must be learned from data using an optimization method: $\mathbf{W}$ and $\mathbf{b}$.
+
+In neural networks, the linear model is extended with additional _layers_. The following equation defines a neural network with two layers.
+
+\begin{equation}
+   f(\mathbf{x}^{(i)}) = \mathbf{W}^{(2)} g\big(\mathbf{W}^{(1)} \mathbf{x}^{(i)}  +  \mathbf{b}^{(1)} \big)  +  \mathbf{b}^{(2)}
+\end{equation}
+
+Where $g()$ is a so-called _activation function_, such as the _ReLU_ function:
+
+\begin{equation}
+\text{ReLU}(x) = \begin{cases}
+x, & \text{if } x \geq 0 \\
+0, & \text{if } x < 0
+\end{cases}
+\end{equation}
+
+Only due to the _activation function_ are non-linear relationships modelable. Without the activation function, the model collapses to a simple linear model.
+
+Every layer between the input and output layer is called a _hidden layer_.
+
+Typically, not just one data point is processed but a _mini-batch_ of data, or even the entire dataset. The data points are arranged in a data matrix $\mathbf{X} \in \mathbb{R}^{n \times p}$. The linear model is then defined as follows:
+
+\begin{equation}
+   f( \mathbf{X}) = \mathbf{X} \mathbf{W}^T  +  \mathbf{b}^T
+\end{equation}
+
+The bias term $\mathbf{b}$ is _broadcasted_ (details here [Link](https://pytorch.org/docs/stable/notes/broadcasting.html)), so it can be added.
+
+### Activation Functions
+
+The following code shows how _activation_ functions are important for modeling non-linear relationships. The model has a hidden layer with several neurons but (left) no activation function and (right) with _ReLU_ activation.
+
+```{python}
+#| eval: true
+#| echo: false
+#| width: 600
+#| label: fig-nn-linear-regions
+#| fig-cap:
+#|   - "Linear (left) vs non-linear (right) activation function."
+
+from matplotlib import pyplot as plt
+import numpy as np
+from sklearn.datasets import make_blobs
+from sklearn.neural_network import MLPClassifier
+from mlxtend.plotting import plot_decision_regions
+
+def plot_non_linear_vs_linear():
+    fig, ax = plt.subplots(figsize=(12, 6), ncols=2)
+
+    X, y = make_blobs(
+        n_samples=100,
+        n_features=2,
+        random_state=0,
+        cluster_std=0.5,
+        centers=[(-1, -1), (1, 1), (-1, 1), (1, -1)],
+    )
+    y = np.where(y < 2, 1, 0)
+
+    clf = MLPClassifier(
+        hidden_layer_sizes=[10],
+        activation="identity",
+        max_iter=200,
+        random_state=123,
+        learning_rate_init=1.0,
+    ).fit(X, y)
+    _ = plot_decision_regions(X, y, clf, ax=ax[0])
+
+    clf = MLPClassifier(
+        hidden_layer_sizes=[10],
+        activation="relu",
+        max_iter=400,
+        random_state=123,
+        learning_rate_init=0.1,
+    ).fit(X, y)
+    _ = plot_decision_regions(X, y, clf, ax=ax[1])
+
+    _ = ax[0].set_title("Linear: $g(x) = x$")
+    _ = ax[1].set_title("Non-Linear: $g(x) = ReLU(x)$")
+
+    return fig
+
+fig = plot_non_linear_vs_linear()
+plt.show()
+```
+
+
+@fig-nn-mlp-shallow now shows a neural network including _activation functions_ (ReLU). Sometimes the biases are also shown as nodes that feed into the next layer.
+
+::: {#fig-nn-mlp-shallow}
+
+![]({{< meta params.images_path >}}mlp_shallow.jpg){width=800}
+
+A neural network with a _hidden layer_. The lines show connections between neurons and their weights $w_{i,j}$.
+:::
+
+### Universal Approximation Theorem
+
+With a shallow neural network, any continuous function can be modeled with arbitrary accuracy (_Universal Approximation Theorem_). The following graphic illustrates that as the number of linear functions (and thus piecewise linear regions) increases, the approximation of the underlying function becomes more accurate.
+
+::: {#fig-nn-universal-approx}
+
+![]({{< meta params.images_path >}}linear_regions.jpg){width=800}
+
+Approximation of a 1-D function with piecewise linear regions. The more regions, the more accurate the approximation. Source: @prince_understanding_2023
+:::
+
+**Neural networks are therefore a particularly powerful class of models!**
+
+## Deep Learning
+
+When there are multiple _hidden layers_, it is called deep learning. Fig. @fig-nn-deep-learning illustrates such a model with 5 hidden layers.
+
+::: {#fig-nn-deep-learning}
+
+![]({{< meta params.images_path >}}deep_neural_net.png){width=800}
+
+Illustration of a _deep learning_ model with 5 _hidden layers_, from @johnson_eecs_2022
+:::
+
+Such a model is also called a _multilayer perceptron_ (MLP). It consists of linear layers and activation functions.
+
+Deep neural networks have more than one hidden layer. Although _shallow neural networks_ can theoretically model arbitrarily complex functions, the number of neurons required is often impractical. It can be shown that adding _hidden layers_ (increasing the depth of a network) is much more efficient (requires fewer neurons) for modeling complex functions.
+
+In practice, it has been shown that the first layers in a network learn simple features. These are combined in deeper layers to learn and detect increasingly abstract concepts. This is well illustrated with images. When a neural network is applied to images, the first layers learn to detect simple features, such as edges and
+
+ colors. Further layers then detect shapes and objects, leading to specific items or people (see Fig. @fig-nn-efficience-deep-learning).
+
+::: {#fig-nn-efficience-deep-learning}
+
+![]({{< meta params.images_path >}}hierarchical_features.jpg){width=800}
+
+Hierarchical features, from @lee_unsupervised_2011
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Info**
+
+To directly observe the functioning of a neural network and try out the influence of various configurations, you can train networks directly in the browser using the following link: [TensorFlow Playground](https://playground.tensorflow.org/).
+
+:::
+
+## Implementation in PyTorch
+
+The following code shows how we can implement a configurable neural network.
+
+```{python}
+#| eval: true
+#| echo: true
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class MLP(nn.Module):
+    def __init__(self, input_size, hidden_layer_sizes, num_outputs):
+        super().__init__()
+
+        # Initialize submodules of your module - typically layers
+        # that your module needs - these can then be used in the
+        # forward pass
+
+        self.flatten = nn.Flatten()
+
+        # a ModuleList allows you to flexibly chain submodules
+        # in a list - depending e.g. on configuration parameters
+
+        self.hidden_layers = nn.ModuleList()
+        last_size = input_size
+        for size in hidden_layer_sizes:
+            self.hidden_layers.append(nn.Linear(last_size, size))
+            last_size = size
+
+        self.output_layer = nn.Linear(last_size, num_outputs)
+
+    def forward(self, x):
+        """The forward pass of your module."""
+        x = self.flatten(x)
+        for layer in self.hidden_layers:
+            x = F.relu(layer(x))
+        x = self.output_layer(x)
+        return x
+
+# Example usage:
+# Initialize the model with input size 784, one hidden layer of size 128, and 10 output units.
+model = MLP(784, [128], 10)
+
+# Example input vector (batch size of 32, input size of 784)
+x = torch.randn(32, 784)
+
+# Forward pass
+output = model(x)
+```
+
+We can easily display the architecture details with `torchinfo`
+
+```{python}
+#| eval: true
+#| echo: true
+
+# Display the model architecture
+from torchinfo import summary
+summary(model, input_size=(32, 784))
+```
+
+::: {.callout-note appearance="simple"}
+
+**Question**
+
+How many parameters does this neural network have, and why?
+
+:::
+
+::: {.callout-note appearance="simple"}
+
+**Info**
+
+To refresh your knowledge on neural networks, it is worth watching the following videos: [3Blue1Brown - Neural Networks](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&pp=iAQB)
+
+:::
+
+
+## References
+
+::: {#refs}
+:::

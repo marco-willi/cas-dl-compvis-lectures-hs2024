@@ -512,19 +512,9 @@ Are convolutions translation invariant, equivariant, or both?
 
 ## Receptive Field
 
-The receptive field $r_0$ of a convolutional neural network can be calculated as follows:
+There is a nice article about how to calculate the receptive field of a CNN by @araujo_computing_2019 (see also for more details about the notation).
 
-1. Define the recurrence relation:
-
-\begin{equation}
-r_{l-1} = s_l \cdot r_l + (k_l - s_l)
-\end{equation}
-
-- $r_l$: Receptive field at layer $l $.
-- $s_l$: Stride of layer $l$.
-- $k_l$: Kernel size of layer $l$.
-
-2. Solving this recurrence relation, we get the closed-form solution for the receptive field at the input layer $r_0$:
+The receptive field of a CNN $r_0$:
 
 \begin{equation}
 r_0 = \sum_{l=1}^L \left( (k_l - 1) \prod_{i=1}^{l-1} s_i \right) + 1
@@ -534,16 +524,16 @@ r_0 = \sum_{l=1}^L \left( (k_l - 1) \prod_{i=1}^{l-1} s_i \right) + 1
 - $k_l$: Kernel size at layer $l$.
 - $s_i$: Stride at layer $i$, from layer 1 up to $l-1$.
 
-
-There is a nice article about receptive fields and how to calculate them:  [Link](https://distill.pub/2019/computing-receptive-fields/)
+If all strides $s_i=1$ the receptive field is the sum $k_l−1$ over all layers plus 1. If all kernels are of size 1, the receptie field will be one.
 
 
 ## Architecture
 
 Sequence of layers and their hyper-parameters defines an architecture.
 
+::: {.fragment}
 ![VGG - Source: @prince_understanding_2023]({{< meta params.images_path >}}vgg_illustration.jpg)
-
+:::
 
 ## Learned Filters
 
@@ -587,6 +577,7 @@ What would be an example when we want to do that?
 
 ![ ]({{< meta params.images_path >}}transposed_convolution.jpg)
 
+More details in image segmentation!
 
 
 ## Changing the number of channels

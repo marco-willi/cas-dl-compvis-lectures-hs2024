@@ -15,10 +15,11 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 
 ## Lernziele
 
+- Die fundamentalen Herausforderungen bei Modellieren von Bilddaten verstehen
 - Convolutional Neural Networks verstehen, implementieren und trainieren können
-- Bildklassifikation vertieft verstehen und systematisch umsetzen können
+- Bildklassifikation verstehen und systematisch umsetzen können
 - Mit Deep Learning Frameworks umgehen und Libraries verwenden können
-- Praktische Anwendung vorstellen und erklären können
+- Praktische Anwendung umsetzen, vorstellen und erklären können
 
 ## Inhalte
 
@@ -46,8 +47,8 @@ Hier finden Sie Unterlagen und aktuelle Informationen zum Modul.
 |12:00 - 13:00	| Mittagspause
 |13:00 - 14:30	| Übung: Bildklassifikation
 |14:30  - 14:45	| Pause
-|14:45  - 15:15	| Theorie: Foundation Models
-|15:15 - 16:30	| Übung: Foundation Models
+|14:45  - 15:15	| Theorie: Recent Advances
+|15:15 - 16:30	| Übung: Recent Advances
 
 
 <!--

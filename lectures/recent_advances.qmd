@@ -1,0 +1,242 @@
+---
+title: "7 - Recent Advances"
+params:
+   images_path: "/assets/images/recent_advances/"
+---
+
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+## Foundation Models
+
+Foundation models are large-scale machine learning models trained on vast amounts of data that can be fine-tuned for various downstream tasks. These models have demonstrated remarkable capabilities in natural language processing, computer vision, and other fields.
+
+### Characteristics of Foundation Models
+
+- **Large-scale Pre-training**: Foundation models are pre-trained on extensive datasets, enabling them to capture a wide range of knowledge.
+- **Transfer Learning**: These models can be fine-tuned on specific tasks with relatively small datasets, making them versatile and efficient.
+- **Multimodal Capabilities**: Some foundation models can process and integrate multiple types of data, such as text and images.
+
+### CLIP: A Foundation Model Example
+
+CLIP (Contrastive Language-Image Pre-training, @radford_learning_2021) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.
+
+
+#### How CLIP Works
+
+
+::: {#fig-foundation-models-clip}
+
+![ ]({{< meta params.images_path >}}clip_part1.jpg)
+
+Illustration of CLIP. From @radford_learning_2021.
+:::
+
+CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.
+
+
+#### How CLIP can be applied
+
+::: {#fig-foundation-models-clip2}
+
+![]({{< meta params.images_path >}}clip_part2.jpg)
+
+Zero-shot learning with CLIP. From @radford_learning_2021.
+:::
+
+#### Applications of CLIP
+
+- **Zero-Shot Classification**: CLIP can classify images into categories it has not explicitly been trained on by leveraging its understanding of language.
+- **Image Search**: By inputting a textual description, CLIP can retrieve relevant images from a database.
+- **(near) Duplicate Detection**: CLIP can assist in identifying near duplicate images.
+
+### Example
+
+Here's a simple example of using CLIP for zero-shot image classification:
+
+
+```{python}
+#| eval: false
+#| echo: true
+
+import requests
+from PIL import Image
+from transformers import CLIPModel, CLIPProcessor
+
+# 1) Get Models and Data Pre-Processors
+model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+# 2) Define Input Data: Image and Texts
+url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+image = Image.open(requests.get(url, stream=True).raw)
+
+prompt_template = "a photo of a {}"
+classes = ["cat", "dog", "car", "tree"]
+prompts = [prompt_template.format(class_name) for class_name in classes]
+
+# 3) Pre-Process Inputs
+inputs = processor(
+    text=prompts,
+    images=image,
+    return_tensors="pt",
+    padding=True,
+)
+
+# 4) Forward-Pass
+with torch.no_grad():
+    outputs = model(**inputs)
+logits_per_image = outputs.logits_per_image  # this is the image-text similarity score
+
+# 5) Find most likely label
+probs = logits_per_image.softmax(dim=1)
+print("Label:", classes[probs.argmax().item()])
+```
+
+
+#### Fine-Tuning CLIP
+
+If CLIP does not perform well with zero-shot learning, it can be fine-tuned with various techniques. This is a powerful mechanism because the features that CLIP has learned are very powerful and might be useful for your target task.
+
+
+## Multi-Modal Models
+
+Multi-modal models are able to process mutliple types of data (modes) simultaneously.
+
+### Visual Question Anwering
+
+One task where multi-modality is required, is Visual Question Answering (VQA). Only by jointly understanding the visual input and the question such tasks can be solved. See @fig-foundation-blip2 for an example from a chat system.
+
+::: {#fig-foundation-blip2}
+![]({{< meta params.images_path >}}blip2_examples.jpg)
+
+BLIP2 examples from a chat system. Source: @li_blip-2_2023
+:::
+
+### How VQA Works
+
+VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers. @fig-foundation-flamengo shows training data examples that were used in the Flamingo model @alayrac_flamingo_2022. That particular model, and many other multi-modal models, is based on pre-trained foundation language and visual models and subsequently fine-tuned to learn how to combine their features for multi-modal tasks.
+
+::: {#fig-foundation-flamengo}
+![]({{< meta params.images_path >}}flamengo_training_data.jpg)
+
+Training data examples. Source: @alayrac_flamingo_2022
+:::
+
+
+
+### Applications of VQA
+
+- **Accessibility**: VQA can help visually impaired users by answering questions about their surroundings based on images captured by a camera.
+- **Chat Bots with Visual Understanding**: VQA systems can be used in chat bots to incorporate visual inputs.
+- **Customer Support**: VQA can enhance customer support by allowing users to submit images and ask questions about products or services.
+
+## Vision Transfomers
+
+Transformers have emerged as foundational architectures in modern machine learning, significantly impacting NLP, computer vision, and multimodal tasks.
+
+
+### What Are Transformers?
+
+Transformers, introduced by @Vaswani2017, use a self-attention mechanism that enables the model to consider relationships between different parts of the input data. This enables transformers to process data in parallel and capture long-range dependencies more effectively than previous architectures  (such as recurrent neural networks).
+
+
+Key Concepts in Transformers:
+
+- **Self-Attention**: Enables each input element to focus on all other elements, capturing complex dependencies within the data.
+- **Positional Encoding**: Injects information about the order of the sequence, allowing the transformer to process sequential data despite its parallel structure.
+- **Scalability**: The architecture scales well, making it suitable for training on large datasets across various domains.
+
+### Vision Transformers (ViT)
+
+Vision Transformers (ViTs), proposed by @dosovitskiy_image_2020, apply the transformer architecture to image data by splitting images into fixed-size patches and treating each patch as a token in a sequence. This approach enables ViTs to capture spatial relationships in images without convolutional layers.
+
+::: {#fig-advances-vit}
+
+![]({{< meta params.images_path >}}vit.png)
+
+An image is split into fixed size patches. Each patch is linearly transformed (patch embedding). According to the patch position in the image, a specific position embedding is added. The sequence of embeddings is then processed with a standard transfomer. Source: @dosovitskiy_image_2020
+:::
+
+
+Applications of Vision Transformers
+
+- Image Classification: ViTs have achieved competitive results in image classification, sometimes outperforming CNNs.
+- Object Detection and Segmentation: Transformers can be adapted for tasks like object detection by directly predicting bounding boxes, as shown in models like DETR (@carion_end_to_end_2020).
+- Multimodal Models: Transformers enable models to integrate data from different sources, such as text and images, for tasks like image captioning and visual question answering.
+
+### Comparison: Vision Transformers and Convolutional Neural Networks
+
+ViTs and CNNs are both prominent architectures in computer vision, each with unique strengths and weaknesses.
+
+
+#### Architectural Differences
+
+CNNs are designed with built-in spatial inductive biases. Using convolutions assumes that neighbouring pixels are related and that local patterns are relevant (restricted receptive field) and should be detected everywhere in the input (weight sharing). This makes CNNs efficient with limited data and effective at capturing local image features. Local features can be aggregatred hierarchically to capture global patterns.
+
+
+ViTs process images by dividing them into fixed-sized patches, treating each patch as a "token" akin to words in natural language processing. They then use self-attention mechanisms to capture relationships between all patches simultaneously, allowing the model to learn global dependencies without focusing exclusively on local information already in the first layer (no restrictions in the receptive field).
+
+
+#### Scalability and Flexibility
+
+Generally: inductive biases are beneficial because they do not need to be learned from data. However, inductive biases also restrict a models flexibility since such biases might not always be perfectly aligned with the true data distribution. While CNNs excel in low-data regimes and with resource-limited applications, ViTs are scalable and perform well with self-supervised learning on large datasets. ViTs have shown excellent performance on massive datasets (10M+ images), even surpassing CNNs when pretrained with sufficient data and augmented with techniques like self-supervised learning.
+
+
+#### Robustness and Transferability
+
+Robustness to noise and corruptions (see @fig-advances-robustness-experiments), as well as the ability to transfer learned features to downstream tasks is highly relevant in practical settings. Some studies indicate that ViTs can handle image corruptions and data shifts more robustly than CNN (@naseer_intriguing_2021), however, is contradicted by newer studies (@pinto_impartial_2022).
+
+
+::: {#fig-advances-robustness-experiments}
+
+![]({{< meta params.images_path >}}robustness_experiments.png)
+
+An image with different distortions to evaluate the robustness of methods. Source: @naseer_intriguing_2021.
+:::
+
+
+
+#### Pros and Cons
+
+**CNNs:**
+
+- **Pros**:
+  - **Efficiency for Small Datasets**: CNNs excel in small to moderate datasets, as they are highly effective in learning spatial features with fewer parameters.
+  - **Robustness to Variations**: Their design enables in- and equivariance to small geometrical transformations, making them resilient in many real-world applications.
+- **Cons**:
+  - **Limited Long-Range Dependencies**: Due to their focus on local receptive fields, CNNs may struggle with capturing long-range dependencies unless deeper architectures are used.
+
+**Vision Transformers (ViTs):**
+
+- **Pros**:
+  - **Scalability and Flexibility**: ViTs perform well with large datasets and can be scaled efficiently by increasing model size, often benefiting from self-supervised pre-training on massive image corpora.
+  - **Long-Range Dependency Capture**: Self-attention mechanisms allow ViTs to capture long-range dependencies between patches, which can be beneficial in tasks requiring global context.
+- **Cons**:
+  - **Data Efficiency**: ViTs often require significantly more data and pre-training to achieve competitive performance, as they lack the inherent spatial inductive bias of CNNs.
+  - **Computational Intensity**: Self-attention mechanisms, especially for high-resolution images, can be computationally demanding and require substantial memory, limiting their efficiency.
+
+In summary, while CNNs remain highly effective for many computer vision tasks, especially when data or compute resources are limited, ViTs provide a scalable alternative that excels with larger datasets and tasks requiring a global view of image data.
+
+
+### Conclusion
+
+Currently, transformers and CNNs perform similarily when pre-trained on massive datasets. There has been various researach comparing both architectures, none seems to be able to conclusively judge which architecture is superior (e.g. @smith_convnets_2023). The inductive biases of CNNs are often valuable, as is the ability of transformers to consider global relations early. This has led to the development of hybrid architectures that combine convolutional layers with transformer layers. It remains to be seen where this research leads.
+
+
+
+::: {.callout-note appearance="simple"}
+
+Here is an interesting blog post on the topic of which architecture to choose: @van_der_werff_cnn_2024.
+
+:::
+
+## References
+
+
+::: {#refs}
+:::
