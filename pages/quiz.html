@@ -142,7 +142,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -198,36 +198,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../slides_cas/intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Einführung Computer Vision mit Deep Learning</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../slides_cas/cnns.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Convolutional Neural Networks</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../slides_cas/image_classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Image Classification</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../slides_cas/practical.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Practical Considerations</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../slides_cas/foundation_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Foundation Models</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -327,7 +297,7 @@ window.Quarto = {
 <section id="convolutions" class="level2">
 <h2 class="anchored" data-anchor-id="convolutions">Convolutions</h2>
 <ol type="1">
-<li><p>A convolutional layer has 64 input activations (<span class="math inline">\(C_{in} = 64\)</span> and <span class="math inline">\(H=16\)</span>, <span class="math inline">\(W=16\)</span>). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your convolutional layer?</p></li>
+<li><p>A convolutional layer has 64 input activations (<span class="math inline">\(C_{in} = 64\)</span> and <span class="math inline">\(H=16\)</span>, <span class="math inline">\(W=16\)</span>). You want to reduce its spatial dimensionality by half, while doubling the number of channels. How do you parameterize your convolutional layer? Provide an example.</p></li>
 <li><p>In the example above: How many weights do you need to learn?</p></li>
 <li><p>You have very large images (<span class="math inline">\(8000 \times 8000\)</span> pixels). Your model always crashes with out-of-memory-errors. What options do you have when parameterizing your convolutions?</p></li>
 </ol>
@@ -871,7 +841,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Convolutions</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>A convolutional layer has 64 input activations ($C_{in} = 64$ and $H=16$, $W=16$). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your convolutional layer?</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>A convolutional layer has 64 input activations ($C_{in} = 64$ and $H=16$, $W=16$). You want to reduce its spatial dimensionality by half, while doubling the number of channels. How do you parameterize your convolutional layer? Provide an example.</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>In the example above: How many weights do you need to learn?</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>

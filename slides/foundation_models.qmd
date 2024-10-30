@@ -1,0 +1,137 @@
+---
+title: "Foundation Models"
+params:
+   images_path: "/assets/images/foundation_models/"
+---
+
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+## What are they?
+
+Foundation models are large-scale machine learning models trained on vast amounts of data that can be fine-tuned for various downstream tasks. These models have demonstrated remarkable capabilities in natural language processing, computer vision, and other fields.
+
+## Characteristics of Foundation Models
+
+- **Large-scale Pre-training**: Foundation models are pre-trained on extensive datasets, enabling them to capture a wide range of knowledge.
+- **Transfer Learning**: These models can be fine-tuned on specific tasks with relatively small datasets, making them versatile and efficient.
+- **Multimodal Capabilities**: Some foundation models can process and integrate multiple types of data, such as text and images.
+
+## CLIP: A Foundation Model Example
+
+CLIP (Contrastive Language-Image Pre-training, @radford_learning_2021) is a foundation model developed by OpenAI. It is designed to understand images and text jointly, making it capable of tasks like zero-shot image classification.
+
+
+## How CLIP Works
+
+
+![Source: @radford_learning_2021]({{< meta params.images_path >}}clip_part1.jpg)
+
+
+CLIP is pre-trained on a diverse dataset of images and their corresponding textual descriptions. It learns to associate images with their textual descriptions using a contrastive learning approach, which maximizes the similarity between correct image-text pairs and minimizes the similarity between incorrect pairs.
+
+
+## How CLIP can be applied
+
+![Source: @radford_learning_2021]({{< meta params.images_path >}}clip_part2.jpg)
+
+
+## Applications of CLIP
+
+- **Zero-Shot Classification**: CLIP can classify images into categories it has not explicitly been trained on by leveraging its understanding of language.
+- **Image Search**: By inputting a textual description, CLIP can retrieve relevant images from a database.
+- **(near) Duplicate Detection**: CLIP can assist in identifying near duplicate images.
+
+## Example
+
+Here's a simple example of using CLIP for zero-shot image classification:
+
+
+```{python}
+#| eval: false
+#| echo: true
+
+import requests
+from PIL import Image
+from transformers import CLIPModel, CLIPProcessor
+
+# 1) Get Models and Data Pre-Processors
+model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+# 2) Define Input Data: Image and Texts
+url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+image = Image.open(requests.get(url, stream=True).raw)
+
+prompt_template = "a photo of a {}"
+classes = ["cat", "dog", "car", "tree"]
+prompts = [prompt_template.format(class_name) for class_name in classes]
+
+# 3) Pre-Process Inputs
+inputs = processor(
+    text=prompts,
+    images=image,
+    return_tensors="pt",
+    padding=True,
+)
+
+# 4) Forward-Pass
+with torch.no_grad():
+    outputs = model(**inputs)
+logits_per_image = outputs.logits_per_image  # this is the image-text similarity score
+
+# 5) Find most likely label
+probs = logits_per_image.softmax(dim=1)
+print("Label:", classes[probs.argmax().item()])
+```
+
+
+## Fine-Tuning CLIP
+
+If CLIP does not perform well with zero-shot learning, it can be fine-tuned with various techniques. This is a powerful mechanism because the features that CLIP has learned are very powerful and might be useful for your target task.
+
+
+# Multi-Modal Models
+
+## Visual Question Anwering
+
+Multi-modal models extend the capabilities of foundation models by integrating and processing multiple types of data simultaneously. One notable example of a multi-modal model is a Visual Question Answering (VQA) system, which can understand and answer questions about images. @fig-foundation-blip2  shows an example.
+
+::: {#fig-foundation-blip2}
+![Source: @li_blip-2_2023]({{< meta params.images_path >}}blip2_examples.jpg)
+:::
+
+## How VQA Works
+
+VQA models combine visual data (images) with textual data (questions) to generate accurate answers. These models are typically pre-trained on large datasets containing images, questions about those images, and the corresponding answers. @fig-foundation-flamengo shows training data examples that were used in the Flamingo model @alayrac_flamingo_2022.
+
+::: {#fig-foundation-flamengo}
+![Source: @alayrac_flamingo_2022]({{< meta params.images_path >}}flamengo_training_data.jpg)
+:::
+
+
+
+## Applications of VQA
+
+- **Accessibility**: VQA can help visually impaired users by answering questions about their surroundings based on images captured by a camera.
+- **Chat Bots with Visual Understanding**: VQA systems can be used in chat bots to incorporate visual inputs.
+- **Customer Support**: VQA can enhance customer support by allowing users to submit images and ask questions about products or services.
+
+
+## Conclusion
+
+Foundation models like CLIP and multi-modal models such as VQA represent significant advancements in machine learning, offering powerful capabilities across various tasks. Their ability to learn from large datasets and generalize to new tasks makes them valuable tools in the AI landscape.
+
+
+# References
+
+::: {style="font-size: 50%;"}
+
+::: {#refs}
+:::
+
+:::

@@ -1,0 +1,343 @@
+
+---
+title: "Einführung Computer Vision mit Deep Learning"
+params:
+   images_path: "/assets/images/intro/"
+---
+
+
+# Applications
+
+
+## Species Identification
+
+::: {#fig-intro-kora-lynx}
+
+![Source: @breitenmoser-wursten_projekt_2024]({{< meta params.images_path >}}kora_lynx.png)
+
+:::
+
+
+## Synthetic Image Detection
+
+::: {layout-ncol=2}
+![[Source](https://x.com/TheInfiniteDude/status/1637211568692932608)]({{< meta params.images_path >}}sid_trump.jpg)
+
+![[Source](https://x.com/cryptomattk/status/1687908457880367104)]({{< meta params.images_path >}}sid_pope.jpg)
+:::
+
+
+<!-- ![Camera Trap Image Analysis]({{< meta params.images_path >}}camtrap.jpg){width=400} -->
+
+
+
+## Object Identification and Translation
+
+::: {layout-ncol=2}
+
+![Identification & Search]({{< meta params.images_path >}}google_lens_classification.png
+)
+
+![Translation]({{< meta params.images_path >}}google_lens_ocr.png)
+:::
+
+[Google Lens](https://search.google/ways-to-search/lens/)
+
+
+## Self-Driving
+
+
+{{< video https://storage.googleapis.com/waymo-uploads/files/site-animations/waymo-driver/cameras.webm width=1600 >}}
+
+[Example from Waymo](https://waymo.com/waymo-driver/).
+
+
+
+## Biometric ID
+
+{{< video https://www.youtube.com/embed/z-t1h0Y8vuM?si=qnEOYDmqyv8zGvMV start="50" width="80%" height="80%" >}}
+
+[Example from Apple Face ID](https://support.apple.com/en-us/102381)
+
+
+## Precision Agriculture
+
+<!-- {{< video https://www.youtube-nocookie.com/embed/wfObVKKKJkE width="80%" height="80%" >}} -->
+
+
+::: {#fig-intro-minneapple width=400}
+
+![Example from @hani_minneapple_2020]({{< meta params.images_path >}}minneapple.png)
+
+:::
+
+
+## Medical Segmentation
+
+
+::: {#fig-intro-sam width=400}
+
+![Example from @ma_segment_2024.]({{< meta params.images_path >}}medsam.png)
+
+:::
+
+## Photo Enhancement
+
+{{< video https://storage.googleapis.com/gweb-mobius-cdn/photos/uploads/6e54ed750f84538fd052b31818127f1e4df5711c.compressed.mp4 width=1600 >}}
+
+[Example from Google Magic Editor](https://www.google.com/intl/en/photos/editing/)
+
+
+
+
+
+<!-- ## Photograph Deblurring
+
+
+![Example from [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Original (left) and with deep learning enhanced method (right)]({{< meta params.images_path >}}foto_beispiel1.png){width=400}
+
+## Photograph Enhancement
+
+![Example from [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Original (left) and the manipulated version (right).]({{< meta params.images_path >}}foto_beispiel2.png){width=400}
+
+## Photograph Manipulation
+
+![Example from [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/). Original (left) and the manipulated version (right).]({{< meta params.images_path >}}foto_beispiel3.png){width=400} -->
+
+
+
+
+## AI Chips
+
+![From [Link](https://store.google.com/intl/en/ideas/pixel-camera-features/).]({{< meta params.images_path >}}tensor_phone.png){width=300}
+
+
+# Computer Vision Tasks
+
+
+## Image Classification
+
+![Multi-Class Image Classification Beispiel (aus @krizhevsky_imagenet_2012).]({{< meta params.images_path >}}image_classification_example.png){width=600}
+
+
+## Object Detection
+
+
+![Object Detection Beispiel (aus @redmon_you_2016). Bounding boxes lokalisieren die Objekte, wobei für jedes Objekt die wahrscheinlichste Klasse, sowie deren Konfidenz angegeben ist.]({{< meta params.images_path >}}yolo_object_detection_example.png){width=600}
+
+
+## Segmentation
+
+
+![Object Segmentation Beispiel (aus @he_mask_2018).]({{< meta params.images_path >}}mask_rcnn_object_segmentation_example.png){width=600}
+
+
+<!-- ## Segmentierung 2
+
+{{< video https://www.youtube-nocookie.com/embed/wfObVKKKJkE start="50" >}} -->
+
+<!-- <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wfObVKKKJkE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+
+<!-- ## Keypoint Detektierung
+
+
+![Keypoint Detection Beispiel (aus @he_mask_2018).]({{< meta params.images_path >}}mask_rcnn_keypoint_detection_example.png){width=600}
+ -->
+
+
+<!--
+::: {#fig-intro-image-gen layout="[[1,1], [1]]"}
+
+
+![Nvidia dlss: [Link](https://images.nvidia.com/aem-dam/Solutions/geforce/news/control-nvidia-dlss-2-0-update/deliver-us-the-moon-nvidia-dlss-2-0-performance-boost.png)]({{< meta params.images_path >}}dssl.png){width=600}
+
+
+![Norwegian Bride (est late 1890s) aus DeOldify: [Link](https://github.com/jantic/DeOldify)]({{< meta params.images_path >}}colorization_example.png){width=600,#fig-intro-colorization-example}
+
+![Image Generation Beispiel (aus @image_to_image_isola2018).]({{< meta params.images_path >}}pix2pix_examples.png){width=600,#fig-pix2pix-example}
+
+::: -->
+## Image Generation - Manipulation
+
+
+{{< video https://vcai.mpi-inf.mpg.de/projects/DragGAN/data/DragGAN.mp4 width=1200 >}}
+
+[Source: Link](https://vcai.mpi-inf.mpg.de/projects/DragGAN/), DragGAN by @pan_drag_2023
+
+
+## Image Generation - Translation
+
+
+![Image Generation Beispiel (aus @image_to_image_isola2018).]({{< meta params.images_path >}}pix2pix_examples.png){width=600,#fig-pix2pix-example}
+
+
+
+## Image Generation - Super Resolution
+
+![Nvidia dlss: [Link](https://images.nvidia.com/aem-dam/Solutions/geforce/news/control-nvidia-dlss-2-0-update/deliver-us-the-moon-nvidia-dlss-2-0-performance-boost.png)]({{< meta params.images_path >}}dssl.png){width=600}
+
+
+## Image Generation - Colorization
+
+![Norwegian Bride (est late 1890s) aus DeOldify: [Link](https://github.com/jantic/DeOldify)]({{< meta params.images_path >}}colorization_example.png){width=600,#fig-intro-colorization-example}
+
+## Many tasks
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Image Classification
+- Object Detection (and Tracking)
+- Image Segmentation
+  - Semantic Segmentation
+  - Instance Segmentation
+- Optical Character Recognition (OCR)
+- Pose Estimation
+- Facial Recognition
+- Action Recognition
+
+:::
+
+::: {.column width="50%"}
+- Image Generation
+  - Style Transfer
+  - Image Inpainting
+  - Super-Resolution
+  - Text-to-Image (and more)
+- Image Captioning
+- 3D Reconstruction
+- Image Retrieval
+:::
+
+
+::::
+
+List is not exhaustive!
+
+
+# Challenges
+
+
+## Semantic Gap
+
+![Illustration des semantic gap.]({{< meta params.images_path >}}semantic_gap.jpg){width=600}
+
+
+## Point of View
+
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}viewpoint.png){width=600}
+
+## Deformation
+
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_deformation.png){width=600}
+
+## Lighting
+
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_illumination.png){width=600}
+
+
+## Background
+
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_background.png){width=600}
+
+
+## Occlusion
+
+![[Source](http://cs231n.stanford.edu/)]({{< meta params.images_path >}}challenge_occlusion.png){width=600}
+
+
+## Intraclass Variation
+
+![[Source](https://www.maxpixel.net/Cat-Kittens-Free-Float-Kitten-Rush-Cat-Puppy-555822)]({{< meta params.images_path >}}challenge_intra_class_variation.jpg){width=600}
+
+
+## Context Relevance
+
+<!-- ![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)]({{< meta params.images_path >}}tiger_context.jpg){width=600} -->
+
+
+::: {layout-ncol=2}
+
+::: {.fragment}
+![Kontext [Source](https://www.linkedin.com/posts/ralph-aboujaoude-diaz-40838313_technology-artificialintelligence-computervision-activity-6912446088364875776-h-Iq?utm_source=linkedin_share&utm_medium=member_desktop_web)]({{< meta params.images_path >}}context1.png)
+:::
+
+::: {.fragment}
+![]({{< meta params.images_path >}}context2.png)
+:::
+
+:::
+
+
+
+# Machine Learning
+
+## Machine Learning Approach
+
+With Machine Learning, we follow a data-driven approach to solve various tasks:
+
+- Collect a dataset of images and their labels.
+- Use a machine learning algorithm to train a model (e.g., a classifier).
+- Evaluate and apply the model to new data.
+
+
+::: {.fragment}
+```python
+def train(images, labels):
+    """ Train a Model """
+    # Fit Model here
+    return model
+
+def predict(test_images, model):
+    """ Predict """
+    predictions = model(test_images)
+    return predictions
+```
+:::
+
+
+## Question
+
+**Image Super Resolution**
+
+How would you train a model for image super resolution?
+
+The task of the model would be to scale low-resolution images to high-resolution images with the best possible quality.
+
+<!-- ## Machine Learning Pipeline
+
+![Machine Learning Pipeline (Source: @raschka_python_2020)]({{< meta params.images_path >}}python_ml.png){width=600} -->
+
+## Machine Learning Pipeline
+
+::: {.fragment}
+![]({{< meta params.images_path >}}ml_workflow_part1.jpg){height=400}
+:::
+::: {.fragment}
+![]({{< meta params.images_path >}}ml_workflow_part2.jpg){height=400}
+:::
+
+## PyTorch
+
+
+In this class, we use PyTorch. PyTorch has gained immense popularity in recent years, characterized by high flexibility, a clean API, and many open-source resources.
+
+**Fundamental Concepts:**
+
+- Tensor: N-dimensional array, like [numpy.array](https://numpy.org/doc/stable/reference/generated/numpy.array.html)
+- Autograd: Functionality to create *computational graphs* and compute gradients.
+- Module: Class to define components of neural networks
+
+Let's check it out! (on images)
+
+
+# References
+
+::: {style="font-size: 50%;"}
+
+::: {#refs}
+:::
+
+:::
