@@ -68,7 +68,7 @@ website:
           - lectures/neural_networks.qmd
           - lectures/cnns.qmd
           - lectures/classification.qmd
-          #- lectures/practical.qmd
+          - lectures/practical.qmd
           - lectures/recent_advances.qmd
       # ------ Misc ---------------------------- #
       - section: Resources

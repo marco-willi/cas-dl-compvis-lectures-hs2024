@@ -1,0 +1,348 @@
+---
+title: "6 - Practical"
+params:
+   images_path: "/assets/images/practical/"
+---
+
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+
+## A Recipe
+
+How to successfully train Deep Learning models? Below is a step-by-step recipe. This recipe is based in part on Andrej Karpathy’s blog post [A Recipe for Training Neural Networks](http://karpathy.github.io/2019/04/25/recipe/).
+
+Karpathy observed that training neural networks with modern ML frameworks is highly abstracted, but **these abstractions are "leaky"**, meaning that without a deep understanding of internal mechanisms such as _back-propagation_ and _gradient descent_, mistakes can occur. Therefore, one is not completely protected from understanding what happens within the abstraction.
+
+```{python}
+#| eval: false
+#| echo: true
+
+your_data = # plug your awesome dataset here
+model = SuperCrossValidator(SuperDuper.fit, your_data, ResNet50, SGDOptimizer)
+```
+
+Moreover, faulty implementations or sub-optimal model training do not lead to an error message. This means **training neural networks _fails silently_**. For example, the _learning rate_ might be too high, causing the model to converge too early and achieve sub-optimal performance. Such issues would not be flagged with an error message but would require _hyper-parameter tuning_ or other diagnostic plots.
+
+For these reasons, Karpathy developed a recipe to avoid the most significant pitfalls.
+
+### 1) Become Familiar with the Data
+
+In the first step, the data to be modeled should be thoroughly inspected. Particularly for images, one can examine sample data points, their distribution, patterns, and anomalies. Corrupted images, skewed class distributions, duplicates, etc., may be found. Often, just by looking, one can gauge if modeling will work or be challenging, assess label quality, or determine how much downscaling images can tolerate.
+
+::: {#fig-practical-camera-traps-corrupt}
+![ ]({{< meta params.images_path >}}camera_traps_corrupt.jpg){width=600}
+
+Examples of images from camera traps. They may still be usable despite being distorted by heat.
+:::
+
+@fig-practical-camera-traps-difficulties shows typical challenging cases in modeling images from camera traps. Small ROIs suggest that the image resolution should not be excessively reduced. Typical resolutions like 224x224 might be insufficient for certain species.
+
+::: {#fig-practical-camera-traps-difficulties}
+![ ]({{< meta params.images_path >}}cam_trap_difficulties.png){width=600}
+
+Examples of images from camera traps. Source: @Beery2018.
+:::
+
+@fig-practical-camera-traps-dist displays the distribution of a typical camera trap dataset. While some species are frequent, others are rare, making modeling difficult and requiring special techniques.
+
+::: {#fig-practical-camera-traps-dist}
+![ ]({{< meta params.images_path >}}cam_trap_dist2.jpg){width=600}
+
+Species distribution in a typical camera trap dataset. "Deer" comprises about 65% of cases.
+:::
+
+Later in the modeling process, examining misclassified samples is crucial to understand where more data labeling is necessary. @fig-practical-camera-traps-serval shows an example of a rare species that the model misclassified.
+
+::: {#fig-practical-camera-traps-serval}
+![ ]({{< meta params.images_path >}}wrong_predictions_serval.png){width=300}
+
+An image of a serval. Model confidences are displayed below.
+:::
+
+Sometimes, one may also encounter certain limitations, such as images that are ambiguous or belong to multiple classes. @fig-practical-camera-traps-multi shows an example with a herd of animals containing multiple species (Thomson's and Grant's Gazelle). Here, consideration of the modeling approach's suitability is necessary.
+
+::: {#fig-practical-camera-traps-multi}
+![ ]({{< meta params.images_path >}}multi_species.JPG){width=600}
+
+Example of an image from a camera trap with various species.
+:::
+
+### 2) Baselines
+
+After becoming familiar with the data, set up an evaluation pipeline. Define a metric to measure model performance and establish train/validation/test splits or cross-validation procedures. Also, implement or use tools for monitoring and logging training.
+
+::: {#fig-ml-prozess}
+![ ]({{< meta params.images_path >}}ml_process_raschka.png){width=800}
+
+The components of a typical machine learning process. Source: @raschka_python_2020.
+:::
+
+Next, use a simple model, which is unlikely to be incorrectly implemented, to test the pipeline. Visualize metrics, losses, and predictions, and test different hypotheses to verify pipeline accuracy.
+
+::: {#fig-practical-wb-example}
+![ ]({{< meta params.images_path >}}wb_example.png){width=500}
+
+Weights and Biases experiment tracking.
+:::
+
+**Some Tips for This Step:**
+
+**Ensure reproducibility** by fixing the _random seed_ so that results remain consistent. See [PyTorch Reproducibility](https://pytorch.org/docs/stable/notes/randomness.html).
+
+```{python}
+#| eval: false
+#| echo: true
+
+import torch
+torch.manual_seed(0)
+```
+
+**Avoid unnecessary techniques and complexities**, such as _data augmentation_, which may introduce bugs that are hard to detect.
+
+**Use a _human baseline_ if possible**. For certain tasks, labels may be subjective, with annotators potentially disagreeing on how to label a data point. This implies an _upper bound_ on model performance, which can be estimated by having some data points annotated multiple times. Examples of such images are shown in @fig-practical-camera-trap-hartebeest and @fig-practical-camera-trap-difficult.
+
+::: {#fig-practical-camera-trap-hartebeest}
+![ ]({{< meta params.images_path >}}hartebeest.gif){width=600}
+
+Example of a challenging species to classify (for amateurs). It could be either Hartebeest or Topi.
+:::
+
+::: {#fig-practical-camera-trap-difficult}
+![ ]({{< meta params.images_path >}}camera_trap_difficult.jpeg){width=600}
+
+A challenging image to classify from a camera trap dataset. In the _Snapshot Serengeti_ dataset, amateur annotators achieved a 96.6% agreement rate with experts.
+:::
+
+**Train an input-independent baseline**, setting all pixel values to the same value, such as zero. This helps determine if a simple model is learning anything at all.
+
+Another option is to **overfit the model on a batch of data**. If everything is functioning correctly, one should achieve perfect train metrics/losses.
+
+It is also helpful to **visualize what goes into the model**. This can help detect errors in _data augmentation_ or _data preprocessing_. This should be done just before executing this line of code:
+
+```{python}
+#| eval: false
+#| echo: true
+
+y_hat = model(x)
+```
+
+Observing predictions from a fixed sample throughout training can provide insight into the dynamics of the process. In _object detection_, one might display bounding boxes and classification scores. @fig-practical-wb-comparison shows an example of a segmentation problem: the input image is on the left, and the model’s segmentation is on the right.
+
+::: {#fig-practical-wb-comparison}
+![ ]({{< meta params.images_path >}}wb_comparison.jpg){width=600}
+
+Example of a segmentation problem: left is the input, right is the output.
+:::
+
+### 3) Overfit
+
+At this point, you should have a good understanding of the dataset, confidence in the evaluation pipeline, and initial baselines for simple models. Additionally, you should have a sense of how well a human could perform on this task (if relevant). In this step, focus on achieving good performance on the training set, accepting overfitting temporarily. Next, focus on the validation set.
+
+For model architecture, follow the principle "Don't be a hero." Use existing, well-established architectures, such as _ResNet-50_ for _image classification_.
+
+The choice of [optimizer](https://pytorch.org/docs/stable/optim.html) should also be conservative. The _adam_ optimizer is often effective and less sensitive to _hyper-parameters_ like the _learning rate_.
+
+### 4) Regularization
+
+At this point, you should have achieved good performance on the training set. Now, shift focus to the validation set, as it is critical for estimating expected performance on new data. This often involves a reduction in training performance due to regularization.
+
+**More Training Data**
+
+The simplest way to improve performance (and reduce overfitting) is to collect more training data. If possible, this approach is more effective than other methods and helps a model generalize better. The benefit of additional data can be estimated by training several models on different training set sizes and observing performance changes (_learning curve_).
+
+::: {#fig-practical-learning-curve}
+![ ]({{< meta params.images_path >}}learning_curve.jpg){width=600}
+
+Example of a _learning curve_. X-axis is performance, Y-axis is the number of training samples. Left panel: Gaussian Naive Bayes; right panel: Support Vector Classifier.
+:::
+
+**Data Augmentation**
+
+Another approach is _data augmentation_, generating new data points from existing ones by making random alterations. Data points are typically augmented _on-the-fly_ rather than in advance. ML frameworks like PyTorch provide built-in transformations, and additional packages offer more complex augmentations.
+
+For example, [AugLy](https://github.com/facebookresearch/AugLy), see @fig-practical-augly.
+
+::: {#fig-practical-augly}
+![ ]({{< meta params.images_path >}}augly.jpg){width=600}
+
+AugLy
+:::
+
+Another option is [Albumentations](https://github.com/albumentations-team/albumentations), see @fig-practical-albumentations.
+
+::: {#fig-practical-albumentations}
+![ ]({{< meta params.images_path >}}albumentations.jpg){width=600}
+
+Albumentations
+:::
+
+[Kornia](https://kornia.readthedocs.io/en/latest/applications/image_augmentations.html) provides even more complex augmentations, see @fig-practical-kornia.
+
+::: {#fig-practical-kornia}
+![ ]({{< meta params.images_path >}}kornia.png){width=600}
+
+Kornia
+:::
+
+@fig-practical-augmentation-rhino shows an example of _data augmentation_ with color changes, cropping, and rotations.
+
+::: {#fig-practical-augmentation-rhino}
+![ ]({{< meta params.images_path >}}augmentation_rhino.png){width=600}
+
+Data augmentation example.
+:::
+
+Synthetic data can also be added to the training process, which can be successful. @fig-practical-synthetic-examples shows an example where 3D models of animals were created using a game engine and placed either in synthetic landscapes or spliced into real camera trap images.
+
+::: {#fig-practical-synthetic-examples}
+![ ]({{< meta params.images_path >}}synthetic_camera_trap_images.jpg){width=600}
+
+From @Beery2020. Synthetic and semi-synthetic data.
+:::
+
+**Early Stopping**
+
+_Early stopping_ involves training a model and evaluating it on a validation set periodically (e.g., after each epoch). Training is halted if no significant improvement is observed after a set number of cycles, preventing overfitting.
+
+::: {#fig-practical-early-stopping}
+![ ]({{< meta params.images_path >}}early_stopping.png){width=600}
+
+Source: [Link](https://www.oreilly.com/library/view/hands-on-transfer-learning/9781788831307/41172567-9482-4cad-ac87-1cfbd46026df.xhtml)
+:::
+
+Frameworks like [`pytorch-lightning`](https://pytorch-lightning.readthedocs.io/en/stable/common/early_stopping.html) provide `Callbacks` to implement _early stopping_.
+
+```{python}
+#| eval: false
+#| echo: true
+
+from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+
+class LitModel(LightningModule):
+    def validation_step(self, batch, batch_idx):
+        loss = ...
+        self.log("val_loss", loss)
+
+model = LitModel()
+trainer = Trainer(callbacks=[EarlyStopping(monitor="val_loss", mode="min")])
+trainer.fit(model)
+```
+
+**Weight Decay**
+
+_Weight decay_ is another common regularization technique. In gradient descent, weights are reduced by a factor $\lambda$ during each update. The modified update step is:
+
+\[
+\theta_{t+1} = \theta_t (1 - \lambda) - \eta \nabla J(\theta)
+\]
+
+where $t$ is the iteration, $\theta$ are the model parameters, and $\eta$ is the _learning rate_. This can be applied directly in PyTorch [torch.optim.SGD](https://pytorch.org/docs/stable/generated/torch.optim.SGD.html#torch.optim.SGD).
+
+**Transfer Learning**
+
+Transfer learning also has a regularizing effect and can reduce model training time. This approach typically involves using a pre-trained model on a large dataset (e.g., ImageNet), removing the last layer, and replacing it with a new one suited to the target task. Various layers can be frozen or fine-tuned.
+
+::: {#fig-practical-transfer-learning}
+![ ]({{< meta params.images_path >}}transfer_learning.jpg){width=600}
+
+Source: @johnson_eecs_2021
+:::
+
+The following example code [(PyTorch-Link)](https://pytorch.org/tutorials/beginner/finetuning_torchvision_models_tutorial.html) shows how to freeze the parameters of a pre-trained model by setting `requires_grad = False`.
+
+```{python}
+#| eval: false
+#| echo: true
+
+def set_parameter_requires_grad(model, feature_extracting):
+    if feature_extracting:
+        for param in model.parameters():
+            param.requires_grad = False
+```
+
+### 5) Hyper-Parameter Tuning
+
+This step involves systematically evaluating various _hyper-parameters_ and architectures. Techniques include _grid-search_ or _random-search_, with _random-search_ generally preferred.
+
+Complete packages are available for this, such as [Ray Tune](https://pytorch.org/tutorials/beginner/hyperparameter_tuning_tutorial.html).
+
+Hyper-parameter tuning requires configurable architecture implementations. Below is an example of configurable fully connected layers.
+
+```{python}
+#| eval: false
+#| echo: true
+
+class Net(nn.Module):
+    def __init__(self, l1=120, l2=84):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 5 * 5, l1)
+        self.fc2 = nn.Linear(l1, l2)
+        self.fc3 = nn.Linear(l2, 10)
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = x.view(-1, 16 * 5 * 5)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+```
+
+For domain-specific problems, consult relevant literature for ideas on possible hyper-parameter variations and architectures (e.g., medical imaging or satellite images).
+
+### 6) Squeeze out the Juice
+
+Once the best architectures and hyper-parameters are identified, there are additional ways to maximize performance.
+
+One is _ensembling_: training multiple models and combining their predictions often yields slightly better performance than a single model. However, this increases training and inference costs.
+
+Surprising effects sometimes occur in deep learning, like _double descent_ (@nakkiran_deep_2019) or _grokking_ (@power_grokking_2022). For instance, using highly complex models (an overfitting risk) can work well, and after a plateau, validation loss might improve if training continues. So it may be worthwhile to train a model longer (without _early stopping_).
+
+::: {#fig-practical-double-descent}
+![ ]({{< meta params.images_path >}}double_descent.jpg){width=600}
+
+Source: @nakkiran_deep_2019. The X-axis represents model complexity, and the Y-axis shows test and train error. Test error decreases, increases (overfitting), and then decreases again (double descent).
+:::
+
+Additional techniques often yield small improvements. For example, @liu_convnet_2022 reports that the following techniques improved accuracy by about 2.7%:
+
+- Longer training
+- Specialized optimizer (AdamW)
+- Complex data augmentation techniques (Mixup, Cutmix, RandAugment)
+- Regularization techniques (Stochastic Depth)
+- Label smoothing
+
+## Model Zoos and Frameworks
+
+### Hugging-Face
+
+[HuggingFace](https://huggingface.co/) provides a wide range of models, datasets, and APIs. It offers easy-to-use Python APIs to integrate, use, and adapt models for PyTorch.
+
+### timm
+
+[PyTorch Image Models (timm)](https://github.com/rwightman/pytorch-image-models) is a library with SOTA models, layers, and functions for using, reproducing, and adapting modern image models.
+
+## Code Setup / Configuration
+
+Setting up a well-organized repository structure can significantly aid in model development. Key aspects include reproducibility, configurability, tracking, and logging experiments.
+
+Suggested repository structures:
+
+- DS-cookie cutter: [DrivenData](https://github.com/drivendata/cookiecutter-data-science)
+- PyTorch-Lightning example: [Lightning Template](https://github.com/PyTorchLightning/deep-learning-project-template)
+- Configurations: [Hydra](https://hydra.cc/docs/intro/)
+- Experiment tracking: [Weights & Biases](https://wandb.ai/site), [Neptune AI](https://neptune.ai/experiment-tracking)
+- Version Control for ML projects: [DVC](https://dvc.org/)
+
+## References
+
+::: {#refs}
+:::
