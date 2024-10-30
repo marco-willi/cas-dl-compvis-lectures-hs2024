@@ -1,59 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/frameworks.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/cnns.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/lectures/classification.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/neural_networks.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/recent_advances.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
-    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/intro.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/lectures/intro.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/slides/practical.html</loc>
+    <lastmod>2024-10-30T18:59:31.433Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/lectures/recent_advances.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/slides/intro.html</loc>
+    <lastmod>2024-10-30T18:59:31.433Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/slides/image_classification.html</loc>
+    <lastmod>2024-10-30T18:59:31.433Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/notation.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/slides.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/links.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/index.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/exercises.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/about.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/literature.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/slides_cas.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/quiz.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/intro.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/demos.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/slides/foundation_models.html</loc>
+    <lastmod>2024-10-30T18:59:31.433Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/slides/recent_advances.html</loc>
+    <lastmod>2024-10-30T18:59:31.433Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/slides/cnns.html</loc>
+    <lastmod>2024-10-30T18:59:31.433Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/lectures/neural_networks.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/lectures/cnns.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
   <url>
     <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/pages/classification.html</loc>
-    <lastmod>2024-10-30T12:58:27.471Z</lastmod>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marco-willi.github.io/cas-dl-compvis-lectures-hs2024/lectures/frameworks.html</loc>
+    <lastmod>2024-10-30T18:59:31.429Z</lastmod>
   </url>
 </urlset>

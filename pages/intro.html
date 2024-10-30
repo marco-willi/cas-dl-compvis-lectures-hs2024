@@ -216,6 +216,36 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einführung Computer Vision mit Deep Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/cnns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Convolutional Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Image Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/practical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Considerations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/recent_advances.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recent Advances</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -233,12 +263,59 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Resources</span></a>
+ <span class="menu-text">Lectures</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 - Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/frameworks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 - Software &amp; Hardware for Deep Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/neural_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 - Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/cnns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 - Convolutional Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 - Image Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/recent_advances.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 - Recent Advances</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/literature.html" class="sidebar-item-text sidebar-link">
@@ -312,7 +389,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="intro.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/marco-willi/cas-dl-compvis-lectures-hs2024/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -540,14 +617,14 @@ Figure&nbsp;13: Multi-Class Image Classification example (from <span class="cita
 </section>
 <section id="object-detection" class="level3">
 <h3 class="anchored" data-anchor-id="object-detection">Object Detection</h3>
-<p>Object detection involves locating and recognizing (multiple) objects in an image. <a href="#fig-intro-yolo-example" class="quarto-xref">Figure&nbsp;14</a> shows an example from the paper by <span class="citation" data-cites="redmon_you_2016">Redmon et al. (<a href="#ref-redmon_you_2016" role="doc-biblioref">2016</a>)</span>. Each object is localized with a bounding box and assigned an object class.</p>
+<p>Object detection involves locating and recognizing (multiple) objects in an image. <a href="#fig-intro-yolo-example" class="quarto-xref">Figure&nbsp;14</a> shows an example from the paper by <span class="citation" data-cites="redmon_you_2016">(<a href="#ref-redmon_you_2016" role="doc-biblioref"><strong>redmon_you_2016?</strong></a>)</span>. Each object is localized with a bounding box and assigned an object class.</p>
 <div id="fig-intro-yolo-example" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-intro-yolo-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/images/intro/yolo_object_detection_example.png" class="img-fluid figure-img" width="600">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intro-yolo-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: Object Detection example (from <span class="citation" data-cites="redmon_you_2016">Redmon et al. (<a href="#ref-redmon_you_2016" role="doc-biblioref">2016</a>)</span>). Bounding boxes localize the objects, indicating the most likely class and confidence for each object.
+Figure&nbsp;14: Object Detection example (from <span class="citation" data-cites="redmon_you_2016">(<a href="#ref-redmon_you_2016" role="doc-biblioref"><strong>redmon_you_2016?</strong></a>)</span>). Bounding boxes localize the objects, indicating the most likely class and confidence for each object.
 </figcaption>
 </figure>
 </div>
@@ -722,7 +799,7 @@ Figure&nbsp;25: Example from Facebook’s Detectron Library <a href="https://git
 <li>Using a machine learning algorithm to train a model that learns to associate images with labels.</li>
 <li>Evaluating/applying the model on new data.</li>
 </ul>
-<div id="644212ed" class="cell" data-execution_count="1">
+<div id="3b806141" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train(images, labels):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="co">""" Train a Model """</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="co"># Fit Model here</span></span>
@@ -1087,9 +1164,6 @@ Perronnin, Florent, Yan Liu, Jorge Sanchez, and Herve Poirier. 2010. <span>“La
 </div>
 <div id="ref-raschka_python_2020" class="csl-entry" role="listitem">
 Raschka, Sebastian, and Vahid Mirjalili. 2020. <em>Python Machine Learning: Machine Learning and Deep Learning with <span>Python</span>, Scikit-Learn, and <span>TensorFlow</span></em>. Second edition, fourth release,[fully revised and updated]. Expert Insight. Birmingham Mumbai: Packt Publishing.
-</div>
-<div id="ref-redmon_you_2016" class="csl-entry" role="listitem">
-Redmon, Joseph, Santosh Divvala, Ross Girshick, and Ali Farhadi. 2016. <span>“You <span>Only</span> <span>Look</span> <span>Once</span>: <span>Unified</span>, <span>Real</span>-<span>Time</span> <span>Object</span> <span>Detection</span>.”</span> arXiv. <a href="http://arxiv.org/abs/1506.02640">http://arxiv.org/abs/1506.02640</a>.
 </div>
 <div id="ref-rombach_high-resolution_2022" class="csl-entry" role="listitem">
 Rombach, Robin, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. 2022. <span>“High-<span>Resolution</span> <span>Image</span> <span>Synthesis</span> with <span>Latent</span> <span>Diffusion</span> <span>Models</span>.”</span> arXiv. <a href="http://arxiv.org/abs/2112.10752">http://arxiv.org/abs/2112.10752</a>.
