@@ -8,11 +8,6 @@ name: Quarto Publish
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    container: 
-      # does not work: requires installation of "gh"
-      #image: mwilli13/cas-dl-compvis-lectures-hs2024:v20240724
-      #options: --user root
-
     permissions:
       contents: write
 
@@ -30,8 +25,8 @@ jobs:
       - name: Install Python and Dependencies
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.9'
-          cache: 'pip'
+          python-version: "3.11.9"
+          cache: "pip"
       - run: pip install -r requirements-ci.txt
 
       - name: Install Dependencies

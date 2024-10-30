@@ -16,7 +16,7 @@ current_dir = $(shell pwd)
 #################################################################################
 
 docker-build:	## Build docker image
-	docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} -f docker/Dockerfile .
+	docker build -t ${REGISTRY_ROOT}/${REPO_NAME}:${IMAGE_TAG} .
 
 docker-run:	## Run docker container
 	docker run -d \

@@ -4,6 +4,13 @@ params:
    images_path: "/assets/images/practical/"
 ---
 
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
+
 # Overview
 
 - A Recipe
@@ -43,11 +50,11 @@ Thoroughly inspect the data!
 
 ## Camera Traps: Difficulties
 
-![Examples of images from camera traps. Source: @Beery2018]({{< meta params.images_path >}}cam_trap_difficulties.png){width=100% height=70%}
+![Examples of images from camera traps. Source: @Beery2018]({{< meta params.images_path >}}cam_trap_difficulties.png){height=800px}
 
 ## Rare Classes
 
-![An image of a serval. Below are the model confidences.]({{< meta params.images_path >}}wrong_predictions_serval.png){height=600px}
+![An image of a serval. Below are the model confidences.]({{< meta params.images_path >}}wrong_predictions_serval.png){height=700px}
 
 ## Multiple Classes
 
@@ -66,7 +73,7 @@ Evaluation pipeline, metrics, experiment tracking, and baseline model.
 
 ## Experiment Tracking
 
-![Weights and Biases experiment tracking.]({{< meta params.images_path >}}wb_example.png){height=70%}
+![Weights and Biases experiment tracking.]({{< meta params.images_path >}}wb_example.png){height=800px}
 
 ## 2) Baselines
 
@@ -143,7 +150,7 @@ Another possibility is data augmentation. New data points are generated from exi
 
 ## Data Augmentation: Augly
 
-![AugLy]({{< meta params.images_path >}}augly.jpg){width=100% height=70%}
+![AugLy]({{< meta params.images_path >}}augly.jpg){height=700px}
 
 ## Data Augmentation: Albumentations
 
@@ -155,7 +162,7 @@ Another possibility is data augmentation. New data points are generated from exi
 
 ## Data Augmentation: Example
 
-![Data augmentation example.]({{< meta params.images_path >}}augmentation_rhino.png){width=100% height=70%}
+![Data augmentation example.]({{< meta params.images_path >}}augmentation_rhino.png){height=800px}
 
 ## Data Augmentation: Synthetic Data
 
@@ -167,7 +174,7 @@ With early stopping, a model is trained and periodically evaluated on a validati
 
 ## Early Stopping
 
-![Source: [Link](https://www.oreilly.com/library/view/hands-on-transfer-learning/9781788831307/41172567-9482-4cad-ac87-1cfbd46026df.xhtml)]({{< meta params.images_path >}}early_stopping.png){width=100% height=70%}
+![Source: [Link](https://www.oreilly.com/library/view/hands-on-transfer-learning/9781788831307/41172567-9482-4cad-ac87-1cfbd46026df.xhtml)]({{< meta params.images_path >}}early_stopping.png){height=800px}
 
 ## 4) Regularization
 
@@ -202,7 +209,7 @@ Transfer learning involves adapting a pre-trained model on a large dataset (e.g.
 
 ## Transfer Learning
 
-![Source: @johnson_eecs_2021]({{< meta params.images_path >}}transfer_learning.jpg){width=100% height=70%}
+![Source: @johnson_eecs_2021]({{< meta params.images_path >}}transfer_learning.jpg){height=800px}
 
 ## 4) Regularization
 
@@ -292,5 +299,9 @@ Other training techniques:
 
 # References
 
+::: {style="font-size: 50%;"}
+
 ::: {#refs}
+:::
+
 :::

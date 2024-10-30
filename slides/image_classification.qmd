@@ -4,6 +4,12 @@ params:
    images_path: "/assets/images/classification/"
 ---
 
+::: {.content-hidden}
+$$
+{{< include /assets/_macros.tex >}}
+$$
+:::
+
 ## Overview
 
 - Introduction
@@ -121,29 +127,32 @@ The loss function derived with maximum likelihood can also be viewed from the pe
 
 ## Cross-Entropy
 
-![True distribution (left) and predicted distribution (right).]({{< meta params.images_path >}}cross_entropy.png){width=100% height=70%}
+![True distribution (left) and predicted distribution (right).]({{< meta params.images_path >}}cross_entropy.png)
 
 # Architectures
 
 ## AlexNet
 
-![AlexNet @krizhevsky_imagenet_2012]({{< meta params.images_path >}}alexnet.png){width=100% height=70%}
+![AlexNet @krizhevsky_imagenet_2012]({{< meta params.images_path >}}alexnet.png)
 
 ## AlexNet
 
-![AlexNet @llamas_classification_2017]({{< meta params.images_path >}}alexnet2.png){width=100% height=70%}
+![AlexNet @prince_understanding_2023]({{< meta params.images_path >}}alexnet_illustration.jpg)
 
 ## AlexNet: Table
 
-![Source: @johnson_eecs_2019]({{< meta params.images_path >}}alexnet_table.jpg){width=100% height=70%}
+![Source: @johnson_eecs_2019]({{< meta params.images_path >}}alexnet_table.jpg)
 
 ## VGG
 
-![VGG @simonyan_very_2015]({{< meta params.images_path >}}vgg.png){width=100% height=70%}
+![VGG @simonyan_very_2015]({{< meta params.images_path >}}vgg.png)
 
 ## VGG
 
-![Source: [Link](https://en.everybodywiki.com/File:VGG_structure.jpg)]({{< meta params.images_path >}}VGG_structure.jpg){width=100% height=70%}
+![VGG @prince_understanding_2023]({{< meta params.images_path >}}vgg_illustration.jpg)
+
+
+<!-- ![Source: [Link](https://en.everybodywiki.com/File:VGG_structure.jpg)]({{< meta params.images_path >}}VGG_structure.jpg){width=100% height=70%} -->
 
 ## VGG
 
@@ -151,11 +160,20 @@ The loss function derived with maximum likelihood can also be viewed from the pe
 
 ## ResNet
 
-![Source: @He2016]({{< meta params.images_path >}}resnet_test_error.jpg){width=100% height=70%}
+![Source: @He2016]({{< meta params.images_path >}}resnet_test_error.jpg)
+
+::: {.fragment}
+Test error for deeper model is larger. Overfitting?
+:::
 
 ## ResNet
 
-![Source: @He2016]({{< meta params.images_path >}}resnet_train_error.jpg){width=100% height=70%}
+![Source: @He2016]({{< meta params.images_path >}}resnet_train_error.jpg)
+
+::: {.fragment}
+Training error for deeper model is also larger? What is going on?!
+:::
+
 
 ## ResNet
 
@@ -171,25 +189,50 @@ The loss function derived with maximum likelihood can also be viewed from the pe
 
 ## ConvNext
 
-![ConvNext @liu_convnet_2022]({{< meta params.images_path >}}convnext.png){width=100% height=70%}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.fragment}
+![ ]({{< meta params.images_path >}}convnext_part1.jpg)
+:::
+
+:::
+
+
+::: {.column width="50%"}
+::: {.fragment}
+![ ]({{< meta params.images_path >}}convnext_part2.jpg)
+:::
+:::
+
+::::
+
+Figures from @liu_convnet_2022.
+
+
+<!-- ![ConvNext @liu_convnet_2022]({{< meta params.images_path >}}convnext.jpg){height=80%} -->
 
 ## ImageNet Performance
 
-![Image from @johnson_eecs_2019]({{< meta params.images_path >}}image_net_performance.jpg){width=100% height=70%}
+![Image from @prince_understanding_2023]({{< meta params.images_path >}}image_net_performance3.jpg)
 
 ## Choosing the Architecture
 
-Don't be a hero!
+::: {.fragment .highlight-red}
+**Don't be a hero!**
+:::
 
 Typically, ResNet-50 or ResNet-101 are good choices. However, there are also models that require significantly fewer parameters, such as Efficient Nets.
 
-## Squeeze / Excite Networks
+<!-- ## Squeeze / Excite Networks
 
 ![From @hu_squeeze-and-excitation_2019]({{< meta params.images_path >}}se_networks.png){width=100% height=70%}
 
 ## Normalization Layers
 
-![Source: @qiao_micro-batch_2020]({{< meta params.images_path >}}normalization.png){width=100% height=70%}
+![Source: @qiao_micro-batch_2020]({{< meta params.images_path >}}normalization.png){width=100% height=70%} -->
 
 ## Pre-Processing
 

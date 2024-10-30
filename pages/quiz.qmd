@@ -15,7 +15,7 @@ The following questions could be exam questions.
 
 ## Convolutions
 
-1. A convolutional layer has 64 input activations ($C_{in} = 64$ and $H=16$, $W=16$). You want to reduce its spatial dimensionality by half, while increasing the number of channels. How do you parameterize your convolutional layer?
+1. A convolutional layer has 64 input activations ($C_{in} = 64$ and $H=16$, $W=16$). You want to reduce its spatial dimensionality by half, while doubling the number of channels. How do you parameterize your convolutional layer? Provide an example.
 
 2. In the example above: How many weights do you need to learn?
 
