@@ -55,6 +55,7 @@ jobs:
         with:
           packages: graphviz
           version: 1.0
+      - run: dot -c
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
