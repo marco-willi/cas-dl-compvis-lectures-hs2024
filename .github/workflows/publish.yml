@@ -12,6 +12,11 @@ jobs:
       contents: write
 
     steps:
+
+      - name: Install graphviz
+        run: sudo apt-get install -y graphviz
+
+
       - name: Check out repository
         uses: actions/checkout@v4
 
@@ -50,12 +55,11 @@ jobs:
           cache: "pip"
       - run: pip install -r requirements-ci.txt
 
-      - name: Install Dependencies
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: graphviz
-          version: 1.0
-      - run: dot -c
+      # - name: Install Dependencies
+      #   uses: awalsh128/cache-apt-pkgs-action@latest
+      #   with:
+      #     packages: graphviz
+      #     version: 1.0
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
